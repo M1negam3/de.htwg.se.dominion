@@ -43,4 +43,4 @@ project/.sbtserver
 .sonar/
 
 # Application
-de.htwg.se.Dominion.log
+*.log
