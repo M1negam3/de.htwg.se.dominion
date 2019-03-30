@@ -1,6 +1,6 @@
 package de.htwg.se.dominion
 import org.scalactic._
-import Cards._
+import org.scalatest._
 import Gamevariables._
 
 class Tests extends WordSpec with Matchers {
