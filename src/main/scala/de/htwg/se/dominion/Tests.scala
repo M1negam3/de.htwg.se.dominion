@@ -1,10 +1,12 @@
 package de.htwg.se.dominion
-import org.scalatest._
+import org.scalactic._
+import Cards._
+import Gamevariables._
 
 class Tests extends WordSpec with Matchers {
   "A Card" when {
     "not set to any value" should {
-      val emptyCard = Card(0)
+      val emptyCard = Value(0)
       "have a value 0" in {
         emptyCard.value should be (0)
       }
