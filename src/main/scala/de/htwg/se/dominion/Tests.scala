@@ -14,7 +14,18 @@ class Tests extends WordSpec with Matchers {
       }
     }
   }
+  "A Hand" when {
+    "is not full of cards" should {
+      val handful = Value(0)
+      "have a value 0" in {
+        handful.charAt(0) should be ('0')
+      }
+      "not " in {
+        handful.isEmpty should be (true)
+      }
 
+    }
+  }
 
 
 
