@@ -7,7 +7,7 @@ object Gamevariables {
   var ActionValue = Array ("1", "2")
   var BuyAdditionValue = Array ("1", "2")
   var BonusMoneyValue = Array ("1", "2")
-  var EffektValue = Array ("Still to add")
+  var EffectValue = Array ("Still to add")
   var Value = Array("0", "1", "2", "3")
   var Effect = Array ("Action", "Buy", "Card")
   var Hand = new Array[String](5)

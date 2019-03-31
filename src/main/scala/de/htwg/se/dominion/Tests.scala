@@ -21,7 +21,7 @@ class Tests extends WordSpec with Matchers {
         handful.charAt(0) should be ('0')
       }
       "not " in {
-        handful.isEmpty should be (true)
+        handful.isEmpty should be (false)
       }
 
     }
