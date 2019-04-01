@@ -26,6 +26,17 @@ class Tests extends WordSpec with Matchers {
 
     }
   }
+  "A MoneyCard" when {
+    "is not allowed " should {
+      val MoneyCard1
+        "have a value " in {
+          MoneyCard1.MoneyValue should be (3)
+        }
+      "not be" in {
+        MoneyCard1.BuyValue one should be < 3
+      }
+    }
+   }
 
 
 
