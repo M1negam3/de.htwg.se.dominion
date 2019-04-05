@@ -1,10 +1,10 @@
 package de.htwg.se.dominion
 
-object dominion {
-  var name = "Dominion"
-  var creator = "Luis Nothvogel & Luca Stratmann"
+import de.htwg.se.dominion.model.Player
 
+object Dominion {
+  var name = "Dominion"
   def main(args: Array[String]): Unit = {
-    println(name + " wurde von " + creator + " erstellt")
+    println(name + " wurde von " + Player("Luis & Luca") + " erstellt")
   }
 }

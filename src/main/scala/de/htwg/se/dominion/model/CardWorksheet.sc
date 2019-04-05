@@ -7,8 +7,8 @@ var BonusMoneyValues = Array(0, 1, 2)
 var EffectValue = Array("")
 var CardName = Array("Copper", "Silver", "Gold", "Mansion", "Duchy", "Province")
 var DrawingValues = Array(0, 1, 2, 3)
-var Effect = Array ("Action", "Buy", "Card", "None")
-var Hand = new Array[String](5)
+var Effect = Array("Action", "Buy", "Card", "None")
+var Hand = Array(String)
 var handful = Array("0", "1", "2", "3", "4", "5")
 
 case class Card(BuyValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyAdditionValue : Int,
