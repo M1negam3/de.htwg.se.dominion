@@ -1,26 +1,28 @@
-case class MoneyCard (cost: Int, value:Int) {
+var BuyValues = Array (0, 1, 2, 3, 4, 5, 6, 7, 8)
+var MoneyValues = Array(1, 2, 3)
+var WpValues = Array(1, 3, 6)
+var ActionValues = Array (0, 1, 2)
+var BuyAdditionValues = Array (0, 1, 2)
+var BonusMoneyValues = Array (0, 1, 2)
+var EffectValue = Array ("Still to add")
+var DrawingValues = Array(0, 1, 2, 3)
+var Effect = Array ("Action", "Buy", "Card", "None")
+var Hand = new Array[String](5)
+var handful = Array("0", "1", "2", "3", "4", "5")
+
+case class Card(BuyValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyAdditionValue : Int,
+                BonusMoneyValue : Int, DrawingValue :Int, EffectValue : String) {
 }
 
-val moneyCard1 = MoneyCard(0,1)
-moneyCard1.cost
-moneyCard1.value
+val MoneyCard1 = Card(0, 1, 0, 0, 0, 0, 0, "None")
+val MoneyCard2 = Card(3, 2, 0, 0, 0, 0, 0, "None")
+val MoneyCard3 = Card(6, 3, 0, 0, 0, 0, 0, "None")
 
-val moneyCard2 = MoneyCard(3,2)
-moneyCard2.cost
-moneyCard2.value
+MoneyCard1.BuyValue
+MoneyCard1.MoneyValue
 
-val moneyCard3 = MoneyCard(6,3)
-moneyCard3.cost
-moneyCard3.value
+val WinningPointCard1 =  Card(2,0,1,0,0,0,0,"Nothing")
+val WinningPointCard2 =  Card(5,0,3,0,0,0,0,"Nothing")
+val WinningPointCard3 =  Card(8,0,6,0,0,0,0,"Nothing")
 
-case class UselessCard (cost: Int, text: String) {
-}
-
-val uselessCard1 = UselessCard(3 ,"Aktion: +1 " + "Kauf: +1")
-uselessCard1.text
-uselessCard1.cost
-
-case class HandCards (handCards: Vector[MoneyCard])
-
-val handCards1 = HandCards(Vector(moneyCard1, moneyCard2))
-handCards1.handCards
+WinningPointCard1.WpValue
