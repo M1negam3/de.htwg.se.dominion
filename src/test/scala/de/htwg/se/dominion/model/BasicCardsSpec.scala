@@ -12,12 +12,12 @@ class BasicCardsSpec extends WordSpec with Matchers {
       val duchy = BasicCards (5, 0, 3, 0, 0, 0, 0, "None", "Duchy")
       val province = BasicCards (8, 0, 6, 0, 0, 0, 0, "None", "Province")
       "have a BuyValue" in {
-        copper.BuyValue should be(0)
-        silver.BuyValue should be(3)
-        gold.BuyValue should be(6)
-        mansion.BuyValue should be(2)
-        duchy.BuyValue should be(5)
-        province.BuyValue should be(8)
+        copper.CostValue should be(0)
+        silver.CostValue should be(3)
+        gold.CostValue should be(6)
+        mansion.CostValue should be(2)
+        duchy.CostValue should be(5)
+        province.CostValue should be(8)
       }
       "have a MoneyValue" in {
         copper.MoneyValue should be(1)
@@ -44,12 +44,12 @@ class BasicCardsSpec extends WordSpec with Matchers {
         province.ActionValue should be(0)
       }
       "have a BuyadditionValue" in {
-        copper.BuyadditionValue should be(0)
-        silver.BuyadditionValue should be(0)
-        gold.BuyadditionValue should be(0)
-        mansion.BuyadditionValue should be(0)
-        duchy.BuyadditionValue should be(0)
-        province.BuyadditionValue should be(0)
+        copper.BuyAdditionValue should be(0)
+        silver.BuyAdditionValue should be(0)
+        gold.BuyAdditionValue should be(0)
+        mansion.BuyAdditionValue should be(0)
+        duchy.BuyAdditionValue should be(0)
+        province.BuyAdditionValue should be(0)
       }
       "have a BonusMoneyValue" in {
         copper.BonusMoneyValue should be(0)

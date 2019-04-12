@@ -1,5 +1,5 @@
 package de.htwg.se.dominion.model
 
-case class SetCards(BuyValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyadditionValue : Int,
-                      BonusMoneyValue : Int, DrawingValue :Int, EffectValue : String, CardName : String) {
+case class SetCards(CostValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyAdditionValue : Int,
+                BonusMoneyValue : Int, DrawingValue : Int, EffectValue : String, CardName : String) {
 }
