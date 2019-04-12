@@ -2,15 +2,15 @@ package de.htwg.se.dominion.model
 
 import org.scalatest._
 
-class CardsSpec extends WordSpec with Matchers {
+class BasicCardsSpec extends WordSpec with Matchers {
   "A Card" when {
     "new" should {
-      val copper = Cards (0, 1, 0, 0, 0, 0, 0, "None", "Copper")
-      val gold = Cards (6, 3, 0, 0, 0, 0, 0, "None", "Gold")
-      val silver = Cards (3, 2, 0, 0, 0, 0, 0, "None", "Silver")
-      val mansion = Cards (2, 0, 1, 0, 0, 0, 0, "None", "Mansion")
-      val duchy = Cards (5, 0, 3, 0, 0, 0, 0, "None", "Duchy")
-      val province = Cards (8, 0, 6, 0, 0, 0, 0, "None", "Province")
+      val copper = BasicCards (0, 1, 0, 0, 0, 0, 0, "None", "Copper")
+      val gold = BasicCards (6, 3, 0, 0, 0, 0, 0, "None", "Gold")
+      val silver = BasicCards (3, 2, 0, 0, 0, 0, 0, "None", "Silver")
+      val mansion = BasicCards (2, 0, 1, 0, 0, 0, 0, "None", "Mansion")
+      val duchy = BasicCards (5, 0, 3, 0, 0, 0, 0, "None", "Duchy")
+      val province = BasicCards (8, 0, 6, 0, 0, 0, 0, "None", "Province")
       "have a BuyValue" in {
         copper.BuyValue should be(0)
         silver.BuyValue should be(3)
