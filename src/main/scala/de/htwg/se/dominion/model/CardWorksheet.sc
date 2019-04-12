@@ -1,3 +1,5 @@
+import java.util
+
 // Card related
 var CostValue = Array (0, 1, 2, 3, 4, 5, 6, 7, 8)
 var MoneyValue = Array(1, 2, 3)
@@ -28,5 +30,6 @@ val WinningPointCard3 =  Card(8,0,6,0,0,0,0,"None", "Province")
 WinningPointCard1.WpValue
 //--------------------------------------------------------------------------------------------------------------
 // Deck related
+val Deck = new util.Stack()
 
 //--------------------------------------------------------------------------------------------------------------
