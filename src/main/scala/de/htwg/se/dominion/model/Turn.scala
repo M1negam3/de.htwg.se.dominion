@@ -3,14 +3,14 @@ import scala.collection.immutable.List
 
 
 
-object Turn {
+/*object Turn {
   def Turn(pAmount:Int) : Unit ={
     InputOutput.playersTurn(1)
 
 
 
   }
-}
+}*/
 
 
 
