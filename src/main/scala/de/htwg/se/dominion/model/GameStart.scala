@@ -101,5 +101,7 @@ object GameStart {
 
 
     }
+    val moneyplayer1 = player1HandCards.head.MoneyValue + player1HandCards(1).MoneyValue + player1HandCards.head.MoneyValue + player1HandCards(1).MoneyValue + player1HandCards.head.MoneyValue
+    if(moneyplayer1 >)
   }
 }
