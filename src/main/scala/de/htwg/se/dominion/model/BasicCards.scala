@@ -20,4 +20,9 @@ object BasicCards{
     0,"None", "Duchy")
   val province = new BasicCards(8,0,6,0,0,0,
     0,"None", "Province")
+  //DeckCards
+  val village = new BasicCards(3,0,0,2,0,0,1,"None","Village")
+  val festival = new BasicCards(5,0,0,2,1,2,0,"None","Festival")
+  val cellar = new BasicCards(2,0,0,1,0,0,0,"Discard any number of cards, then draw that many", "Cellar")
+
 }
