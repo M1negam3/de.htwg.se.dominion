@@ -8,11 +8,11 @@ object Dominion {
   var name = "Dominion"
   def main(args: Array[String]): Unit = {
     println(name + " wurde von " + Player("Luis & Luca") + " erstellt")
-    println("╔════════════════════════════════════════ Dominion ════════════════════════════════════════╗")
+    println(Console.WHITE + "╔════════════════════════════════════════ Dominion-TUI ════════════════════════════════════╗")
 
     val pAmount = InputOutput.gamestart()
     GameStart.createDeck(pAmount)
 
-    println("╚══════════════════════════════════════════════════════════════════════════════════════════╝")
+    println(Console.WHITE + "╚══════════════════════════════════════════════════════════════════════════════════════════╝")
   }
 }
