@@ -32,18 +32,6 @@ object Dominion {
 
 
 
-
-    /*val random = new Random
-    val emptyhand: List[String] = List.empty[String]
-    val emptyhand2: List[String] = List.empty[String]
-    val stackhand: List[String] = "copper" :: "copper" :: "copper" :: "copper" :: "copper"  :: "mansion" :: "mansion" :: "mansion":: emptyhand
-    val deckp1: List[String] = random.shuffle(List("copper", "copper", "copper", "copper", "copper","mansion","mansion","mansion"))
-    val handp1: List[String] = deckp1.head :: deckp1(1) :: deckp1(2) :: deckp1(3) :: deckp1(4) :: emptyhand2
-    val deckp2: List[String] = random.shuffle(List("copper", "copper", "copper", "copper", "copper","mansion","mansion","mansion"))
-    val handp2: List[String] = deckp2.head :: deckp2(1) :: deckp2(2) :: deckp2(3) :: deckp2(4) :: emptyhand2
-    println(s"$handp1")
-    println(s"$handp2")*/
-
     val copper = BasicCards(0,1,0,0,0,0,0,"nothing","copper")
     val mansion = BasicCards(2,0,1,0,0,0,0,"nothing","mansion")
     val random = new Random
