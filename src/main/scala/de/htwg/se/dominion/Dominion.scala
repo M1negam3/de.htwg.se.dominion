@@ -32,12 +32,11 @@ object Dominion {
 
 
 
-    val copper = BasicCards(0,1,0,0,0,0,0,"nothing","copper")
-    val mansion = BasicCards(2,0,1,0,0,0,0,"nothing","mansion")
+
     val random = new Random
     val emptyhand: List[BasicCards] = List()
     val emptyhand2: List[BasicCards] = List()
-    val deckhand: List[BasicCards] = copper :: copper :: copper :: copper :: copper :: copper :: copper :: mansion :: mansion :: mansion :: emptyhand
+    val deckhand: List[BasicCards] = BasicCards.copper :: BasicCards.copper :: BasicCards.copper :: BasicCards.copper :: BasicCards.copper :: BasicCards.copper :: BasicCards.copper :: BasicCards.mansion :: BasicCards.mansion :: BasicCards.mansion :: emptyhand
 
     for (x <- 0 until sanzahl) {
       val y : List[BasicCards] = random.shuffle(deckhand)
