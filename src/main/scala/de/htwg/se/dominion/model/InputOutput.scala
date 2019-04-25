@@ -21,6 +21,7 @@ object InputOutput {
   }
 
   def HandCardCreation(l:List[BasicCards], a:Integer): Unit = {
-    println(Console.BLUE + "Player " + a + "`s Hand Cards are: " + l.head.CardName + ", " + l(1).CardName + ", " + l(2).CardName + ", " + l(3).CardName+ ", " + l(4).CardName)
+    println(Console.BLUE + "Player " + a + "`s Hand Cards are: " + l.head.CardName + ", " + l(1).CardName +
+      ", " + l(2).CardName + ", " + l(3).CardName+ ", " + l(4).CardName)
   }
 }
