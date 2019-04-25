@@ -6,7 +6,6 @@ import scala.collection.immutable.List
 object Turn {
   def Turn(pAmount:Int) : Unit ={
     InputOutput.playersTurn(1)
-    val moneyp1 = GameStart.play
 
 
 
