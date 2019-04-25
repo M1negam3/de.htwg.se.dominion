@@ -9,6 +9,9 @@ object GameStart {
 
     val basicDeck : List[BasicCards] = List(BasicCards.copper, BasicCards.copper, BasicCards.copper, BasicCards.copper,
       BasicCards.copper, BasicCards.copper, BasicCards.mansion, BasicCards.mansion, BasicCards.mansion)
+    val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
+    val player1HandCards : List[BasicCards] = List(player1Deck.head, player1Deck(1), player1Deck(2), player1Deck(3),
+      player1Deck(4))
 
     if (pAmount == 2) {
       val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
@@ -96,6 +99,9 @@ object GameStart {
       InputOutput.HandCardCreation(player4HandCards, 4)
       InputOutput.HandCardCreation(player5HandCards, 5)
 
+
     }
+    val moneyplayer1 = player1HandCards.head.MoneyValue + player1HandCards(1).MoneyValue + player1HandCards.head.MoneyValue + player1HandCards(1).MoneyValue + player1HandCards.head.MoneyValue
+    if(moneyplayer1 >)
   }
 }

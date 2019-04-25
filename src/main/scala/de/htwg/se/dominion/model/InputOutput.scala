@@ -24,4 +24,7 @@ object InputOutput {
     println(Console.BLUE + "Player " + a + "`s Hand Cards are: " + l.head.CardName + ", " + l(1).CardName +
       ", " + l(2).CardName + ", " + l(3).CardName+ ", " + l(4).CardName)
   }
+  def playersTurn(a:Integer) : Unit = {
+    println(Console.GREEN + "Player " + a + "'s Turn")
+  }
 }
