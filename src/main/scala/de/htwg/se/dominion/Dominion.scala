@@ -38,10 +38,8 @@ object Dominion {
     val emptyhand: List[BasicCards] = List()
     val emptyhand2: List[BasicCards] = List()
     val deckhand: List[BasicCards] = copper :: copper :: copper :: copper :: copper :: copper :: copper :: mansion :: mansion :: mansion :: emptyhand
-    val deckp1: List[BasicCards] = random.shuffle(deckhand)
-    val handp1: List[BasicCards] = deckp1.head :: deckp1(1) :: deckp1(2) :: deckp1(3) :: deckp1(4) :: emptyhand2
-    println(s"$handp1")
-    for (x <- 1 until sanzahl) {
+
+    for (x <- 0 until sanzahl) {
       val y : List[BasicCards] = random.shuffle(deckhand)
       val x : List[BasicCards] = y.head :: y(1) :: y(2) :: y(3) :: y(4) :: emptyhand2
       println(s"$x")
