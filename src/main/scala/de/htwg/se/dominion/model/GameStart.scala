@@ -4,20 +4,19 @@ import scala.collection.immutable.List
 import scala.util.Random
 
 object GameStart {
-  def createDeck(pAmount:Int): Unit ={
+  def createDeck(pAmount:Int): (List[BasicCards], List[BasicCards], List[BasicCards], List[BasicCards], List[BasicCards]) ={
     val random = new Random
 
     val basicDeck : List[BasicCards] = List(BasicCards.copper, BasicCards.copper, BasicCards.copper, BasicCards.copper,
       BasicCards.copper, BasicCards.copper, BasicCards.mansion, BasicCards.mansion, BasicCards.mansion)
-    val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
-    val player1HandCards : List[BasicCards] = List(player1Deck.head, player1Deck(1), player1Deck(2), player1Deck(3),
-      player1Deck(4))
+
 
     if (pAmount == 2) {
       val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
       InputOutput.deckCreation(1)
       val player2Deck : List[BasicCards] = random.shuffle(basicDeck)
       InputOutput.deckCreation(2)
+      val empty : List[BasicCards] = List()
 
       val player1HandCards : List[BasicCards] = List(player1Deck.head, player1Deck(1), player1Deck(2), player1Deck(3),
         player1Deck(4))
@@ -26,6 +25,7 @@ object GameStart {
 
       InputOutput.HandCardCreation(player1HandCards, 1)
       InputOutput.HandCardCreation(player2HandCards, 2)
+      return (player1HandCards,player2HandCards,empty,empty,empty)
     } else if (pAmount == 3) {
 
       val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
@@ -34,6 +34,7 @@ object GameStart {
       InputOutput.deckCreation(2)
       val player3Deck : List[BasicCards] = random.shuffle(basicDeck)
       InputOutput.deckCreation(3)
+      val empty : List[BasicCards] = List()
 
       val player1HandCards : List[BasicCards] = List(player1Deck.head, player1Deck(1), player1Deck(2), player1Deck(3),
         player1Deck(4))
@@ -45,6 +46,7 @@ object GameStart {
       InputOutput.HandCardCreation(player1HandCards, 1)
       InputOutput.HandCardCreation(player2HandCards, 2)
       InputOutput.HandCardCreation(player3HandCards, 3)
+      return (player1HandCards,player2HandCards,player3HandCards,empty,empty)
     } else if (pAmount == 4) {
 
       val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
@@ -55,6 +57,7 @@ object GameStart {
       InputOutput.deckCreation(3)
       val player4Deck : List[BasicCards] = random.shuffle(basicDeck)
       InputOutput.deckCreation(4)
+      val empty : List[BasicCards] = List()
 
       val player1HandCards : List[BasicCards] = List(player1Deck.head, player1Deck(1), player1Deck(2), player1Deck(3),
         player1Deck(4))
@@ -69,6 +72,7 @@ object GameStart {
       InputOutput.HandCardCreation(player2HandCards, 2)
       InputOutput.HandCardCreation(player3HandCards, 3)
       InputOutput.HandCardCreation(player4HandCards, 4)
+      return (player1HandCards,player2HandCards,player3HandCards,player4HandCards,empty)
     } else if (pAmount == 5) {
 
       val player1Deck : List[BasicCards] = random.shuffle(basicDeck)
@@ -99,7 +103,9 @@ object GameStart {
       InputOutput.HandCardCreation(player4HandCards, 4)
       InputOutput.HandCardCreation(player5HandCards, 5)
 
-
+      return (player1HandCards,player2HandCards,player3HandCards,player4HandCards,player5HandCards)
+    } else {
+      return null
     }
   }
 }
