@@ -3,9 +3,24 @@ package de.htwg.se.dominion.model
 import scala.collection.immutable.List
 import scala.util.Random
 
+case class GameStart() {
+  val basicDeck = List(BasicCards.copper, BasicCards.copper, BasicCards.copper, BasicCards.copper,
+    BasicCards.copper, BasicCards.copper, BasicCards.copper, BasicCards.mansion, BasicCards.mansion,
+    BasicCards.mansion)
+}
+
 object GameStart {
   def createDeck(pAmount:Int): Unit ={
     val random = new Random
+
+    val player1Deck,
+    val player2Deck,
+    val player3Deck,
+    val player4Deck,
+    val player5Deck,
+
+
+
 
     val emptyhand : List[BasicCards] = List()
     val emptyhand2 : List[BasicCards] = List()
