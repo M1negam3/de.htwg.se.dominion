@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model
 
-object Interaction {
+object InputOutput {
   def gamestart(): Integer = {
     println("Wie viele Spieler seid ihr?")
     while(true)
@@ -13,6 +13,6 @@ object Interaction {
       } catch {
         case exception: NumberFormatException => println("Bitte eine Zahl eingeben!")
       }
-    return 1
+    return -1
     }
 }

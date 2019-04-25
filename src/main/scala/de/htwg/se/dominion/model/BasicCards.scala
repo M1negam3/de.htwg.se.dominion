@@ -11,6 +11,6 @@ object BasicCards{
 
   //Winning Points Cards
   val mansion = BasicCards(2,0,1,0,0,0,0,"nothing","Mansion")
-  val Duchy = BasicCards(5,0,3,0,0,0,0,"None", "Duchy")
-  val Province =  BasicCards(8,0,6,0,0,0,0,"None", "Province")
+  val duchy = BasicCards(5,0,3,0,0,0,0,"None", "Duchy")
+  val province =  BasicCards(8,0,6,0,0,0,0,"None", "Province")
 }
