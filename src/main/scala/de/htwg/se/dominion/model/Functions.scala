@@ -9,4 +9,9 @@ object Functions {
   def HandActions(l: List[BasicCards]): Integer = {
     return l.head.ActionValue + l(1).ActionValue + l(2).ActionValue + l(3).ActionValue + l(4).ActionValue
   }
+  def HandAdditionalBuys(l: List[BasicCards]): Integer = {
+    return l.head.BuyAdditionValue + l(1).BuyAdditionValue + l(2).BuyAdditionValue + l(3).BuyAdditionValue +
+          l(4).BuyAdditionValue
+  }
+
 }
