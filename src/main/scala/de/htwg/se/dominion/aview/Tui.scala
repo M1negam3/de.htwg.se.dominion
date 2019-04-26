@@ -10,8 +10,10 @@ class Tui(controller: Controller) extends Observer {
 
   controller.add(this)
 
+  var stopProcessingInput = false
+
   def processInput(input: BufferedReader) = {
-    while(true) {
+    while(!stopProcessingInput) {
       if (input.ready()) {
         val line = input.readLine()
         processInputLine(line)
