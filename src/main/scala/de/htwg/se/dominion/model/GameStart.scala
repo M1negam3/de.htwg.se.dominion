@@ -1,5 +1,7 @@
 package de.htwg.se.dominion.model
 
+import de.htwg.se.dominion.aview.InputOutput
+
 import scala.collection.immutable.List
 import scala.util.Random
 

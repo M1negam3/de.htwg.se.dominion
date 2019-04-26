@@ -1,4 +1,6 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.aview
+
+import de.htwg.se.dominion.model.BasicCards
 
 object InputOutput {
   def gamestart(): Integer = {
@@ -13,7 +15,7 @@ object InputOutput {
       } catch {
         case exception: NumberFormatException => println(Console.RED + "Bitte eine Zahl eingeben!")
       }
-    return -1
+    -1
     }
 
   def deckCreation(a:Integer): Unit = {
