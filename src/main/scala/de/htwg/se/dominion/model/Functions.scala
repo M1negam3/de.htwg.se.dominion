@@ -12,6 +12,7 @@ object Functions {
   def HandAdditionalBuys(l: List[BasicCards]): Integer = {
     return l.head.BuyAdditionValue + l(1).BuyAdditionValue + l(2).BuyAdditionValue + l(3).BuyAdditionValue +
           l(4).BuyAdditionValue
+
   }
 
 }
