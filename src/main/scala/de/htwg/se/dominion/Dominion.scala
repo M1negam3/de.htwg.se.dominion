@@ -1,8 +1,6 @@
 package de.htwg.se.dominion
 
 import de.htwg.se.dominion.model._
-import scala.util.Random
-import scala.collection.immutable._
 
 object Dominion {
   var name = "Dominion"
@@ -12,7 +10,7 @@ object Dominion {
 
     val pAmount = InputOutput.gamestart()
     GameStart.createDeck(pAmount)
-
+    p
     println(Console.WHITE + "╚══════════════════════════════════════════════════════════════════════════════════════════╝")
   }
 }
