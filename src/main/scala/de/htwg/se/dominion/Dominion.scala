@@ -2,18 +2,25 @@ package de.htwg.se.dominion
 
 import de.htwg.se.dominion.aview.InputOutput
 import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.aview.Tui
+import de.htwg.se.dominion.controller.Controller
+import de.htwg.se.dominion.model.{Player, Deck}
 
-import scala.util.Random
-import scala.collection.immutable._
 
 object Dominion {
   var name = "Dominion"
-  def main(args: Array[String]): Unit = {
-    println(name + " wurde von " + Player("Luis & Luca") + " erstellt")
-    println(Console.WHITE + "╔════════════════════════════════════════ Dominion-TUI ════════════════════════════════════╗")
+  val players: Vector[Player] = Vector(new Player(1))
+  val controller = new Controller(new Deck, players)
+  val tui = new Tui(controller)
+  controller.notifyObservers()
 
-    val pAmount = InputOutput.gamestart()
-    GameStart.createDeck(pAmount)
-    println(Console.WHITE + "╚══════════════════════════════════════════════════════════════════════════════════════════╝")
+
+
+  def main(args: Array[String]): Unit = {
+    var input: String = ""
+    do {
+      input = readLine
+      tui.processInputLine(input)
+    } while (input != "q")
   }
 }
