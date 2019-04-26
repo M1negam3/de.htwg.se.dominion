@@ -21,11 +21,7 @@ class Controller(var deck: Deck, var players: Vector[Player]) extends Observable
   }
 
   def turn(): Unit = {
-    i += 1
-    if (i > pCount) {
-      i = 1
-    }
-    //InputOutput.HandCardCreation( ,i)
+
   }
 
   def suggestions: String = {
