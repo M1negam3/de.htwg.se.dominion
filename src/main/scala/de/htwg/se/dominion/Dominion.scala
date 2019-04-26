@@ -2,11 +2,9 @@ package de.htwg.se.dominion
 
 import java.io.BufferedReader
 
-import de.htwg.se.dominion.aview.InputOutput
-import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.model.{Deck, InputOutput, Player, _}
 import de.htwg.se.dominion.aview.Tui
 import de.htwg.se.dominion.controller.Controller
-import de.htwg.se.dominion.model.{Deck, Player}
 
 object Dominion {
 

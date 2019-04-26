@@ -2,7 +2,7 @@ package de.htwg.se.dominion.model
 
 import org.scalatest._
 
-class PlayerSpec extends WordSpec with Matchers {
+/*class PlayerSpec extends WordSpec with Matchers {
   "A Player" when { "new" should {
     val player = Player("Your Name")
     "have a name"  in {
@@ -12,4 +12,4 @@ class PlayerSpec extends WordSpec with Matchers {
       player.toString should be("Your Name")
     }
   }}
-}
+}*/

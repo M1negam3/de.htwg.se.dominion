@@ -1,6 +1,4 @@
-package de.htwg.se.dominion.aview
-
-import de.htwg.se.dominion.model.BasicCards
+package de.htwg.se.dominion.model
 
 import scala.collection.mutable.ListBuffer
 
@@ -47,9 +45,5 @@ object InputOutput {
       s += l(i).CardName + ", "
     }
     s
-  }
-
-  def playersTurn(a:Integer) : Unit = {
-    println(Console.GREEN + "Player " + a + "'s Turn")
   }
 }

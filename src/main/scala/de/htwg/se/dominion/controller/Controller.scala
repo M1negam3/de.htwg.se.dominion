@@ -1,7 +1,6 @@
 package de.htwg.se.dominion.controller
-import de.htwg.se.dominion.aview.InputOutput
 import de.htwg.se.dominion.util.Observable
-import de.htwg.se.dominion.model.{Deck, Player}
+import de.htwg.se.dominion.model.{Deck, Functions, InputOutput, Player}
 
 class Controller() extends Observable {
   var i = 0
@@ -9,7 +8,7 @@ class Controller() extends Observable {
 
   def newGame(): Unit = {
     pCount = InputOutput.getPlayerCount()
-    //GameStart.createDeck(pCount)
+    Deck.shuffle(Deck.basicDeck)
     InputOutput.getPlayerName(pCount)
     print(InputOutput.deckCreation(pCount))
     notifyObservers()
