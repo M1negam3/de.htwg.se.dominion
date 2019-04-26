@@ -10,14 +10,9 @@ class Tui(controller: Controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
     input match {
-      case "q" =>
+      case "q" => controller.finish()
       case "n" => controller.newGame()
-      case "z" =>
-      case "y" =>
-      case "s" =>
       case _ =>
-
-
     }
   }
   override def update(): Unit = println(controller.handToString)
