@@ -2,8 +2,10 @@ package de.htwg.se.dominion.aview
 
 import de.htwg.se.dominion.model.BasicCards
 
+import scala.collection.mutable.ListBuffer
+
 object InputOutput {
-  def gamestart(): Integer = {
+  def getPlayerCount(): Integer = {
     println(Console.BLUE + "Wie viele Spieler seid ihr?")
     while(true)
       try {
@@ -18,14 +20,35 @@ object InputOutput {
     -1
     }
 
-  def deckCreation(a:Integer): Unit = {
-    println(Console.BLUE + "==> Deck " + a + " is created!")
+  def getPlayerName(i : Integer): List[String] = {
+    var l = new ListBuffer[String]
+    for (i <- 1 until i + 1) {
+      printf("Spieler " + i + " gib name: ")
+      try {
+        var input = scala.io.StdIn.readLine()
+        l += input
+        println()
+      }
+    }
+    val names: List[String] = l.toList
+    names
   }
 
-  def HandCardCreation(l:List[BasicCards], a:Integer): Unit = {
-    println(Console.BLUE + "Player " + a + "`s Hand Cards are: " + l.head.CardName + ", " + l(1).CardName +
-      ", " + l(2).CardName + ", " + l(3).CardName+ ", " + l(4).CardName)
+  def deckCreation(a:Integer): String = {
+    var s = ""
+    for (i <- 1 until a + 1)
+      s += "==> Deck " + i + " is created!" + "\n"
+    s
   }
+
+  def HandCardCreation(l:List[BasicCards], a:Integer): String = {
+    var s = "Player " + a + "`s Hand Cards are: "
+    for (i <- 0 until 5) {
+      s += l(i).CardName + ", "
+    }
+    s
+  }
+
   def playersTurn(a:Integer) : Unit = {
     println(Console.GREEN + "Player " + a + "'s Turn")
   }

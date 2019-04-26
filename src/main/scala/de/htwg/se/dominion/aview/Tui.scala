@@ -12,8 +12,9 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" => controller.finish()
       case "n" => controller.newGame()
-      case _ =>
+      case "t" => controller.turn()
+      case _ => println(s"Wanna try one of these? ${controller.suggestions}")
     }
   }
-  override def update(): Unit = println(controller.handToString)
+  override def update(): Unit = println()
 }

@@ -15,6 +15,10 @@ object Dominion {
   controller.notifyObservers()
 
   def main(args: Array[String]): Unit = {
+    println("Commands:")
+    println("q = quit")
+    println("n = new Game")
+    println("t = next Trun")
     while(true) {
       val input = scala.io.StdIn.readLine()
       tui.processInputLine(input)
