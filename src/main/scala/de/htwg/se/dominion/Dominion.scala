@@ -10,8 +10,7 @@ import de.htwg.se.dominion.model.{Deck, Player}
 
 object Dominion {
 
-  val players: Vector[Player] = Vector(new Player(1))
-  val controller = new Controller(new Deck, players)
+  val controller = new Controller()
   val tui = new Tui(controller)
   controller.notifyObservers()
 
