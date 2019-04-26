@@ -10,7 +10,7 @@ object Dominion {
 
     val pAmount = InputOutput.gamestart()
     GameStart.createDeck(pAmount)
-    println("Dies ist ein weitere test")
+
     println(Console.WHITE + "╚══════════════════════════════════════════════════════════════════════════════════════════╝")
   }
 }
