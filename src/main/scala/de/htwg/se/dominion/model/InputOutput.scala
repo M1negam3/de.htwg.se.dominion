@@ -22,11 +22,9 @@ object InputOutput {
     var l = new ListBuffer[String]
     for (i <- 1 until i + 1) {
       printf("Spieler " + i + " gib name: ")
-      try {
         var input = scala.io.StdIn.readLine()
         l += input
         println()
-      }
     }
     val names: List[String] = l.toList
     names
