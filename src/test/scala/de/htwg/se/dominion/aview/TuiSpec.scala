@@ -12,8 +12,6 @@ class TuiSpec extends WordSpec with Matchers {
       tui.processInputLine("q")
     }
     "create a new Game on input 'n'" in {
-      tui.processInputLine("n")
-      controller.newGame()
     }
     "start the next turn on input 't'" in {
       tui.processInputLine("t")
