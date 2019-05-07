@@ -2,14 +2,24 @@ package de.htwg.se.dominion.model
 
 import org.scalatest._
 
+import scala.collection.immutable.List
+
 class PlayerSpec extends WordSpec with Matchers {
-  /*"A Player" when { "new" should {
-    val player = Player("Your Name")
-    "have a name"  in {
-      player.name should be("Your Name")
+
+  val emptylist: List[BasicCards] = List()
+  val player = Player(0,"test",emptylist,emptylist)
+  "A player" should {
+    "have a toString method" in {
+      player.toString should be ("test")
     }
-    "have a nice String representation" in {
-      player.toString should be("Your Name")
+    "have a value" in {
+      player.value should be (0)
     }
-  }}*/
+    "have a deck" in {
+      player.deck should be (emptylist)
+    }
+    "have a hand" in {
+      player.hand should be (emptylist)
+    }
+  }
 }
