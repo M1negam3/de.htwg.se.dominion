@@ -20,7 +20,8 @@ class InputOutputSpec extends WordSpec with Matchers {
     }
 
     "have a HandCardCreation method" in {
-      InputOutput.HandCardCreation(l, pCount) should be("Player " + pCount + "`s Hand Cards are: Copper, Copper, Copper, Copper, Copper, ")
+      InputOutput.HandCardCreation(l, pCount) should be("Player " + pCount + "`s Hand Cards are: Copper, Copper, " +
+        "Copper," + " Copper, Copper, ")
     }
   }
 }
