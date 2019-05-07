@@ -11,11 +11,7 @@ class Controller() extends Observable {
     Deck.shuffle(Deck.basicDeck)
     InputOutput.getPlayerName(pCount)
     print(InputOutput.deckCreation(pCount))
-    notifyObservers()
-  }
-
-  def finish(): Unit = {
-    System.exit(0)
+    notifyObservers
   }
 
   def turn(): Unit = {
