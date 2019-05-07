@@ -28,7 +28,8 @@ class Tui(controller: Controller) extends Observer {
       case "q" =>
       case "n" => controller.newGame()
       case "t" => controller.turn()
-      case _ => println(s"Wanna try one of these? ${controller.suggestions()}")
+      case "s" => println(controller.suggestions)
+      case _ => println(s"Wanna try one of these? ${controller.suggestions}")
     }
   }
 

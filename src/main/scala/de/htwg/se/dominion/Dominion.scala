@@ -9,11 +9,15 @@ object Dominion {
 
   val controller = new Controller()
   val tui = new Tui(controller)
-  controller.notifyObservers()
+  controller.notifyObservers
 
   def main(args: Array[String]): Unit = {
-    while(true) {
-      tui.processInputLine(scala.io.StdIn.readLine())
-    }
+    var input: String = ""
+    if (args.length > 0) input = args(0)
+    if (!input.isEmpty) tui.processInputLine(input)
+    else do {
+      input = scala.io.StdIn.readLine()
+      tui.processInputLine(input)
+    } while (input != "q")
   }
 }
