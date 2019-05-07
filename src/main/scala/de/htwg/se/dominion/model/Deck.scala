@@ -11,17 +11,17 @@ object Deck {
 
   def shuffle(l: List[BasicCards]): List[BasicCards] ={
     val shuffleList: List[BasicCards] = random.shuffle(l)
-    return shuffleList
+    shuffleList
   }
 
   def getHand(l: List[BasicCards]): List[BasicCards] = {
     val hand: List[BasicCards] = List(l.head, l(1), l(2), l(3), l(4))
-    return hand
+    hand
   }
 
   def hand(l: List[BasicCards]) : List[BasicCards] = {
     val p: List[BasicCards] = shuffle(l)
     val hand: List[BasicCards] = getHand(p)
-    return hand
+    hand
   }
 }
