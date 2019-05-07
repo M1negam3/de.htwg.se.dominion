@@ -25,7 +25,7 @@ class Tui(controller: Controller) extends Observer {
 
   def processInputLine(input: String): Unit = {
     input match {
-      case "q" => controller.finish()
+      case "q" =>
       case "n" => controller.newGame()
       case "t" => controller.turn()
       case _ => println(s"Wanna try one of these? ${controller.suggestions()}")
