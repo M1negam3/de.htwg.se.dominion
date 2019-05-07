@@ -2,7 +2,7 @@ package de.htwg.se.dominion.util
 
 
 trait Observer {
-  def update(): Unit
+  def update(): Boolean
 }
 
 class Observable {

@@ -45,5 +45,5 @@ class Tui(controller: Controller) extends Observer {
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin
   }
-  override def update(): Unit = println()
+  override def update(): Boolean = {println(); true}
 }
