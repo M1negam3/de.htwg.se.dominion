@@ -16,6 +16,9 @@ class TuiSpec extends WordSpec with Matchers {
     "start the next turn on input 't'" in {
       tui.processInputLine("t")
     }
+    "Should give Options what to do on input 's'" in {
+      tui.processInputLine("s")
+    }
     "Suggest Options on bad input like '9999'" in {
       tui.processInputLine("9999")
     }
