@@ -9,8 +9,8 @@ import de.htwg.se.dominion.controller.Controller
 class Tui(controller: Controller) extends Observer {
 
   controller.add(this)
-
   var stopProcessingInput = false
+  print(printHeader())
 
   def processInput(input: BufferedReader) = {
     while(!stopProcessingInput) {
@@ -28,8 +28,21 @@ class Tui(controller: Controller) extends Observer {
       case "q" => controller.finish()
       case "n" => controller.newGame()
       case "t" => controller.turn()
-      case _ => println(s"Wanna try one of these? ${controller.suggestions}")
+      case _ => println(s"Wanna try one of these? ${controller.suggestions()}")
     }
+  }
+
+  def printHeader(): String = {
+    """
+    ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
+
+                                        Press "n" to START a NEW Game!
+                                        Press "q" to QUIT the Game!
+                                        Press "t" for next Player
+                                        Press "h" for Rules
+
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    """.stripMargin
   }
   override def update(): Unit = println()
 }

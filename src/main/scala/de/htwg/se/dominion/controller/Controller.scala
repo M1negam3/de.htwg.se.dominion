@@ -22,7 +22,7 @@ class Controller() extends Observable {
 
   }
 
-  def suggestions: String = {
+  def suggestions(): String = {
     "help"
   }
 }

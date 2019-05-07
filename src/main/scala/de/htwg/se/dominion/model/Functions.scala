@@ -22,7 +22,4 @@ object Functions {
       val player = new Player(pCount, names(pCount - 1), deck, hand)
     player
   }
-  def test (): String ={
-    "test"
-  }
 }
