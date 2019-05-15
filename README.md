@@ -19,8 +19,9 @@
 ## Status
 Project is: _in progress_
 
-[![Build Status](https://travis-ci.org/Involute1/de.htwg.se.dominion.svg?branch=Development_Luis)](https://travis-ci.org/Involute1/de.htwg.se.dominion)
-[![Coverage Status](https://coveralls.io/repos/github/Involute1/de.htwg.se.dominion/badge.svg?branch=Tests)](https://coveralls.io/github/Involute1/de.htwg.se.dominion?branch=Tests)
+| Build Status  | Code Coverage |
+| ------------- | ------------- |
+| [![Build Status](https://travis-ci.org/Involute1/de.htwg.se.dominion.svg?branch=Development_Luis)](https://travis-ci.org/Involute1/de.htwg.se.dominion)  | [![Coverage Status](https://coveralls.io/repos/github/Involute1/de.htwg.se.dominion/badge.svg?branch=Tests)](https://coveralls.io/github/Involute1/de.htwg.se.dominion?branch=Tests)  |
 
 ## Team
 [![Luis Nothvogel](https://github.com/Involute1) | [![Luca Stratmann](https://github.com/M1negam3)
