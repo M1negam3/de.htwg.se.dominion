@@ -8,7 +8,7 @@
 * [License](#License)
 
 ## General Info
-This is a software project from 2 students of the HTWG, a University of Applied Sciences in Constance. This project is to get the idea how to structure and build a software project correctly. We do that in form of a game. Therefore we take an awesome board game and turn into a video game version of itself. If you want to know more about the original maker of the board game, you can find out [here](http://riograndegames.com/Game/278-Dominion)
+This is a software project from 2 students of the HTWG, a University of Applied Sciences in Constance. This project is to get the idea how to structure and build a software project correctly. We do that in form of a game. Therefore we take an awesome board game and turn into a video game version of itself. If you want to know more about the original maker of the board game, you can find out [here].(http://riograndegames.com/Game/278-Dominion)
 
 ## Screenshots
 
