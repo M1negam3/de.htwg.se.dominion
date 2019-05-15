@@ -12,7 +12,7 @@
 ## Screenshots
 
 ## Technologies
-* [![TracisCI](https://travis-ci.org)]
+* [TracisCI](https://travis-ci.org)
 * Tech 2 - version 2.0
 * Tech 3 - version 3.0
 
