@@ -13,8 +13,8 @@
 
 ## Technologies
 * [TracisCI](https://travis-ci.org)
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* [Coveralls](https://coveralls.io)
+* [Scala](https://www.scala-lang.org/) -- Version 2.12.8
 
 ## Status
 Project is: _in progress_
