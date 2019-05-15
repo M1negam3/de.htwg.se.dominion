@@ -24,6 +24,8 @@ Project is: _in progress_
 
 ## Team
 [!Luis Nothvogel](https://avatars1.githubusercontent.com/u/48949590?s=400&v=4)(https://github.com/Involute1) | [!Luca Stratmann](https://avatars2.githubusercontent.com/u/48965803?s=460&v=4)(https://github.com/M1negam3)
+---|---
+[Luis Nothvogel_](https://github.com/Involute1) |[Luca Stratmann](https://github.com/M1negam3)
 ## License
 >You can check out the full license [here](https://github.com/Involute1/de.htwg.se.dominion/blob/Tests/LICENSE)
 
