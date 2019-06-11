@@ -9,6 +9,7 @@ class Controller() extends Observable {
     pCount = InputOutput.getPlayerCount()
     val names = InputOutput.getPlayerName(pCount)
     val players = Player.createPlayer(pCount, names)
+    Player.getHand(players(0))
     notifyObservers
   }
 }

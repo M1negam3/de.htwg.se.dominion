@@ -17,4 +17,19 @@ object Player {
     val Players: List[Player] = players.toList
     Players
   }
+
+  def getHand(player: Player): List[Cards] = {
+    var l = new ListBuffer[Cards]
+    for (i <- 0 until 5) {
+      l += player.deck(i)
+    }
+    val hand: List[Cards] = l.toList
+
+    print("Player " + player.value + " Hand Cards are: ")
+    for (f <- 0 until 4) {
+      print(hand(f).CardName + ", ")
+    }
+    print(hand(5).CardName)
+    hand
+  }
 }
