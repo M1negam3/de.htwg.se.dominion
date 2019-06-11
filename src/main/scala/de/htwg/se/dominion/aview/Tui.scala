@@ -12,7 +12,7 @@ class Tui(controller: Controller) extends Observer {
   var stopProcessingInput = false
   print(printHeader())
 
-  def processInput(input: BufferedReader) = {
+  def processInput(input: BufferedReader): Unit = {
     while(!stopProcessingInput) {
       if (input.ready()) {
         val line = input.readLine()
@@ -27,9 +27,7 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" =>
       case "n" => controller.newGame()
-      case "t" => controller.turn()
-      case "s" => println(controller.suggestions)
-      case _ => println(s"Wanna try one of these? ${controller.suggestions}")
+      case _ =>
     }
   }
 
@@ -39,8 +37,6 @@ class Tui(controller: Controller) extends Observer {
 
                                         Press "n" to START a NEW Game!
                                         Press "q" to QUIT the Game!
-                                        Press "t" for next Player
-                                        Press "h" for Rules
 
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin

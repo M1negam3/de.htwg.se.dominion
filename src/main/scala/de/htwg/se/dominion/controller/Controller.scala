@@ -1,24 +1,9 @@
 package de.htwg.se.dominion.controller
 import de.htwg.se.dominion.util.Observable
-import de.htwg.se.dominion.model.{Deck, Functions, InputOutput, Player}
 
 class Controller() extends Observable {
-  var i = 0
-  var pCount = 0
 
   def newGame(): Unit = {
-    pCount = InputOutput.getPlayerCount()
-    Deck.shuffle(Deck.basicDeck)
-    InputOutput.getPlayerName(pCount)
-    print(InputOutput.deckCreation(pCount))
     notifyObservers
-  }
-
-  def turn(): Unit = {
-
-  }
-
-  def suggestions: String = {
-    "help"
   }
 }

@@ -1,7 +1,5 @@
 package de.htwg.se.dominion
 
-import java.io.BufferedReader
-
 import de.htwg.se.dominion.aview.Tui
 import de.htwg.se.dominion.controller.Controller
 

@@ -29,19 +29,4 @@ object InputOutput {
     val names: List[String] = l.toList
     names
   }
-
-  def deckCreation(a:Integer): String = {
-    var s = ""
-    for (i <- 1 until a + 1)
-      s += "==> Deck " + i + " is created!" + "\n"
-    s
-  }
-
-  def HandCardCreation(l:List[BasicCards], a:Integer): String = {
-    var s = "Player " + a + "`s Hand Cards are: "
-    for (i <- 0 until 5) {
-      s += l(i).CardName + ", "
-    }
-    s
-  }
 }
