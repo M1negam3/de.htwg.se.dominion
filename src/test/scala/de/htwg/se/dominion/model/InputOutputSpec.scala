@@ -6,8 +6,8 @@ import org.scalatest._
 
 class InputOutputSpec extends WordSpec with Matchers {
   val pCount = 2
-  val l: List[BasicCards] = List(BasicCards.copper, BasicCards.copper, BasicCards.copper, BasicCards.copper,
-  BasicCards.copper)
+  val l: List[Cards] = List(Cards.copper, Cards.copper, Cards.copper, Cards.copper,
+  Cards.copper)
 
   "A InputOutput" should {
 
@@ -18,12 +18,11 @@ class InputOutputSpec extends WordSpec with Matchers {
     }
 
     "have a deckcreation method" in {
-      InputOutput.deckCreation(pCount) should startWith ("==> Deck ")
+
     }
 
     "have a HandCardCreation method" in {
-      InputOutput.HandCardCreation(l, pCount) should be("Player " + pCount + "`s Hand Cards are: Copper, Copper, " +
-        "Copper," + " Copper, Copper, ")
+
     }
   }
 }
