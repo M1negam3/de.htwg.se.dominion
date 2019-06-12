@@ -18,18 +18,24 @@ object Player {
     Players
   }
 
-  def getHand(player: Player): List[Cards] = {
+  def getHand(player: Player): Player = {
+    var copiedplayer = player
+    val copylist = Cards.deckclone(copiedplayer.deck)
     var l = new ListBuffer[Cards]
+    var d = new ListBuffer[Cards]
     for (i <- 0 until 5) {
-      l += player.deck(i)
-      player.deck(i)
+      l += copylist(i)
+    }
+    for (f <- 5 until copylist.length) {
+      d += copylist(f)
     }
     val hand: List[Cards] = l.toList
-    print("Player " + player.value + " Hand Cards are: ")
+    val deck: List[Cards] = d.toList
+    print("Player " + copiedplayer.value + " Hand Cards are: ")
     for (f <- 0 until 4) {
       print(hand(f).CardName + ", ")
     }
-    print(hand(5).CardName)
-    hand
+    println(hand(4).CardName)
+    new Player(copiedplayer.name, copiedplayer.value, deck, copiedplayer.stacker, hand)
   }
 }
