@@ -24,7 +24,7 @@ object Player {
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     for (i <- 0 until 5) {
-      if (i > copyList.length) {
+      if (i + 1 > copyList.length) {
         copiedPlayer = isEmpty(copiedPlayer)
         copyList = copiedPlayer.deck
       }
