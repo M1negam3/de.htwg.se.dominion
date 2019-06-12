@@ -11,7 +11,7 @@ object Player {
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.startDeck, Cards.stacker, Cards.hand)
+      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand)
       print("Player " + (i + 1) + " wurde erstellt!\n")
     }
     val Players: List[Player] = players.toList
@@ -45,7 +45,9 @@ object Player {
     for (i <- 0 until 5) {
       m += copiedPlayer.hand(i).MoneyValue
     }
-    print("Player " + copiedPlayer.value + " hat " + m + " Gold")
+    println("Player " + copiedPlayer.value + " hat " + m + " Gold")
     m
   }
+
+
 }

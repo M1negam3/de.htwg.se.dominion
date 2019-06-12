@@ -9,7 +9,9 @@ class Controller() extends Observable {
     pCount = InputOutput.getPlayerCount()
     val names = InputOutput.getPlayerName(pCount)
     val players = Player.createPlayer(pCount, names)
-    Player.getMoney(Player.getHand(players.head))
+    for (i <- 0 until pCount) {
+      Player.getMoney(Player.getHand(players(i)))
+    }
     notifyObservers
   }
 }
