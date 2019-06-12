@@ -19,23 +19,33 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
-    var copiedplayer = player
-    val copylist = copiedplayer.deck
+    var copiedPlayer = player
+    val copyList = copiedPlayer.deck
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     for (i <- 0 until 5) {
-      l += copylist(i)
+      l += copyList(i)
     }
-    for (f <- 5 until copylist.length) {
-      d += copylist(f)
+    for (f <- 5 until copyList.length) {
+      d += copyList(f)
     }
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
-    print("Player " + copiedplayer.value + " Hand Cards are: ")
+    print("Player " + copiedPlayer.value + " Hand Cards are: ")
     for (f <- 0 until 4) {
       print(hand(f).CardName + ", ")
     }
     println(hand(4).CardName)
-    new Player(copiedplayer.name, copiedplayer.value, deck, copiedplayer.stacker, hand)
+    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
+  }
+
+  def getMoney(player: Player): Int = {
+    val copiedPlayer = player
+    var m = 0
+    for (i <- 0 until 5) {
+      m += copiedPlayer.hand(i).MoneyValue
+    }
+    print("Player " + copiedPlayer.value + " hat " + m + " Gold")
+    m
   }
 }
