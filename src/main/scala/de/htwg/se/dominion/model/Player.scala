@@ -20,7 +20,7 @@ object Player {
 
   def getHand(player: Player): Player = {
     var copiedplayer = player
-    val copylist = Cards.deckclone(copiedplayer.deck)
+    val copylist = copiedplayer.deck
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     for (i <- 0 until 5) {

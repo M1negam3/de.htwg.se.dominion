@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model
 
 import scala.collection.mutable.ListBuffer
+import scala.util.Random
 
 case class Cards(CostValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyAdditionValue : Int,
                  BonusMoneyValue : Int, DrawingValue : Int, EffectValue : String, CardName : String) {
@@ -51,12 +52,9 @@ object Cards{
   var hand : List[Cards] = Nil
   var stacker : List[Cards] = Nil
 
-  def deckclone(list: List[Cards]): List[Cards] = {
-    var l = new ListBuffer[Cards]
-    for (i <- 0 until list.length) {
-      l += list(i)
-    }
-    val clonedList: List[Cards] = l.toList
-    clonedList
+  def shuffle(list: List[Cards]): List[Cards] = {
+    val random = new Random
+    val shuffledList: List[Cards] = random.shuffle(list)
+    shuffledList
   }
 }
