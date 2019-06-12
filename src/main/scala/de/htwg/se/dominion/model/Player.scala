@@ -48,6 +48,37 @@ object Player {
     println("Player " + copiedPlayer.value + " hat " + m + " Gold")
     m
   }
+  def turn(player: Player): Unit = {
+    var money = 0
+    var action = 0
+   // var finishedTurn: List[Cards] = player.stacker
+    //var test: List[Cards] = Cards.copperDeck
+    /*for (j <- 0 until 4) {
+      action += player.hand(j).ActionValue
+    }
+    println("Player " + player.value + " Action avaible are: " + action)
+    if (action == 0){*/
 
+    money= getMoney(player)
+    println("Player " + player.value + " Money to buy is:" + money)
+    if (money == 0) {
+      println("You don´t have enough money to buy something")
+    } else if (money == 1) {
+      println("You can buy a coppper, press 1 to buy or 0 to not")
+      if (scala.io.StdIn.readInt() == 1) {
+        //player.stacker += Cards.copperDeck(1)
+        //Cards.copperDeck(1) = Cards.copperDeck.head
+        println("funktioniert")
+      } else {
+        println("nothing was bought")
+      }
+    } /* else if (money == 2) {
+      println("You can buy a cellar and a copper")
+    } else if (money == 3) {
 
+    } else if (money == 4) {
+
+  }*/
+
+  }
 }

@@ -12,6 +12,7 @@ class Controller() extends Observable {
     for (i <- 0 until pCount) {
       Player.getMoney(Player.getHand(players(i)))
     }
+    Player.turn(players.head)
     notifyObservers
   }
 }
