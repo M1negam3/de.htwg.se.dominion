@@ -20,10 +20,14 @@ object Player {
 
   def getHand(player: Player): Player = {
     var copiedPlayer = player
-    val copyList = copiedPlayer.deck
+    var copyList = copiedPlayer.deck
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     for (i <- 0 until 5) {
+      if (i > copyList.length) {
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+      }
       l += copyList(i)
     }
     for (f <- 5 until copyList.length) {
@@ -80,5 +84,12 @@ object Player {
 
   }*/
 
+  }
+  def isEmpty(player: Player): Player = {
+    val copiedPlayer = player
+    val copiedStacker = player.stacker
+    val copiedDeck = Cards.shuffle(copiedStacker)
+    val stacker: List[Cards] = Nil
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
   }
 }
