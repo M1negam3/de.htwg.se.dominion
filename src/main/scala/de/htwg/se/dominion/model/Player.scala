@@ -22,9 +22,9 @@ object Player {
     var l = new ListBuffer[Cards]
     for (i <- 0 until 5) {
       l += player.deck(i)
+      player.deck(i)
     }
     val hand: List[Cards] = l.toList
-
     print("Player " + player.value + " Hand Cards are: ")
     for (f <- 0 until 4) {
       print(hand(f).CardName + ", ")
