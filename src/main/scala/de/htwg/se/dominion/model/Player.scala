@@ -55,13 +55,20 @@ object Player {
   def turn(player: Player): Unit = {
     var money = 0
     var action = 0
+    var bufferStacker: List[Cards] = Nil
+    var emptynil: List[Cards] = Nil
    // var finishedTurn: List[Cards] = player.stacker
     //var test: List[Cards] = Cards.copperDeck
-    /*for (j <- 0 until 4) {
+    for (j <- 0 until 4) {
       action += player.hand(j).ActionValue
     }
-    println("Player " + player.value + " Action avaible are: " + action)
-    if (action == 0){*/
+    //println("Player " + player.value + " Action avaible are: " + action)
+    if (action == 0){
+      println("You have one action to play a card choose one from your hand to play")
+      if(scala.io.StdIn.readInt()== 1) {
+        bufferStacker = player.stacker ::: player.hand.head :: emptynil
+      }
+    }
 
     money= getMoney(player)
     println("Player " + player.value + " Money to buy is:" + money)
@@ -70,9 +77,12 @@ object Player {
     } else if (money == 1) {
       println("You can buy a coppper, press 1 to buy or 0 to not")
       if (scala.io.StdIn.readInt() == 1) {
-        //player.stacker += Cards.copperDeck(1)
-        //Cards.copperDeck(1) = Cards.copperDeck.head
+        println(Cards.copperDeck.length)
+        bufferStacker = player.stacker ::: Cards.copperDeck.head :: emptynil
+        copyList(Cards.copperDeck)
         println("funktioniert")
+        println(bufferStacker)
+        println(copyList(Cards.copperDeck))
       } else {
         println("nothing was bought")
       }
@@ -91,5 +101,15 @@ object Player {
     val copiedDeck = Cards.shuffle(copiedStacker)
     val stacker: List[Cards] = Nil
     new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
+  }
+  def copyList(cards: List[Cards]): List[Cards] = {
+    var l= new ListBuffer[Cards]
+    val emptynil: List[Cards] = Nil
+
+    for(j <- 1 until cards.length){
+      l += cards(j)
+    }
+    val copiedList: List[Cards] = l.toList
+    copiedList
   }
 }
