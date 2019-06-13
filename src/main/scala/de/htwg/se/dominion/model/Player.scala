@@ -116,6 +116,7 @@ object Player {
     } else if (money == 4) {
 
   }*/
+
   }
   def copyList(cards: List[Cards]): List[Cards] = {
     var l= new ListBuffer[Cards]
