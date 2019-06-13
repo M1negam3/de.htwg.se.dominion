@@ -4,15 +4,14 @@ import de.htwg.se.dominion.util.Observable
 
 class Controller() extends Observable {
   var pCount = 0
+  var players: List[Player] = Nil
 
   def newGame(): Unit = {
     pCount = InputOutput.getPlayerCount()
     val names = InputOutput.getPlayerName(pCount)
-    val players = Player.createPlayer(pCount, names)
-    for (i <- 0 until pCount) {
-      Player.getMoney(Player.getHand(players(i)))
-    }
-    Player.turn(players.head)
+    players = Player.createPlayer(pCount, names)
+    players = Player.updatePlayer(players, Player.getHand(players.head))
+    print(players.head.hand)
     notifyObservers
   }
 }
