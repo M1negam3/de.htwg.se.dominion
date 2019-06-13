@@ -52,6 +52,31 @@ object Player {
     println("Player " + copiedPlayer.value + " hat " + m + " Gold")
     m
   }
+
+  def isEmpty(player: Player): Player = {
+    val copiedPlayer = player
+    val copiedStacker = player.stacker
+    val copiedDeck = Cards.shuffle(copiedStacker)
+    val stacker: List[Cards] = Nil
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
+  }
+
+  def updatePlayer(list: List[Player], player: Player): List[Player] = {
+    val copiedPlayer = player
+    val copiedPlayerList = list
+    val idx = copiedPlayer.value - 1
+    var updatedPlayerList = new ListBuffer[Player]
+    for (i <- 0 until copiedPlayerList.length) {
+      if (i == idx) {
+        updatedPlayerList += copiedPlayer
+      } else {
+        updatedPlayerList += copiedPlayerList(i)
+      }
+    }
+    val updatedList: List[Player] = updatedPlayerList.toList
+    updatedList
+  }
+
   def turn(player: Player): Unit = {
     var money = 0
     var action = 0
@@ -81,8 +106,6 @@ object Player {
         bufferStacker = player.stacker ::: Cards.copperDeck.head :: emptynil
         copyList(Cards.copperDeck)
         println("funktioniert")
-        println(bufferStacker)
-        println(copyList(Cards.copperDeck))
       } else {
         println("nothing was bought")
       }
@@ -93,14 +116,6 @@ object Player {
     } else if (money == 4) {
 
   }*/
-
-  }
-  def isEmpty(player: Player): Player = {
-    val copiedPlayer = player
-    val copiedStacker = player.stacker
-    val copiedDeck = Cards.shuffle(copiedStacker)
-    val stacker: List[Cards] = Nil
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
   }
   def copyList(cards: List[Cards]): List[Cards] = {
     var l= new ListBuffer[Cards]
