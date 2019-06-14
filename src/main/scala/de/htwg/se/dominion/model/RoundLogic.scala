@@ -36,8 +36,7 @@ object RoundLogic {
       } else {
         println("Your action cards are: " + actionString)
       }
-
-        /*do{
+      do {
           println("Choose with a number the card to play")
             var j = scala.io.StdIn.readInt()-1
             playingCards = l(i).hand(j) :: Nil
@@ -47,12 +46,9 @@ object RoundLogic {
             println(playingCards)
             l = Player.updatePlayer(l, removeHandcard(j,l(i)))
             println(l(i).hand)
-
         } while(actionNumber > 0)
 
-
-      playingCards = Nil*/
-      // TODO GESPIELTE KARTEN
+      playingCards = Nil
 
       print("\n---------------------- Buy Phase ----------------------\n \n")
       while (buys != 0) {
@@ -94,6 +90,7 @@ object RoundLogic {
     val copiedList: List[Cards] = l.toList
     copiedList
   }
+
   def removeHandcard(i: Int, player: Player): Player ={
     val copiedName = player.name
     val copiedNumber = player.value
