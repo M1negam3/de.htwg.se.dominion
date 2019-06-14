@@ -1,5 +1,5 @@
 package de.htwg.se.dominion.controller
-import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.model.{InputOutput, Player, Cards,RoundLogic}
 import de.htwg.se.dominion.util.Observable
 
 class Controller() extends Observable {
@@ -15,7 +15,7 @@ class Controller() extends Observable {
 
     var hand : List[Cards] = List(Cards.copper,Cards.copper,Cards.mansion,Cards.mansion,Cards.mansion)
     val test = new Player("Luca",1,Cards.startDeck,Cards.stacker,hand)
-    RoundLogic.turn(test)
+    RoundLogic.turn1(players)
     notifyObservers
   }
 }
