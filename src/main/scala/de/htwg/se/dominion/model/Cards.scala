@@ -71,7 +71,7 @@ object Cards{
   val gardensDeck: List[Cards] = List.fill(10)(gardens)
   val marketDeck: List[Cards] = List.fill(10)(market)
 
-  val playingDeck: List[List[Cards]] = List(copperDeck, silverDeck, goldDeck, mansionDeck, duchyDeck, provinceDeck,
+  val playingDeck: List[List[Cards]] = List(copperDeck, silverDeck, goldDeck, provinceDeck, mansionDeck, duchyDeck,
     villageDeck, festivalDeck, cellarDeck, mineDeck, smithyDeck, remodelDeck, merchantDeck, workshopDeck, gardensDeck,
     marketDeck)
 

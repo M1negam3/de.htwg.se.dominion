@@ -39,14 +39,13 @@ object RoundLogic {
       } else {
         println("Your action cards are: " + actionString)
       }
-      while(actionNumber > 0) {
+      while(actionNumber != 0) {
         breakable {
           for(h <- 0 until l(i).hand.length) {
             if(l(i).hand(h).Type == "Money"){
               z +=1
             }
           }
-          println(z)
           if (z == l(1).hand.length) {
             actionNumber = 0
             inputStr = ""
@@ -65,8 +64,8 @@ object RoundLogic {
             while(true){
               try {
                 val cardNumber:Integer = scala.io.StdIn.readInt()
-                if (cardNumber <= l(1).hand.length-1)
-                  return cardNumber
+                if (cardNumber <= l(i).hand.length-1)
+                  cardNumber
                 else
                   println(Console.RED + "Please enter a digit between 0 and " + l(i).hand.length)
               } catch {
@@ -92,8 +91,6 @@ object RoundLogic {
         }
       }
 
-
-
       print("\n---------------------- Buy Phase ----------------------\n \n")
       while (buys != 0) {
         println("Your money is: " + money)
@@ -104,7 +101,6 @@ object RoundLogic {
             print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue + "]" + "(" + g + "), ")
           }
         }
-
         breakable {
           print("\nDo you want to buy a Card? (Y/N)\n")
           inputStr = scala.io.StdIn.readLine()
@@ -122,10 +118,13 @@ object RoundLogic {
             print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
             for (h <- 0 until playingDecks.length) {
               if (playingDecks(h).isEmpty) {
+                if (h == 3) {
+                  GameEnd.end(0)
+                }
                 playingDecks = updatePlayingDecks(playingDecks, h)
                 empty += 1
                 if (empty == 3) {
-                  GameEnd.end()
+                  GameEnd.end(1)
                 }
                 break
               }
@@ -133,6 +132,10 @@ object RoundLogic {
             buys -= 1
           }
         }
+      }
+
+      for (e <- 0 until l(i).hand.length) {
+        l = Player.updatePlayer(l, updateStacker(l(i), l(i).hand(e)))
       }
 
       println("You cant do anything anymore, your turn is over")

@@ -27,6 +27,8 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" =>
       case "n" => controller.newGame()
+      case "e" => controller.endGame()
+      case "h" => controller.help()
       case _ =>
     }
   }
@@ -36,10 +38,17 @@ class Tui(controller: Controller) extends Observer {
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
 
                                         Press "n" to START a NEW Game!
+                                        Press "h" to get the Rules!
                                         Press "q" to QUIT the Game!
+                                        Press "e" to END the Game and get your Score!
 
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin
   }
+
+  def printHelp(): String = {
+    "help"
+  }
+
   override def update(): Boolean = {println(); true}
 }
