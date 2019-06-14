@@ -1,7 +1,9 @@
 package de.htwg.se.dominion.model
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.model.Player._
+
 import scala.collection.mutable.ListBuffer
+import scala.language.postfixOps
 
 object RoundLogic {
 
@@ -35,12 +37,14 @@ object RoundLogic {
 
         do{
           println("Choose with a number the card to play")
-            var j = scala.io.StdIn.readInt()
+            var j = scala.io.StdIn.readInt()-1
             playingCards = l(i).hand(j) :: Nil
             actionNumber += playingCards(i).ActionValue
             actionNumber -= 1
             bufferStacker =l(i).stacker ::: l(i).hand(j) :: Nil
             println(playingCards)
+            l = Player.updatePlayer(l, removeHandcard(j,l(i)))
+            println(l(i).hand)
 
         } while(actionNumber > 0)
 
@@ -116,13 +120,26 @@ object RoundLogic {
   }
   def copyList(cards: List[Cards]): List[Cards] = {
     var l= new ListBuffer[Cards]
-    val emptynil: List[Cards] = Nil
 
     for(j <- 1 until cards.length){
       l += cards(j)
     }
     val copiedList: List[Cards] = l.toList
     copiedList
+  }
+  def removeHandcard(i: Int, player: Player): Player ={
+    val copiedName = player.name
+    val copiedNumber = player.value
+    val copiedDeck = player.deck
+    val copiedStacker = player.stacker
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    for(j <- 0 until player.hand.length) {
+      listBuffer1 += player.hand(j)
+    }
+    var z: List[Cards] = Nil
+    listBuffer1.-=(player.hand(i))
+    z = listBuffer1.toList
+    Player(copiedName,copiedNumber,copiedDeck,copiedStacker,z)
   }
 
 }
