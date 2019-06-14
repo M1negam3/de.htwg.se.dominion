@@ -8,6 +8,7 @@ object RoundLogic {
     var l = list
     var money = 0
     var actionNumber = 0
+    var buys = 0
 
     for (i <- 0 until l.length) {
       println("Player" + l(i).value + " `s turn")
@@ -32,6 +33,10 @@ object RoundLogic {
 
       println("-----------Buy Phase----------")
 
+      while (buys != 0) {
+
+        buys -= 1
+      }
     }
   }
   def turn(player: Player): Unit = {
