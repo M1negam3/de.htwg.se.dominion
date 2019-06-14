@@ -14,7 +14,6 @@ object RoundLogic {
     var l = list
     var empty = 0
     var playingDecks = Cards.playingDeck
-    var playingCards: List[Cards] = Nil
 
     for (i <- 0 until l.length) {
       var money = 0
@@ -26,6 +25,8 @@ object RoundLogic {
       var z:Integer = 0
       var x:Integer = 0
       var cardNumber = 0
+      var playingCards: List[Cards] = Nil
+      var z = 0
       print("---------------------- New Turn ----------------------\n \n")
       println("Player " + l(i).value + " `s turn")
       l = Player.updatePlayer(l, Player.getHand(l(i)))
@@ -125,15 +126,17 @@ object RoundLogic {
             inputInt = scala.io.StdIn.readInt()
             var copiedCard = playingDecks(inputInt).head
             l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
-            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
             money = money - playingDecks(inputInt).head.CostValue
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+            print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
             for (h <- 0 until playingDecks.length) {
               if (playingDecks(h).isEmpty) {
                 playingDecks = updatePlayingDecks(playingDecks, h)
                 empty += 1
                 if (empty == 3) {
-                  System.exit(0)
+                  GameEnd.end()
                 }
+                break
               }
             }
             buys -= 1
