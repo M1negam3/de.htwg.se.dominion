@@ -60,7 +60,7 @@ object Cards{
   val duchyDeck: List[Cards] = List.fill(12)(duchy)
   val provinceDeck: List[Cards] = List.fill(12)(province)
 
-  val villageDeck: List[Cards] = List.fill(10)(village)
+  val villageDeck: List[Cards] = List.fill(1)(village)
   val festivalDeck: List[Cards] = List.fill(10)(festival)
   val cellarDeck: List[Cards] = List.fill(10)(cellar)
   val mineDeck: List[Cards] = List.fill(10)(mine)
