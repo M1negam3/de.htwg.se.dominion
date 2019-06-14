@@ -7,6 +7,7 @@ object RoundLogic {
   def turn1(list: List[Player]): Unit = {
     var l = list
     var money = 0
+    var actionNumber = 0
 
     for (i <- 0 until l.length) {
       println("Player" + l(i).value + " `s turn")
@@ -19,10 +20,11 @@ object RoundLogic {
       for (f <- 0 until 5) {
         print("Your action card(s) are: ")
         if (l(i).hand(f).Type.equals("Action")) {
+          actionNumber += 1
           print(l(i).hand(f).CardName + "(" + f + ")" + ", ")
-        } else {
-          println("-")
-          println("You dont have any action cards!")
+        }
+        if (actionNumber == 0) {
+          println("You dont have any")
         }
       }
 

@@ -52,10 +52,12 @@ object Cards{
   var hand : List[Cards] = Nil
   var stacker : List[Cards] = Nil
 
-  var villageDeck: List[Cards] = List(village, village,village)
+  var villageDeck: List[Cards] = List(village, village, village, village, village, village, village, village, village, village)
   var copperDeck: List[Cards] = List(copper,copper,copper)
   var mansionDeck: List[Cards] = List(mansion, mansion, mansion)
   var cellarDeck: List[Cards] = List(cellar,cellar,cellar)
+
+  var playingDeck: List[List[Cards]] = List(copperDeck, villageDeck, mansionDeck, cellarDeck)
 
   def shuffle(list: List[Cards]): List[Cards] = {
     val random = new Random
