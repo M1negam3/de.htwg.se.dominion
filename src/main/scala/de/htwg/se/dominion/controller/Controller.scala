@@ -10,8 +10,7 @@ class Controller() extends Observable {
     pCount = InputOutput.getPlayerCount()
     val names = InputOutput.getPlayerName(pCount)
     players = Player.createPlayer(pCount, names)
-    println("---------------------- Game preparation finished!----------------------")
-    println()
+    print("\n---------------------- Game preparation finished!----------------------\n \n")
     RoundLogic.turn1(players)
     notifyObservers
   }

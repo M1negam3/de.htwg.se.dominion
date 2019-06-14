@@ -49,7 +49,6 @@ object Player {
     for (i <- 0 until 5) {
       m += copiedPlayer.hand(i).MoneyValue
     }
-    println("Player " + copiedPlayer.value + " hat " + m + " Gold")
     m
   }
 
