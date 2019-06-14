@@ -10,6 +10,7 @@ object RoundLogic {
     var l = list
     var money = 0
     var actionNumber = 0
+    var buys = 0
     var playingCards: List[Cards] = Nil
     var bufferStacker: List[Cards] = Nil
 
@@ -33,6 +34,7 @@ object RoundLogic {
           println("You can play an Actioncard")
 
         }
+      }
 
         do{
           println("Choose with a number the card to play")
@@ -45,12 +47,16 @@ object RoundLogic {
 
         } while(actionNumber > 0)
 
-      }
+
       playingCards = Nil
       // TODO GESPIELTE KARTEN
 
       println("-----------Buy Phase----------")
 
+      while (buys != 0) {
+
+        buys -= 1
+      }
     }
   }
   def turn(player: Player): Unit = {
