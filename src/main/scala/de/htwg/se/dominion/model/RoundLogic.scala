@@ -1,7 +1,7 @@
 package de.htwg.se.dominion.model
-
-import de.htwg.se.dominion.model
-import de.htwg.se.dominion.model.Player.{copyList, getMoney}
+import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.model.Player._
+import scala.collection.mutable.ListBuffer
 
 object RoundLogic {
 
@@ -10,7 +10,9 @@ object RoundLogic {
     var money = 0
     var actionNumber = 0
     var buys = 0
-    var playingCards = Cards.playingDeck
+    var playingDeck = Cards.playingDeck
+    var playingCards: List[Cards] = Nil
+    var bufferStacker: List[Cards] = Nil
 
     for (i <- 0 until l.length) {
       println("Player " + l(i).value + " `s turn")
@@ -31,6 +33,19 @@ object RoundLogic {
         println("You dont have any")
       }
 
+        do{
+          println("Choose with a number the card to play")
+            var j = scala.io.StdIn.readInt()
+            playingCards = l(i).hand(j) :: Nil
+            actionNumber += playingCards(i).ActionValue
+            actionNumber -= 1
+            bufferStacker =l(i).stacker ::: l(i).hand(j) :: Nil
+            println(playingCards)
+
+        } while(actionNumber > 0)
+
+
+      playingCards = Nil
       // TODO GESPIELTE KARTEN
 
       println("---------------------- Buy Phase ----------------------")
@@ -98,6 +113,16 @@ object RoundLogic {
         }
       }
     }
+  }
+  def copyList(cards: List[Cards]): List[Cards] = {
+    var l= new ListBuffer[Cards]
+    val emptynil: List[Cards] = Nil
+
+    for(j <- 1 until cards.length){
+      l += cards(j)
+    }
+    val copiedList: List[Cards] = l.toList
+    copiedList
   }
 
 }

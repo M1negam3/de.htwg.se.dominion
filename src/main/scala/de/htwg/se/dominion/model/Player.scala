@@ -76,15 +76,4 @@ object Player {
     val updatedList: List[Player] = updatedPlayerList.toList
     updatedList
   }
-
-  def copyList(cards: List[Cards]): List[Cards] = {
-    var l= new ListBuffer[Cards]
-    val emptynil: List[Cards] = Nil
-
-    for(j <- 1 until cards.length){
-      l += cards(j)
-    }
-    val copiedList: List[Cards] = l.toList
-    copiedList
-  }
 }
