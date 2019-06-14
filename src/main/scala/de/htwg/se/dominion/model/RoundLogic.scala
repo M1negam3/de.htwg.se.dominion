@@ -21,6 +21,7 @@ object RoundLogic {
       var buys = 1
       var inputInt = 0
       var inputStr = ""
+      var z = 0
       print("---------------------- New Turn ----------------------\n \n")
       println("Player " + l(i).value + " `s turn")
       l = Player.updatePlayer(l, Player.getHand(l(i)))
@@ -40,14 +41,39 @@ object RoundLogic {
       }
       while(actionNumber > 0) {
         breakable {
+          for(h <- 0 until l(i).hand.length) {
+            if(l(i).hand(h).Type == "Money"){
+              z +=1
+            }
+          }
+          println(z)
+          if (z == l(1).hand.length) {
+            actionNumber = 0
+            inputStr = ""
+            break
+          }
           print("\nDo you want to play a Card? (Y/N)\n")
+          print(l(1).hand.length)
           inputStr = scala.io.StdIn.readLine()
+
           if (inputStr.equals("N")) {
             actionNumber = 0
             inputStr = ""
             break
           } else {
             println("Choose with a number the card to play")
+            while(true){
+              try {
+                val cardNumber:Integer = scala.io.StdIn.readInt()
+                if (cardNumber <= l(1).hand.length-1)
+                  return cardNumber
+                else
+                  println(Console.RED + "Please enter a digit between 0 and " + l(i).hand.length)
+              } catch {
+                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+              }
+            -1
+            }
             inputInt = scala.io.StdIn.readInt()
             playingCards = l(i).hand(inputInt) :: Nil
             actionNumber += playingCards(i).ActionValue
