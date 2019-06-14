@@ -18,7 +18,6 @@ object RoundLogic {
     var inputStr = ""
     var playingDecks = Cards.playingDeck
     var playingCards: List[Cards] = Nil
-    var bufferStacker: List[Cards] = Nil
 
     for (i <- 0 until l.length) {
       print("---------------------- New Turn ----------------------\n \n")
@@ -39,22 +38,22 @@ object RoundLogic {
         println("Your action cards are: " + actionString)
       }
       do {
-        println("Do you want to play a Card? (Y/N)")
-        inputStr = scala.io.StdIn.readLine()
-        if (inputStr.equals("N")) {
-          break
-        }
+
         println("Choose with a number the card to play")
-            inputInt = scala.io.StdIn.readInt()-1
+            inputInt = scala.io.StdIn.readInt()
             playingCards = l(i).hand(inputInt) :: Nil
-            actionNumber += playingCards(inputInt).ActionValue
+            actionNumber += playingCards(i).ActionValue
             actionNumber -= 1
             println(playingCards)
             l = Player.updatePlayer(l, removeHandcard(inputInt,l(i)))
             println(l(i).hand)
+            for (f <- 0 until l(i).hand.length) {
+              if (l(i).hand(f).Type.equals("Action")) {
+              actionString += l(i).hand(f).CardName + "(" + f + ")" + ", "
+            }
+           }
         } while(actionNumber > 0)
 
-      playingCards = Nil
 
       print("\n---------------------- Buy Phase ----------------------\n \n")
       while (buys != 0) {
