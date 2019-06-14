@@ -1,5 +1,6 @@
 package de.htwg.se.dominion.model
 
+import de.htwg.se.dominion.model
 import de.htwg.se.dominion.model.Player.{copyList, getMoney}
 
 object RoundLogic {
@@ -9,14 +10,15 @@ object RoundLogic {
     var money = 0
     var actionNumber = 0
     var buys = 0
+    var playingCards = Cards.playingDeck
 
     for (i <- 0 until l.length) {
-      println("Player" + l(i).value + " `s turn")
+      println("Player " + l(i).value + " `s turn")
       l = Player.updatePlayer(l, Player.getHand(l(i)))
       money = Player.getMoney(l(i))
-      println("Your money is: " + money)
 
-      println("------Actionphase--------")
+      println("---------------------- Actionphase ----------------------")
+      println()
 
       for (f <- 0 until 5) {
         print("Your action card(s) are: ")
@@ -24,19 +26,26 @@ object RoundLogic {
           actionNumber += 1
           print(l(i).hand(f).CardName + "(" + f + ")" + ", ")
         }
-        if (actionNumber == 0) {
-          println("You dont have any")
-        }
+      }
+      if (actionNumber == 0) {
+        println("You dont have any")
       }
 
       // TODO GESPIELTE KARTEN
 
-      println("-----------Buy Phase----------")
+      println("---------------------- Buy Phase ----------------------")
+      println()
+      println("Your money is: " + money)
+      /*while (buys != 0) {
+        for (g <- 0 until playingCards.length) {
+          if (money >= Cards.playingDeck(g).head.CostValue) {
 
-      while (buys != 0) {
-
-        buys -= 1
+          }
+        }
       }
+        buys -= 1
+      println("You cant do anything anymore, your turn is over")
+      println("Player" + l(i).value + "`s turn is over!")*/
     }
   }
   def turn(player: Player): Unit = {

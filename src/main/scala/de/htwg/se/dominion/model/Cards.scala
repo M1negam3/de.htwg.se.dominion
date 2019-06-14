@@ -52,26 +52,26 @@ object Cards{
   var hand : List[Cards] = Nil
   var stacker : List[Cards] = Nil
 
-  var copperDeck: List[Cards] = List.fill(100)(copper)
-  var silverDeck: List[Cards] = List.fill(100)(silver)
-  var goldDeck: List[Cards] = List.fill(100)(gold)
+  val copperDeck: List[Cards] = List.fill(100)(copper)
+  val silverDeck: List[Cards] = List.fill(100)(silver)
+  val goldDeck: List[Cards] = List.fill(100)(gold)
 
-  var mansionDeck: List[Cards] = List.fill(12)(mansion)
-  var duchyDeck: List[Cards] = List.fill(12)(duchy)
-  var provinceDeck: List[Cards] = List.fill(12)(province)
+  val mansionDeck: List[Cards] = List.fill(12)(mansion)
+  val duchyDeck: List[Cards] = List.fill(12)(duchy)
+  val provinceDeck: List[Cards] = List.fill(12)(province)
 
-  var villageDeck: List[Cards] = List.fill(10)(village)
-  var festivalDeck: List[Cards] = List.fill(10)(festival)
-  var cellarDeck: List[Cards] = List.fill(10)(cellar)
-  var mineDeck: List[Cards] = List.fill(10)(mine)
-  var smithyDeck: List[Cards] = List.fill(10)(smithy)
-  var remodelDeck: List[Cards] = List.fill(10)(remodel)
-  var merchantDeck: List[Cards] = List.fill(10)(merchant)
-  var workshopDeck: List[Cards] = List.fill(10)(workshop)
-  var gardensDeck: List[Cards] = List.fill(10)(gardens)
-  var marketDeck: List[Cards] = List.fill(10)(market)
+  val villageDeck: List[Cards] = List.fill(10)(village)
+  val festivalDeck: List[Cards] = List.fill(10)(festival)
+  val cellarDeck: List[Cards] = List.fill(10)(cellar)
+  val mineDeck: List[Cards] = List.fill(10)(mine)
+  val smithyDeck: List[Cards] = List.fill(10)(smithy)
+  val remodelDeck: List[Cards] = List.fill(10)(remodel)
+  val merchantDeck: List[Cards] = List.fill(10)(merchant)
+  val workshopDeck: List[Cards] = List.fill(10)(workshop)
+  val gardensDeck: List[Cards] = List.fill(10)(gardens)
+  val marketDeck: List[Cards] = List.fill(10)(market)
 
-  var playingDeck: List[List[Cards]] = List(copperDeck, silverDeck, goldDeck, mansionDeck, duchyDeck, provinceDeck,
+  val playingDeck: List[List[Cards]] = List(copperDeck, silverDeck, goldDeck, mansionDeck, duchyDeck, provinceDeck,
     villageDeck, festivalDeck, cellarDeck, mineDeck, smithyDeck, remodelDeck, merchantDeck, workshopDeck, gardensDeck,
     marketDeck)
 
