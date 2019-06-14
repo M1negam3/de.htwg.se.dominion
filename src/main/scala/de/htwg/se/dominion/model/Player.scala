@@ -1,7 +1,5 @@
 package de.htwg.se.dominion.model
 
-import de.htwg.se.dominion.model.Player.copyList
-
 import scala.collection.mutable.ListBuffer
 
 case class Player(name : String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards]) {
