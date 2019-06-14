@@ -37,15 +37,22 @@ object RoundLogic {
       } else {
         println("Your action cards are: " + actionString)
       }
-      do {
-
-        println("Choose with a number the card to play")
+      while(actionNumber > 0) {
+        breakable {
+          print("\nDo you want to play a Card? (Y/N)\n")
+          inputStr = scala.io.StdIn.readLine()
+          if (inputStr.equals("N")) {
+            actionNumber = 0
+            inputStr = ""
+            break
+          } else {
+            println("Choose with a number the card to play")
             inputInt = scala.io.StdIn.readInt()
             playingCards = l(i).hand(inputInt) :: Nil
             actionNumber += playingCards(i).ActionValue
             actionNumber -= 1
             println(playingCards)
-            l = Player.updatePlayer(l, removeHandcard(inputInt,l(i)))
+            l = Player.updatePlayer(l, removeHandcard(inputInt, l(i)))
             println(l(i).hand)
             actionString = ""
             for (f <- 0 until l(i).hand.length) {
@@ -54,7 +61,10 @@ object RoundLogic {
               }
             }
             println("Your action cards are: " + actionString)
-        } while(actionNumber > 0)
+          }
+        }
+      }
+
 
 
       print("\n---------------------- Buy Phase ----------------------\n \n")
