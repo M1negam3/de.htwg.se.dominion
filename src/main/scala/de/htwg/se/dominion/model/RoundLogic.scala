@@ -10,16 +10,17 @@ object RoundLogic {
 
   def turn1(list: List[Player]): Unit = {
     var l = list
-    var money = 0
-    var actionNumber = 0
-    var actionString = ""
-    var buys = 2
-    var inputInt = 0
-    var inputStr = ""
+    var empty = 0
     var playingDecks = Cards.playingDeck
     var playingCards: List[Cards] = Nil
 
     for (i <- 0 until l.length) {
+      var money = 0
+      var actionNumber = 0
+      var actionString = ""
+      var buys = 1
+      var inputInt = 0
+      var inputStr = ""
       print("---------------------- New Turn ----------------------\n \n")
       println("Player " + l(i).value + " `s turn")
       l = Player.updatePlayer(l, Player.getHand(l(i)))
@@ -37,8 +38,7 @@ object RoundLogic {
       } else {
         println("Your action cards are: " + actionString)
       }
-      do {
-
+      /*do {
         println("Choose with a number the card to play")
             inputInt = scala.io.StdIn.readInt()
             playingCards = l(i).hand(inputInt) :: Nil
@@ -54,7 +54,7 @@ object RoundLogic {
               }
             }
             println("Your action cards are: " + actionString)
-        } while(actionNumber > 0)
+        } while(actionNumber > 0)*/
 
 
       print("\n---------------------- Buy Phase ----------------------\n \n")
@@ -72,6 +72,8 @@ object RoundLogic {
           print("\nDo you want to buy a Card? (Y/N)\n")
           inputStr = scala.io.StdIn.readLine()
           if (inputStr.equals("N")) {
+            buys = 0
+            inputStr = ""
             break
           } else {
             print("\nWhich Card do you want to buy?\n")
@@ -80,12 +82,18 @@ object RoundLogic {
             l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
             money = money - playingDecks(inputInt).head.CostValue
-
+            for (h <- 0 until playingDecks.length) {
+              if (playingDecks(h).isEmpty) {
+                playingDecks = updatePlayingDecks(playingDecks, h)
+                empty += 1
+                if (empty == 3) {
+                  System.exit(0)
+                }
+              }
+            }
             buys -= 1
           }
         }
-        buys = 0
-        inputStr = ""
       }
 
       println("You cant do anything anymore, your turn is over")
@@ -145,6 +153,19 @@ object RoundLogic {
     copiedStacker += copiedCard
     val updatedStacker: List[Cards] = copiedStacker.toList
     new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand)
+  }
+
+  def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]] = {
+    val copiedPD = l
+    var updatedPD = new ListBuffer[List[Cards]]
+    for (i <- 0 until copiedPD.length) {
+      updatedPD += copiedPD(i)
+      if (i == idx) {
+        updatedPD -= updatedPD(i)
+      }
+    }
+    val updatedList: List[List[Cards]] = updatedPD.toList
+    updatedList
   }
 
 }
