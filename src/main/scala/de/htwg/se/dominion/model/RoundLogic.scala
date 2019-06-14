@@ -42,7 +42,6 @@ object RoundLogic {
             playingCards = l(i).hand(j) :: Nil
             actionNumber += playingCards(i).ActionValue
             actionNumber -= 1
-            bufferStacker =l(i).stacker ::: l(i).hand(j) :: Nil
             println(playingCards)
             l = Player.updatePlayer(l, removeHandcard(j,l(i)))
             println(l(i).hand)
