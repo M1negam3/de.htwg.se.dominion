@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.model.Player._
+import scala.util.control.Breaks._
 
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
@@ -13,7 +14,8 @@ object RoundLogic {
     var actionNumber = 0
     var actionString = ""
     var buys = 2
-    var input = 0
+    var inputInt = 0
+    var inputStr = ""
     var playingDecks = Cards.playingDeck
     var playingCards: List[Cards] = Nil
     var bufferStacker: List[Cards] = Nil
@@ -37,13 +39,18 @@ object RoundLogic {
         println("Your action cards are: " + actionString)
       }
       do {
-          println("Choose with a number the card to play")
-            var j = scala.io.StdIn.readInt()-1
-            playingCards = l(i).hand(j) :: Nil
-            actionNumber += playingCards(i).ActionValue
+        println("Do you want to play a Card? (Y/N)")
+        inputStr = scala.io.StdIn.readLine()
+        if (inputStr.equals("N")) {
+          break
+        }
+        println("Choose with a number the card to play")
+            inputInt = scala.io.StdIn.readInt()-1
+            playingCards = l(i).hand(inputInt) :: Nil
+            actionNumber += playingCards(inputInt).ActionValue
             actionNumber -= 1
             println(playingCards)
-            l = Player.updatePlayer(l, removeHandcard(j,l(i)))
+            l = Player.updatePlayer(l, removeHandcard(inputInt,l(i)))
             println(l(i).hand)
         } while(actionNumber > 0)
 
@@ -59,12 +66,17 @@ object RoundLogic {
             print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue + "]" + "(" + g + "), ")
           }
         }
+        println("Do you want to buy a Card? (Y/N)")
+        inputStr = scala.io.StdIn.readLine()
+        if (inputStr.equals("N")) {
+          break
+        }
         print("\nWhich Card do you want to buy?\n")
-        input = scala.io.StdIn.readInt()
-        var copiedCard = playingDecks(input).head
+        inputInt = scala.io.StdIn.readInt()
+        var copiedCard = playingDecks(inputInt).head
         l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
-        playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
-        money = money - playingDecks(input).head.CostValue
+        playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+        money = money - playingDecks(inputInt).head.CostValue
         for (h <- 0 until playingDecks.length) {
           if (playingDecks(h).isEmpty) {
 
