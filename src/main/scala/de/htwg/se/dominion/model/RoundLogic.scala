@@ -47,11 +47,13 @@ object RoundLogic {
             println(playingCards)
             l = Player.updatePlayer(l, removeHandcard(inputInt,l(i)))
             println(l(i).hand)
+            actionString = ""
             for (f <- 0 until l(i).hand.length) {
               if (l(i).hand(f).Type.equals("Action")) {
-              actionString += l(i).hand(f).CardName + "(" + f + ")" + ", "
+                actionString += l(i).hand(f).CardName + "(" + f + ")" + ", "
+              }
             }
-           }
+            println("Your action cards are: " + actionString)
         } while(actionNumber > 0)
 
 
