@@ -3,6 +3,8 @@ import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.model.Player._
 import scala.util.control.Breaks._
 
+
+
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
 
@@ -21,7 +23,9 @@ object RoundLogic {
       var buys = 1
       var inputInt = 0
       var inputStr = ""
-      var z = 0
+      var z:Integer = 0
+      var x:Integer = 0
+      var cardNumber = 0
       print("---------------------- New Turn ----------------------\n \n")
       println("Player " + l(i).value + " `s turn")
       l = Player.updatePlayer(l, Player.getHand(l(i)))
@@ -46,14 +50,15 @@ object RoundLogic {
               z +=1
             }
           }
-          println(z)
-          if (z == l(1).hand.length) {
+          x= l(i).hand.length
+          if (z.equals(x)) {
             actionNumber = 0
             inputStr = ""
             break
           }
+          z = 0
           print("\nDo you want to play a Card? (Y/N)\n")
-          print(l(1).hand.length)
+
           inputStr = scala.io.StdIn.readLine()
 
           if (inputStr.equals("N")) {
@@ -64,30 +69,33 @@ object RoundLogic {
             println("Choose with a number the card to play")
             while(true){
               try {
-                val cardNumber:Integer = scala.io.StdIn.readInt()
-                if (cardNumber <= l(1).hand.length-1)
-                  return cardNumber
-                else
+                cardNumber= scala.io.StdIn.readInt()
+                if (cardNumber < x) {
+                  playingCards = l(i).hand(cardNumber) :: Nil
+                  actionNumber += playingCards(i).ActionValue
+                  actionNumber -= 1
+                  println(playingCards)
+                  l = Player.updatePlayer(l, removeHandcard(cardNumber, l(i)))
+                  println(l(i).hand)
+                  actionString = ""
+
+
+                  for (f <- 0 until l(i).hand.length) {
+                    if (l(i).hand(f).Type.equals("Action")) {
+                      actionString += l(i).hand(f).CardName + "(" + f + ")" + ", "
+                    }
+                  }
+                  println("Your action cards are: " + actionString)
+                  -1
+                }else
                   println(Console.RED + "Please enter a digit between 0 and " + l(i).hand.length)
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
               }
-            -1
+              break
             }
-            inputInt = scala.io.StdIn.readInt()
-            playingCards = l(i).hand(inputInt) :: Nil
-            actionNumber += playingCards(i).ActionValue
-            actionNumber -= 1
-            println(playingCards)
-            l = Player.updatePlayer(l, removeHandcard(inputInt, l(i)))
-            println(l(i).hand)
-            actionString = ""
-            for (f <- 0 until l(i).hand.length) {
-              if (l(i).hand(f).Type.equals("Action")) {
-                actionString += l(i).hand(f).CardName + "(" + f + ")" + ", "
-              }
-            }
-            println("Your action cards are: " + actionString)
+            //inputInt = scala.io.StdIn.readInt()
+
           }
         }
       }
