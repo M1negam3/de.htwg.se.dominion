@@ -66,8 +66,14 @@ object RoundLogic {
         l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
         playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
         money = money - playingDecks(input).head.CostValue
+        for (h <- 0 until playingDecks.length) {
+          if (playingDecks(h).isEmpty) {
+
+          }
+        }
         buys -= 1
       }
+
 
       println("You cant do anything anymore, your turn is over")
       println("Player" + l(i).value + "`s turn is over!")
