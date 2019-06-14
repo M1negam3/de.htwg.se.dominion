@@ -67,25 +67,26 @@ object RoundLogic {
             print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue + "]" + "(" + g + "), ")
           }
         }
-        println("Do you want to buy a Card? (Y/N)")
-        inputStr = scala.io.StdIn.readLine()
-        if (inputStr.equals("N")) {
-          break
-        }
-        print("\nWhich Card do you want to buy?\n")
-        inputInt = scala.io.StdIn.readInt()
-        var copiedCard = playingDecks(inputInt).head
-        l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
-        playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
-        money = money - playingDecks(inputInt).head.CostValue
-        for (h <- 0 until playingDecks.length) {
-          if (playingDecks(h).isEmpty) {
 
+        breakable {
+          print("\nDo you want to buy a Card? (Y/N)\n")
+          inputStr = scala.io.StdIn.readLine()
+          if (inputStr.equals("N")) {
+            break
+          } else {
+            print("\nWhich Card do you want to buy?\n")
+            inputInt = scala.io.StdIn.readInt()
+            var copiedCard = playingDecks(inputInt).head
+            l = Player.updatePlayer(l, updateStacker(l(i), copiedCard))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+            money = money - playingDecks(inputInt).head.CostValue
+
+            buys -= 1
           }
         }
-        buys -= 1
+        buys = 0
+        inputStr = ""
       }
-
 
       println("You cant do anything anymore, your turn is over")
       println("Player" + l(i).value + "`s turn is over!")
