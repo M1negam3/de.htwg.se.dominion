@@ -9,8 +9,6 @@ object GameEnd {
     var copiedDeck = new ListBuffer[Cards]
     var copiedPlayerl = new ListBuffer[Player]
     val emptyStacker: List[Cards] = Nil
-    println("END TEST " + copiedPlayerList.length)
-    println("STACKER LÄNGE " + copiedPlayerList(0).stacker.length)
     for (i <- 0 until copiedPlayerList.length) {
       if (copiedPlayerList(i).deck.nonEmpty) {
         for (f <- 0 until copiedPlayerList(i).deck.length) {
@@ -25,7 +23,7 @@ object GameEnd {
       }
 
       val updatedDeck: List[Cards] = copiedDeck.toList
-      copiedPlayerl(i) = new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand)
+      copiedPlayerl += new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand)
     }
     val updatedPlayerList: List[Player] = copiedPlayerl.toList
     updatedPlayerList
@@ -40,7 +38,7 @@ object GameEnd {
 
     for (i <- 0 until pCount) {
       for (f <- 0 until copiedPlayerList(i).deck.length) {
-        wp = copiedPlayerList(i).deck(f).WpValue
+        wp += copiedPlayerList(i).deck(f).WpValue
       }
       mutableScore += (copiedPlayerList(i).name -> wp)
       wp = 0
@@ -49,7 +47,6 @@ object GameEnd {
       sortedScore += mutableScore.max
       mutableScore -= mutableScore.max._1
     }
-
     val score: Map[String, Int] = sortedScore.toMap
     score
   }

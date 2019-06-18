@@ -55,11 +55,9 @@ object Cards{
   val copperDeck: List[Cards] = List.fill(100)(copper)
   val silverDeck: List[Cards] = List.fill(100)(silver)
   val goldDeck: List[Cards] = List.fill(100)(gold)
-
   val mansionDeck: List[Cards] = List.fill(12)(mansion)
   val duchyDeck: List[Cards] = List.fill(12)(duchy)
   val provinceDeck: List[Cards] = List.fill(12)(province)
-
   val villageDeck: List[Cards] = List.fill(1)(village)
   val festivalDeck: List[Cards] = List.fill(1)(festival)
   val cellarDeck: List[Cards] = List.fill(1)(cellar)
@@ -70,7 +68,6 @@ object Cards{
   val workshopDeck: List[Cards] = List.fill(1)(workshop)
   val gardensDeck: List[Cards] = List.fill(1)(gardens)
   val marketDeck: List[Cards] = List.fill(1)(market)
-
   val playingDeck: List[List[Cards]] = List(copperDeck, silverDeck, goldDeck, provinceDeck, mansionDeck, duchyDeck,
     villageDeck, festivalDeck, cellarDeck, mineDeck, smithyDeck, remodelDeck, merchantDeck, workshopDeck, gardensDeck,
     marketDeck)
