@@ -2,7 +2,7 @@ package de.htwg.se.dominion.model
 
 import scala.collection.mutable.ListBuffer
 
-object InputOutput {
+object GameInit {
   def getPlayerCount(): Integer = {
     println(Console.BLUE + "Wie viele Spieler seid ihr?")
     while(true)

@@ -4,7 +4,7 @@ import de.htwg.se.dominion.aview.Tui
 import de.htwg.se.dominion.controller.Controller
 import org.scalatest._
 
-class InputOutputSpec extends WordSpec with Matchers {
+class GameInitSpec extends WordSpec with Matchers {
   val pCount = 2
   val l: List[Cards] = List(Cards.copper, Cards.copper, Cards.copper, Cards.copper,
   Cards.copper)

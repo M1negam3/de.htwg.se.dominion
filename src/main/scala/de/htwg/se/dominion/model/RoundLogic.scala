@@ -8,6 +8,93 @@ import scala.language.postfixOps
 
 object RoundLogic {
 
+  def actionPhase(list: List[Player], idx: Int): List[Player] = {
+    var l = list
+    var actionNumber = 0
+    var actionString = ""
+    var inputStr = ""
+    var z:Integer = 0
+    var x:Integer = 0
+    var cardNumber = 0
+    var playingCards: List[Cards] = Nil
+    var money = 0
+
+    l = Player.updatePlayer(l, Player.getHand(l(idx)))
+    money = Player.getMoney(l(idx))
+    for (f <- 0 until 5) {
+      if (l(idx).hand(f).Type.equals("Action")) {
+        actionNumber += 1
+        actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
+      }
+    }
+    if (actionNumber == 0) {
+      println("You dont have any Actioncards to play")
+    } else {
+      println("Your action cards are: " + actionString)
+    }
+    while(actionNumber != 0) {
+      breakable {
+        for(h <- 0 until l(idx).hand.length) {
+          if(l(idx).hand(h).Type == "Money"){
+            z +=1
+          }
+        }
+        x= l(idx).hand.length
+        if (z.equals(x)) {
+          actionNumber = 0
+          inputStr = ""
+          break
+        }
+        z = 0
+        print("\nDo you want to play a Card? (Y/N)\n")
+
+        inputStr = scala.io.StdIn.readLine()
+
+        if (inputStr.equals("N")) {
+          actionNumber = 0
+          inputStr = ""
+          break
+        } else {
+          println("Choose with a number the card to play")
+          while(true){
+            try {
+              cardNumber= scala.io.StdIn.readInt()
+              if (cardNumber < x) {
+                playingCards = l(idx).hand(cardNumber) :: Nil
+                actionNumber += playingCards(idx).ActionValue
+                actionNumber -= 1
+                println(playingCards)
+                l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+                println(l(idx).hand)
+                actionString = ""
+
+
+                for (f <- 0 until l(idx).hand.length) {
+                  if (l(idx).hand(f).Type.equals("Action")) {
+                    actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
+                  }
+                }
+                println("Your action cards are: " + actionString)
+                -1
+              }else
+                println(Console.RED + "Please enter a digit between 0 and " + l(idx).hand.length)
+            } catch {
+              case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+            }
+            break
+          }
+          //inputInt = scala.io.StdIn.readInt()
+
+        }
+      }
+    }
+    l
+  }
+
+  def buyPhase(): Unit = {
+
+  }
+
   def turn1(list: List[Player]): Unit = {
     var l = list
     var empty = 0
@@ -123,7 +210,7 @@ object RoundLogic {
             money = money - playingDecks(inputInt).head.CostValue
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
             print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
-            for (h <- 0 until playingDecks.length) {
+            /*for (h <- 0 until playingDecks.length) {
               if (playingDecks(h).isEmpty) {
                 if (h == 3) {
                   GameEnd.end(0)
@@ -135,7 +222,7 @@ object RoundLogic {
                 }
                 break
               }
-            }
+            }*/
             buys -= 1
           }
         }
