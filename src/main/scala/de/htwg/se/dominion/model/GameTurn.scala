@@ -23,6 +23,7 @@ object GameTurn {
     var actionNumber = 0
     var z:Integer = 0
     var x:Integer = 0
+    var y:Integer = 0
     var cardNumber = 0
     var playingCards: List[Cards] = Nil
 
@@ -49,6 +50,7 @@ object GameTurn {
           }
         }
         x= l(idx).hand.length
+        y= l(idx).hand.length - 1
         if (z.equals(x)) {
           actionNumber = 0
           inputStr = ""
@@ -68,19 +70,22 @@ object GameTurn {
           while(true){
             try {
               cardNumber= scala.io.StdIn.readInt()
-              if (cardNumber < x) {
+              if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
                 playingCards = l(idx).hand(cardNumber) :: Nil
                 l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
+                println("Dies ist ein Test" + l(idx).stacker)
+                println("Dies ist ein Test2" + l(idx).hand)
+                println("Dies ist ein Deck Test" + l(idx).deck)
                 money += playingCards.head.BonusMoneyValue
                 buys += playingCards.head.BuyAdditionValue
                 draws += playingCards.head.DrawingValue
 
                 l = Player.updatePlayer(l, draw(l(idx), draws))
-                actionNumber += playingCards(idx).ActionValue
+                draws = 0
+                actionNumber += playingCards.head.ActionValue
                 actionNumber -= 1
                 println(playingCards)
-
-                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                 println(l(idx).hand)
                 playingCards = Nil
                 actionString = ""
@@ -94,7 +99,7 @@ object GameTurn {
                 println("Your action cards are: " + actionString)
                 -1
               }else
-                println(Console.RED + "Please enter a digit between 0 and " + l(idx).hand.length)
+                println(Console.RED + "Please enter an Actioncard between 0 and " + y )
             } catch {
               case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
             }

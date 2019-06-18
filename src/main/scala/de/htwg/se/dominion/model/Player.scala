@@ -84,17 +84,21 @@ object Player {
     var z: List[Cards] = Nil
     var x: List[Cards] = Nil
     var p = player
+    var n = 0
     for(o <- 0 until player.hand.length){
       listBuffer1 += player.hand(o)
     }
     if(player.deck.length < n){
       p = isEmpty(player)
       for(j <- 0 until player.deck.length){
-        listBuffer2 += p.deck(j)
+        listBuffer2 += player.deck(j)
+      }
+      for(i <- 0 until p.deck.length){
+        listBuffer2 += p.deck(i)
       }
       for(i <- 0 until n){
-        listBuffer1 += p.deck(i)
-        listBuffer2 -= p.deck(i)
+        listBuffer1 += listBuffer2(i)
+        listBuffer2 -= listBuffer2(i)
       }
       z = listBuffer1.toList
       x = listBuffer2.toList
@@ -104,7 +108,7 @@ object Player {
       }
       for(i <- 0 until n){
         listBuffer1 += player.deck(i)
-        listBuffer2 -= player.deck(i)
+        listBuffer2 -= listBuffer2(i)
       }
       z = listBuffer1.toList
       x = listBuffer2.toList
