@@ -12,6 +12,7 @@ object GameTurn {
   var inputInt = 0
   var money = 0
   var buys = 1
+  var draws = 0
   var playingDecks = Cards.playingDeck
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
@@ -67,11 +68,19 @@ object GameTurn {
               cardNumber= scala.io.StdIn.readInt()
               if (cardNumber < x) {
                 playingCards = l(idx).hand(cardNumber) :: Nil
+                l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+                money += playingCards.head.BonusMoneyValue
+                buys += playingCards.head.BuyAdditionValue
+                draws += playingCards.head.DrawingValue
+
+                l = Player.updatePlayer(l, draw(l(idx), draws))
                 actionNumber += playingCards(idx).ActionValue
                 actionNumber -= 1
                 println(playingCards)
-                l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+
+                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                 println(l(idx).hand)
+                playingCards = Nil
                 actionString = ""
 
 
@@ -92,8 +101,10 @@ object GameTurn {
           //inputInt = scala.io.StdIn.readInt()
 
         }
+
       }
     }
+    actionString = ""
     l
   }
 
