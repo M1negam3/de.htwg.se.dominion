@@ -37,8 +37,7 @@ class Controller() extends Observable {
   }
 
   def endGame(): Unit = {
-    val cPlayers2 = cPlayers
-    val fPlayers = GameEnd.end(cPlayers2)
+    val fPlayers = GameEnd.end(cPlayers)
     val score = GameEnd.score(fPlayers)
     phaseString = Output.printScore(score)
     notifyObservers

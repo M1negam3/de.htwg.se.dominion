@@ -9,13 +9,17 @@ object GameEnd {
     var copiedDeck = new ListBuffer[Cards]
     var copiedPlayerl = new ListBuffer[Player]
     val emptyStacker: List[Cards] = Nil
+    println("END TEST " + copiedPlayerList.length)
+    println("STACKER LÄNGE " + copiedPlayerList(0).stacker.length)
     for (i <- 0 until copiedPlayerList.length) {
-      for (f <- 0 until copiedPlayerList(i).deck.length) {
-        copiedDeck += copiedPlayerList(i).deck(f)
+      if (copiedPlayerList(i).deck.nonEmpty) {
+        for (f <- 0 until copiedPlayerList(i).deck.length) {
+          copiedDeck += copiedPlayerList(i).deck(f)
+        }
       }
 
-      for (g <- 0 until copiedPlayerList(i).stacker.length) {
-        if (copiedPlayerList(i).stacker.nonEmpty) {
+      if (copiedPlayerList(i).stacker.nonEmpty) {
+        for (g <- 0 until copiedPlayerList(i).stacker.length) {
           copiedDeck += copiedPlayerList(i).stacker(g)
         }
       }
