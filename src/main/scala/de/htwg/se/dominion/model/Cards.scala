@@ -48,9 +48,9 @@ object Cards{
     1,"None","Market","Action")
 
   // Starting Decks
-  var startDeck : List[Cards] = List(village,copper,copper,copper,copper)
+  var startDeck : List[Cards] = List(cellar,copper,copper,copper,copper)
   var hand : List[Cards] = Nil
-  var stacker : List[Cards] = Nil
+  var stacker : List[Cards] = List(copper,copper,copper,copper,copper)
 
   val copperDeck: List[Cards] = List.fill(100)(copper)
   val silverDeck: List[Cards] = List.fill(100)(silver)

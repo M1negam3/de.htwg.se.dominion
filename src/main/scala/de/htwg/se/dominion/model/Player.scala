@@ -117,10 +117,10 @@ object Player {
     val copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     var listBuffer2: ListBuffer[Cards] = ListBuffer()
+    var listBuffer3: ListBuffer[Cards] = ListBuffer()
     var z: List[Cards] = Nil
     var x: List[Cards] = Nil
     var p = player
-    var n = 0
     for(o <- 0 until player.hand.length){
       listBuffer1 += player.hand(o)
     }
@@ -132,23 +132,24 @@ object Player {
       for(i <- 0 until p.deck.length){
         listBuffer2 += p.deck(i)
       }
+      listBuffer3 = listBuffer2
       for(i <- 0 until n){
         listBuffer1 += listBuffer2(i)
-        listBuffer2 -= listBuffer2(i)
+        listBuffer3 -= listBuffer2(i)
       }
       z = listBuffer1.toList
-      x = listBuffer2.toList
+      x = listBuffer3.toList
     }else{
       for(j <- 0 until player.deck.length){
         listBuffer2 += player.deck(j)
       }
       for(i <- 0 until n){
         listBuffer1 += player.deck(i)
-        listBuffer2 -= listBuffer2(i)
+        listBuffer3 -= listBuffer2(i)
       }
       z = listBuffer1.toList
-      x = listBuffer2.toList
+      x = listBuffer3.toList
     }
-    Player(copiedPlayer.name,copiedPlayer.value,x,copiedPlayer.stacker,z)
+    Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
   }
 }

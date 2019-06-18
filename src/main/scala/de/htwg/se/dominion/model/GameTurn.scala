@@ -4,6 +4,7 @@ import de.htwg.se.dominion.model.Player._
 import scala.util.control.Breaks._
 
 import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
 
 object GameTurn {
@@ -25,6 +26,11 @@ object GameTurn {
     var x:Integer = 0
     var y:Integer = 0
     var cardNumber = 0
+    var bufferInput = new ListBuffer[Integer]
+    var discardNumber = ""
+    var discardAmount = 0
+    var boo = true
+    var boo2 = true
     var playingCards: List[Cards] = Nil
 
     money = 0
@@ -76,19 +82,56 @@ object GameTurn {
                 println("Dies ist ein Test" + l(idx).stacker)
                 println("Dies ist ein Test2" + l(idx).hand)
                 println("Dies ist ein Deck Test" + l(idx).deck)
+                actionNumber += playingCards.head.ActionValue
                 money += playingCards.head.BonusMoneyValue
                 buys += playingCards.head.BuyAdditionValue
                 draws += playingCards.head.DrawingValue
+
+                println("Your card effect is: " + playingCards.head.EffectValue)
+
+                if(playingCards.head.CardName == "Cellar") {
+                  println("Choose any number of cards to discard, then draw that many")
+                  while(boo2)
+                    try {
+                    println("Enter the amount of Cards to Discard")
+                    discardAmount = scala.io.StdIn.readInt()
+                    if(discardAmount < x){
+                      while(boo)
+                      try{
+                        println("Choose some Card(s)")
+                        discardNumber = scala.io.StdIn.readLine()
+                        val test = discardNumber.split(" ")
+                        for(r <- 0 until discardAmount) {
+                          if (test(r).toInt < x) {
+                            l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                            println(l(idx).hand)
+                            println("funktionert")
+                            draws += 1
+
+                          } else
+                            println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
+                        }
+                        boo = false
+                      } catch {
+                        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+                      }
+                      boo2=false
+                    } else
+                      println("Choose a Card from you hand")
+                  } catch {
+                    case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+                  }
+                }
                 l = Player.updatePlayer(l, draw(l(idx), draws))
                 draws = 0
-                actionNumber += playingCards.head.ActionValue
                 actionNumber -= 1
                 println(playingCards)
                 println(l(idx).hand)
-                playingCards = Nil
                 l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
+                println("DeckTest" + l(idx).deck)
+                println("Stacker Test" + l(idx).stacker)
+                playingCards = Nil
                 actionString = ""
-
 
                 for (f <- 0 until l(idx).hand.length) {
                   if (l(idx).hand(f).Type.equals("Action")) {
@@ -104,10 +147,7 @@ object GameTurn {
             }
             break
           }
-          //inputInt = scala.io.StdIn.readInt()
-
         }
-
       }
     }
     actionString = ""
