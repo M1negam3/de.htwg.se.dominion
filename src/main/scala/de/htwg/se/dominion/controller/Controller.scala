@@ -25,7 +25,7 @@ class Controller() extends Observable {
     phaseString = Output.printBuyPhase()
     notifyObservers
     cPlayers = GameTurn.buyPhase(cPlayers, playerTurn)
-    phaseString = Output.printTurnEnd(playerTurn) + Output.prtintNextTurn()
+    phaseString = Output.printTurnEnd(playerTurn) + Output.prtintNextTurn() + GameTurn.endCheck(GameTurn.end)
     playerTurn += 1
     notifyObservers
   }

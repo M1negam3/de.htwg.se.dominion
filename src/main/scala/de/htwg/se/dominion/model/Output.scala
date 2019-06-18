@@ -30,6 +30,7 @@ object Output {
   }
 
   def printRules(): String = {
+    // TODO REGELN
     Console.WHITE +
     """
       |DAS SIND DIE REGELN
@@ -63,5 +64,24 @@ object Output {
 
   def printTurnEnd(idx: Int): String = {
     Console.WHITE + "Player " + (idx + 1) + "`s turn ends!\n"
+  }
+
+  def printEnd(): String = {
+    """
+    ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
+      |
+      |                         Press e to END the Game and get the Score!
+      |                         Press q to QUIT the Game!
+      |
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    """.stripMargin
+  }
+
+  def printScore(): String = {
+    """
+    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗
+
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    """.stripMargin
   }
 }
