@@ -3,7 +3,7 @@ package de.htwg.se.dominion.model
 object Output {
 
   def printHeader(): String = {
-    Console.WHITE +
+    Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
 
@@ -16,7 +16,7 @@ object Output {
   }
 
   def printPrep(): String = {
-    Console.WHITE +
+    Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
     |
@@ -38,36 +38,38 @@ object Output {
   }
 
   def printActionPhase(): String = {
-    Console.WHITE +
+    Console.BLACK +
       """
     ════════════════════════════════════════════ Action Phase ═════════════════════════════════════════════
     """.stripMargin
   }
 
   def printBuyPhase(): String = {
-    Console.WHITE +
+    Console.BLACK +
       """
     ═══════════════════════════════════════════ Buy Phase ═════════════════════════════════════════════════
     """.stripMargin
   }
 
   def printTurn(idx: Int): String = {
-    Console.WHITE + "Player " + (idx + 1) + "`s turn!\n"
+    Console.BLUE + " Player " + (idx + 1) + "`s turn!\n"
   }
 
-  def prtintNextTurn(): String = {
-    """
-      |Press t to START the next Turn!
-      |Press q to QUIT the Game!
+  def printNextTurn(): String = {
+    Console.BLACK +
+      """
+      |     Press t to START the next Turn!
+      |     Press q to QUIT the Game!
     """.stripMargin
   }
 
   def printTurnEnd(idx: Int): String = {
-    Console.WHITE + "Player " + (idx + 1) + "`s turn ends!\n"
+    Console.BLUE + "     Player " + (idx + 1) + "`s turn ends!\n"
   }
 
   def printEnd(): String = {
-    """
+    Console.BLACK +
+      """
     ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
       |
       |                         Press e to END the Game and get the Score!
@@ -84,7 +86,7 @@ object Output {
       s += "                               " + k + ": " + v + "\n"
     }
     s += "\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n \n" +
-      "Press n to StART a new Game!\n" + "Press q to QUIT the Game!\n"
+      "     Press n to StART a new Game!\n" + "     Press q to QUIT the Game!\n"
     s
   }
 }

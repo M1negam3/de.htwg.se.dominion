@@ -38,9 +38,9 @@ object GameTurn {
       }
     }
     if (actionNumber == 0) {
-      println("You dont have any Actioncards to play")
+      println(Console.BLUE + "     You dont have any Actioncards to play")
     } else {
-      println("Your action cards are: " + actionString)
+      println(Console.BLUE + "     Your action cards are: " + actionString)
     }
     while (actionNumber != 0) {
       breakable {
@@ -57,7 +57,7 @@ object GameTurn {
           break
         }
         z = 0
-        print("\nDo you want to play a Card? (Y/N)\n")
+        print(Console.YELLOW + "\n     Do you want to play a Card? (Y/N)\n")
         while (true) {
           inputStr = scala.io.StdIn.readLine()
           if (inputStr.equals("N")) {
@@ -65,7 +65,7 @@ object GameTurn {
             inputStr = ""
             break
           } else if (inputStr.equals("Y")) {
-            println("Enter a number to choose a card, which you want to play")
+            println(Console.BLACK + "     Enter a number to choose a card, which you want to play")
             while (true) {
               try {
                 cardNumber = scala.io.StdIn.readInt()
@@ -90,18 +90,17 @@ object GameTurn {
                       actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
                     }
                   }
-                  println("Your action cards are: " + actionString)
+                  println(Console.BLUE + "     Your action cards are: " + actionString)
                 } else {
-                  println(Console.RED + "Please enter an Actioncard between 0 and " + y)
+                  println(Console.RED + "     Please enter an Actioncard between 0 and " + y)
                 }
               } catch {
-                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+                case exception: NumberFormatException => println(Console.RED + "      Please enter a correct number!")
               }
               break
             }
-            //inputInt = scala.io.StdIn.readInt()
           } else {
-            println(Console.RED + "Try Y or N!")
+            println(Console.RED + "     Try Y or N!")
           }
         }
       }
@@ -116,9 +115,9 @@ object GameTurn {
     while (buys > 0) {
       inputInt = 0
       inputStr = ""
-      println("Your money is: " + money)
-      println("Your Buy actions are: " + buys)
-      print("You can buy these: ")
+      println(Console.BLUE + " Your money is: " + money)
+      println(Console.BLUE + "     Your Buy actions are: " + buys)
+      print(Console.BLUE + "     You can buy these: ")
       for (g <- 0 until playingDecks.length) {
         if (money >= playingDecks(g).head.CostValue) {
           availableCards += g
@@ -126,7 +125,7 @@ object GameTurn {
         }
       }
       breakable {
-        print("\nDo you want to buy a Card? (Y/N)\n")
+        print(Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n")
         while (buys > 0) {
           inputStr = scala.io.StdIn.readLine()
           if (inputStr.equals("N")) {
@@ -136,16 +135,15 @@ object GameTurn {
           }
           else if (inputStr.equals("Y")) {
             while (buys > 0) {
-              print("\nWhich Card do you want to buy?\n")
+              print(Console.YELLOW + "\n     Which Card do you want to buy?\n")
               try {
                 inputInt = scala.io.StdIn.readInt()
-                println(availableCards)
                 if (availableCards.contains(inputInt)) {
                   var copiedCard = playingDecks(inputInt).head
                   l = Player.updatePlayer(l, updateStacker(l(idx), copiedCard))
                   money = money - playingDecks(inputInt).head.CostValue
                   playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
-                  print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
+                  print(Console.BLUE + "\n     The Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
                       if (h == 3) {
@@ -161,12 +159,14 @@ object GameTurn {
                   }
                   break
                 } else {
-                  println(Console.RED + "You cant buy that, please enter a valid number")
+                  println(Console.RED + "     You cant buy that, please enter a valid number")
                 }
               } catch {
-                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+                case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
               }
             }
+          } else {
+            println(Console.RED + "     Try Y or N!")
           }
         }
       }
@@ -257,9 +257,10 @@ object GameTurn {
 
   def endCheck(end: Boolean): String = {
     var s =
+      Console.BLACK +
       """
-        |Press t to START the next Turn!
-        |Press q to QUIT the Game!
+        |     Press t to START the next Turn!
+        |     Press q to QUIT the Game!
       """.stripMargin
     if (end) {
       s = Output.printEnd()
