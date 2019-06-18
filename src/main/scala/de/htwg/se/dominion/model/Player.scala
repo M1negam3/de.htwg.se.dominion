@@ -151,5 +151,6 @@ object Player {
       x = listBuffer3.toList
     }
     Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
+
   }
 }
