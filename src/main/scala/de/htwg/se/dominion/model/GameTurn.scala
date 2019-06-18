@@ -13,9 +13,12 @@ object GameTurn {
   var money = 0
   var buys = 1
   var draws = 0
+  var empty = 0
+  var end = false
   var playingDecks = Cards.playingDeck
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
+    // TODO INPUT Check eventuell Strings überarbeiten
     var l = list
     var actionNumber = 0
     var z:Integer = 0
@@ -24,7 +27,6 @@ object GameTurn {
     var playingCards: List[Cards] = Nil
 
     money = 0
-
     l = Player.updatePlayer(l, Player.getHand(l(idx)))
     money = Player.getMoney(l(idx))
 
@@ -109,6 +111,8 @@ object GameTurn {
   }
 
   def buyPhase(list: List[Player], idx: Int): List[Player] = {
+    // TODO INPUT Check eventuell Strings überarbeiten
+    // TODO check buys
     var l = list
     while (buys != 0) {
       println("Your money is: " + money)
@@ -134,19 +138,19 @@ object GameTurn {
           money = money - playingDecks(inputInt).head.CostValue
           playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
           print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
-          /*for (h <- 0 until playingDecks.length) {
+          for (h <- 0 until playingDecks.length) {
             if (playingDecks(h).isEmpty) {
               if (h == 3) {
-                GameEnd.end(0)
+                end = true
               }
               playingDecks = updatePlayingDecks(playingDecks, h)
               empty += 1
               if (empty == 3) {
-                GameEnd.end(1)
+                end = true
               }
               break
             }
-          }*/
+          }
           buys -= 1
         }
       }
@@ -155,6 +159,7 @@ object GameTurn {
     for (e <- 0 until l(idx).hand.length) {
       l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
     }
+
     buys = 1
     l
   }
@@ -232,6 +237,18 @@ object GameTurn {
       turn = 0
     }
     turn
+  }
+
+  def endCheck(end: Boolean): String = {
+    var s =
+      """
+        |Press t to START the next Turn!
+        |Press q to QUIT the Game!
+      """.stripMargin
+    if (end == true) {
+      s = Output.printEnd()
+    }
+    s
   }
 
 }

@@ -19,6 +19,7 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
+    // TODO STACKER reinmischen geht nicht
     var copiedPlayer = player
     var copyList = copiedPlayer.deck
     var l = new ListBuffer[Cards]
