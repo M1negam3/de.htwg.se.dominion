@@ -101,6 +101,7 @@ object GameTurn {
 
   def buyPhase(list: List[Player], idx: Int): List[Player] = {
     // TODO INPUT Check eventuell Strings überarbeiten
+    // TODO check buys
     var l = list
     while (buys != 0) {
       println("Your money is: " + money)
@@ -228,7 +229,11 @@ object GameTurn {
   }
 
   def endCheck(end: Boolean): String = {
-    var s = ""
+    var s =
+      """
+        |Press t to START the next Turn!
+        |Press q to QUIT the Game!
+      """.stripMargin
     if (end == true) {
       s = Output.printEnd()
     }
