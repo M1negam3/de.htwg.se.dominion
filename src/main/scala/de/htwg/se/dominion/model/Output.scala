@@ -4,7 +4,7 @@ object Output {
 
   def printHeader(): String = {
     Console.WHITE +
-    """
+      """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
 
                                         Press n to START a NEW Game!
@@ -17,7 +17,7 @@ object Output {
 
   def printPrep(): String = {
     Console.WHITE +
-    """
+      """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
     |
     |                                    Game preparation finished!
@@ -32,28 +32,28 @@ object Output {
   def printRules(): String = {
     // TODO REGELN
     Console.WHITE +
-    """
-      |DAS SIND DIE REGELN
-    """.stripMargin
+      """
+        |DAS SIND DIE REGELN
+      """.stripMargin
   }
 
   def printActionPhase(): String = {
     Console.WHITE +
-    """
+      """
     ════════════════════════════════════════════ Action Phase ═════════════════════════════════════════════
     """.stripMargin
   }
 
   def printBuyPhase(): String = {
     Console.WHITE +
-    """
+      """
     ═══════════════════════════════════════════ Buy Phase ═════════════════════════════════════════════════
     """.stripMargin
   }
 
   def printTurn(idx: Int): String = {
     Console.WHITE + "Player " + (idx + 1) + "`s turn!\n"
-   }
+  }
 
   def prtintNextTurn(): String = {
     """
@@ -78,12 +78,13 @@ object Output {
   }
 
   def printScore(m: Map[String, Int]): String = {
-    var s = "╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n"
+    var s = "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n"
     for ((k, v) <- m) {
 
-      s += k + ", Points: " + v + "\n"
+      s += "                               " + k + ": " + v + "\n"
     }
-    s += "\n╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝"
+    s += "\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n \n" +
+      "Press n to StART a new Game!\n" + "Press q to QUIT the Game!\n"
     s
   }
 }

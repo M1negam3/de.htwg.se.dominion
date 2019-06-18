@@ -2,7 +2,7 @@ package de.htwg.se.dominion.model
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name : String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards]) {
+case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards]) {
   override def toString: String = this.name
 }
 
@@ -48,7 +48,7 @@ object Player {
         }
       case 3 =>
         for (i <- 0 until copyList.length) {
-        l += copyList(i)
+          l += copyList(i)
         }
         copiedPlayer = isEmpty(copiedPlayer)
         copyList = copiedPlayer.deck
@@ -61,11 +61,11 @@ object Player {
         }
         copiedPlayer = isEmpty(copiedPlayer)
         copyList = copiedPlayer.deck
-          l += copyList.head
+        l += copyList.head
       case _ =>
         for (i <- 0 until 5) {
-        l += copyList(i)
-      }
+          l += copyList(i)
+        }
     }
     for (f <- 5 until copyList.length) {
       d += copyList(f)
@@ -89,14 +89,6 @@ object Player {
     m
   }
 
-  def isEmpty(player: Player): Player = {
-    val copiedPlayer = player
-    val copiedStacker = player.stacker
-    val copiedDeck = Cards.shuffle(copiedStacker)
-    val stacker: List[Cards] = Nil
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
-  }
-
   def updatePlayer(list: List[Player], player: Player): List[Player] = {
     val copiedPlayer = player
     val copiedPlayerList = list
@@ -113,7 +105,7 @@ object Player {
     updatedList
   }
 
-  def draw(player: Player, n : Integer): Player ={
+  def draw(player: Player, n: Integer): Player = {
     val copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     var listBuffer2: ListBuffer[Cards] = ListBuffer()
@@ -121,35 +113,50 @@ object Player {
     var z: List[Cards] = Nil
     var x: List[Cards] = Nil
     var p = player
+    var n = 0
+    for (o <- 0 until player.hand.length) {
     for(o <- 0 until player.hand.length){
       listBuffer1 += player.hand(o)
     }
-    if(player.deck.length < n){
+    if (player.deck.length < n) {
       p = isEmpty(player)
-      for(j <- 0 until player.deck.length){
+      for (j <- 0 until player.deck.length) {
         listBuffer2 += player.deck(j)
       }
-      for(i <- 0 until p.deck.length){
+      for (i <- 0 until p.deck.length) {
         listBuffer2 += p.deck(i)
       }
+      for (i <- 0 until n) {
       listBuffer3 = listBuffer2
       for(i <- 0 until n){
         listBuffer1 += listBuffer2(i)
         listBuffer3 -= listBuffer2(i)
       }
       z = listBuffer1.toList
+      x = listBuffer2.toList
+    } else {
+      for (j <- 0 until player.deck.length) {
       x = listBuffer3.toList
     }else{
       for(j <- 0 until player.deck.length){
         listBuffer2 += player.deck(j)
       }
-      for(i <- 0 until n){
+      for (i <- 0 until n) {
         listBuffer1 += player.deck(i)
         listBuffer3 -= listBuffer2(i)
       }
       z = listBuffer1.toList
       x = listBuffer3.toList
     }
+    Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z)
     Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
+  }
+
+  def isEmpty(player: Player): Player = {
+    val copiedPlayer = player
+    val copiedStacker = player.stacker
+    val copiedDeck = Cards.shuffle(copiedStacker)
+    val stacker: List[Cards] = Nil
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
   }
 }
