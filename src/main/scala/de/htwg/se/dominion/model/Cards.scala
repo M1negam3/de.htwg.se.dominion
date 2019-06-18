@@ -8,7 +8,7 @@ case class Cards(CostValue : Int, MoneyValue : Int, WpValue : Int, ActionValue :
 }
 
 object Cards{
-  // Moneycards
+  //Moneycards
   val copper = new Cards(0,1,0,0,0,0,
     0,"1 Money","Copper", "Money")
   val silver = new Cards(3,2,0,0,0,0,

@@ -35,13 +35,19 @@ object GameEnd {
     var wp = 0
     var mutableScore: Map[String, Int] = Map()
     var sortedScore: Map[String, Int] = Map()
+    var garden = 0
 
     for (i <- 0 until pCount) {
       for (f <- 0 until copiedPlayerList(i).deck.length) {
         wp += copiedPlayerList(i).deck(f).WpValue
+        if (copiedPlayerList(i).deck(f).CardName.equals("Gardens")) {
+          garden += 1
+        }
       }
+      wp += garden * (copiedPlayerList(i).deck.length / 10)
       mutableScore += (copiedPlayerList(i).name -> wp)
       wp = 0
+      garden = 0
     }
     for ((k, v) <- mutableScore) {
       sortedScore += mutableScore.max
