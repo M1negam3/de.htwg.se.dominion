@@ -16,10 +16,9 @@ object GameTurn {
   var draws = 0
   var empty = 0
   var end = false
-  var playingDecks = Cards.playingDeck
+  var playingDecks: List[List[Cards]] = Cards.playingDeck
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
-    // TODO INPUT Check eventuell Strings überarbeiten
     var l = list
     var actionNumber = 0
     var z: Integer = 0
@@ -60,47 +59,47 @@ object GameTurn {
         z = 0
         print("\nDo you want to play a Card? (Y/N)\n")
         while (true) {
-        inputStr = scala.io.StdIn.readLine()
-        if (inputStr.equals("N")) {
-          actionNumber = 0
-          inputStr = ""
-          break
-        } else if (inputStr.equals("Y")) {
-          println("Enter a number to choose a card, which you want to play")
-          while (true) {
-            try {
-              cardNumber = scala.io.StdIn.readInt()
-              if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
-                playingCards = l(idx).hand(cardNumber) :: Nil
-                l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
-                money += playingCards.head.BonusMoneyValue
-                buys += playingCards.head.BuyAdditionValue
-                draws += playingCards.head.DrawingValue
-                l = Player.updatePlayer(l, draw(l(idx), draws))
-                draws = 0
-                actionNumber += playingCards.head.ActionValue
-                actionNumber -= 1
-                println(playingCards)
-                println(l(idx).hand)
-                playingCards = Nil
-                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
-                actionString = ""
-
-                for (f <- 0 until l(idx).hand.length) {
-                  if (l(idx).hand(f).Type.equals("Action")) {
-                    actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
-                  }
-                }
-                println("Your action cards are: " + actionString)
-              } else {
-                println(Console.RED + "Please enter an Actioncard between 0 and " + y)
-              }
-            } catch {
-              case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-            }
+          inputStr = scala.io.StdIn.readLine()
+          if (inputStr.equals("N")) {
+            actionNumber = 0
+            inputStr = ""
             break
-          }
-          //inputInt = scala.io.StdIn.readInt()
+          } else if (inputStr.equals("Y")) {
+            println("Enter a number to choose a card, which you want to play")
+            while (true) {
+              try {
+                cardNumber = scala.io.StdIn.readInt()
+                if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
+                  playingCards = l(idx).hand(cardNumber) :: Nil
+                  l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+                  money += playingCards.head.BonusMoneyValue
+                  buys += playingCards.head.BuyAdditionValue
+                  draws += playingCards.head.DrawingValue
+                  l = Player.updatePlayer(l, draw(l(idx), draws))
+                  draws = 0
+                  actionNumber += playingCards.head.ActionValue
+                  actionNumber -= 1
+                  println(playingCards)
+                  println(l(idx).hand)
+                  playingCards = Nil
+                  l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
+                  actionString = ""
+
+                  for (f <- 0 until l(idx).hand.length) {
+                    if (l(idx).hand(f).Type.equals("Action")) {
+                      actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
+                    }
+                  }
+                  println("Your action cards are: " + actionString)
+                } else {
+                  println(Console.RED + "Please enter an Actioncard between 0 and " + y)
+                }
+              } catch {
+                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+              }
+              break
+            }
+            //inputInt = scala.io.StdIn.readInt()
           } else {
             println(Console.RED + "Try Y or N!")
           }
@@ -174,11 +173,11 @@ object GameTurn {
       buys -= 1
     }
 
-      for (e <- 0 until l(idx).hand.length) {
-        l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
-      }
-      buys = 1
-      l
+    for (e <- 0 until l(idx).hand.length) {
+      l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
+    }
+    buys = 1
+    l
   }
 
   def copyList(cards: List[Cards]): List[Cards] = {
@@ -262,7 +261,7 @@ object GameTurn {
         |Press t to START the next Turn!
         |Press q to QUIT the Game!
       """.stripMargin
-    if (end == true) {
+    if (end) {
       s = Output.printEnd()
     }
     s

@@ -12,7 +12,7 @@ class Tui(controller: Controller) extends Observer {
   var stopProcessingInput = false
 
   def processInput(input: BufferedReader): Unit = {
-    while(!stopProcessingInput) {
+    while (!stopProcessingInput) {
       if (input.ready()) {
         val line = input.readLine()
         processInputLine(line)
@@ -33,5 +33,7 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-  override def update(): Boolean = {print(controller.phaseString); true}
+  override def update(): Boolean = {
+    print(controller.phaseString); true
+  }
 }
