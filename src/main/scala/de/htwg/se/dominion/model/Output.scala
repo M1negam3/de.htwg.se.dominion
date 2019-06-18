@@ -7,9 +7,9 @@ object Output {
     """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
 
-                                        Press "n" to START a NEW Game!
-                                        Press "h" to get the Rules!
-                                        Press "q" to QUIT the Game!
+                                        Press n to START a NEW Game!
+                                        Press h to get the Rules!
+                                        Press q to QUIT the Game!
 
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin
@@ -22,8 +22,8 @@ object Output {
     |
     |                                    Game preparation finished!
     |
-    |                                    Press "t" to START the first Turn!
-    |                                    Press "q" to QUIT the Game!
+    |                                    Press t to START the first Turn!
+    |                                    Press q to QUIT the Game!
     |
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin
@@ -32,7 +32,7 @@ object Output {
   def printRules(): String = {
     Console.WHITE +
     """
-      |help
+      |DAS SIND DIE REGELN
     """.stripMargin
   }
 
@@ -51,17 +51,17 @@ object Output {
   }
 
   def printTurn(idx: Int): String = {
-    Console.WHITE + "Player " + (idx + 1) + "`s turn\n"
+    Console.WHITE + "Player " + (idx + 1) + "`s turn!\n"
    }
 
   def prtintNextTurn(): String = {
     """
-      |Press "t" to START the next Turn!
+      |Press t to START the next Turn!
+      |Press q to QUIT the Game!
     """.stripMargin
   }
 
   def printTurnEnd(idx: Int): String = {
-    //TODO
-    ""
+    Console.WHITE + "Player " + (idx + 1) + "`s turn ends!\n"
   }
 }

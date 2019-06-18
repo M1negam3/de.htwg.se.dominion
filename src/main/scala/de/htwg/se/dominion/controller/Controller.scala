@@ -4,9 +4,9 @@ import de.htwg.se.dominion.util.Observable
 
 class Controller() extends Observable {
   var pCount = 0
+  var playerTurn = 0
   var players: List[Player] = Nil
   var phaseString = Output.printHeader()
-  var playerTurn = 0
 
   def newGame(): Unit = {
     pCount = GameInit.getPlayerCount()
@@ -17,14 +17,15 @@ class Controller() extends Observable {
   }
 
   def turn(): Unit = {
-    playerTurn = RoundLogic.round(pCount, playerTurn)
+    var cPlayers = players
+    playerTurn = GameTurn.round(pCount, playerTurn)
     phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
     notifyObservers
-    players = RoundLogic.actionPhase(players, playerTurn)
+    cPlayers = GameTurn.actionPhase(cPlayers, playerTurn)
     phaseString = Output.printBuyPhase()
     notifyObservers
-    players = RoundLogic.buyPhase(players, playerTurn)
-    phaseString = Output.prtintNextTurn()
+    cPlayers = GameTurn.buyPhase(cPlayers, playerTurn)
+    phaseString = Output.printTurnEnd(playerTurn) + Output.prtintNextTurn()
     playerTurn += 1
     notifyObservers
   }

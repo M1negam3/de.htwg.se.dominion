@@ -6,7 +6,7 @@ import scala.util.control.Breaks._
 import scala.collection.mutable.ListBuffer
 import scala.language.postfixOps
 
-object RoundLogic {
+object GameTurn {
   var actionString = ""
   var inputStr = ""
   var inputInt = 0
