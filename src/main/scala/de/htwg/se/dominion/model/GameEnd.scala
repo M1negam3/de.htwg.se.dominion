@@ -26,6 +26,20 @@ object GameEnd {
     updatedPlayerList
   }
 
-  def score(list: List[Player]): Unit = {
+  def score(list: List[Player]): Map[String, Int] = {
+    val copiedPlayerList = list
+    val pCount = copiedPlayerList.length
+    var wp:Int = 0
+    var mutableScore: Map[String, Int] = Map()
+
+    for (i <- 0 until pCount) {
+      for (f <- 0 until copiedPlayerList(i).deck.length) {
+        wp += copiedPlayerList(i).deck(f).WpValue
+      }
+      mutableScore += (copiedPlayerList(i).name -> wp)
+      wp = 0
+    }
+    val score: Map[String, Int] = mutableScore.toMap
+    score
   }
 }
