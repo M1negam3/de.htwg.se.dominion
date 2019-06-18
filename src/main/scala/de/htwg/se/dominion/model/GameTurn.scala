@@ -161,12 +161,8 @@ object GameTurn {
       for (g <- 0 until playingDecks.length) {
         if (money >= playingDecks(g).head.CostValue) {
           availableCards += g
-          print("                        " + playingDecks(g).head.CardName + " {" + playingDecks(g).length + "} " + "[" + playingDecks(g).head.CostValue
-            + "] ")
-          if (!playingDecks(g).head.EffectValue.equals("nothing")) {
-            print("Card Effect: " + playingDecks(g).head.EffectValue)
-          }
-          print(" Press " + g + ", \n")
+          print(Console.BLUE + "                        " + playingDecks(g).head.CardName + " {" + playingDecks(g).length + "} " + "[" + playingDecks(g).head.CostValue
+            + "]" + "Card Effect: " + playingDecks(g).head.EffectValue + Console.BLACK + " PRESS (" + g + ")" + ", \n")
         }
       }
       breakable {
