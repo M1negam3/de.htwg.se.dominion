@@ -13,12 +13,13 @@ object GameEnd {
       for (f <- 0 until copiedPlayerList(i).deck.length) {
         copiedDeck += copiedPlayerList(i).deck(f)
       }
+
       for (g <- 0 until copiedPlayerList(i).stacker.length) {
-        if (copiedPlayerList(i).stacker.isEmpty) {
-          //TODO LEL
+        if (copiedPlayerList(i).stacker.nonEmpty) {
+          copiedDeck += copiedPlayerList(i).stacker(g)
         }
-        copiedDeck += copiedPlayerList(i).stacker(g)
       }
+
       val updatedDeck: List[Cards] = copiedDeck.toList
       copiedPlayerl(i) = new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand)
     }
@@ -29,17 +30,23 @@ object GameEnd {
   def score(list: List[Player]): Map[String, Int] = {
     val copiedPlayerList = list
     val pCount = copiedPlayerList.length
-    var wp:Int = 0
+    var wp = 0
     var mutableScore: Map[String, Int] = Map()
+    var sortedScore: Map[String, Int] = Map()
 
     for (i <- 0 until pCount) {
       for (f <- 0 until copiedPlayerList(i).deck.length) {
-        wp += copiedPlayerList(i).deck(f).WpValue
+        wp = copiedPlayerList(i).deck(f).WpValue
       }
       mutableScore += (copiedPlayerList(i).name -> wp)
       wp = 0
     }
-    val score: Map[String, Int] = mutableScore.toMap
+    for ((k, v) <- mutableScore) {
+      sortedScore += mutableScore.max
+      mutableScore -= mutableScore.max._1
+    }
+
+    val score: Map[String, Int] = sortedScore.toMap
     score
   }
 }
