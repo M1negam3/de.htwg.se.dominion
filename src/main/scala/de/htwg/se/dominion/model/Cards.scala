@@ -48,7 +48,7 @@ object Cards{
     1,"None","Market","Action")
 
   // Starting Decks
-  var startDeck : List[Cards] = List(village,copper,copper,copper,copper)
+  var startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, mansion, mansion, mansion)
   var hand : List[Cards] = Nil
   var stacker : List[Cards] = Nil
 
