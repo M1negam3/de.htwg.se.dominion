@@ -14,11 +14,11 @@ class Controller() extends Observable {
     val names = GameInit.getPlayerName(pCount)
     players = Player.createPlayer(pCount, names)
     phaseString = Output.printPrep()
+    cPlayers = players
     notifyObservers
   }
 
   def turn(): Unit = {
-    cPlayers = players
     playerTurn = GameTurn.round(pCount, playerTurn)
     phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
     notifyObservers
@@ -37,8 +37,7 @@ class Controller() extends Observable {
   }
 
   def endGame(): Unit = {
-    val cPlayers2 = cPlayers
-    val fPlayers = GameEnd.end(cPlayers2)
+    val fPlayers = GameEnd.end(cPlayers)
     val score = GameEnd.score(fPlayers)
     phaseString = Output.printScore(score)
     notifyObservers

@@ -164,7 +164,9 @@ object GameTurn {
     for (e <- 0 until l(idx).hand.length) {
       l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
     }
-
+    println("STACKER TEST " + l(idx).stacker)
+    println("HAND TEST " + l(idx).hand)
+    println("DECK TEST " + l(idx).deck)
     buys = 1
     l
   }
@@ -255,5 +257,4 @@ object GameTurn {
     }
     s
   }
-
 }
