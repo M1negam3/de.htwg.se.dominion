@@ -121,7 +121,8 @@ object GameTurn {
       for (g <- 0 until playingDecks.length) {
         if (money >= playingDecks(g).head.CostValue) {
           availableCards += g
-          print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue + "]" + "(" + g + "), ")
+          print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue
+            + "] " + playingDecks(g).head.EffectValue + "Press " + g + ", ")
         }
       }
       breakable {
