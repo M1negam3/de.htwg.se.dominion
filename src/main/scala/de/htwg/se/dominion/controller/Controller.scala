@@ -6,6 +6,7 @@ class Controller() extends Observable {
   var pCount = 0
   var playerTurn = 0
   var players: List[Player] = Nil
+  var cPlayers: List[Player] = Nil
   var phaseString = Output.printHeader()
 
   def newGame(): Unit = {
@@ -17,7 +18,7 @@ class Controller() extends Observable {
   }
 
   def turn(): Unit = {
-    var cPlayers = players
+    cPlayers = players
     playerTurn = GameTurn.round(pCount, playerTurn)
     phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
     notifyObservers
@@ -36,6 +37,9 @@ class Controller() extends Observable {
   }
 
   def endGame(): Unit = {
+    val fPlayers = GameEnd.end(cPlayers)
+    val score = GameEnd.score(fPlayers)
+    phaseString = ""
     notifyObservers
   }
 }
