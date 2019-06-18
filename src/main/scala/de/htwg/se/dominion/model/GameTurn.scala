@@ -59,24 +59,20 @@ object GameTurn {
         }
         z = 0
         print("\nDo you want to play a Card? (Y/N)\n")
-
+        while (true) {
         inputStr = scala.io.StdIn.readLine()
-
         if (inputStr.equals("N")) {
           actionNumber = 0
           inputStr = ""
           break
-        } else {
-          println("Choose a card to play with an number")
+        } else if (inputStr.equals("Y")) {
+          println("Enter a number to choose a card, which you want to play")
           while (true) {
             try {
               cardNumber = scala.io.StdIn.readInt()
               if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
                 playingCards = l(idx).hand(cardNumber) :: Nil
                 l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
-                println("Dies ist ein Test" + l(idx).stacker)
-                println("Dies ist ein Test2" + l(idx).hand)
-                println("Dies ist ein Deck Test" + l(idx).deck)
                 money += playingCards.head.BonusMoneyValue
                 buys += playingCards.head.BuyAdditionValue
                 draws += playingCards.head.DrawingValue
@@ -96,7 +92,6 @@ object GameTurn {
                   }
                 }
                 println("Your action cards are: " + actionString)
-                -1
               } else {
                 println(Console.RED + "Please enter an Actioncard between 0 and " + y)
               }
@@ -106,6 +101,9 @@ object GameTurn {
             break
           }
           //inputInt = scala.io.StdIn.readInt()
+          } else {
+            println(Console.RED + "Try Y or N!")
+          }
         }
       }
     }
@@ -114,7 +112,6 @@ object GameTurn {
   }
 
   def buyPhase(list: List[Player], idx: Int): List[Player] = {
-    // TODO INPUT Check eventuell Strings überarbeiten
     var l = list
     var availableCards: ListBuffer[Int] = ListBuffer()
     while (buys > 0) {
