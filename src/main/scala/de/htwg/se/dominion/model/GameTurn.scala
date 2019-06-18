@@ -1,4 +1,5 @@
 package de.htwg.se.dominion.model
+
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.model.Player._
 import scala.util.control.Breaks._
@@ -21,9 +22,9 @@ object GameTurn {
     // TODO INPUT Check eventuell Strings überarbeiten
     var l = list
     var actionNumber = 0
-    var z:Integer = 0
-    var x:Integer = 0
-    var y:Integer = 0
+    var z: Integer = 0
+    var x: Integer = 0
+    var y: Integer = 0
     var cardNumber = 0
     var playingCards: List[Cards] = Nil
 
@@ -42,15 +43,15 @@ object GameTurn {
     } else {
       println("Your action cards are: " + actionString)
     }
-    while(actionNumber != 0) {
+    while (actionNumber != 0) {
       breakable {
-        for(h <- 0 until l(idx).hand.length) {
-          if(l(idx).hand(h).Type == "Money"){
-            z +=1
+        for (h <- 0 until l(idx).hand.length) {
+          if (l(idx).hand(h).Type == "Money") {
+            z += 1
           }
         }
-        x= l(idx).hand.length
-        y= l(idx).hand.length - 1
+        x = l(idx).hand.length
+        y = l(idx).hand.length - 1
         if (z.equals(x)) {
           actionNumber = 0
           inputStr = ""
@@ -66,10 +67,10 @@ object GameTurn {
           inputStr = ""
           break
         } else {
-          println("Choose with a number the card to play")
-          while(true){
+          println("Choose a card to play with an number")
+          while (true) {
             try {
-              cardNumber= scala.io.StdIn.readInt()
+              cardNumber = scala.io.StdIn.readInt()
               if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
                 playingCards = l(idx).hand(cardNumber) :: Nil
                 l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
@@ -89,7 +90,6 @@ object GameTurn {
                 l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                 actionString = ""
 
-
                 for (f <- 0 until l(idx).hand.length) {
                   if (l(idx).hand(f).Type.equals("Action")) {
                     actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
@@ -97,17 +97,16 @@ object GameTurn {
                 }
                 println("Your action cards are: " + actionString)
                 -1
-              }else
-                println(Console.RED + "Please enter an Actioncard between 0 and " + y )
+              } else {
+                println(Console.RED + "Please enter an Actioncard between 0 and " + y)
+              }
             } catch {
               case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
             }
             break
           }
           //inputInt = scala.io.StdIn.readInt()
-
         }
-
       }
     }
     actionString = ""
@@ -116,83 +115,98 @@ object GameTurn {
 
   def buyPhase(list: List[Player], idx: Int): List[Player] = {
     // TODO INPUT Check eventuell Strings überarbeiten
-    // TODO check buys
     var l = list
-    while (buys != 0) {
+    var availableCards: ListBuffer[Int] = ListBuffer()
+    while (buys > 0) {
+      inputInt = 0
+      inputStr = ""
       println("Your money is: " + money)
       println("Your Buy actions are: " + buys)
       print("You can buy these: ")
       for (g <- 0 until playingDecks.length) {
         if (money >= playingDecks(g).head.CostValue) {
+          availableCards += g
           print(playingDecks(g).head.CardName + "{" + playingDecks(g).length + "}" + "[" + playingDecks(g).head.CostValue + "]" + "(" + g + "), ")
         }
       }
       breakable {
         print("\nDo you want to buy a Card? (Y/N)\n")
-        inputStr = scala.io.StdIn.readLine()
-        if (inputStr.equals("N")) {
-          buys = 0
-          inputStr = ""
-          break
-        } else {
-          print("\nWhich Card do you want to buy?\n")
-          inputInt = scala.io.StdIn.readInt()
-          var copiedCard = playingDecks(inputInt).head
-          l = Player.updatePlayer(l, updateStacker(l(idx), copiedCard))
-          money = money - playingDecks(inputInt).head.CostValue
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
-          print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
-          for (h <- 0 until playingDecks.length) {
-            if (playingDecks(h).isEmpty) {
-              if (h == 3) {
-                end = true
+        while (buys > 0) {
+          inputStr = scala.io.StdIn.readLine()
+          if (inputStr.equals("N")) {
+            buys = 0
+            inputStr = ""
+            break
+          }
+          else if (inputStr.equals("Y")) {
+            while (buys > 0) {
+              print("\nWhich Card do you want to buy?\n")
+              try {
+                inputInt = scala.io.StdIn.readInt()
+                println(availableCards)
+                if (availableCards.contains(inputInt)) {
+                  var copiedCard = playingDecks(inputInt).head
+                  l = Player.updatePlayer(l, updateStacker(l(idx), copiedCard))
+                  money = money - playingDecks(inputInt).head.CostValue
+                  playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+                  print("\nThe Card " + copiedCard.CardName + " was bought and added to your stacker\n \n")
+                  for (h <- 0 until playingDecks.length) {
+                    if (playingDecks(h).isEmpty) {
+                      if (h == 3) {
+                        end = true
+                      }
+                      playingDecks = updatePlayingDecks(playingDecks, h)
+                      empty += 1
+                      if (empty == 3) {
+                        end = true
+                      }
+                      break
+                    }
+                  }
+                  break
+                } else {
+                  println(Console.RED + "You cant buy that, please enter a valid number")
+                }
+              } catch {
+                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
               }
-              playingDecks = updatePlayingDecks(playingDecks, h)
-              empty += 1
-              if (empty == 3) {
-                end = true
-              }
-              break
             }
           }
-          buys -= 1
         }
       }
+      buys -= 1
     }
 
-    for (e <- 0 until l(idx).hand.length) {
-      l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
-    }
-    println("STACKER TEST " + l(idx).stacker)
-    println("HAND TEST " + l(idx).hand)
-    println("DECK TEST " + l(idx).deck)
-    buys = 1
-    l
+      for (e <- 0 until l(idx).hand.length) {
+        l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
+      }
+      buys = 1
+      l
   }
 
   def copyList(cards: List[Cards]): List[Cards] = {
-    var l= new ListBuffer[Cards]
+    var l = new ListBuffer[Cards]
 
-    for(j <- 1 until cards.length){
+    for (j <- 1 until cards.length) {
       l += cards(j)
     }
     val copiedList: List[Cards] = l.toList
     copiedList
   }
 
-  def removeHandcard(i: Int, player: Player): Player ={
+  def removeHandcard(i: Int, player: Player): Player = {
     val copiedName = player.name
     val copiedNumber = player.value
     val copiedDeck = player.deck
     val copiedStacker = player.stacker
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
-    for(j <- 0 until player.hand.length) {
+    for (j <- 0 until player.hand.length) {
       listBuffer1 += player.hand(j)
     }
     var z: List[Cards] = Nil
     listBuffer1.-=(player.hand(i))
     z = listBuffer1.toList
-    Player(copiedName,copiedNumber,copiedDeck,copiedStacker,z)
+    Player(copiedName, copiedNumber, copiedDeck, copiedStacker, z)
   }
 
   def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
@@ -207,8 +221,8 @@ object GameTurn {
         updatedPlayingDeck += copiedPlayingDecks(i)
       }
     }
-      val updatedList: List[List[Cards]] = updatedPlayingDeck.toList
-      updatedList
+    val updatedList: List[List[Cards]] = updatedPlayingDeck.toList
+    updatedList
   }
 
   def updateStacker(p: Player, c: Cards): Player = {

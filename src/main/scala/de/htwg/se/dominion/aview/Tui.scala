@@ -29,7 +29,7 @@ class Tui(controller: Controller) extends Observer {
       case "t" => controller.turn()
       case "e" => controller.endGame()
       case "h" => controller.help()
-      case _ =>
+      case _ => println(Console.RED + "Input invalid, try again!")
     }
   }
 
