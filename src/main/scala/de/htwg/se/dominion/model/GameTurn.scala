@@ -73,14 +73,12 @@ object GameTurn {
               if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
                 playingCards = l(idx).hand(cardNumber) :: Nil
                 l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
-                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                 println("Dies ist ein Test" + l(idx).stacker)
                 println("Dies ist ein Test2" + l(idx).hand)
                 println("Dies ist ein Deck Test" + l(idx).deck)
                 money += playingCards.head.BonusMoneyValue
                 buys += playingCards.head.BuyAdditionValue
                 draws += playingCards.head.DrawingValue
-
                 l = Player.updatePlayer(l, draw(l(idx), draws))
                 draws = 0
                 actionNumber += playingCards.head.ActionValue
@@ -88,6 +86,7 @@ object GameTurn {
                 println(playingCards)
                 println(l(idx).hand)
                 playingCards = Nil
+                l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                 actionString = ""
 
 
