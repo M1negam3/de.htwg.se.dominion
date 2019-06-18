@@ -17,10 +17,16 @@ class Controller() extends Observable {
   }
 
   def turn(): Unit = {
+    playerTurn = RoundLogic.round(pCount, playerTurn)
     phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
     notifyObservers
     players = RoundLogic.actionPhase(players, playerTurn)
+    phaseString = Output.printBuyPhase()
+    notifyObservers
+    players = RoundLogic.buyPhase(players, playerTurn)
+    phaseString = Output.prtintNextTurn()
     playerTurn += 1
+    notifyObservers
   }
 
   def help(): Unit = {

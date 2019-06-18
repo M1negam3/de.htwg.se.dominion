@@ -22,7 +22,7 @@ object Output {
     |
     |                                    Game preparation finished!
     |
-    |                                    Press "t" to START the next Turn!
+    |                                    Press "t" to START the first Turn!
     |                                    Press "q" to QUIT the Game!
     |
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
@@ -53,4 +53,15 @@ object Output {
   def printTurn(idx: Int): String = {
     Console.WHITE + "Player " + (idx + 1) + "`s turn\n"
    }
+
+  def prtintNextTurn(): String = {
+    """
+      |Press "t" to START the next Turn!
+    """.stripMargin
+  }
+
+  def printTurnEnd(idx: Int): String = {
+    //TODO
+    ""
+  }
 }
