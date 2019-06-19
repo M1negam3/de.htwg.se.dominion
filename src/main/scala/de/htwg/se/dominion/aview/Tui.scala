@@ -26,8 +26,8 @@ class Tui(controller: Controller) extends Observer {
     input match {
       case "q" =>
       case "n" => controller.newGame()
-      case "t" => controller.turn()
-      case "e" => controller.endGame()
+      case "t" => if (controller.state.equals("turn")) { controller.turn() }
+      case "e" => if (controller.state.equals("end")) { controller.endGame() }
       case "h" => controller.help()
       case _ => println(Console.RED + "Input invalid, try again!")
     }
