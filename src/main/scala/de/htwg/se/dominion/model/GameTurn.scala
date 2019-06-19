@@ -98,6 +98,19 @@ object GameTurn {
                   } else if(playingCards.head.CardName == "Remodel") {
                     l = remodel(l, idx)
                   }
+                  for (h <- 0 until playingDecks.length) {
+                    if (playingDecks(h).isEmpty) {
+                      if (h == 3) {
+                        end = true
+                      }
+                      playingDecks = updatePlayingDecks(playingDecks, h)
+                      empty += 1
+                      if (empty == 3) {
+                        end = true
+                      }
+                      break
+                    }
+                  }
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
