@@ -156,7 +156,7 @@ object GameTurn {
         if (money >= playingDecks(g).head.CostValue) {
           availableCards += g
           print(Console.BLUE + "                        " + playingDecks(g).head.CardName + Console.CYAN + " {" + playingDecks(g).length + "} " + Console.MAGENTA + "[" + playingDecks(g).head.CostValue
-            + "]" + Console.BLUE + " Card Effect: " + playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + ", \n")
+            + "]" + Console.BLUE + " Card Effect: " + playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n")
         }
       }
       breakable {
