@@ -132,6 +132,7 @@ object Player {
       }
       z = listBuffer1.toList
       x = listBuffer2.toList
+      Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
     }else{
       for(j <- 0 until player.deck.length){
         listBuffer2 += player.deck(j)
@@ -142,10 +143,20 @@ object Player {
       }
       z = listBuffer1.toList
       x = listBuffer3.toList
+      Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z)
     }
-    Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z)
-    Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
-
+  }
+  def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
+    var copiedplayer = player
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    for (j <- 0 until player.hand.length) {
+      listBuffer1 += player.hand(j)
+    }
+    var x: List[Cards] = Nil
+    listBuffer1 -=(player.hand(i))
+    listBuffer1 +=z.head
+    x = listBuffer1.toList
+    Player(copiedplayer.name, copiedplayer.value, copiedplayer.deck,copiedplayer.stacker,x)
   }
 
   def isEmpty(player: Player): Player = {

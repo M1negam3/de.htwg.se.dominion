@@ -17,6 +17,10 @@ object GameTurn {
   var empty = 0
   var end = false
   var playingDecks: List[List[Cards]] = Cards.playingDeck
+  var discardNumber = ""
+  var discardAmount = 0
+  var boo = true
+  var boo2 = true
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
     var l = list
@@ -25,11 +29,7 @@ object GameTurn {
     var x: Integer = 0
     var y: Integer = 0
     var cardNumber = 0
-    var bufferInput = new ListBuffer[Integer]
-    var discardNumber = ""
-    var discardAmount = 0
-    var boo = true
-    var boo2 = true
+
     var playingCards: List[Cards] = Nil
 
     money = 0
@@ -80,10 +80,19 @@ object GameTurn {
                   money += playingCards.head.BonusMoneyValue
                   buys += playingCards.head.BuyAdditionValue
                   draws += playingCards.head.DrawingValue
+                  actionNumber += playingCards.head.ActionValue
+                  actionNumber -= 1
 
                   println("Your card effect is: " + playingCards.head.EffectValue)
 
                   if(playingCards.head.CardName == "Cellar") {
+                    cellar(l, idx)
+                    actionNumber += 1
+                  } else if(playingCards.head.CardName == "Mine") {
+                    mine(l, idx)
+                  }
+
+                  /*if(playingCards.head.CardName == "Cellar") {
                     println("Choose any number of cards to discard, then draw that many")
                     while(boo2)
                       try {
@@ -114,16 +123,14 @@ object GameTurn {
                       } catch {
                         case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
                       }
-                  }
+                  }*/
 
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
-                  actionNumber += playingCards.head.ActionValue
-                  actionNumber -= 1
+                  l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                   println(playingCards)
                   println(l(idx).hand)
                   playingCards = Nil
-                  l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                   actionString = ""
                   for (f <- 0 until l(idx).hand.length) {
                     if (l(idx).hand(f).Type.equals("Action")) {
@@ -308,4 +315,64 @@ object GameTurn {
     }
     s
   }
+  def cellar(list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    val x = l(idx).hand.length
+    val y = l(idx).hand.length - 1
+    while(boo2)
+        try {
+          println("Enter the amount of Cards to Discard")
+          discardAmount = scala.io.StdIn.readInt()
+          if(discardAmount < x){
+            while(boo)
+              try{
+                println("Choose some Card(s)")
+                discardNumber = scala.io.StdIn.readLine()
+                val test = discardNumber.split(" ")
+                for(r <- 0 until discardAmount) {
+                  if (test(r).toInt < x) {
+                    l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                    println(l(idx).hand)
+                    l = Player.updatePlayer(l, draw(l(idx), 1))
+                    println(l(idx).hand)
+                    println("funktionert")
+                  } else
+                    println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
+                }
+                boo = false
+              } catch {
+                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+              }
+            boo2=false
+          } else
+            println("Choose a Card from you hand")
+        } catch {
+          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        }
+    l
+  }
+  def mine(list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    val x = l(idx).hand.length
+    try {
+      println("Choose one Moneycard to upgrade")
+      discardAmount = scala.io.StdIn.readInt()
+      if(discardAmount < x && l(idx).hand(discardAmount).Type == "Money"){
+        if(l(idx).hand(discardAmount).CardName == "Copper") {
+          l= updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
+          playingDecks = updateDeck(playingDecks,Cards.silverDeck,1)
+        }else if (l(idx).hand(discardAmount).CardName == "Silver"){
+          l= updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+          playingDecks = updateDeck(playingDecks,Cards.goldDeck,2)
+        } else if (l(idx).hand(discardAmount).CardName == "Gold")
+          l= updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+          playingDecks = updateDeck(playingDecks,Cards.goldDeck,2)
+        } else
+          println("Choose a valid Card from you hand")
+      } catch {
+        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+      }
+    l
+  }
+
 }
