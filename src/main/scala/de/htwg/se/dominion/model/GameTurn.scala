@@ -223,18 +223,16 @@ object GameTurn {
         try {
           println(Console.BLUE + "     Enter the amount of Cards to Discard")
           discardAmount = scala.io.StdIn.readInt()
-          if(discardAmount < x){
-            while(boo)
-              try{
-                println(Console.BLUE + "     Choose some Card(s)")
+          if (discardAmount <= x){
+            while(boo) {
+              try {
+                println(Console.BLUE + "     Choose some Card(s), Separate them with a blank")
                 discardNumber = scala.io.StdIn.readLine()
                 val test = discardNumber.split(" ")
-                for(r <- 0 until discardAmount) {
+                for (r <- 0 until discardAmount) {
                   if (test(r).toInt < x) {
                     l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                    println(l(idx).hand)
                     draws += 1
-                    println("funktionert")
                   } else
                     println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
                 }
@@ -243,9 +241,10 @@ object GameTurn {
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
               }
+            }
             boo2 = false
           } else
-            println("     Choose a Card from you hand")
+            println("     Choose a Card from your hand")
         } catch {
           case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
         }
