@@ -236,7 +236,7 @@ object GameTurn {
                   } else
                     println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
                 }
-                l = updatePlayer(l, draw(l(idx), 1))
+                l = updatePlayer(l, draw(l(idx), draws))
                 boo = false
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
