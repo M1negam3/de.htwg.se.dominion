@@ -153,7 +153,7 @@ object Player {
       listBuffer1 += player.hand(j)
     }
     var x: List[Cards] = Nil
-    listBuffer1 -=(player.hand(i))
+    listBuffer1 -= player.hand(i)
     listBuffer1 +=z.head
     x = listBuffer1.toList
     Player(copiedplayer.name, copiedplayer.value, copiedplayer.deck,copiedplayer.stacker,x)

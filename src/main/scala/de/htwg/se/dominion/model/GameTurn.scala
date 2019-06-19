@@ -86,49 +86,15 @@ object GameTurn {
                   println("Your card effect is: " + playingCards.head.EffectValue)
 
                   if(playingCards.head.CardName == "Cellar") {
-                    cellar(l, idx)
+                    l = cellar(l, idx)
                     actionNumber += 1
                   } else if(playingCards.head.CardName == "Mine") {
-                    mine(l, idx)
+                    l = mine(l, idx)
                   }
-
-                  /*if(playingCards.head.CardName == "Cellar") {
-                    println("Choose any number of cards to discard, then draw that many")
-                    while(boo2)
-                      try {
-                        println("Enter the amount of Cards to Discard")
-                        discardAmount = scala.io.StdIn.readInt()
-                        if(discardAmount < x){
-                          while(boo)
-                            try{
-                              println("Choose some Card(s)")
-                              discardNumber = scala.io.StdIn.readLine()
-                              val test = discardNumber.split(" ")
-                              for(r <- 0 until discardAmount) {
-                                if (test(r).toInt < x) {
-                                  l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                                  println(l(idx).hand)
-                                  println("funktionert")
-                                  draws += 1
-                                } else
-                                  println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
-                              }
-                              boo = false
-                            } catch {
-                              case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-                            }
-                          boo2=false
-                        } else
-                          println("Choose a Card from you hand")
-                      } catch {
-                        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-                      }
-                  }*/
 
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
-                  println(playingCards)
                   println(l(idx).hand)
                   playingCards = Nil
                   actionString = ""
@@ -360,7 +326,10 @@ object GameTurn {
       if(discardAmount < x && l(idx).hand(discardAmount).Type == "Money"){
         if(l(idx).hand(discardAmount).CardName == "Copper") {
           l= updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
-          playingDecks = updateDeck(playingDecks,Cards.silverDeck,1)
+          println("Dies ist der copper Test" + l(idx).hand)
+          println(playingDecks(1).length)
+          playingDecks = updatePlayingDecks(playingDecks,1)
+          println(playingDecks(1).length)
         }else if (l(idx).hand(discardAmount).CardName == "Silver"){
           l= updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
           playingDecks = updateDeck(playingDecks,Cards.goldDeck,2)
