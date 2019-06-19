@@ -57,6 +57,7 @@ object GameTurn {
             z += 1
           }
         }
+        check = false
         x = l(idx).hand.length
         y = l(idx).hand.length - 1
         if (z.equals(x)) {
