@@ -98,6 +98,8 @@ object GameTurn {
                     l = remodel(l, idx)
                   } else if (playingCards.head.CardName == "Merchant") {
                     money = money + merchant(l, idx)
+                  } else if(playingCards.head.CardName == "Workshop"){
+                    l = workshop(l, idx)
                   }
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
@@ -333,6 +335,40 @@ object GameTurn {
     l
   }
 
+  def workshop (list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    var x = true
+    var availableCards: ListBuffer[Int] = ListBuffer()
+    var count = 0
+    while (x) {
+      println("You can choose a card costing up to 4")
+      for (i <- 0 until playingDecks.length) {
+        if (playingDecks(i).head.CostValue <= 4) {
+          println("                " + Console.BLUE + playingDecks(i).head.CardName + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
+          availableCards += 1
+          count = i
+        }
+      }
+      while (x) {
+        try {
+          println("Choose one Card")
+          inputInt = scala.io.StdIn.readInt()
+          if(inputInt <= availableCards.length){
+            l = updatePlayer(l, updateStacker(l(idx), playingDecks(inputInt).head))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+            println(l(idx).stacker)
+            x = false
+          } else {
+            println(Console.RED + "Invalid Input, try again!")
+          }
+        } catch {
+          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        }
+      }
+      }
+    l
+  }
+
   def merchant(list: List[Player], idx: Int): Int = {
     var l = list
     var copiedplayer = l(idx)
@@ -343,10 +379,6 @@ object GameTurn {
       }
     }
     addMoney
-  }
-
-  def workshop (list: List[Player], idx: Integer): List[Player] = {
-
   }
 
   def updateStacker(p: Player, c: Cards): Player = {
