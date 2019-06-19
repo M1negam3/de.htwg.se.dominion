@@ -46,6 +46,7 @@ object GameTurn {
       println(Console.BLUE + "     You dont have any Actioncards to play")
     } else {
       println(Console.BLUE + "     Your action cards are: " + actionString)
+      actionNumber = 1
     }
     while (actionNumber != 0) {
       breakable {
@@ -80,8 +81,6 @@ object GameTurn {
                   money += playingCards.head.BonusMoneyValue
                   buys += playingCards.head.BuyAdditionValue
                   draws += playingCards.head.DrawingValue
-                  actionNumber += playingCards.head.ActionValue
-                  actionNumber -= 1
 
                   println("Your card effect is: " + playingCards.head.EffectValue)
 
@@ -96,6 +95,8 @@ object GameTurn {
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
+                  actionNumber += playingCards.head.ActionValue
+                  actionNumber -= 1
                   println(l(idx).hand)
                   playingCards = Nil
                   actionString = ""
@@ -211,9 +212,9 @@ object GameTurn {
                 val test = discardNumber.split(" ")
                 for(r <- 0 until discardAmount) {
                   if (test(r).toInt < x) {
-                    l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                    l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
                     println(l(idx).hand)
-                    l = Player.updatePlayer(l, draw(l(idx), 1))
+                    l = updatePlayer(l, Player.draw(l(idx), 1))
                     println(l(idx).hand)
                     println("funktionert")
                   } else
@@ -235,25 +236,39 @@ object GameTurn {
   def mine(list: List[Player], idx: Int): List[Player] = {
     var l = list
     val x = l(idx).hand.length
-    try {
-      println("Choose one Moneycard to upgrade")
-      discardAmount = scala.io.StdIn.readInt()
-      if (discardAmount < x && l(idx).hand(discardAmount).Type == "Money"){
-        if(l(idx).hand(discardAmount).CardName == "Copper") {
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
-        } else if (l(idx).hand(discardAmount).CardName == "Silver"){
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-        } else if (l(idx).hand(discardAmount).CardName == "Gold")
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
-        playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-      } else
-        println("Choose a valid Card from you hand")
-    } catch {
-      case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+    var z = true
+    var y = 0
+    while(z) {
+      try {
+        println("Choose one Moneycard to upgrade")
+        discardAmount = scala.io.StdIn.readInt()
+        if(l(idx).hand(discardAmount).Type == "Money") {
+          y = 1
+        }
+        if (discardAmount < x && y == 1){
+          if(l(idx).hand(discardAmount).CardName == "Copper") {
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
+            z = false
+          } else if (l(idx).hand(discardAmount).CardName == "Silver"){
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
+            z = false
+          } else if (l(idx).hand(discardAmount).CardName == "Gold")
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
+            z = false
+        } else
+          println("Choose a valid Card from you hand")
+      } catch {
+        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+      }
     }
     l
+  }
+
+  def workshop (list: List[Player], idx: Integer): List[Player] = {
+
   }
 
   def remodel(list: List[Player], idx: Int): List[Player] = {
@@ -399,5 +414,4 @@ object GameTurn {
     }
     s
   }
-
 }
