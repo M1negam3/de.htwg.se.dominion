@@ -29,7 +29,7 @@ object GameTurn {
     var x: Integer = 0
     var y: Integer = 0
     var cardNumber = 0
-
+    var check = false
     var playingCards: List[Cards] = Nil
 
     money = 0
@@ -37,19 +37,21 @@ object GameTurn {
     money = Player.getMoney(l(idx))
 
     for (f <- 0 until 5) {
-      if (l(idx).hand(f).Type.equals("Action")) {
-        actionNumber += 1
-        actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
+      if (l(idx).hand(f).Type.equals("Action") && !check) {
+        actionNumber = 1
+        actionString += l(idx).hand(f).CardName + Console.BLACK + " (" + f + ")" + "\n"
+        check = true
+      } else if (l(idx).hand(f).Type.equals("Action") && check) {
+        actionString += "                            " + Console.BLUE + l(idx).hand(f).CardName + Console.BLACK + " (" + f + ")" + "\n"
       }
     }
     if (actionNumber == 0) {
       println(Console.BLUE + "     You dont have any Actioncards to play")
     } else {
       println(Console.BLUE + "     Your action cards are: " + actionString)
-      actionNumber = 1
     }
-    while (actionNumber != 0) {
-      breakable {
+    breakable {
+    while (actionNumber > 0) {
         for (h <- 0 until l(idx).hand.length) {
           if (l(idx).hand(h).Type == "Money") {
             z += 1
@@ -82,7 +84,11 @@ object GameTurn {
                   buys += playingCards.head.BuyAdditionValue
                   draws += playingCards.head.DrawingValue
 
-                  println("Your card effect is: " + playingCards.head.EffectValue)
+                  print("     Your card effect is: " + playingCards.head.EffectValue + "\n\n")
+                  print(Console.BLUE + "     Your Hand cards are: " + l(idx).hand.head.CardName + Console.BLACK + " (" + 0 + ")\n")
+                  for (i <- 1 until l(idx).hand.length) {
+                    print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
+                  }
 
                   if(playingCards.head.CardName == "Cellar") {
                     l = cellar(l, idx)
@@ -202,12 +208,12 @@ object GameTurn {
     val y = l(idx).hand.length - 1
     while(boo2)
         try {
-          println("Enter the amount of Cards to Discard")
+          println(Console.BLUE + "     Enter the amount of Cards to Discard")
           discardAmount = scala.io.StdIn.readInt()
           if(discardAmount < x){
             while(boo)
               try{
-                println("Choose some Card(s)")
+                println(Console.BLUE + "     Choose some Card(s)")
                 discardNumber = scala.io.StdIn.readLine()
                 val test = discardNumber.split(" ")
                 for(r <- 0 until discardAmount) {
@@ -218,17 +224,17 @@ object GameTurn {
                     println(l(idx).hand)
                     println("funktionert")
                   } else
-                    println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
+                    println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
                 }
                 boo = false
               } catch {
-                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+                case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
               }
             boo2 = false
           } else
-            println("Choose a Card from you hand")
+            println("     Choose a Card from you hand")
         } catch {
-          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+          case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
         }
     l
   }
@@ -240,7 +246,7 @@ object GameTurn {
     var y = 0
     while(z) {
       try {
-        println("Choose one Moneycard to upgrade")
+        println(Console.BLUE + "     Choose one Moneycard to upgrade")
         discardAmount = scala.io.StdIn.readInt()
         if(l(idx).hand(discardAmount).Type == "Money") {
           y = 1
@@ -259,9 +265,9 @@ object GameTurn {
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
             z = false
         } else
-          println("Choose a valid Card from you hand")
+          println(Console.RED + "     Choose a valid Card from you hand")
       } catch {
-        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
       }
     }
     l
@@ -274,23 +280,24 @@ object GameTurn {
     breakable {
       try {
         while (true) {
-          println(Console.BLUE + "Choose one Card to trash:")
+          println(Console.YELLOW + "     Which card to you want to trash?")
           inputInt = scala.io.StdIn.readInt()
           if (inputInt >= 0 && inputInt < l(idx).hand.length) {
-            println(Console.BLUE + "You choose: " + l(idx).hand(inputInt).CardName)
+            println(Console.BLUE + "     You choose: " + Console.BLACK + l(idx).hand(inputInt).CardName)
             discardCardValue = l(idx).hand(inputInt).CostValue
             discardCardValue = discardCardValue + 2
             l = updatePlayer(l, removeHandcard(inputInt, l(idx)))
-            println(Console.BLUE + "Choose a Card you want to add to your hand")
-            println(Console.BLUE + "You can choose a card that cost up to " + discardCardValue + " Money")
-            println(Console.BLUE + "You can choose:")
+            println(Console.BLUE + "     Choose a Card you want to add to your hand")
+            println(Console.BLUE + "     You can choose a card that cost up to " + discardCardValue + " Money")
+            println(Console.BLUE + "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)")
             for (i <- 0 until playingDecks.length) {
               if (discardCardValue >= playingDecks(i).head.CostValue) {
-                println("                " + Console.BLUE + playingDecks(i).head.CardName + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
+                println("                     " + Console.BLUE + playingDecks(i).head.CardName + Console.CYAN + " {" + playingDecks(i).length + "} " + Console.MAGENTA + "[" + playingDecks(i).head
+                  .CostValue + "]" + Console.BLUE + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
                 availableCards += i
               }
             }
-              print(Console.YELLOW + "\n \nWhich card to you want to add to your hand?\n")
+              print(Console.YELLOW + "\n \n     Which card to you want to add to your hand?\n")
               while (true) {
                 inputInt = scala.io.StdIn.readInt()
                 if (availableCards.contains(inputInt)) {
@@ -302,11 +309,11 @@ object GameTurn {
                 }
               }
           } else {
-            println(Console.RED + "Invalid Input, try again!")
+            println(Console.RED + "     Invalid Input, try again!")
           }
         }
       } catch {
-        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
       }
     }
     l
