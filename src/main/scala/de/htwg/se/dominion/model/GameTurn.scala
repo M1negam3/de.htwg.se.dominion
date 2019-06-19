@@ -220,6 +220,7 @@ object GameTurn {
     var l = list
     val x = l(idx).hand.length
     val y = l(idx).hand.length - 1
+    var same = false
     while(boo2)
         try {
           println(Console.BLUE + "     Enter the amount of Cards to Discard")
@@ -227,12 +228,24 @@ object GameTurn {
           if (discardAmount <= x){
             while(boo) {
               try {
-                println(Console.BLUE + "     Choose some Card(s), Separate them with a blank")
+                println(Console.BLUE + "     Choose some Card(s), separate them with a blank")
                 discardNumber = scala.io.StdIn.readLine()
                 val test = discardNumber.split(" ")
+                if (test.length > 1) {
+                  same = false
+                  for (i <- 0 until test.length - 1) {
+                    for (j <- 1 until test.length) {
+                      if (test(i) == test(j)) {
+                        same = true
+                      }
+                    }
+                  }
+                }
+                if (!same) {
                 if (test.length == discardAmount) {
                   for (r <- 0 until discardAmount) {
                     if (test(r).toInt < x) {
+                      l = updatePlayer(l, updateStacker(l(idx), l(idx).hand((test(r).toInt))))
                       l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
                       draws += 1
                     } else
@@ -242,6 +255,9 @@ object GameTurn {
                   boo = false
                 } else {
                   println(Console.RED + "     Please enter the correct amount of Cards to discard")
+                }
+                } else {
+                  println(Console.RED + "     Dont enter the same number twice")
                 }
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
