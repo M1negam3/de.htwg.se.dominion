@@ -51,7 +51,7 @@ object GameTurn {
       println(Console.BLUE + "     Your action cards are: " + actionString)
     }
     breakable {
-    while (actionNumber > 0) {
+      while (actionNumber > 0) {
         for (h <- 0 until l(idx).hand.length) {
           if (l(idx).hand(h).Type == "Money") {
             z += 1
