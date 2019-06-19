@@ -155,9 +155,9 @@ object GameTurn {
                 val test = discardNumber.split(" ")
                 for(r <- 0 until discardAmount) {
                   if (test(r).toInt < x) {
-                    l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                    l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
                     println(l(idx).hand)
-                    l = Player.updatePlayer(l, draw(l(idx), 1))
+                    l = updatePlayer(l, Player.draw(l(idx), 1))
                     println(l(idx).hand)
                     println("funktionert")
                   } else

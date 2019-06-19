@@ -68,10 +68,10 @@ object Cards{
     marketDeck)
 
   // Starting Decks
-  var startDeck : List[Cards] = List(copper, copper, copper, mine, mine, mine, mine, mine, mine, mine)
+  var startDeck : List[Cards] = List(copper, copper, copper, copper, cellar)
   //var startDeck : List[Cards] = List(village, village, copper, copper, copper)
   var hand : List[Cards] = Nil
-  var stacker : List[Cards] = Nil
+  var stacker : List[Cards] = List(silver, silver, silver, silver, silver)
 
   def shuffle(list: List[Cards]): List[Cards] = {
     val random = new Random
