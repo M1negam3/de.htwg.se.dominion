@@ -219,6 +219,7 @@ object GameTurn {
     var l = list
     val x = l(idx).hand.length
     val y = l(idx).hand.length - 1
+    var z = true
     while(boo2)
         try {
           println(Console.BLUE + "     Enter the amount of Cards to Discard")
@@ -230,12 +231,13 @@ object GameTurn {
                 discardNumber = scala.io.StdIn.readLine()
                 val test = discardNumber.split(" ")
                 for(r <- 0 until discardAmount) {
-                  if (test(r).toInt < x) {
-                    l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                    draws += 1
-                    println("funktionert")
-                  } else
-                    println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
+                    if (test(r).toInt < x && test.length == discardAmount) {
+                      l = updatePlayer(l, updateStacker(l(idx), l(idx).hand((test(r).toInt))))
+                      l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                      draws += 1
+                    } else
+                      println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
+
                 }
                 l = updatePlayer(l, draw(l(idx), draws))
                 boo = false
