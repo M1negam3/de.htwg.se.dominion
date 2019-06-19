@@ -38,7 +38,7 @@ object GameTurn {
 
     for (f <- 0 until 5) {
       if (l(idx).hand(f).Type.equals("Action") && !check) {
-        actionNumber = 2
+        actionNumber = 1
       }
     }
     if (actionNumber == 0) {
