@@ -19,7 +19,6 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
-    // TODO STACKER reinmischen geht nicht
     var copiedPlayer = player
     var copyList = copiedPlayer.deck
     var l = new ListBuffer[Cards]
@@ -73,10 +72,10 @@ object Player {
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
     print(Console.BLUE + "     Player " + copiedPlayer.value + " Hand Cards are: ")
-    for (f <- 0 until 4) {
-      print(hand(f).CardName + ", ")
+    for (f <- 0 until hand.length - 1) {
+      print(Console.BLUE + hand(f).CardName + Console.BLACK + " (" + f + ")" + Console.BLUE +  ", ")
     }
-    println(hand(4).CardName)
+    println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
   }
 
@@ -153,7 +152,7 @@ object Player {
       listBuffer1 += player.hand(j)
     }
     var x: List[Cards] = Nil
-    listBuffer1 -=(player.hand(i))
+    listBuffer1 -= player.hand(i)
     listBuffer1 +=z.head
     x = listBuffer1.toList
     Player(copiedplayer.name, copiedplayer.value, copiedplayer.deck,copiedplayer.stacker,x)
