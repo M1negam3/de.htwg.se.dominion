@@ -268,16 +268,17 @@ object GameTurn {
           if (inputInt >= 0 && inputInt < l(idx).hand.length) {
             println(Console.BLUE + "You choose: " + l(idx).hand(inputInt).CardName)
             discardCardValue = l(idx).hand(inputInt).CostValue
-            discardCardValue += 2
+            discardCardValue = discardCardValue + 2
             l = updatePlayer(l, removeHandcard(inputInt, l(idx)))
             println(Console.BLUE + "Choose a Card you want to add to your hand")
             println(Console.BLUE + "You can choose a card that cost up to " + discardCardValue + " Money")
             println(Console.BLUE + "You can choose:")
             for (i <- 0 until playingDecks.length) {
               if (discardCardValue >= playingDecks(i).head.CostValue) {
-                println("                " + Console.BLUE + playingDecks(i).head.CardName + "Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
+                println("                " + Console.BLUE + playingDecks(i).head.CardName + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
                 availableCards += i
               }
+            }
               print(Console.YELLOW + "\n \nWhich card to you want to add to your hand?\n")
               while (true) {
                 inputInt = scala.io.StdIn.readInt()
@@ -289,7 +290,6 @@ object GameTurn {
                   println(Console.RED + "     You cant add that, please enter a valid number")
                 }
               }
-            }
           } else {
             println(Console.RED + "Invalid Input, try again!")
           }
