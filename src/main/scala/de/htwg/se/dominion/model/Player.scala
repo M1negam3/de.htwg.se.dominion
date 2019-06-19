@@ -118,6 +118,7 @@ object Player {
     }
     if (player.deck.length < n) {
       p = isEmpty(player)
+      listBuffer3 = listBuffer2
       for (j <- 0 until player.deck.length) {
         listBuffer2 += player.deck(j)
       }
@@ -132,6 +133,7 @@ object Player {
       x = listBuffer2.toList
       Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
     }else{
+      listBuffer3 = listBuffer2
       for(j <- 0 until player.deck.length){
         listBuffer2 += player.deck(j)
       }

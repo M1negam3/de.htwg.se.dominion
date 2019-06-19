@@ -232,13 +232,12 @@ object GameTurn {
                 for(r <- 0 until discardAmount) {
                   if (test(r).toInt < x) {
                     l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                    println(l(idx).hand)
                     draws += 1
                     println("funktionert")
                   } else
                     println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
                 }
-                l = updatePlayer(l, draw(l(idx), 1))
+                l = updatePlayer(l, draw(l(idx), draws))
                 boo = false
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
