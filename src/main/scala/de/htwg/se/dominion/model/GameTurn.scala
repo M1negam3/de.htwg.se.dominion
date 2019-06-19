@@ -267,10 +267,6 @@ object GameTurn {
     l
   }
 
-  def workshop (list: List[Player], idx: Integer): List[Player] = {
-
-  }
-
   def remodel(list: List[Player], idx: Int): List[Player] = {
     var l = list
     var discardCardValue = 0
@@ -315,6 +311,10 @@ object GameTurn {
     }
     l
   }
+
+  /*def workshop (list: List[Player], idx: Integer): List[Player] = {
+
+}*/
 
   def updateStacker(p: Player, c: Cards): Player = {
     var copiedPlayer = p
