@@ -38,21 +38,21 @@ object GameTurn {
 
     for (f <- 0 until 5) {
       if (l(idx).hand(f).Type.equals("Action") && !check) {
-        actionNumber = 1
-        actionString += l(idx).hand(f).CardName + Console.BLACK + " (" + f + ")" + "\n"
-        check = true
-      } else if (l(idx).hand(f).Type.equals("Action") && check) {
-        actionString += "                            " + Console.BLUE + l(idx).hand(f).CardName + Console.BLACK + " (" + f + ")" + "\n"
+        actionNumber = 2
       }
     }
     if (actionNumber == 0) {
       println(Console.BLUE + "     You dont have any Actioncards to play")
-    } else {
-      println(Console.BLUE + "     Your action cards are: " + actionString)
     }
-    breakable {
-      while (actionNumber > 0) {
+    while (actionNumber > 0) {
+      breakable {
         for (h <- 0 until l(idx).hand.length) {
+          if (l(idx).hand(h).Type.equals("Action") && !check) {
+            actionString += l(idx).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
+            check = true
+          } else if (l(idx).hand(h).Type.equals("Action") && check) {
+            actionString += "                            " + Console.BLUE + l(idx).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
+          }
           if (l(idx).hand(h).Type == "Money") {
             z += 1
           }
@@ -60,11 +60,15 @@ object GameTurn {
         x = l(idx).hand.length
         y = l(idx).hand.length - 1
         if (z.equals(x)) {
+          println(Console.BLUE + "     Your actions are: " + actionNumber)
+          println(Console.RED + "     You dont have any Action Cards to play!")
           actionNumber = 0
           inputStr = ""
           break
         }
         z = 0
+        println(Console.BLUE + "     Your actions are: " + actionNumber)
+        println(Console.BLUE + "     Your action cards are: " + actionString)
         print(Console.YELLOW + "\n     Do you want to play a Card? (Y/N)\n")
         while (true) {
           inputStr = scala.io.StdIn.readLine()
@@ -84,7 +88,7 @@ object GameTurn {
                   buys += playingCards.head.BuyAdditionValue
                   draws += playingCards.head.DrawingValue
 
-                  print("     Your card effect is: " + playingCards.head.EffectValue + "\n\n")
+                  print(Console.BLUE + "     Your card effect is: "+ Console.BLACK + playingCards.head.EffectValue + "\n\n")
                   print(Console.BLUE + "     Your Hand cards are: " + l(idx).hand.head.CardName + Console.BLACK + " (" + 0 + ")\n")
                   for (i <- 1 until l(idx).hand.length) {
                     print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
@@ -98,7 +102,7 @@ object GameTurn {
                     l = remodel(l, idx)
                   } else if (playingCards.head.CardName == "Merchant") {
                     money = money + merchant(l, idx)
-                  } else if(playingCards.head.CardName == "Workshop"){
+                  } else if(playingCards.head.CardName == "Workshop") {
                     l = workshop(l, idx)
                   }
                   for (h <- 0 until playingDecks.length) {
@@ -119,15 +123,9 @@ object GameTurn {
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                   actionNumber += playingCards.head.ActionValue
                   actionNumber -= 1
-                  println(l(idx).hand)
+                  //println("TEST " + l(idx).hand)
                   playingCards = Nil
                   actionString = ""
-                  for (f <- 0 until l(idx).hand.length) {
-                    if (l(idx).hand(f).Type.equals("Action")) {
-                      actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
-                    }
-                  }
-                  println(Console.BLUE + "     Your action cards are: " + actionString)
                 } else {
                   println(Console.RED + "     Please enter an Actioncard between 0 and " + y)
                 }
@@ -308,7 +306,7 @@ object GameTurn {
             println(Console.BLUE + "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)")
             for (i <- 0 until playingDecks.length) {
               if (discardCardValue >= playingDecks(i).head.CostValue) {
-                println("                     " + Console.BLUE + playingDecks(i).head.CardName + Console.CYAN + " {" + playingDecks(i).length + "} " + Console.MAGENTA + "[" + playingDecks(i).head
+                println("                         " + Console.BLUE + playingDecks(i).head.CardName + Console.CYAN + " {" + playingDecks(i).length + "} " + Console.MAGENTA + "[" + playingDecks(i).head
                   .CostValue + "]" + Console.BLUE + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
                 availableCards += i
               }
