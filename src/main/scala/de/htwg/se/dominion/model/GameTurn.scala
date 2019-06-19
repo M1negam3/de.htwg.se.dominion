@@ -164,12 +164,12 @@ object GameTurn {
       inputStr = ""
       println(Console.BLUE + " Your money is: " + money)
       println(Console.BLUE + "     Your Buy actions are: " + buys)
-      print(Console.BLUE + "     You can buy these:\n")
+      print(Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n")
       for (g <- 0 until playingDecks.length) {
         if (money >= playingDecks(g).head.CostValue) {
           availableCards += g
-          print(Console.BLUE + "                        " + playingDecks(g).head.CardName + " {" + playingDecks(g).length + "} " + "[" + playingDecks(g).head.CostValue
-            + "]" + "Card Effect: " + playingDecks(g).head.EffectValue + Console.BLACK + " PRESS (" + g + ")" + ", \n")
+          print(Console.BLUE + "                        " + playingDecks(g).head.CardName + Console.CYAN + " {" + playingDecks(g).length + "} " + Console.MAGENTA + "[" + playingDecks(g).head.CostValue
+            + "]" + Console.BLUE + " Card Effect: " + playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + ", \n")
         }
       }
       breakable {

@@ -8,6 +8,7 @@ class Controller() extends Observable {
   var players: List[Player] = Nil
   var cPlayers: List[Player] = Nil
   var phaseString = Output.printHeader()
+  var state = "Init"
 
   def newGame(): Unit = {
     pCount = GameInit.getPlayerCount()
@@ -15,6 +16,7 @@ class Controller() extends Observable {
     players = Player.createPlayer(pCount, names)
     phaseString = Output.printPrep()
     cPlayers = players
+    state = "turn"
     notifyObservers
   }
 
@@ -28,6 +30,9 @@ class Controller() extends Observable {
     cPlayers = GameTurn.buyPhase(cPlayers, playerTurn)
     phaseString = Output.printTurnEnd(playerTurn) + GameTurn.endCheck(GameTurn.end)
     playerTurn += 1
+    if (GameTurn.end) {
+      state = "end"
+    }
     notifyObservers
   }
 
