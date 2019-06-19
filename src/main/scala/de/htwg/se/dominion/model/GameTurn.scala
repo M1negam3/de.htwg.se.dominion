@@ -86,11 +86,12 @@ object GameTurn {
                   println("Your card effect is: " + playingCards.head.EffectValue)
 
                   if(playingCards.head.CardName == "Cellar") {
-                    cellar(l, idx)
+                    l = cellar(l, idx)
                     actionNumber += 1
                   } else if(playingCards.head.CardName == "Mine") {
-                    mine(l, idx)
+                    l = mine(l, idx)
                   }
+
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
