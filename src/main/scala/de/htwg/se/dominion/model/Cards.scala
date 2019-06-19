@@ -68,7 +68,7 @@ object Cards{
     marketDeck)
 
   // Starting Decks
-  var startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, copper, copper, remodel)
+  var startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, copper, copper, cellar)
   //var startDeck : List[Cards] = List(village, village, copper, copper, copper)
   var hand : List[Cards] = Nil
   var stacker : List[Cards] = Nil

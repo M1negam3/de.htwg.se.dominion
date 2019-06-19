@@ -38,7 +38,7 @@ object GameTurn {
 
     for (f <- 0 until 5) {
       if (l(idx).hand(f).Type.equals("Action") && !check) {
-        actionNumber = 2
+        actionNumber = 1
       }
     }
     if (actionNumber == 0) {
@@ -95,7 +95,6 @@ object GameTurn {
                   }
                   if (playingCards.head.CardName == "Cellar") {
                     l = cellar(l, idx)
-                    actionNumber += 1
                   } else if (playingCards.head.CardName == "Mine") {
                     l = mine(l, idx)
                   } else if (playingCards.head.CardName == "Remodel") {
@@ -234,12 +233,12 @@ object GameTurn {
                   if (test(r).toInt < x) {
                     l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
                     println(l(idx).hand)
-                    l = updatePlayer(l, Player.draw(l(idx), 1))
-                    println(l(idx).hand)
+                    draws += 1
                     println("funktionert")
                   } else
                     println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
                 }
+                l = updatePlayer(l, draw(l(idx), 1))
                 boo = false
               } catch {
                 case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")

@@ -112,7 +112,6 @@ object Player {
     var z: List[Cards] = Nil
     var x: List[Cards] = Nil
     var p = player
-    var n = 0
 
     for(o <- 0 until player.hand.length){
       listBuffer1 += player.hand(o)
