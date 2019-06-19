@@ -38,7 +38,7 @@ object GameTurn {
 
     for (f <- 0 until 5) {
       if (l(idx).hand(f).Type.equals("Action")) {
-        actionNumber += 1
+        actionNumber = 1
         actionString += l(idx).hand(f).CardName + "(" + f + ")" + ", "
       }
     }
@@ -46,7 +46,7 @@ object GameTurn {
       println(Console.BLUE + "     You dont have any Actioncards to play")
     } else {
       println(Console.BLUE + "     Your action cards are: " + actionString)
-      actionNumber = 1
+
     }
     while (actionNumber != 0) {
       breakable {
@@ -91,6 +91,8 @@ object GameTurn {
                     l = mine(l, idx)
                   } else if(playingCards.head.CardName == "Remodel") {
                     l = remodel(l, idx)
+                  } else if(playingCards.head.CardName == "Workshop"){
+                    l = workshop(l, idx)
                   }
                   l = Player.updatePlayer(l, draw(l(idx), draws))
                   draws = 0
@@ -312,9 +314,39 @@ object GameTurn {
     l
   }
 
-  /*def workshop (list: List[Player], idx: Integer): List[Player] = {
-
-}*/
+  def workshop (list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    var x = true
+    var availableCards: ListBuffer[Int] = ListBuffer()
+    var count = 0
+    while (x) {
+      println("You can choose a card costing up to 4")
+      for (i <- 0 until playingDecks.length) {
+        if (playingDecks(i).head.CostValue <= 4) {
+          println("                " + Console.BLUE + playingDecks(i).head.CardName + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
+          availableCards += 1
+          count = i
+        }
+      }
+      while (x) {
+        try {
+          println("Choose one Card")
+          inputInt = scala.io.StdIn.readInt()
+          if(inputInt <= availableCards.length){
+            l = updatePlayer(l, updateStacker(l(idx), playingDecks(inputInt).head))
+            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
+            println(l(idx).stacker)
+            x = false
+          } else {
+            println(Console.RED + "Invalid Input, try again!")
+          }
+        } catch {
+          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        }
+      }
+      }
+    l
+  }
 
   def updateStacker(p: Player, c: Cards): Player = {
     var copiedPlayer = p
