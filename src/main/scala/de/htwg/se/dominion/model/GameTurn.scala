@@ -89,14 +89,15 @@ object GameTurn {
                   for (i <- 1 until l(idx).hand.length) {
                     print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
                   }
-
-                  if(playingCards.head.CardName == "Cellar") {
+                  if (playingCards.head.CardName == "Cellar") {
                     l = cellar(l, idx)
                     actionNumber += 1
-                  } else if(playingCards.head.CardName == "Mine") {
+                  } else if (playingCards.head.CardName == "Mine") {
                     l = mine(l, idx)
-                  } else if(playingCards.head.CardName == "Remodel") {
+                  } else if (playingCards.head.CardName == "Remodel") {
                     l = remodel(l, idx)
+                  } else if (playingCards.head.CardName == "Merchant") {
+                    money = money + merchant(l, idx)
                   }
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
@@ -332,9 +333,21 @@ object GameTurn {
     l
   }
 
-  /*def workshop (list: List[Player], idx: Integer): List[Player] = {
+  def merchant(list: List[Player], idx: Int): Int = {
+    var l = list
+    var copiedplayer = l(idx)
+    var addMoney = 0
+    for (i <- 0 until copiedplayer.hand.length) {
+      if (copiedplayer.hand(i).CardName.equals("Silver")) {
+        addMoney = 1
+      }
+    }
+    addMoney
+  }
 
-}*/
+  def workshop (list: List[Player], idx: Integer): List[Player] = {
+
+  }
 
   def updateStacker(p: Player, c: Cards): Player = {
     var copiedPlayer = p
