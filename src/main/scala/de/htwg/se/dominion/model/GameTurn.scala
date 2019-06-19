@@ -221,10 +221,12 @@ object GameTurn {
       } catch {
         case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
       }
-
     }
-
     l
+  }
+
+  def workshop (list: List[Player], idx: Integer): List[Player] = {
+
   }
 
   def copyList(cards: List[Cards]): List[Cards] = {
