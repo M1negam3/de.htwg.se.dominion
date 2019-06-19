@@ -122,6 +122,120 @@ object GameTurn {
     l
   }
 
+  def updateStacker(p: Player, c: Cards): Player = {
+    var copiedPlayer = p
+    val copiedCard = c
+    var copiedStacker = new ListBuffer[Cards]
+    for (i <- 0 until copiedPlayer.stacker.length) {
+      copiedStacker += copiedPlayer.stacker(i)
+    }
+    copiedStacker += copiedCard
+    val updatedStacker: List[Cards] = copiedStacker.toList
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand)
+  }
+
+  def cellar(list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    val x = l(idx).hand.length
+    val y = l(idx).hand.length - 1
+    while(boo2)
+        try {
+          println("Enter the amount of Cards to Discard")
+          discardAmount = scala.io.StdIn.readInt()
+          if(discardAmount < x){
+            while(boo)
+              try{
+                println("Choose some Card(s)")
+                discardNumber = scala.io.StdIn.readLine()
+                val test = discardNumber.split(" ")
+                for(r <- 0 until discardAmount) {
+                  if (test(r).toInt < x) {
+                    l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
+                    println(l(idx).hand)
+                    l = Player.updatePlayer(l, draw(l(idx), 1))
+                    println(l(idx).hand)
+                    println("funktionert")
+                  } else
+                    println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
+                }
+                boo = false
+              } catch {
+                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+              }
+            boo2=false
+          } else
+            println("Choose a Card from you hand")
+        } catch {
+          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+        }
+    l
+  }
+
+  def removeHandcard(i: Int, player: Player): Player = {
+    val copiedName = player.name
+    val copiedNumber = player.value
+    val copiedDeck = player.deck
+    val copiedStacker = player.stacker
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    for (j <- 0 until player.hand.length) {
+      listBuffer1 += player.hand(j)
+    }
+    var z: List[Cards] = Nil
+    listBuffer1.-=(player.hand(i))
+    z = listBuffer1.toList
+    Player(copiedName, copiedNumber, copiedDeck, copiedStacker, z)
+  }
+
+  def mine(list: List[Player], idx: Integer): List[Player] = {
+    var l = list
+    val x = l(idx).hand.length
+    try {
+      println("Choose one Moneycard to upgrade")
+      discardAmount = scala.io.StdIn.readInt()
+      if (discardAmount < x && l(idx).hand(discardAmount).Type == "Money"){
+        if(l(idx).hand(discardAmount).CardName == "Copper") {
+          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
+          playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
+        } else if (l(idx).hand(discardAmount).CardName == "Silver"){
+          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
+        } else if (l(idx).hand(discardAmount).CardName == "Gold")
+          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
+        } else
+          println("Choose a valid Card from you hand")
+      } catch {
+        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
+      }
+    l
+  }
+
+  def copyList(cards: List[Cards]): List[Cards] = {
+    var l = new ListBuffer[Cards]
+
+    for (j <- 1 until cards.length) {
+      l += cards(j)
+    }
+    val copiedList: List[Cards] = l.toList
+    copiedList
+  }
+
+  def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
+    var copiedPlayingDecks = l
+    var changedList = o
+    val idx = i
+    var updatedPlayingDeck: ListBuffer[List[Cards]] = ListBuffer()
+    for (i <- 0 until copiedPlayingDecks.length) {
+      if (i == idx) {
+        updatedPlayingDeck += changedList
+      } else {
+        updatedPlayingDeck += copiedPlayingDecks(i)
+      }
+    }
+    val updatedList: List[List[Cards]] = updatedPlayingDeck.toList
+    updatedList
+  }
+
   def buyPhase(list: List[Player], idx: Int): List[Player] = {
     var l = list
     var availableCards: ListBuffer[Int] = ListBuffer()
@@ -194,59 +308,6 @@ object GameTurn {
     l
   }
 
-  def copyList(cards: List[Cards]): List[Cards] = {
-    var l = new ListBuffer[Cards]
-
-    for (j <- 1 until cards.length) {
-      l += cards(j)
-    }
-    val copiedList: List[Cards] = l.toList
-    copiedList
-  }
-
-  def removeHandcard(i: Int, player: Player): Player = {
-    val copiedName = player.name
-    val copiedNumber = player.value
-    val copiedDeck = player.deck
-    val copiedStacker = player.stacker
-    var listBuffer1: ListBuffer[Cards] = ListBuffer()
-    for (j <- 0 until player.hand.length) {
-      listBuffer1 += player.hand(j)
-    }
-    var z: List[Cards] = Nil
-    listBuffer1.-=(player.hand(i))
-    z = listBuffer1.toList
-    Player(copiedName, copiedNumber, copiedDeck, copiedStacker, z)
-  }
-
-  def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
-    var copiedPlayingDecks = l
-    var changedList = o
-    val idx = i
-    var updatedPlayingDeck: ListBuffer[List[Cards]] = ListBuffer()
-    for (i <- 0 until copiedPlayingDecks.length) {
-      if (i == idx) {
-        updatedPlayingDeck += changedList
-      } else {
-        updatedPlayingDeck += copiedPlayingDecks(i)
-      }
-    }
-    val updatedList: List[List[Cards]] = updatedPlayingDeck.toList
-    updatedList
-  }
-
-  def updateStacker(p: Player, c: Cards): Player = {
-    var copiedPlayer = p
-    val copiedCard = c
-    var copiedStacker = new ListBuffer[Cards]
-    for (i <- 0 until copiedPlayer.stacker.length) {
-      copiedStacker += copiedPlayer.stacker(i)
-    }
-    copiedStacker += copiedCard
-    val updatedStacker: List[Cards] = copiedStacker.toList
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand)
-  }
-
   def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]] = {
     val copiedPD = l
     var updatedPD = new ListBuffer[List[Cards]]
@@ -280,66 +341,5 @@ object GameTurn {
       s = Output.printEnd()
     }
     s
-  }
-
-  def cellar(list: List[Player], idx: Integer): List[Player] = {
-    var l = list
-    val x = l(idx).hand.length
-    val y = l(idx).hand.length - 1
-    while(boo2)
-        try {
-          println("Enter the amount of Cards to Discard")
-          discardAmount = scala.io.StdIn.readInt()
-          if(discardAmount < x){
-            while(boo)
-              try{
-                println("Choose some Card(s)")
-                discardNumber = scala.io.StdIn.readLine()
-                val test = discardNumber.split(" ")
-                for(r <- 0 until discardAmount) {
-                  if (test(r).toInt < x) {
-                    l = Player.updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                    println(l(idx).hand)
-                    l = Player.updatePlayer(l, draw(l(idx), 1))
-                    println(l(idx).hand)
-                    println("funktionert")
-                  } else
-                    println(Console.RED + "Please enter a Card from your hand between 0 and " + y)
-                }
-                boo = false
-              } catch {
-                case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-              }
-            boo2=false
-          } else
-            println("Choose a Card from you hand")
-        } catch {
-          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-        }
-    l
-  }
-
-  def mine(list: List[Player], idx: Integer): List[Player] = {
-    var l = list
-    val x = l(idx).hand.length
-    try {
-      println("Choose one Moneycard to upgrade")
-      discardAmount = scala.io.StdIn.readInt()
-      if (discardAmount < x && l(idx).hand(discardAmount).Type == "Money"){
-        if(l(idx).hand(discardAmount).CardName == "Copper") {
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
-        } else if (l(idx).hand(discardAmount).CardName == "Silver"){
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-        } else if (l(idx).hand(discardAmount).CardName == "Gold")
-          l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-        } else
-          println("Choose a valid Card from you hand")
-      } catch {
-        case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-      }
-    l
   }
 }
