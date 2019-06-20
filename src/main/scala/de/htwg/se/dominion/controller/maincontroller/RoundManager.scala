@@ -10,33 +10,39 @@ case class RoundManager(players: List[Player] = Nil,
                         names: List[String] = Nil,
                         score: Map[String, Int] = Map()){
 
-  def getnumberOfPlayers() : RoundManager ={
-     val copiedNumber = GameInit.getPlayerCount()
-    RoundManager(players,numberOfRounds,copiedNumber,names,score)
+  def getNumberOfPlayers(roundManager: RoundManager) : RoundManager ={
+    val copiedRoundManager = roundManager
+    val copiedNumber = GameInit.getPlayerCount()
+    RoundManager(copiedRoundManager.players,copiedRoundManager.numberOfRounds,copiedNumber,copiedRoundManager.names,copiedRoundManager.score)
   }
-  def names(numberOfPlayers: Int): List[String] = {
-    val copiedNames = GameInit.getPlayerName(numberOfPlayers)
-    RoundManager(players,numberOfRounds,numberOfPlayers,copiedNames,score)
-  }
-
-  def createPlayer (numberOfPlayers: Int, names: List[String]) : RoundManager = {
-    val Players = Player.createPlayer(numberOfPlayers, names)
-    RoundManager(Players,0,numberOfPlayers,names,score)
+  def names(roundManager: RoundManager): RoundManager = {
+    val copiedRoundManager = roundManager
+    val copiedNames = GameInit.getPlayerName(roundManager.numberOfPlayers)
+    RoundManager(copiedRoundManager.players,copiedRoundManager.numberOfRounds,copiedRoundManager.numberOfPlayers,copiedNames,copiedRoundManager.score)
   }
 
-  def actionPhase(players: List[Player],idx: Int, numberOfRounds: Int): RoundManager = {
-    val action = GameTurn.actionPhase(players, 5)
-    val copiedNumberOfRounds = numberOfRounds+1
-    RoundManager(action,copiedNumberOfRounds,numberOfPlayers,names,score)
+  def createPlayer (roundManager: RoundManager) : RoundManager = {
+    val copiedRoundManager = roundManager
+    val Players = Player.createPlayer(roundManager.numberOfPlayers, roundManager.names)
+    RoundManager(Players,copiedRoundManager.numberOfRounds,copiedRoundManager.numberOfPlayers,copiedRoundManager.names,copiedRoundManager.score)
   }
 
-  def buyPhase(players: List[Player], idx: Int, numberOfRounds: Int) : RoundManager = {
-    val buy = GameTurn.buyPhase(players, 5)
-    RoundManager(buy,numberOfRounds,numberOfPlayers,names,score)
+  def actionPhase(roundManager: RoundManager, idx: Int): RoundManager = {
+    val copiedRoundManager = roundManager
+    val action = GameTurn.actionPhase(roundManager.players, idx)
+    val copiedNumberOfRounds = roundManager.numberOfRounds+1
+    RoundManager(action,copiedNumberOfRounds,copiedRoundManager.numberOfPlayers,copiedRoundManager.names,copiedRoundManager.score)
   }
 
-  def score(players: List[Player]): RoundManager = {
-    val copiedScore = GameEnd.score(players)
-    RoundManager(players,numberOfRounds,numberOfPlayers,names,copiedScore)
+  def buyPhase(roundManager: RoundManager, idx: Int) : RoundManager = {
+    val copiedRoundManager = roundManager
+    val buy = GameTurn.buyPhase(roundManager.players, idx)
+    RoundManager(buy,copiedRoundManager.numberOfRounds,copiedRoundManager.numberOfPlayers,copiedRoundManager.names,copiedRoundManager.score)
+  }
+
+  def score(roundManager: RoundManager): RoundManager = {
+    val copiedRoundManager = roundManager
+    val copiedScore = GameEnd.score(roundManager.players)
+    RoundManager(copiedRoundManager.players,copiedRoundManager.numberOfRounds,copiedRoundManager.numberOfPlayers,copiedRoundManager.names,copiedScore)
   }
 }
