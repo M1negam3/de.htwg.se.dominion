@@ -11,20 +11,23 @@ object GameTurn {
   var actionString = ""
   var inputStr = ""
   var inputInt = 0
+  var index = 0
   var money = 0
   var buys = 1
   var draws = 0
   var empty = 0
   var end = false
-  var playingDecks: List[List[Cards]] = Cards.playingDeck
   var discardNumber = ""
   var discardAmount = 0
   var boo = true
   var boo2 = true
+  var playingDecks: List[List[Cards]] = Cards.playingDeck
   var playingCards: List[Cards] = Nil
+  var l: List[Player] = List()
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
-    var l = list
+    l = list
+    index = idx
     var actionNumber = 0
     var z: Integer = 0
     var x: Integer = 0
@@ -34,11 +37,11 @@ object GameTurn {
     playingCards = Nil
 
     money = 0
-    l = Player.updatePlayer(l, Player.getHand(l(idx)))
-    money = Player.getMoney(l(idx))
+    l = Player.updatePlayer(l, Player.getHand(l(index)))
+    money = Player.getMoney(l(index))
 
     for (f <- 0 until 5) {
-      if (l(idx).hand(f).Type.equals("Action") && !check) {
+      if (l(index).hand(f).Type.equals("Action") && !check) {
         actionNumber = 1
       }
     }
@@ -47,20 +50,20 @@ object GameTurn {
     }
     while (actionNumber > 0) {
       breakable {
-        for (h <- 0 until l(idx).hand.length) {
-          if (l(idx).hand(h).Type.equals("Action") && !check) {
-            actionString += l(idx).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
+        for (h <- 0 until l(index).hand.length) {
+          if (l(index).hand(h).Type.equals("Action") && !check) {
+            actionString += l(index).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
             check = true
-          } else if (l(idx).hand(h).Type.equals("Action") && check) {
-            actionString += "                            " + Console.BLUE + l(idx).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
+          } else if (l(index).hand(h).Type.equals("Action") && check) {
+            actionString += "                            " + Console.BLUE + l(index).hand(h).CardName + Console.BLACK + " (" + h + ")" + "\n"
           }
-          if (l(idx).hand(h).Type == "Money") {
+          if (l(index).hand(h).Type == "Money") {
             z += 1
           }
         }
         check = false
-        x = l(idx).hand.length
-        y = l(idx).hand.length - 1
+        x = l(index).hand.length
+        y = l(index).hand.length - 1
         if (z.equals(x)) {
           println(Console.BLUE + "     Your actions are: " + actionNumber)
           println(Console.RED + "     You dont have any Action Cards to play!")
@@ -83,30 +86,24 @@ object GameTurn {
             while (true) {
               try {
                 cardNumber = scala.io.StdIn.readInt()
-                if (cardNumber < x && l(idx).hand(cardNumber).Type == "Action") {
-                  playingCards = l(idx).hand(cardNumber) :: Nil
-                  l = Player.updatePlayer(l, removeHandcard(cardNumber, l(idx)))
+                if (cardNumber < x && l(index).hand(cardNumber).Type == "Action") {
+                  playingCards = l(index).hand(cardNumber) :: Nil
+                  l = Player.updatePlayer(l, removeHandcard(cardNumber, l(index)))
                   money += playingCards.head.BonusMoneyValue
                   buys += playingCards.head.BuyAdditionValue
                   draws += playingCards.head.DrawingValue
 
                   print(Console.BLUE + "     Your card effect is: "+ Console.BLACK + playingCards.head.EffectValue + "\n\n")
-                  print(Console.BLUE + "     Your Hand cards are: " + l(idx).hand.head.CardName + Console.BLACK + " (" + 0 + ")\n")
-                  for (i <- 1 until l(idx).hand.length) {
-                    print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
+                  print(Console.BLUE + "     Your Hand cards are: " + l(index).hand.head.CardName + Console.BLACK + " (" + 0 + ")\n")
+                  for (i <- 1 until l(index).hand.length) {
+                    print(Console.BLUE + "                          " + l(index).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
                   }
 
-                  /*if (playingCards.head.CardName == "Cellar") {
-                    l = cellar(l, idx)
-                  } else if (playingCards.head.CardName == "Mine") {
-                    l = mine(l, idx)
-                  } else if (playingCards.head.CardName == "Remodel") {
-                    l = remodel(l, idx)
-                  } else if (playingCards.head.CardName == "Merchant") {
+                  l = StrategyPatternForActionPhase.strategy
+
+                  if (playingCards.head.CardName == "Merchant") {
                     money = money + merchant(l, idx)
-                  } else if(playingCards.head.CardName == "Workshop") {
-                    l = workshop(l, idx)
-                  }*/
+                  }
 
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
@@ -121,9 +118,9 @@ object GameTurn {
                       break
                     }
                   }
-                  l = Player.updatePlayer(l, draw(l(idx), draws))
+                  l = Player.updatePlayer(l, draw(l(index), draws))
                   draws = 0
-                  l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
+                  l = Player.updatePlayer(l, updateStacker(l(index), playingCards.head))
                   actionNumber += playingCards.head.ActionValue
                   actionNumber -= 1
                   playingCards = Nil

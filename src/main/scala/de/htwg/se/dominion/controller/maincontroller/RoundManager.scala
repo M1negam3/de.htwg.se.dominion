@@ -7,21 +7,21 @@ import de.htwg.se.dominion.model.{Cards, GameInit, Player}
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-case class RoundManager(players: List[Player] = Nil,
+/*case class RoundManager(players: List[Player] = Nil,
                         numberOfRounds: Int = 0,
                         numberOfPlayers: Int = 0,
                         names: List[String] = Nil){
                         //startDeck:  List[Cards] = Cards.startDeck,
                         //playingDeck: List[List[Cards]] = Cards.playingDeck)
-  {
 
 
   def getnumberOfPlayers() : Int ={
      val copiednumberOfPlayers = GameInit.getPlayerCount()
     copiednumberOfPlayers
   }
-  def names(numberOfPlayers: Int); List[String] = {
+  def names(numberOfPlayers: Int): List[String] = {
     val copiednames = GameInit.getPlayerName(numberOfPlayers)
+    copiednames
   }
 
   def checkNumberOfPlayers(number: Int): Boolean = {
@@ -286,4 +286,4 @@ case class RoundManager(players: List[Player] = Nil,
       }
     }
   }
-}
+}*/

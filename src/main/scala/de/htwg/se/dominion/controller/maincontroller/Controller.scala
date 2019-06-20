@@ -4,7 +4,7 @@ import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.util._
 
-class Controller(var roundManager: RoundManager) extends ControllerInterface {
+class Controller(/*var roundManager: RoundManager*/) extends ControllerInterface {
   var pCount = 0
   var playerTurn = 0
   var players: List[Player] = Nil

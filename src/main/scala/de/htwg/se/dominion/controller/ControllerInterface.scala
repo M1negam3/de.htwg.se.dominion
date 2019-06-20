@@ -11,4 +11,8 @@ trait ControllerInterface extends Observable{
   def help(): Unit
 
   def endGame(): Unit
+
+  def undo(): Unit
+
+  def redo(): Unit
 }

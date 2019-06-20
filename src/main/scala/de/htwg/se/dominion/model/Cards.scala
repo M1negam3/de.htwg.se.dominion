@@ -7,135 +7,6 @@ case class Cards(CostValue : Int, MoneyValue : Int, WpValue : Int, ActionValue :
                  BonusMoneyValue : Int, DrawingValue : Int, EffectValue : String, CardName : String, Type : String) {
 }
 
-trait createCopperDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(100)(Cards.copper)
-    deck
-  }
-}
-
-trait createSilverDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(100)(Cards.silver)
-    deck
-  }
-}
-
-trait createGoldDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(100)(Cards.gold)
-    deck
-  }
-}
-
-trait createMansionDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(12)(Cards.mansion)
-    deck
-  }
-}
-
-trait createDuchyDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(12)(Cards.duchy)
-    deck
-  }
-}
-
-trait createProvinceDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(12)(Cards.province)
-    deck
-  }
-}
-
-
-trait createVillageDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.village)
-    deck
-  }
-}
-
-trait createFestivalDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.festival)
-    deck
-  }
-}
-
-trait createCellarDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.cellar)
-    deck
-  }
-}
-
-trait createMineDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.mine)
-    deck
-  }
-}
-
-trait createSmithyDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.smithy)
-    deck
-  }
-}
-
-trait createRemodelDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.remodel)
-    deck
-  }
-}
-
-trait createMerchantDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.merchant)
-    deck
-  }
-}
-
-trait createWorkshopDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.workshop)
-    deck
-  }
-}
-
-trait createGardenDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.gardens)
-    deck
-  }
-}
-
-trait createMarketDeck extends DeckInterface {
-
-  override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.market)
-    deck
-  }
-}
-
 object Cards {
   //Moneycards
   val copper = new Cards(0,1,0,0,0,0,
@@ -183,7 +54,7 @@ object Cards {
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, mansion, mansion, mansion)
+  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, cellar, cellar, cellar)
   val hand : List[Cards] = Nil
   val stacker : List[Cards] = Nil
 
