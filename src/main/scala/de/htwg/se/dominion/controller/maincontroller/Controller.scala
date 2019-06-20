@@ -13,32 +13,28 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var state = "Init"
   val undoManager = new UndoManager
   var roundmanager = r
+  var startRoundmanager = r
 
   override def newGame(): Unit = {
     roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
     roundmanager = roundmanager.getNames(roundmanager)
     roundmanager = roundmanager.createPlayer(roundmanager)
+    startRoundmanager = roundmanager
     phaseString = Output.printPrep()
     state = "turn"
     notifyObservers
   }
 
-  /*def newGame(): Unit = {
-    pCount = GameInit.getPlayerCount()
-    val names = GameInit.getPlayerName(pCount)
-    players = Player.createPlayer(pCount, names)
-    phaseString = Output.printPrep()
-    cPlayers = players
-    state = "turn"
-    notifyObservers
-  }*/
-
   override def turn(): Unit = {
     roundmanager = roundmanager.playerTurn(roundmanager)
-    undoManager.doStep(new turnCommand(roundmanager, roundmanager.idx,this))
+    undoManager.doStep(new turnCommand(roundmanager.idx,this))
     notifyObservers
-    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds, roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
+    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds,
+      roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
     roundmanager = roundmanager.roundNumber(roundmanager)
+    if (GameTurn.end) {
+      state = "end"
+    }
   }
 
   /*override def turn(): Unit = {
@@ -57,47 +53,26 @@ class Controller(r: RoundManager) extends ControllerInterface {
   notifyObservers
  }*/
 
-  /*override def turn(): Unit = {
-    roundmanager = roundmanager.playerTurn(roundmanager)
-    println("TEST " + roundmanager.players(roundmanager.idx).deck)
-    println("TEST " + roundmanager.players(roundmanager.idx).stacker)
-    println("TEST " + roundmanager.players(roundmanager.idx).hand)
-    roundmanager = roundmanager.actionPhase(roundmanager)
-    println("TEST1 " + roundmanager.players(roundmanager.idx).deck)
-    println("TEST1 " + roundmanager.players(roundmanager.idx).stacker)
-    println("TEST1 " + roundmanager.players(roundmanager.idx).hand)
-    roundmanager = roundmanager.buyPhase(roundmanager)
-    println("TEST2 " + roundmanager.players(roundmanager.idx).deck)
-    println("TEST2 " + roundmanager.players(roundmanager.idx).stacker)
-    println("TEST2 " + roundmanager.players(roundmanager.idx).hand)
-    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds, roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
-    roundmanager = roundmanager.roundNumber(roundmanager)
-    notifyObservers
-  }*/
-
   override def help(): Unit = {
     phaseString = Output.printRules()
     notifyObservers
   }
 
-  /* override def endGame(): Unit = {
-    val fPlayers = GameEnd.end(cPlayers)
-    val score = GameEnd.score(fPlayers)
-    phaseString = Output.printScore(score)
-    notifyObservers
-  }*/
-
-  override def endGame(): Unit = {
+   override def endGame(): Unit = {
+    roundmanager = roundmanager.score(roundmanager.end(roundmanager))
+    phaseString = Output.printScore(roundmanager.score)
     notifyObservers
   }
 
   override def undo(): Unit ={
-    undoManager.undoStep
+    println("UNDO")
+    undoManager.undoStep()
     notifyObservers
   }
 
   override def redo(): Unit = {
-    undoManager.redoStep
+    println("REDO")
+    undoManager.redoStep()
     notifyObservers
   }
 }

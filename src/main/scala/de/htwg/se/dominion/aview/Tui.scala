@@ -25,8 +25,8 @@ class Tui(controller: Controller) extends Observer {
   def processInputLine(input: String): Unit = {
     input match {
       case "q" =>
-      case "z" => controller.undo()
-      case "y" => controller.redo()
+      case "u" => controller.undo()
+      case "r" => controller.redo()
       case "n" => controller.newGame()
       case "t" => if (controller.state.equals("turn")) { controller.turn() }
       case "e" => if (controller.state.equals("end")) { controller.endGame() }

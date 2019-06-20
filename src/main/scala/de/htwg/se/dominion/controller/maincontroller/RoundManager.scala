@@ -73,6 +73,12 @@ case class RoundManager(players: List[Player] = Nil,
     turnRoundManager
   }
 
+  def end(r: RoundManager): RoundManager = {
+    val copiedRoundManager = r
+    val end = GameEnd.end(copiedRoundManager.players)
+    RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+  }
+
 }
 
 object RoundManager {
