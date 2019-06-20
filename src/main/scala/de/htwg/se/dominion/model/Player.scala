@@ -23,13 +23,13 @@ object Player {
     Players
   }
 
-  def getHand(player: Player): Player = {
+  /*def getHand(player: Player): Player = {
     copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
-    l = StrategyPatternForHand.strategy
+    //l = StrategyPatternForHand.strategy
     for (f <- 5 until copyList.length) {
       d += copyList(f)
     }
@@ -41,6 +41,66 @@ object Player {
     }
     println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")
     deckLength = 0
+    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
+  }*/
+  def getHand(player: Player): Player = {
+    var copiedPlayer = player
+    var copyList = copiedPlayer.deck
+    var l = new ListBuffer[Cards]
+    var d = new ListBuffer[Cards]
+    copyList.length match {
+      case 0 =>
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+        for (i <- 0 until 5) {
+          l += copyList(i)
+        }
+      case 1 =>
+        l += copyList.head
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+        for (i <- 0 until 4) {
+          l += copyList(i)
+        }
+      case 2 =>
+        l += copyList.head
+        l += copyList(1)
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+        for (i <- 0 until 3) {
+          l += copyList(i)
+        }
+      case 3 =>
+        for (i <- 0 until copyList.length) {
+          l += copyList(i)
+        }
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+        for (i <- 0 until 2) {
+          l += copyList(i)
+        }
+      case 4 =>
+        for (i <- 0 until copyList.length) {
+          l += copyList(i)
+        }
+        copiedPlayer = isEmpty(copiedPlayer)
+        copyList = copiedPlayer.deck
+        l += copyList.head
+      case _ =>
+        for (i <- 0 until 5) {
+          l += copyList(i)
+        }
+    }
+    for (f <- 5 until copyList.length) {
+      d += copyList(f)
+    }
+    val hand: List[Cards] = l.toList
+    val deck: List[Cards] = d.toList
+    print(Console.BLUE + "     Player " + copiedPlayer.value + " Hand Cards are: ")
+    for (f <- 0 until hand.length - 1) {
+      print(Console.BLUE + hand(f).CardName + Console.BLACK + " (" + f + ")" + Console.BLUE +  ", ")
+    }
+    println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
   }
 

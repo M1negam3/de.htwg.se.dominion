@@ -1,4 +1,4 @@
-package de.htwg.se.dominion.model
+/*package de.htwg.se.dominion.model
 
 import de.htwg.se.dominion.model.Player.isEmpty
 
@@ -94,3 +94,4 @@ object StrategyPatternForHand {
     l
   }
 }
+*/

@@ -33,15 +33,15 @@ class Controller(r: RoundManager) extends ControllerInterface {
     notifyObservers
   }*/
 
-  /*override def turn(): Unit = {
+  override def turn(): Unit = {
     roundmanager = roundmanager.playerTurn(roundmanager)
     undoManager.doStep(new turnCommand(roundmanager, roundmanager.idx,this))
     notifyObservers
     roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds, roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
     roundmanager = roundmanager.roundNumber(roundmanager)
-  }*/
+  }
 
-  override def turn(): Unit = {
+  /*override def turn(): Unit = {
   playerTurn = GameTurn.round(pCount, playerTurn)
   phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
   notifyObservers
@@ -55,7 +55,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
     state = "end"
   }
   notifyObservers
- }
+ }*/
 
   /*override def turn(): Unit = {
     roundmanager = roundmanager.playerTurn(roundmanager)
