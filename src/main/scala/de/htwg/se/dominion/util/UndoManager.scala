@@ -3,6 +3,7 @@ package de.htwg.se.dominion.util
 class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
+
   def doStep(command: Command): Unit = {
     undoStack = command::undoStack
     command.doStep()

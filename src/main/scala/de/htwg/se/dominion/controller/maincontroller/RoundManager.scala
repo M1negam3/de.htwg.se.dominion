@@ -8,13 +8,14 @@ case class RoundManager(players: List[Player] = Nil,
                         numberOfRounds: Int = 0,
                         numberOfPlayers: Int = 0,
                         names: List[String] = Nil,
-                        score: Map[String, Int] = Map()){
+                        score: Map[String, Int] = Map()) {
 
   def getnumberOfPlayers() : RoundManager ={
      val copiedNumber = GameInit.getPlayerCount()
     RoundManager(players,numberOfRounds,copiedNumber,names,score)
   }
-  def names(numberOfPlayers: Int): List[String] = {
+
+  def names(numberOfPlayers: Int): RoundManager = {
     val copiedNames = GameInit.getPlayerName(numberOfPlayers)
     RoundManager(players,numberOfRounds,numberOfPlayers,copiedNames,score)
   }
