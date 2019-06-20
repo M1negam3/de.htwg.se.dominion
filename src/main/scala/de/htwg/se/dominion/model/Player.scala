@@ -29,7 +29,7 @@ object Player {
     deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
-    //l = StrategyPatternForHand.strategy
+    l = StrategyPatternForHand.strategy
     for (f <- 5 until copyList.length) {
       d += copyList(f)
     }

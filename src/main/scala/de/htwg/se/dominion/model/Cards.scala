@@ -196,21 +196,15 @@ object Cards {
 }
 
 object copperDeck extends createCopperDeck {
-
   val copperDeck: List[Cards] = createDeck
-
 }
 
 object silverDeck extends createSilverDeck {
-
   val silverDeck: List[Cards] = createDeck
-
 }
 
 object goldDeck extends createGoldDeck {
-
   val goldDeck: List[Cards] = createDeck
-
 }
 
 object provinceDeck extends createProvinceDeck {

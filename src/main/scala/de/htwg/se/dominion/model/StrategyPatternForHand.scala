@@ -1,4 +1,4 @@
-/*package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model
 
 import de.htwg.se.dominion.model.Player.isEmpty
 
@@ -22,7 +22,7 @@ object StrategyPatternForHand {
     var copyList = cList
     copiedPlayer = isEmpty(copiedPlayer)
     copyList = copiedPlayer.deck
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until 5) {
       l += copyList(i)
     }
@@ -32,7 +32,7 @@ object StrategyPatternForHand {
   def strategy1(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     l += copyList.head
     copiedPlayer = isEmpty(copiedPlayer)
     copyList = copiedPlayer.deck
@@ -45,7 +45,7 @@ object StrategyPatternForHand {
   def strategy2(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     l += copyList.head
     l += copyList(1)
     copiedPlayer = isEmpty(copiedPlayer)
@@ -59,7 +59,7 @@ object StrategyPatternForHand {
   def strategy3(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until copyList.length) {
       l += copyList(i)
     }
@@ -74,7 +74,7 @@ object StrategyPatternForHand {
   def strategy4(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until copyList.length) {
       l += copyList(i)
     }
@@ -87,11 +87,10 @@ object StrategyPatternForHand {
   def strategy_(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     val copiedPlayer = cPlayer
     val copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until 5) {
       l += copyList(i)
     }
     l
   }
 }
-*/
