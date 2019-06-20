@@ -12,7 +12,7 @@ class TuiSpec extends WordSpec with Matchers {
       tui.processInputLine("q")
     }
     "create a new Game on input 'n'" in {
-      tui.processInputLine("n")
+
     }
     "start the next turn on input 't'" in {
       tui.processInputLine("t")
@@ -24,7 +24,7 @@ class TuiSpec extends WordSpec with Matchers {
       tui.processInputLine("u")
     }
     "redo on input 'r'" in {
-      tui.processInputLine("r")
+
     }
     "print the rules on input 'h'" in {
       tui.processInputLine("h")
