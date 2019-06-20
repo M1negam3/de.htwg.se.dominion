@@ -1,20 +1,32 @@
 package de.htwg.se.dominion.controller
 
-import de.htwg.se.dominion.controller.maincontroller.Controller
+import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
 import de.htwg.se.dominion.util.Observer
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
-// TUT NOCH NICHTS DA CONTROLLER NIX GUT
+  var r = RoundManager
+  val controller = new Controller(r)
   "A Controller" when {
-    "observed by an Observer" should {
-      /*val controller = new Controller()
-      val observer = new Observer {
-        var updated: Boolean = false
-        def isUpdated: Boolean = updated
-        override def update: Boolean = {updated = true; updated}
+    "new" should {
+      "have a newGame method " in{
+
       }
-      controller.add(observer)*/
+      "have a turn method" in {
+
+      }
+      "have a help method" in {
+
+      }
+      "have a endGame method" in {
+
+      }
+      "have a redo method " in {
+
+      }
+      "have an undo method" in {
+
+      }
     }
   }
 }

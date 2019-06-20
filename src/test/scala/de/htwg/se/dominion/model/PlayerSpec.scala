@@ -15,16 +15,7 @@ class PlayerSpec extends WordSpec with Matchers {
   "A player" when {
     "new" should {
       "have a toString method" in {
-
-      }
-      "have a value" in {
-
-      }
-      "have a deck" in {
-
-      }
-      "have a hand" in {
-
+        //Player.toString() should be ()
       }
     }
   }
