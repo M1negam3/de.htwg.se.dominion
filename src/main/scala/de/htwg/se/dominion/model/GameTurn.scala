@@ -94,6 +94,7 @@ object GameTurn {
                   for (i <- 1 until l(idx).hand.length) {
                     print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
                   }
+
                   if (playingCards.head.CardName == "Cellar") {
                     l = cellar(l, idx)
                   } else if (playingCards.head.CardName == "Mine") {
@@ -105,6 +106,7 @@ object GameTurn {
                   } else if(playingCards.head.CardName == "Workshop") {
                     l = workshop(l, idx)
                   }
+
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
                       if (h == 3) {
@@ -123,7 +125,6 @@ object GameTurn {
                   l = Player.updatePlayer(l, updateStacker(l(idx), playingCards.head))
                   actionNumber += playingCards.head.ActionValue
                   actionNumber -= 1
-                  //println("TEST " + l(idx).hand)
                   playingCards = Nil
                   actionString = ""
                 } else {

@@ -53,7 +53,7 @@ object GameEnd {
       sortedScore += mutableScore.max
       mutableScore -= mutableScore.max._1
     }
-    val score: Map[String, Int] = sortedScore.toMap
+    val score: Map[String, Int] = sortedScore
     score
   }
 }

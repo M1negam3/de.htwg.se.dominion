@@ -8,6 +8,10 @@ case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Car
 
 object Player {
 
+  var deckLength = 0
+  var copiedPlayer: Player = new Player("", 0, Nil, Nil, Nil)
+  var copyList: List[Cards] = Nil
+
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
@@ -19,53 +23,12 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
-    var copiedPlayer = player
-    var copyList = copiedPlayer.deck
+    copiedPlayer = player
+    copyList = copiedPlayer.deck
+    deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
-    copyList.length match {
-      case 0 =>
-        copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
-        for (i <- 0 until 5) {
-          l += copyList(i)
-        }
-      case 1 =>
-        l += copyList.head
-        copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
-        for (i <- 0 until 4) {
-          l += copyList(i)
-        }
-      case 2 =>
-        l += copyList.head
-        l += copyList(1)
-        copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
-        for (i <- 0 until 3) {
-          l += copyList(i)
-        }
-      case 3 =>
-        for (i <- 0 until copyList.length) {
-          l += copyList(i)
-        }
-        copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
-        for (i <- 0 until 2) {
-          l += copyList(i)
-        }
-      case 4 =>
-        for (i <- 0 until copyList.length) {
-          l += copyList(i)
-        }
-        copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
-        l += copyList.head
-      case _ =>
-        for (i <- 0 until 5) {
-          l += copyList(i)
-        }
-    }
+    l = strategyPattern.strategy
     for (f <- 5 until copyList.length) {
       d += copyList(f)
     }
@@ -76,6 +39,7 @@ object Player {
       print(Console.BLUE + hand(f).CardName + Console.BLACK + " (" + f + ")" + Console.BLUE +  ", ")
     }
     println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")
+    deckLength = 0
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
   }
 
