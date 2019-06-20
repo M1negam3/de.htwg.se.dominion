@@ -8,6 +8,14 @@ case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Car
 
 object Player {
 
+
+
+
+  def checkNumberOfPlayers(number: Int): Boolean = {
+    if (number < 2 || number > 5) return false
+    true
+  }
+
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
