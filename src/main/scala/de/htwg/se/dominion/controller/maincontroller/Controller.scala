@@ -19,6 +19,9 @@ class Controller(r: RoundManager) extends ControllerInterface {
     roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
     roundmanager = roundmanager.getNames(roundmanager)
     roundmanager = roundmanager.createPlayer(roundmanager)
+    for (i <- 0 until roundmanager.numberOfPlayers) {
+      println("Player " + (i + 1) + " was created!")
+    }
     startRoundmanager = roundmanager
     phaseString = Output.printPrep()
     state = "turn"

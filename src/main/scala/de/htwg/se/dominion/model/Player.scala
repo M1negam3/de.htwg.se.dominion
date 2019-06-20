@@ -17,7 +17,7 @@ object Player {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
       players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand)
-      print(Console.BLUE + "     Player " + (i + 1) + " wurde erstellt!\n")
+      //print(Console.BLUE + "     Player " + (i + 1) + " wurde erstellt!\n")
     }
     val Players: List[Player] = players.toList
     Players
