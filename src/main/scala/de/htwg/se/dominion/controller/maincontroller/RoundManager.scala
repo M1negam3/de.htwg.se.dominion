@@ -70,7 +70,7 @@ case class RoundManager(players: List[Player] = Nil,
     var turnRoundManager = RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, playerturn)
     turnRoundManager = actionPhase(turnRoundManager)
     turnRoundManager = buyPhase(turnRoundManager)
-    this
+    turnRoundManager
   }
 
 }
