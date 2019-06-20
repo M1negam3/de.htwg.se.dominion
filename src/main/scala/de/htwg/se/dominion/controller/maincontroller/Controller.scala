@@ -4,6 +4,8 @@ import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.util._
 
+import scala.collection.mutable.ListBuffer
+
 class Controller(r: RoundManager) extends ControllerInterface {
 
   var phaseString = Output.printHeader()
@@ -11,6 +13,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
   val undoManager = new UndoManager
   var roundmanager = r
   var startRoundmanager = r
+  var memory: ListBuffer[RoundManager] = ListBuffer()
 
   override def newGame(): Unit = {
     roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
@@ -29,29 +32,12 @@ class Controller(r: RoundManager) extends ControllerInterface {
     undoManager.doStep(new turnCommand(roundmanager.idx,this))
     phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
     notifyObservers
-    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds,
+    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds + 1,
       roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
-    roundmanager = roundmanager.roundNumber(roundmanager)
     if (GameTurn.end) {
       state = "end"
     }
   }
-
-  /*override def turn(): Unit = {
-  playerTurn = GameTurn.round(pCount, playerTurn)
-  phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
-  notifyObservers
-  cPlayers = GameTurn.actionPhase(cPlayers, playerTurn)
-  phaseString = Output.printBuyPhase()
-  notifyObservers
-  cPlayers = GameTurn.buyPhase(cPlayers, playerTurn)
-  phaseString = Output.printTurnEnd(playerTurn) + GameTurn.endCheck(GameTurn.end)
-  playerTurn += 1
-  if (GameTurn.end) {
-    state = "end"
-  }
-  notifyObservers
- }*/
 
   override def help(): Unit = {
     phaseString = Output.printRules()
@@ -65,14 +51,18 @@ class Controller(r: RoundManager) extends ControllerInterface {
   }
 
   override def undo(): Unit ={
-    println("UNDO")
     undoManager.undoStep()
     notifyObservers
   }
 
   override def redo(): Unit = {
-    println("REDO")
     undoManager.redoStep()
+    memory -= memory.last
+    roundmanager = memory.last
+    phaseString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
+    memory += roundmanager
+    roundmanager = roundmanager.turn(roundmanager.idx ,roundmanager)
+    phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
     notifyObservers
   }
 }
