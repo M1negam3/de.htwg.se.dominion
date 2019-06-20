@@ -249,14 +249,20 @@ case class RoundManager(players: List[Player] = Nil,
 
 
   object RoundManager {
-    def calcPoints(player: Player): Int = {
-      var points = 0
+    def calcPoints(player: List[Player]): List[Int] = {
+      var points: List[Int] = Nil
       var p = player
-      for(j <- 0 until p.hand.length){
-        points += p.hand(j).WpValue
-      }
-      for(i <- 0 until p.deck.length){
-        points += p.deck(i).WpValue
+      var z: List[Int] = Nil
+      for(j <- 0 until p.length){
+        for(i <- 0 until p(j).hand.length){
+          z(j) += p(j).hand(i).WpValue
+        }
+        for(k <- 0 until p(j).deck.length) {
+          z(j) += p(j).deck(k).WpValue
+        }
+        /*for(z <- 0 until p(j).stacker.length) {
+          z(j) += p(j).stacker(z).WpValue
+        }*/
       }
      points
     }
