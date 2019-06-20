@@ -4,7 +4,7 @@ import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.util._
 
-class Controller(/*var roundManager: RoundManager*/) extends ControllerInterface {
+class Controller(r: RoundManager) extends ControllerInterface {
   var pCount = 0
   var playerTurn = 0
   var players: List[Player] = Nil
@@ -12,14 +12,21 @@ class Controller(/*var roundManager: RoundManager*/) extends ControllerInterface
   var phaseString = Output.printHeader()
   var state = "Init"
   val undoManager = new UndoManager
+  var RoundManager = r
 
-  def newGame(): Unit = {
+  /*def newGame(): Unit = {
     pCount = GameInit.getPlayerCount()
     val names = GameInit.getPlayerName(pCount)
     players = Player.createPlayer(pCount, names)
     phaseString = Output.printPrep()
     cPlayers = players
     state = "turn"
+    notifyObservers
+  }*/
+
+  def newGame(): Unit = {
+    RoundManager = RoundManager.getNumberOfPlayers(RoundManager)
+    RoundManager = RoundManager.names(RoundManager)
     notifyObservers
   }
 

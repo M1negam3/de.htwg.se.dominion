@@ -1,12 +1,12 @@
 package de.htwg.se.dominion.aview
 
-import de.htwg.se.dominion.controller.maincontroller.Controller
+import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
 import org.scalatest._
 
 class TuiSpec extends WordSpec with Matchers {
 
   "A Dominion Tui" should {
-    val controller = new Controller()
+    val controller = new Controller(new RoundManager())
     val tui = new Tui(controller)
     "do nothing on input 'q'" in {
       tui.processInputLine("q")
