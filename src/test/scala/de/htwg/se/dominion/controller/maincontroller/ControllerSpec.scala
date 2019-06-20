@@ -1,11 +1,9 @@
-package de.htwg.se.dominion.controller
+package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
-import de.htwg.se.dominion.util.Observer
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
-  var r = RoundManager
+  var r = new RoundManager
   val controller = new Controller(r)
   "A Controller" when {
     "new" should {

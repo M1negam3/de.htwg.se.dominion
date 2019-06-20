@@ -1,5 +1,7 @@
 package de.htwg.se.dominion.model
 
+import de.htwg.se.dominion.controller.maincontroller.RoundManager
+
 object Output {
 
   def printHeader(): String = {
@@ -87,6 +89,14 @@ object Output {
     }
     s += "\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n \n" +
       "     Press n to StART a new Game!\n" + "     Press q to QUIT the Game!\n"
+    s
+  }
+
+  def printPlayers(r: RoundManager): String = {
+    var s = ""
+    for (i <- 0 until r.numberOfPlayers) {
+      s += "     Player " + (i + 1) + " was created!\n"
+    }
     s
   }
 }
