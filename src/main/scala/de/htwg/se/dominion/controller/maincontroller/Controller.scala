@@ -5,10 +5,7 @@ import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.util._
 
 class Controller(r: RoundManager) extends ControllerInterface {
-  var pCount = 0
-  var playerTurn = 0
-  var players: List[Player] = Nil
-  var cPlayers: List[Player] = Nil
+
   var phaseString = Output.printHeader()
   var state = "Init"
   val undoManager = new UndoManager
@@ -27,7 +24,10 @@ class Controller(r: RoundManager) extends ControllerInterface {
 
   override def turn(): Unit = {
     roundmanager = roundmanager.playerTurn(roundmanager)
+    phaseString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
+    notifyObservers
     undoManager.doStep(new turnCommand(roundmanager.idx,this))
+    phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
     notifyObservers
     roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds,
       roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))

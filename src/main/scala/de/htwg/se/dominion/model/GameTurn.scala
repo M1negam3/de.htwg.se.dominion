@@ -140,6 +140,7 @@ object GameTurn {
       }
     }
     actionString = ""
+    print(Output.printBuyPhase())
     l
   }
 
