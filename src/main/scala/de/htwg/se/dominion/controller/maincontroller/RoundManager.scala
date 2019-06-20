@@ -46,4 +46,26 @@ case class RoundManager(players: List[Player] = Nil,
     val copiedScore = GameEnd.score(roundManager.players)
     RoundManager(copiedRoundManager.players,copiedRoundManager.numberOfRounds,copiedRoundManager.numberOfPlayers,copiedRoundManager.names,copiedScore)
   }
+
+}
+
+object RoundManager {
+  case class Builder() {
+    var numberOfPlayers: Int = 0
+    var numberOfRounds: Int = 0
+
+    def addNumberOfPlayers(players: Int): Builder = {
+      numberOfPlayers = players
+      this
+    }
+
+    def addNumberOfRounds(rounds: Int): Builder = {
+      numberOfRounds = rounds
+      this
+    }
+
+    def build(): RoundManager = {
+      RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int]())
+    }
+  }
 }

@@ -30,7 +30,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
     notifyObservers
   }
 
-  def turn(): Unit = {
+  /*def turn(): Unit = {
     playerTurn = GameTurn.round(pCount, playerTurn)
     phaseString = Output.printActionPhase() + Output.printTurn(playerTurn)
     notifyObservers
@@ -43,6 +43,11 @@ class Controller(r: RoundManager) extends ControllerInterface {
     if (GameTurn.end) {
       state = "end"
     }
+    notifyObservers
+  }*/
+
+  def turn(): Unit = {
+    undoManager.doStep(new turnCommand(RoundManager, this))
     notifyObservers
   }
 
