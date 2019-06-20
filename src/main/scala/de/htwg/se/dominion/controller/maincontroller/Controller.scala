@@ -12,7 +12,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var phaseString = Output.printHeader()
   var state = "Init"
   val undoManager = new UndoManager
-  var roundmanager = r
+  var RoundManager = r
 
   /*def newGame(): Unit = {
     pCount = GameInit.getPlayerCount()
@@ -25,9 +25,9 @@ class Controller(r: RoundManager) extends ControllerInterface {
   }*/
 
   def newGame(): Unit = {
-    roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
-    roundmanager = roundmanager.getNames(roundmanager)
-    roundmanager = roundmanager.createPlayer(roundmanager)
+    RoundManager = RoundManager.getNumberOfPlayers(RoundManager)
+    RoundManager = RoundManager.getNames(RoundManager)
+    RoundManager = RoundManager.createPlayer(RoundManager)
     phaseString = Output.printPrep()
     state = "turn"
     notifyObservers
@@ -61,11 +61,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
     }*/
 
   def turn(): Unit = {
-    roundmanager = roundmanager.playerTurn(roundmanager)
-    undoManager.doStep(new turnCommand(roundmanager, roundmanager.idx,this))
-    notifyObservers
-    roundmanager = roundmanager.playerTurn(new RoundManager(roundmanager.players, roundmanager.numberOfRounds, roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
-    roundmanager = roundmanager.roundNumber(roundmanager)
+    undoManager.doStep(new turnCommand(RoundManager.turn(), this))
   }
 
   def help(): Unit = {

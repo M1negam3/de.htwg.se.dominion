@@ -31,10 +31,11 @@ case class RoundManager(players: List[Player] = Nil,
       RoundManager(Players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
     }
 
-    def actionPhase(roundManager: RoundManager): RoundManager = {
-      val copiedRoundManager = roundManager
-      val action = GameTurn.actionPhase(roundManager.players, roundManager.idx)
-      RoundManager(action, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+    def actionPhase(player: Player, idx: Int): RoundManager = {
+      var copiedNumberOfRounds = 0
+      val action = GameTurn.actionPhase(players,idx)
+      copiedNumberOfRounds += 1
+      RoundManager(action, copiedNumberOfRounds, numberOfPlayers, names, score, idx)
     }
 
     def buyPhase(roundManager: RoundManager): RoundManager = {
@@ -49,32 +50,18 @@ case class RoundManager(players: List[Player] = Nil,
       RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedScore, copiedRoundManager.idx)
     }
 
-    def playerTurn(roundManager: RoundManager): RoundManager = {
+    def round(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
-      val round = GameTurn.round(roundManager.numberOfPlayers, roundManager.idx)
+      val round = GameTurn.round(roundManager.numberOfPlayers,roundManager.idx)
       RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, round)
     }
-
-  def roundNumber(roundManager: RoundManager): RoundManager = {
-    val copiedRoundManager = roundManager
-    val roundNumber = copiedRoundManager.numberOfRounds
-    if (copiedRoundManager.idx == 0) {
-      RoundManager(copiedRoundManager.players, roundNumber + 1, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
-      return this
-    }
-    this
-  }
-
-  def turn(playerturn: Int, r: RoundManager): RoundManager = {
-    val copiedRoundManager = r
-    var turnRoundManager = RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, playerturn)
-    turnRoundManager = actionPhase(turnRoundManager)
-    turnRoundManager = buyPhase(turnRoundManager)
-    this
+  def turn(player: Player, idx: Int) : RoundManager = {
+    val action = actionPhase(player, idx)
+    val buy = buyPhase(action)
+    RoundManager(buy.players,buy.numberOfRounds,buy.numberOfPlayers,buy.names,buy.score,buy.idx)
   }
 
 }
-
 object RoundManager {
   case class Builder() {
     var numberOfPlayers: Int = 0
