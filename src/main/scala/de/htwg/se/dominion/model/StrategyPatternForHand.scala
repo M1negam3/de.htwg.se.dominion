@@ -6,7 +6,6 @@ import scala.collection.mutable.ListBuffer
 
 object StrategyPatternForHand {
 
-  var l = new ListBuffer[Cards]
   var strategy: ListBuffer[Cards] = Player.deckLength match {
     case 0 => strategy0(Player.copiedPlayer, Player.copyList)
     case 1 => strategy1(Player.copiedPlayer, Player.copyList)
@@ -16,12 +15,14 @@ object StrategyPatternForHand {
     case _ => strategy_(Player.copiedPlayer, Player.copyList)
   }
 
+  var l = new ListBuffer[Cards]
+
   def strategy0(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
     copiedPlayer = isEmpty(copiedPlayer)
     copyList = copiedPlayer.deck
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until 5) {
       l += copyList(i)
     }
@@ -31,7 +32,7 @@ object StrategyPatternForHand {
   def strategy1(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     l += copyList.head
     copiedPlayer = isEmpty(copiedPlayer)
     copyList = copiedPlayer.deck
@@ -44,7 +45,7 @@ object StrategyPatternForHand {
   def strategy2(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     l += copyList.head
     l += copyList(1)
     copiedPlayer = isEmpty(copiedPlayer)
@@ -58,7 +59,7 @@ object StrategyPatternForHand {
   def strategy3(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until copyList.length) {
       l += copyList(i)
     }
@@ -73,7 +74,7 @@ object StrategyPatternForHand {
   def strategy4(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
     var copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until copyList.length) {
       l += copyList(i)
     }
@@ -86,11 +87,10 @@ object StrategyPatternForHand {
   def strategy_(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     val copiedPlayer = cPlayer
     val copyList = cList
-    l = ListBuffer()
+    l = new ListBuffer[Cards]
     for (i <- 0 until 5) {
       l += copyList(i)
     }
-    println("AUSGEFÜHRT")
     l
   }
 }

@@ -183,6 +183,30 @@ class CardsSpec extends WordSpec with Matchers {
         gardens.CardName should be("Gardens")
         market.CardName should be("Market")
       }
+      "have a CardType" in {
+        copper.Type should be("Money")
+        silver.Type should be("Money")
+        gold.Type should be("Money")
+        mansion.Type should be("Money")
+        duchy.Type should be("Money")
+        province.Type should be("Money")
+        village.Type should be("Action")
+        festival.Type should be("Action")
+        cellar.Type should be("Action")
+        mine.Type should be("Action")
+        smithy.Type should be("Action")
+        remodel.Type should be("Action")
+        merchant.Type should be("Action")
+        workshop.Type should be("Action")
+        gardens.Type should be("Action")
+        market.Type should be("Action")
+      }
+    }
+  }
+  var list: List[Cards]=List(Cards.copper,Cards.silver,Cards.gold)
+  "A card " should {
+    "have a method shuffle" in{
+      Cards.shuffle(list) should not be (Cards.copper,Cards.silver,Cards.gold)
     }
   }
 }

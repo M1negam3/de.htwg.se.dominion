@@ -7,9 +7,9 @@ import org.scalatest._
 class GameInitSpec extends WordSpec with Matchers {
   val pCount = 2
   val l: List[Cards] = List(Cards.copper, Cards.copper, Cards.copper, Cards.copper,
-  Cards.copper)
+    Cards.copper)
 
-  "A InputOutput" should {
+  "A GameInit" should {
 
     "have a getPlayerCount method" in {
     }
@@ -17,12 +17,5 @@ class GameInitSpec extends WordSpec with Matchers {
     "have a getPlayername method" in {
     }
 
-    "have a deckcreation method" in {
-
-    }
-
-    "have a HandCardCreation method" in {
-
-    }
   }
 }
