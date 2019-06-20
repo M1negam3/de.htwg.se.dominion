@@ -1,4 +1,4 @@
-/*package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model
 
 import de.htwg.se.dominion.model.Player.isEmpty
 
@@ -6,6 +6,7 @@ import scala.collection.mutable.ListBuffer
 
 object StrategyPatternForHand {
 
+  var l = new ListBuffer[Cards]
   var strategy: ListBuffer[Cards] = Player.deckLength match {
     case 0 => strategy0(Player.copiedPlayer, Player.copyList)
     case 1 => strategy1(Player.copiedPlayer, Player.copyList)
@@ -14,8 +15,6 @@ object StrategyPatternForHand {
     case 4 => strategy4(Player.copiedPlayer, Player.copyList)
     case _ => strategy_(Player.copiedPlayer, Player.copyList)
   }
-
-  var l = new ListBuffer[Cards]
 
   def strategy0(cPlayer: Player, cList: List[Cards]): ListBuffer[Cards] = {
     var copiedPlayer = cPlayer
@@ -91,7 +90,7 @@ object StrategyPatternForHand {
     for (i <- 0 until 5) {
       l += copyList(i)
     }
+    println("AUSGEFÜHRT")
     l
   }
 }
-*/
