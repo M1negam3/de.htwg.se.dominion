@@ -1,7 +1,8 @@
-package de.htwg.se.dominion.controller
+package de.htwg.se.dominion.controller.maincontroller
+
 import de.htwg.se.dominion.model.GameTurn._
 import de.htwg.se.dominion.model.Player.draw
-import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.model.{Cards, GameInit, Player}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
@@ -11,7 +12,8 @@ case class RoundManager(players: List[Player] = Nil,
                         numberOfPlayers: Int = 0,
                         names: List[String] = Nil){
                         //startDeck:  List[Cards] = Cards.startDeck,
-                        //playingDeck: List[List[Cards]] = Cards.playingDeck) {
+                        //playingDeck: List[List[Cards]] = Cards.playingDeck)
+  {
 
 
   def getnumberOfPlayers() : Int ={
