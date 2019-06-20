@@ -1,5 +1,6 @@
 package de.htwg.se.dominion.controller
 
+import de.htwg.se.dominion.controller.maincontroller.Controller
 import de.htwg.se.dominion.util.Observer
 import org.scalatest._
 

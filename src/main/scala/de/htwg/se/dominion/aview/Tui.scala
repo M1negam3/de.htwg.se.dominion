@@ -2,8 +2,8 @@ package de.htwg.se.dominion.aview
 
 import java.io.BufferedReader
 
+import de.htwg.se.dominion.controller.maincontroller.Controller
 import de.htwg.se.dominion.util.Observer
-import de.htwg.se.dominion.controller.Controller
 
 
 class Tui(controller: Controller) extends Observer {

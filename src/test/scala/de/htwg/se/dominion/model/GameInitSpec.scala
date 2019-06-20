@@ -1,7 +1,7 @@
 package de.htwg.se.dominion.model
 
 import de.htwg.se.dominion.aview.Tui
-import de.htwg.se.dominion.controller.Controller
+import de.htwg.se.dominion.controller.maincontroller.Controller
 import org.scalatest._
 
 class GameInitSpec extends WordSpec with Matchers {

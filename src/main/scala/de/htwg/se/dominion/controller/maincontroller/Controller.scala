@@ -1,8 +1,9 @@
-package de.htwg.se.dominion.controller
-import de.htwg.se.dominion.model._
-import de.htwg.se.dominion.util.Observable
+package de.htwg.se.dominion.controller.maincontroller
 
-class Controller() extends Observable {
+import de.htwg.se.dominion.controller.ControllerInterface
+import de.htwg.se.dominion.model._
+
+class Controller() extends ControllerInterface {
   var pCount = 0
   var playerTurn = 0
   var players: List[Player] = Nil
