@@ -2,14 +2,16 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.util._
 
-class Controller() extends ControllerInterface {
+class Controller(var roundManager: RoundManager) extends ControllerInterface {
   var pCount = 0
   var playerTurn = 0
   var players: List[Player] = Nil
   var cPlayers: List[Player] = Nil
   var phaseString = Output.printHeader()
   var state = "Init"
+  val undoManager = new UndoManager
 
   def newGame(): Unit = {
     pCount = GameInit.getPlayerCount()
@@ -46,6 +48,14 @@ class Controller() extends ControllerInterface {
     val fPlayers = GameEnd.end(cPlayers)
     val score = GameEnd.score(fPlayers)
     phaseString = Output.printScore(score)
+    notifyObservers
+  }
+  def undo(): Unit ={
+    undoManager.undoStep()
+    notifyObservers
+  }
+  def redo(): Unit = {
+    undoManager.redoStep()
     notifyObservers
   }
 }
