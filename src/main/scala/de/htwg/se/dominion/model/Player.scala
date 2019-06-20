@@ -24,6 +24,7 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
+    // TODO Strategy Pattern
     copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
