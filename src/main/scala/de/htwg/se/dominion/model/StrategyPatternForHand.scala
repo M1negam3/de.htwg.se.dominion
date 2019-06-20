@@ -4,7 +4,7 @@ import de.htwg.se.dominion.model.Player.isEmpty
 
 import scala.collection.mutable.ListBuffer
 
-object StrategyPattern {
+object StrategyPatternForHand {
 
   var strategy: ListBuffer[Cards] = Player.deckLength match {
     case 0 => strategy0(Player.copiedPlayer, Player.copyList)

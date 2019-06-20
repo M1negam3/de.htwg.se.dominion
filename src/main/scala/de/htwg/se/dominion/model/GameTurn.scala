@@ -21,6 +21,7 @@ object GameTurn {
   var discardAmount = 0
   var boo = true
   var boo2 = true
+  var playingCards: List[Cards] = Nil
 
   def actionPhase(list: List[Player], idx: Int): List[Player] = {
     var l = list
@@ -30,7 +31,7 @@ object GameTurn {
     var y: Integer = 0
     var cardNumber = 0
     var check = false
-    var playingCards: List[Cards] = Nil
+    playingCards = Nil
 
     money = 0
     l = Player.updatePlayer(l, Player.getHand(l(idx)))
@@ -95,7 +96,7 @@ object GameTurn {
                     print(Console.BLUE + "                          " + l(idx).hand(i).CardName + Console.BLACK + " (" + i + ")\n")
                   }
 
-                  if (playingCards.head.CardName == "Cellar") {
+                  /*if (playingCards.head.CardName == "Cellar") {
                     l = cellar(l, idx)
                   } else if (playingCards.head.CardName == "Mine") {
                     l = mine(l, idx)
@@ -105,7 +106,7 @@ object GameTurn {
                     money = money + merchant(l, idx)
                   } else if(playingCards.head.CardName == "Workshop") {
                     l = workshop(l, idx)
-                  }
+                  }*/
 
                   for (h <- 0 until playingDecks.length) {
                     if (playingDecks(h).isEmpty) {
