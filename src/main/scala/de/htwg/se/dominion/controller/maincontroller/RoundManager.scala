@@ -60,6 +60,7 @@ object RoundManager {
   case class Builder() {
     var numberOfPlayers: Int = 0
     var numberOfRounds: Int = 0
+    var idx: Int = 0
 
     def addNumberOfPlayers(players: Int): Builder = {
       numberOfPlayers = players
@@ -71,8 +72,13 @@ object RoundManager {
       this
     }
 
+    def addIdx(turn: Int): Build = {
+      idx = turn
+      this
+    }
+
     def build(): RoundManager = {
-      RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int]())
+      RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int](), idx)
     }
   }
 }
