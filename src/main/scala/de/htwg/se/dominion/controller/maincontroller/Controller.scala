@@ -26,7 +26,10 @@ class Controller(r: RoundManager) extends ControllerInterface {
 
   def newGame(): Unit = {
     RoundManager = RoundManager.getNumberOfPlayers(RoundManager)
-    RoundManager = RoundManager.names(RoundManager)
+    RoundManager = RoundManager.getNames(RoundManager)
+    RoundManager = RoundManager.createPlayer(RoundManager)
+    phaseString = Output.printPrep()
+    state = "turn"
     notifyObservers
   }
 
@@ -50,6 +53,17 @@ class Controller(r: RoundManager) extends ControllerInterface {
     undoManager.doStep(new turnCommand(RoundManager, this))
     notifyObservers
   }
+
+  /*def turn(): Unit = {
+    RoundManager = RoundManager.round(RoundManager)
+    phaseString = Output.printActionPhase() + Output.printTurn(RoundManager.idx)
+    notifyObservers
+    RoundManager = RoundManager.actionPhase(RoundManager)
+    phaseString = Output.printBuyPhase()
+    notifyObservers
+    RoundManager = RoundManager.buyPhase(RoundManager)
+    phaseString = Output.printTurnEnd(playerTurn) + GameTurn.endCheck(GameTurn.end)
+  }*/
 
   def help(): Unit = {
     phaseString = Output.printRules()
