@@ -287,15 +287,15 @@ object GameTurn {
         }
         if (discardAmount < x && y == 1){
           if(l(idx).hand(discardAmount).CardName == "Copper") {
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.silverDeck))
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, silverDeck.silverDeck))
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
             z = false
           } else if (l(idx).hand(discardAmount).CardName == "Silver"){
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, goldDeck.goldDeck))
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
             z = false
           } else if (l(idx).hand(discardAmount).CardName == "Gold")
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, Cards.goldDeck))
+            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, goldDeck.goldDeck))
             playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
             z = false
         } else

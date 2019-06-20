@@ -4,9 +4,9 @@ import de.htwg.se.dominion.model.Player.isEmpty
 
 import scala.collection.mutable.ListBuffer
 
-object strategyPattern {
+object StrategyPattern {
 
-  var strategy = Player.deckLength match {
+  var strategy: ListBuffer[Cards] = Player.deckLength match {
     case 0 => strategy0(Player.copiedPlayer, Player.copyList)
     case 1 => strategy1(Player.copiedPlayer, Player.copyList)
     case 2 => strategy2(Player.copiedPlayer, Player.copyList)
@@ -93,5 +93,4 @@ object strategyPattern {
     }
     l
   }
-
 }
