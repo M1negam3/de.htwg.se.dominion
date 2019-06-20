@@ -47,23 +47,25 @@ class Controller(r: RoundManager) extends ControllerInterface {
       state = "end"
     }
     notifyObservers
-  }*/
+  }
+
+  def turn(): Unit = {
+      RoundManager = RoundManager.round(RoundManager)
+      phaseString = Output.printActionPhase() + Output.printTurn(RoundManager.idx)
+      notifyObservers
+      RoundManager = RoundManager.actionPhase(RoundManager)
+      phaseString = Output.printBuyPhase()
+      notifyObservers
+      RoundManager = RoundManager.buyPhase(RoundManager)
+      phaseString = Output.printTurnEnd(playerTurn) + GameTurn.endCheck(GameTurn.end)
+    }*/
 
   def turn(): Unit = {
     undoManager.doStep(new turnCommand(RoundManager, this))
     notifyObservers
   }
 
-  /*def turn(): Unit = {
-    RoundManager = RoundManager.round(RoundManager)
-    phaseString = Output.printActionPhase() + Output.printTurn(RoundManager.idx)
-    notifyObservers
-    RoundManager = RoundManager.actionPhase(RoundManager)
-    phaseString = Output.printBuyPhase()
-    notifyObservers
-    RoundManager = RoundManager.buyPhase(RoundManager)
-    phaseString = Output.printTurnEnd(playerTurn) + GameTurn.endCheck(GameTurn.end)
-  }*/
+
 
   def help(): Unit = {
     phaseString = Output.printRules()
