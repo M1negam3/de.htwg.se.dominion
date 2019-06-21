@@ -89,4 +89,8 @@ object Output {
       "     Press n to StART a new Game!\n" + "     Press q to QUIT the Game!\n"
     s
   }
+  def printTest(): String = {
+    var test = "How many Player´s are you(Min 2 and Max. 5"
+    test
+  }
 }

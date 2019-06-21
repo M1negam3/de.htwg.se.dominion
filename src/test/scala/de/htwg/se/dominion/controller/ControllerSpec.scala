@@ -6,7 +6,6 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
   var r = RoundManager
-  val controller = new Controller(r)
   "A Controller" when {
     "new" should {
       "have a newGame method " in{

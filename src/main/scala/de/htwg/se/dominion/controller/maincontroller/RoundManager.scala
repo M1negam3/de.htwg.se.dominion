@@ -2,7 +2,7 @@ package de.htwg.se.dominion.controller.maincontroller
 
 
 import de.htwg.se.dominion.model._
-
+import scala.collection.mutable.ListBuffer
 
 case class RoundManager(players: List[Player] = Nil,
                         numberOfRounds: Int = 0,
@@ -77,6 +77,23 @@ case class RoundManager(players: List[Player] = Nil,
     val copiedRoundManager = r
     val end = GameEnd.end(copiedRoundManager.players)
     RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+  }
+  def state(r: RoundManager): RoundManager = {
+   r
+  }
+  def getPlayerStrings(r: RoundManager): List[String] = {
+    val copiedRoundManager = r
+    var string = new ListBuffer[String]
+    var z: List[String] = List()
+    for(i <- 0 until copiedRoundManager.players.length) {
+      string(i) +=  copiedRoundManager.players(i).value.toString
+      z = string.toList
+    }
+    z
+  }
+  def getPlayerTurnString(l: List[String], i: Int): String ={
+    var l = "test"
+    l
   }
 
 }

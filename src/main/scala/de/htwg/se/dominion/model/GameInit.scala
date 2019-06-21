@@ -4,7 +4,7 @@ import scala.collection.mutable.ListBuffer
 
 object GameInit {
   def getPlayerCount(): Integer = {
-    println(Console.BLUE + "     Wie viele Spieler seid ihr?")
+    //println(Console.BLUE + "     Wie viele Spieler seid ihr?")
     while(true)
       try {
         val sAnzahl:Integer = scala.io.StdIn.readInt()
