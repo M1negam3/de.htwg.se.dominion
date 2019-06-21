@@ -1,7 +1,6 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.gameComponent
 
-import de.htwg.se.dominion.aview.Tui
-import de.htwg.se.dominion.controller.maincontroller.Controller
+import de.htwg.se.dominion.model.deckComponent.Cards
 import org.scalatest._
 
 class GameInitSpec extends WordSpec with Matchers {

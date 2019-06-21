@@ -1,4 +1,4 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.deckComponent
 
 import org.scalatest._
 

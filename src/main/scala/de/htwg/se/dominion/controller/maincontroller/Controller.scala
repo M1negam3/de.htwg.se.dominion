@@ -2,6 +2,8 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.model._
+import de.htwg.se.dominion.model.gameComponent.GameTurn
+import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util._
 
 import scala.collection.mutable.ListBuffer
@@ -15,7 +17,6 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var roundmanager = r
   var startRoundmanager = r
   var memory: ListBuffer[RoundManager] = ListBuffer()
-  var test = "How many Player´s are you(Min 2 and Max. 5"
 
   override def newGame(): Unit = {
     gameInfoString = Output.printTest()
@@ -31,6 +32,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
   }
 
   override def turn(): Unit = {
+    gameInfoString = ""
     roundmanager = roundmanager.playerTurn(roundmanager)
     phaseString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
     notifyObservers

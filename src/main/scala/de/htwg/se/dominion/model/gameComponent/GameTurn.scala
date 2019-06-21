@@ -1,11 +1,12 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.gameComponent
 
-import de.htwg.se.dominion.model._
-import de.htwg.se.dominion.model.Player._
-import scala.util.control.Breaks._
+import de.htwg.se.dominion.model.deckComponent.{Cards, goldDeck, silverDeck}
+import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.Player._
+import de.htwg.se.dominion.model.stringComponent.Output
 
 import scala.collection.mutable.ListBuffer
-import scala.language.postfixOps
+import scala.util.control.Breaks.{break, breakable}
 
 object GameTurn {
   var actionString = ""

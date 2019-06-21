@@ -1,6 +1,7 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.deckComponent
 
-import scala.collection.mutable.ListBuffer
+import de.htwg.se.dominion.model.DeckInterface
+
 import scala.util.Random
 
 case class Cards(CostValue : Int, MoneyValue : Int, WpValue : Int, ActionValue : Int, BuyAdditionValue : Int,

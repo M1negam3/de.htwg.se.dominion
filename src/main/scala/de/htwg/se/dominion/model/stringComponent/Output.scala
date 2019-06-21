@@ -1,4 +1,4 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.stringComponent
 
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
 
@@ -92,8 +92,7 @@ object Output {
     s
   }
   def printTest(): String = {
-    var test = "How many Player´s are you(Min 2 and Max. 5"
-    test
+    "How many Player´s are you(Min 2 and Max. 5"
   }
 
   def printPlayers(r: RoundManager): String = {
