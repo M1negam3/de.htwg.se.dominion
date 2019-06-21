@@ -1,5 +1,7 @@
 package de.htwg.se.dominion.model
 
+import de.htwg.se.dominion.controller.maincontroller.RoundManager
+
 object Output {
 
   def printHeader(): String = {
@@ -92,5 +94,13 @@ object Output {
   def printTest(): String = {
     var test = "How many Player´s are you(Min 2 and Max. 5"
     test
+  }
+
+  def printPlayers(r: RoundManager): String = {
+    var s = ""
+    for (i <- 0 until r.numberOfPlayers) {
+      s += "     Player " + (i + 1) + " was created!\n"
+    }
+    s
   }
 }

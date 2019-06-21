@@ -12,12 +12,22 @@ class TuiSpec extends WordSpec with Matchers {
       tui.processInputLine("q")
     }
     "create a new Game on input 'n'" in {
+
     }
     "start the next turn on input 't'" in {
       tui.processInputLine("t")
     }
-    "Should give Options what to do on input 's'" in {
-      tui.processInputLine("s")
+    "end the game on input 'e'" in {
+      tui.processInputLine("e")
+    }
+    "undo on input 'u'" in {
+      tui.processInputLine("u")
+    }
+    "redo on input 'r'" in {
+
+    }
+    "print the rules on input 'h'" in {
+      tui.processInputLine("h")
     }
     "Suggest Options on bad input like '9999'" in {
       tui.processInputLine("9999")

@@ -9,6 +9,7 @@ import scala.collection.mutable.ListBuffer
 class Controller(r: RoundManager) extends ControllerInterface {
 
   var phaseString = Output.printHeader()
+  var gameInfoString = " "
   var state = "Init"
   val undoManager = new UndoManager
   var roundmanager = r
@@ -21,9 +22,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
     roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
     roundmanager = roundmanager.getNames(roundmanager)
     roundmanager = roundmanager.createPlayer(roundmanager)
-    for (i <- 0 until roundmanager.numberOfPlayers) {
-      println("Player " + (i + 1) + " was created!")
-    }
+    gameInfoString = Output.printPlayers(roundmanager)
     startRoundmanager = roundmanager
     phaseString = Output.printPrep()
     state = "turn"
