@@ -18,7 +18,8 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var test = "How many Player´s are you(Min 2 and Max. 5"
 
   override def newGame(): Unit = {
-    println(test)
+    gameInfoString = Output.printTest()
+    notifyObservers
     roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
     roundmanager = roundmanager.getNames(roundmanager)
     roundmanager = roundmanager.createPlayer(roundmanager)
