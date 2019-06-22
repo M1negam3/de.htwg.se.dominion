@@ -1,8 +1,10 @@
 package de.htwg.se.dominion.model.playerComponent
 
 import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.playerComponent.Player.{copiedPlayer, copyList, isEmpty}
 import org.scalatest._
 
+import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.List
 
 class PlayerSpec extends WordSpec with Matchers {
@@ -13,6 +15,8 @@ class PlayerSpec extends WordSpec with Matchers {
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
   var list: List[Player] = List(Luca,Luis)
+  var l = new ListBuffer[Cards]
+  var d = new ListBuffer[Cards]
   "A Player" when {
     "new" should {
       val player = Player("Your Name",0,Cards.startDeck,Cards.stacker,Cards.hand)
@@ -30,6 +34,48 @@ class PlayerSpec extends WordSpec with Matchers {
         }
         "have a getHand method" in {
           Player.getHand(Luca) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          var copiedPlayer = Luca
+          var copyList = Luca.deck
+          copyList.length match {
+            case 0 => copiedPlayer = isEmpty(copiedPlayer)
+              copyList = copiedPlayer.deck
+              for (i <- 0 until 5) {
+                l += copyList(i)
+              } should not be (copyList)
+            case 1 => l += copyList.head
+              copiedPlayer = isEmpty(copiedPlayer)
+              copyList = copiedPlayer.deck
+              for (i <- 0 until 4) {
+                l += copyList(i)
+              } should not be (copyList)
+            case 2 => l += copyList.head
+              l += copyList(1)
+              copiedPlayer = isEmpty(copiedPlayer)
+              copyList = copiedPlayer.deck
+              for (i <- 0 until 3) {
+                l += copyList(i)
+              } should not be (copyList)
+            case 3 => for (i <- 0 until copyList.length) {
+              l += copyList(i)
+            }
+              copiedPlayer = isEmpty(copiedPlayer)
+              copyList = copiedPlayer.deck
+              for (i <- 0 until 2) {
+                l += copyList(i)
+              } should not be (copyList)
+            case 4 =>for (i <- 0 until copyList.length) {
+              l += copyList(i)
+            }
+              copiedPlayer = isEmpty(copiedPlayer)
+              copyList = copiedPlayer.deck
+              l += copyList.head
+              l should not be (copyList)
+            case _ =>
+              for (i <- 0 until 5) {
+                l += copyList(i)
+              } should not be (copyList)
+          }
+
         }
         "have a getMoney method" in {
           Player.getMoney(Luis) should not be be (5)
