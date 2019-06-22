@@ -4,21 +4,21 @@ import de.htwg.se.dominion.model.deckComponent.Cards
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards]) {
+case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards], playingCards: List[Cards], actions: Int, buys: Int) {
   override def toString: String = this.name
 }
 
 object Player {
 
   var deckLength = 0
-  var copiedPlayer: Player = new Player("", 0, Nil, Nil, Nil)
+  var copiedPlayer: Player = new Player("", 0, Nil, Nil, Nil, Nil, 1, 1)
   var copyList: List[Cards] = Nil
 
 
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand)
+      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand, Nil, 1, 1)
     }
     val Players: List[Player] = players.toList
     Players
@@ -86,7 +86,7 @@ object Player {
     }
     println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")
     deckLength = 0
-    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand)
+    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1)
   }
 
   def getMoney(player: Player): Int = {
@@ -141,7 +141,7 @@ object Player {
       }
       z = listBuffer1.toList
       x = listBuffer2.toList
-      Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z)
+      Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys)
     }else{
       listBuffer3 = listBuffer2
       for(j <- 0 until player.deck.length){
@@ -153,7 +153,7 @@ object Player {
       }
       z = listBuffer1.toList
       x = listBuffer3.toList
-      Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z)
+      Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys)
     }
   }
   def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
@@ -166,7 +166,7 @@ object Player {
     listBuffer1 -= player.hand(i)
     listBuffer1 +=z.head
     x = listBuffer1.toList
-    Player(copiedplayer.name, copiedplayer.value, copiedplayer.deck,copiedplayer.stacker,x)
+    Player(copiedplayer.name, copiedplayer.value, copiedplayer.deck,copiedplayer.stacker,x, copiedplayer.playingCards, copiedplayer.actions, copiedplayer.buys)
   }
 
   def isEmpty(player: Player): Player = {
@@ -174,6 +174,6 @@ object Player {
     val copiedStacker = player.stacker
     val copiedDeck = Cards.shuffle(copiedStacker)
     val stacker: List[Cards] = Nil
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand)
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys)
   }
 }

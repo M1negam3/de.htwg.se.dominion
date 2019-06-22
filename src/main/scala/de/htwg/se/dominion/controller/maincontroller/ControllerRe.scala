@@ -93,11 +93,16 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
   case class playingState(controller: ControllerRe) extends ControllerState {
 
     override def evaluate(input: String): Unit = {
+      var currentString = 0
       if (input.isEmpty) {
         return
       }
 
+      // Action phase
 
+      if (false) {
+        controller.nextState()
+      }
     }
 
     override def getCurrentStateAsString: String = ""
