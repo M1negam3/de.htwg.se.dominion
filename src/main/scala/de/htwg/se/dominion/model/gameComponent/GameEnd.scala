@@ -27,7 +27,7 @@ object GameEnd {
 
       val updatedDeck: List[Cards] = copiedDeck.toList
       copiedDeck = ListBuffer[Cards]()
-      copiedPlayerl += new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand, copiedPlayerList(i).playingCards, copiedPlayerList(i).actions, copiedPlayerList(i).value, copiedPlayerList(i).stringValue)
+      copiedPlayerl += new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand, copiedPlayerList(i).playingCards, copiedPlayerList(i).actions, copiedPlayerList(i).value, copiedPlayerList(i).stringValue, copiedPlayerList(i).money)
     }
     val updatedPlayerList: List[Player] = copiedPlayerl.toList
     updatedPlayerList

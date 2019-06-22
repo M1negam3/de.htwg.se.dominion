@@ -117,6 +117,7 @@ object Output {
     var actionString: String = ""
     var s: String = Console.BLUE + "     Your Hand Cards are: \n"
     var z: String = ""
+    var x: String = ""
     val y = l(playerturn).hand.length - 1
     for (i <- 0 until l(playerturn).hand.length) {
       s += Console.BLUE + "          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
@@ -126,6 +127,11 @@ object Output {
     for (j <- 0 until Cards.playingDeck.length) {
       z += "                         " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(j).head
         .CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")"
+    }
+    for (g <- 0 until Cards.playingDeck.length) {
+      if (l(playerturn).money >= Cards.playingDeck(g).head.CostValue) {
+        x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n")
+      }
     }
     stringValue match {
       case 0 => Console.WHITE + "     Press any button to start your turn"
@@ -163,6 +169,15 @@ object Output {
       case 21 => z
       case 22 => Console.YELLOW + "\n \n     Which card to you want to add to your hand?\n"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
+      case 24 => Console.RED + "     Try Y or N!"
+      case 25 => Console.BLUE + " Your money is: " + l(playerturn).money
+      case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
+      case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
+      case 28 => x
+      case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
+      case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
+      case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
+      case 32 => Console.RED + "     You cant buy that, please enter a valid number"
     }
   }
 }
