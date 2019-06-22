@@ -17,6 +17,18 @@ class PlayerSpec extends WordSpec with Matchers {
   var list: List[Player] = List(Luca,Luis)
   var l = new ListBuffer[Cards]
   var d = new ListBuffer[Cards]
+  var stacker: List[Cards] = Cards.startDeck
+  var deck: List[Cards] = Nil
+  var deck1: List[Cards] = List(Cards.copper)
+  var deck2: List[Cards] = List(Cards.copper,Cards.copper)
+  var deck3: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper)
+  var deck4: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+  var Luca0 = new Player("Luca",0,deck,stacker,Cards.hand)
+  var Luca2 = new Player("Luca",0,deck2,stacker,Cards.hand)
+  var Luca3 = new Player("Luca",0,deck3,stacker,Cards.hand)
+  var Luca4 = new Player("Luca",0,deck4,stacker,Cards.hand)
+  var Luca1 = new Player("Luca",0,deck1,stacker,Cards.hand)
+
   "A Player" when {
     "new" should {
       val player = Player("Your Name",0,Cards.startDeck,Cards.stacker,Cards.hand)
@@ -34,7 +46,12 @@ class PlayerSpec extends WordSpec with Matchers {
         }
         "have a getHand method" in {
           Player.getHand(Luca) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-          var copiedPlayer = Luca
+          Player.getHand(Luca0) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          Player.getHand(Luca1) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          Player.getHand(Luca2) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          Player.getHand(Luca3) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          Player.getHand(Luca4) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+          /*var copiedPlayer = Luca
           var copyList = Luca.deck
           copyList.length match {
             case 0 => copiedPlayer = isEmpty(copiedPlayer)
@@ -74,7 +91,7 @@ class PlayerSpec extends WordSpec with Matchers {
               for (i <- 0 until 5) {
                 l += copyList(i)
               } should not be (copyList)
-          }
+          }*/
 
         }
         "have a getMoney method" in {
