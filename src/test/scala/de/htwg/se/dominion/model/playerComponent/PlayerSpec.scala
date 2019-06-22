@@ -51,47 +51,6 @@ class PlayerSpec extends WordSpec with Matchers {
           Player.getHand(Luca2) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
           Player.getHand(Luca3) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
           Player.getHand(Luca4) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-          /*var copiedPlayer = Luca
-          var copyList = Luca.deck
-          copyList.length match {
-            case 0 => copiedPlayer = isEmpty(copiedPlayer)
-              copyList = copiedPlayer.deck
-              for (i <- 0 until 5) {
-                l += copyList(i)
-              } should not be (copyList)
-            case 1 => l += copyList.head
-              copiedPlayer = isEmpty(copiedPlayer)
-              copyList = copiedPlayer.deck
-              for (i <- 0 until 4) {
-                l += copyList(i)
-              } should not be (copyList)
-            case 2 => l += copyList.head
-              l += copyList(1)
-              copiedPlayer = isEmpty(copiedPlayer)
-              copyList = copiedPlayer.deck
-              for (i <- 0 until 3) {
-                l += copyList(i)
-              } should not be (copyList)
-            case 3 => for (i <- 0 until copyList.length) {
-              l += copyList(i)
-            }
-              copiedPlayer = isEmpty(copiedPlayer)
-              copyList = copiedPlayer.deck
-              for (i <- 0 until 2) {
-                l += copyList(i)
-              } should not be (copyList)
-            case 4 =>for (i <- 0 until copyList.length) {
-              l += copyList(i)
-            }
-              copiedPlayer = isEmpty(copiedPlayer)
-              copyList = copiedPlayer.deck
-              l += copyList.head
-              l should not be (copyList)
-            case _ =>
-              for (i <- 0 until 5) {
-                l += copyList(i)
-              } should not be (copyList)
-          }*/
 
         }
         "have a getMoney method" in {
@@ -102,6 +61,7 @@ class PlayerSpec extends WordSpec with Matchers {
         }
         "have a draw method" in {
           Player.draw(Luca, 5) should not be (list.head.hand.length == 5)
+          Player.draw(Luca2,5) should not be (list.head.hand.length == 5)
         }
         "have a upgrading method" in {
           Player.upgrading(Luis, 0, silver) should not be (Luis.hand.head == Cards.copper)
