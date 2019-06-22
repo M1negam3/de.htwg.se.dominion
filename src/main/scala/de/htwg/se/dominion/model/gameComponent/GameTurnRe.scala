@@ -26,7 +26,7 @@ object GameTurnRe {
       }
       if (actionumber == 0) {
         actionumber = 0
-        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1,0))
+        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
       }
     }
 
@@ -38,11 +38,11 @@ object GameTurnRe {
           }
         }
         if (z.equals(l(index).hand.length)) {
-          l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 2,0))
+          l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 2, 0))
           break
         }
         z = 0
-        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 3,0))
+        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 3, 0))
       }
     }
 
@@ -69,7 +69,7 @@ object GameTurnRe {
     }
     copiedStacker += copiedCard
     val updatedStacker: List[Cards] = copiedStacker.toList
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue)
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
   def addCardToHand(p : Player, idx: Int): Player = {
@@ -80,7 +80,7 @@ object GameTurnRe {
     }
     listBuffer += playingDecks(idx).head
     val updatedHand = listBuffer.toList
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, updatedHand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue)
+    new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, updatedHand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
   def removeHandcard(i: Int, player: Player): Player = {
@@ -92,7 +92,7 @@ object GameTurnRe {
     var z: List[Cards] = Nil
     listBuffer1 -= player.hand(i)
     z = listBuffer1.toList
-    Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue)
+    Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
   def copyList(cards: List[Cards]): List[Cards] = {
