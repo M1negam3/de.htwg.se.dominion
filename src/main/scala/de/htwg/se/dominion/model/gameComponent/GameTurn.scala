@@ -9,7 +9,7 @@ import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
 object GameTurn {
-  var actionString = ""
+  /*var actionString = ""
   var inputStr = ""
   var inputInt = 0
   var index = 0
@@ -26,7 +26,7 @@ object GameTurn {
   var playingCards: List[Cards] = Nil
   var l: List[Player] = List()
 
-  /*def actionPhase(list: List[Player], idx: Int): List[Player] = {
+  def actionPhase(list: List[Player], idx: Int): List[Player] = {
     l = list
     index = idx
     var actionNumber = 0

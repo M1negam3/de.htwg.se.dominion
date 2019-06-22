@@ -5,6 +5,8 @@ import de.htwg.se.dominion.model.playerComponent._
 
 object Output {
 
+  var check = false
+
   def printHeader(): String = {
     Console.BLACK +
       """
@@ -111,16 +113,29 @@ object Output {
     s
   }
   def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
-    var s: String = "     Your Hand Cards are: \n"
+    var actionString: String = ""
+    var s: String = Console.BLUE + "     Your Hand Cards are: \n"
     for (i <- 0 until l(playerturn).hand.length) {
-      s += "          " + l(playerturn).hand(i).CardName + "\n"
+      s += Console.BLUE + "          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
     }
+    var s2: String = Console.BLUE + "     Your Actions are: " + l(playerturn).actions + "\n"
+
     stringValue match {
-      case 0 => "     Press any button to start your turn"
-      case 1 => s + "     You dont have any Actioncards to play"
-      case 2 => ""
-
-
+      case 0 => Console.WHITE + "     Press any button to start your turn"
+      case 1 => s + Console.RED + "     You dont have any Actioncards to play"
+      case 2 => s2 + Console.RED + "     You dont have any Actioncards to play"
+      case 3 => {
+        for (i <- 0 until l(playerturn).hand.length) {
+          if (l(playerturn).hand(i).Type.equals("Action") && !check) {
+            actionString += l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")" + "\n"
+            check = true
+          } else if (l(playerturn).hand(i).Type.equals("Action") && check) {
+            actionString += "                            " + Console.BLUE + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")" + "\n"
+          }
+        }
+        check = false
+        s2 + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
+      }
     }
   }
 }

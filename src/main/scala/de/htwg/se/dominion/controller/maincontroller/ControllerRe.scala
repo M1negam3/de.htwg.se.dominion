@@ -2,7 +2,7 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.gameComponent.{GameInit, GameInitRe}
+import de.htwg.se.dominion.model.gameComponent.{GameInitRe}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
@@ -91,12 +91,25 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
   }
 
   case class playingState(controller: ControllerRe) extends ControllerState {
+    var runthrough = 0
 
     override def evaluate(input: String): Unit = {
+      var skip = false
       if (input.isEmpty) {
         return
       }
       // Action phase
+      runthrough += 1
+      if (runthrough > 1 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 3) {
+        if (input.equals("Y")) {
+
+        } else if (input.equals("N")) {
+          skip = true
+        }
+      }
+      if (skip) {
+        controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
+      }
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
 
       if (false) {
