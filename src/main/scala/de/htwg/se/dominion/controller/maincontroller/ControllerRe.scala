@@ -14,7 +14,6 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
   private val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.PREP
   var controllerState: ControllerState = PlayerCountState(this)
-  var test = Output.printPlayerQuestion()
 
   def eval(input: String): Unit = {
     //undoManager.doStep()
@@ -93,11 +92,25 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
   case class playingState(controller: ControllerRe) extends ControllerState {
 
-    override def evaluate(input: String): Unit = ???
+    override def evaluate(input: String): Unit = {
+      if (input.isEmpty) {
+        return
+      }
 
-    override def getCurrentStateAsString: String = "LEL"
+
+    }
+
+    override def getCurrentStateAsString: String = ""
 
     override def nextState: ControllerState = ???
+  }
+
+  case class EndState(controller: ControllerRe) extends ControllerState {
+    override def evaluate(input: String): Unit = {}
+
+    override def getCurrentStateAsString: String = Output.printScore(controller.roundManager.score)
+
+    override def nextState: ControllerState = this
   }
 
 }
