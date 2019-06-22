@@ -60,7 +60,7 @@ trait createProvinceDeck extends DeckInterface {
 trait createVillageDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.village)
+    val deck = List.fill(1)(Cards.village)
     deck
   }
 }
@@ -68,7 +68,7 @@ trait createVillageDeck extends DeckInterface {
 trait createFestivalDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.festival)
+    val deck = List.fill(1)(Cards.festival)
     deck
   }
 }
@@ -76,7 +76,7 @@ trait createFestivalDeck extends DeckInterface {
 trait createCellarDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.cellar)
+    val deck = List.fill(1)(Cards.cellar)
     deck
   }
 }
@@ -84,7 +84,7 @@ trait createCellarDeck extends DeckInterface {
 trait createMineDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.mine)
+    val deck = List.fill(1)(Cards.mine)
     deck
   }
 }
@@ -92,7 +92,7 @@ trait createMineDeck extends DeckInterface {
 trait createSmithyDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.smithy)
+    val deck = List.fill(1)(Cards.smithy)
     deck
   }
 }
@@ -100,7 +100,7 @@ trait createSmithyDeck extends DeckInterface {
 trait createRemodelDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.remodel)
+    val deck = List.fill(1)(Cards.remodel)
     deck
   }
 }
@@ -108,7 +108,7 @@ trait createRemodelDeck extends DeckInterface {
 trait createMerchantDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.merchant)
+    val deck = List.fill(1)(Cards.merchant)
     deck
   }
 }
@@ -116,7 +116,7 @@ trait createMerchantDeck extends DeckInterface {
 trait createWorkshopDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.workshop)
+    val deck = List.fill(1)(Cards.workshop)
     deck
   }
 }
@@ -124,7 +124,7 @@ trait createWorkshopDeck extends DeckInterface {
 trait createGardenDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.gardens)
+    val deck = List.fill(1)(Cards.gardens)
     deck
   }
 }
@@ -132,7 +132,7 @@ trait createGardenDeck extends DeckInterface {
 trait createMarketDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(10)(Cards.market)
+    val deck = List.fill(1)(Cards.market)
     deck
   }
 }
@@ -184,7 +184,7 @@ object Cards {
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, cellar, cellar, cellar)
+  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, mansion, mansion, mansion)
   val hand : List[Cards] = Nil
   val stacker : List[Cards] = Nil
 

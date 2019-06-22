@@ -12,7 +12,7 @@ case class RoundManager (players: List[Player] = Nil,
                         numberOfRounds: Int = 0,
                         numberOfPlayers: Int = 0,
                         names: List[String] = Nil,
-                        score: Map[String, Int] = Map(),
+                        score: Map[Int, String] = Map(),
                         idx: Int = 0,
                         gameInfo: String = "") {
 
@@ -73,6 +73,8 @@ case class RoundManager (players: List[Player] = Nil,
     copiedRoundManager = getNumberOfPlayers(copiedRoundManager)
     copiedRoundManager = getNames(copiedRoundManager)
     copiedRoundManager = createPlayer(copiedRoundManager)
+    GameTurn.end = false
+    GameTurn.empty = 0
     copiedRoundManager
   }
 
@@ -88,7 +90,8 @@ case class RoundManager (players: List[Player] = Nil,
   def end(r: RoundManager): RoundManager = {
     val copiedRoundManager = r
     val end = GameEnd.end(copiedRoundManager.players)
-    new RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
+    val score = GameEnd.score(end)
+    new RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, score, copiedRoundManager.idx, "")
   }
 
 }
@@ -116,7 +119,7 @@ object RoundManager {
     }
 
     def build(): RoundManager = {
-      new RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int](), idx, "")
+      new RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[Int, String](), idx, "")
     }
   }
 

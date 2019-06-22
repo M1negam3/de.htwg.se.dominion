@@ -36,8 +36,8 @@ class Tui(controller: Controller) extends Observer {
   }
 
   override def update(): Boolean = {
-    println(GameStatus.message(controller.gameStatus))
     print(controller.gameInfoString)
+    println(GameStatus.message(controller.gameStatus))
     //print(controller.gameInfoString + controller.phaseString)
     controller.gameStatus = GameStatus.IDLE
     true

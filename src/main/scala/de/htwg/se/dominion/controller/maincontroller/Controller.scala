@@ -45,21 +45,21 @@ class Controller(r: RoundManager) extends ControllerInterface {
   }
 
   override def turn(): Unit = {
-    gameInfoString = ""
     roundmanager = roundmanager.playerTurn(roundmanager)
-    phaseString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
+    gameInfoString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
     notifyObservers
     undoManager.doStep(new SetCommand(roundmanager.idx,this))
-    phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
-    gameStatus = GameStatus.TURN
-    notifyObservers
-
-    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds + 1,
-      roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
+    gameInfoString = Output.printTurnEnd(roundmanager.idx)
     if (GameTurn.end) {
       state = "end"
       gameStatus = GameStatus.END
+      notifyObservers
+      return
     }
+    gameStatus = GameStatus.TURN
+    notifyObservers
+    roundmanager = roundmanager.playerTurn(RoundManager(roundmanager.players, roundmanager.numberOfRounds + 1,
+      roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
   }
 
   override def help(): Unit = {
@@ -68,8 +68,8 @@ class Controller(r: RoundManager) extends ControllerInterface {
   }
 
    override def endGame(): Unit = {
-    roundmanager = roundmanager.score(roundmanager.end(roundmanager))
-    phaseString = Output.printScore(roundmanager.score)
+    roundmanager = roundmanager.end(roundmanager)
+    gameInfoString = Output.printScore(roundmanager.score)
     notifyObservers
   }
 
