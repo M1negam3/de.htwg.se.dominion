@@ -1,11 +1,11 @@
 package de.htwg.se.dominion
 
 import de.htwg.se.dominion.aview.{Tui, TuiRe}
-import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe, RoundManager}
+import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe, RoundManager, RoundManagerRe}
 
 object Dominion {
 
-  val controller = new ControllerRe(new RoundManager())
+  val controller = new ControllerRe(new RoundManagerRe())
   val tui = new TuiRe(controller)
   controller.notifyObservers
 

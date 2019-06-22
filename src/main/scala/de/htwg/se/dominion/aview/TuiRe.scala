@@ -31,7 +31,7 @@ class TuiRe(controller: ControllerRe) extends Observer {
   }
 
     override def update(): Boolean = {
-      print(controller.test)
+      println(controller.getCurrentStateAsString)
       true
     }
 }
