@@ -28,7 +28,7 @@ class Tui(controller: Controller) extends Observer {
       case "u" => controller.undo()
       case "r" => if (controller.memory.length > 1) {controller.redo()}
       case "n" => controller.newGame()
-      case "t" => if (controller.state.equals("turn")) { controller.turn() } else println("MÖP")
+      case "t" => if (controller.state.equals("turn")) { controller.turn() }
       case "e" => if (controller.state.equals("end")) { controller.endGame() }
       case "h" => controller.help()
       case _ => println(Console.RED + "Input invalid, try again!")
