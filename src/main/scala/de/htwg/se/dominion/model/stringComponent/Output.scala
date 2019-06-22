@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model.stringComponent
 
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
+import de.htwg.se.dominion.model.playerComponent._
 
 object Output {
 
@@ -108,5 +109,33 @@ object Output {
       s += "     Player " + (i + 1) + " was created!\n"
     }
     s
+  }
+  def getPlayingStateString(l: List[Player], i : Int): String = {
+    i match {
+      case 0 => "     You dont have any Actioncards to play"
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+      case 0 =>
+
+    }
   }
 }
