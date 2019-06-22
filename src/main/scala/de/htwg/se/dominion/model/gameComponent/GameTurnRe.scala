@@ -18,9 +18,12 @@ object GameTurnRe {
     for (f <- 0 until 5) {
       if (l(index).hand(f).Type.equals("Action")) {
         actionumber = 1
+      } else {
+        actionumber = 0
+        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1))
       }
     }
-
+    l
   }
 
 }
