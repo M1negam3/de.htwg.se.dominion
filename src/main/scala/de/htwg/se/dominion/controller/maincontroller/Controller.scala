@@ -24,8 +24,10 @@ class Controller(r: RoundManager) extends ControllerInterface {
     notifyObservers
     roundmanager = roundmanager.gameInit(roundmanager)
     startRoundmanager = roundmanager
-    gameStatus = GameStatus.FTURN
+    gameInfoString = Output.printPlayers(roundmanager)
+    notifyObservers
     gameInfoString = ""
+    gameStatus = GameStatus.FTURN
     state = "turn"
     notifyObservers
   }

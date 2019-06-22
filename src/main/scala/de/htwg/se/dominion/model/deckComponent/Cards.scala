@@ -32,10 +32,10 @@ trait createGoldDeck extends DeckInterface {
   }
 }
 
-trait createMansionDeck extends DeckInterface {
+trait createEstateDeck extends DeckInterface {
 
   override def createDeck: List[Cards] = {
-    val deck = List.fill(12)(Cards.mansion)
+    val deck = List.fill(12)(Cards.estate)
     deck
   }
 }
@@ -147,8 +147,8 @@ object Cards {
     0,"3 Money","Gold", "Money")
 
   //Winning Points Cards
-  val mansion = new Cards(2,0,1,0,0,0,
-    0,"1 Winning Point","Mansion", "Money")
+  val estate = new Cards(2,0,1,0,0,0,
+    0,"1 Winning Point","Estate", "Money")
   val duchy = new Cards(5,0,3,0,0,0,
     0,"3 Winning Point", "Duchy","Money")
   val province = new Cards(8,0,6,0,0,0,
@@ -179,12 +179,12 @@ object Cards {
 
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperDeck.copperDeck, silverDeck.silverDeck, goldDeck.goldDeck,
-    provinceDeck.provinceDeck, mansionDeck.mansionDeck, duchyDeck.duchyDeck, villageDeck.villageDeck, festivalDeck.festivalDeck,
+    estateDeck.estateDeck, estateDeck$.mansionDeck, duchyDeck.duchyDeck, villageDeck.villageDeck, festivalDeck.festivalDeck,
     cellarDeck.cellarDeck, mineDeck.mineDeck, smithyDeck.createDeck, remodelDeck.remodelDeck, merchantDeck.merchantDeck,
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, mansion, mansion, mansion)
+  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, estate, estate, estate)
   val hand : List[Cards] = Nil
   val stacker : List[Cards] = Nil
 
@@ -208,13 +208,13 @@ object goldDeck extends createGoldDeck {
   val goldDeck: List[Cards] = createDeck
 }
 
-object provinceDeck extends createProvinceDeck {
+object estateDeck extends createProvinceDeck {
 
-  val provinceDeck: List[Cards] = createDeck
+  val estateDeck: List[Cards] = createDeck
 
 }
 
-object mansionDeck extends createMansionDeck {
+object estateDeck$ extends createEstateDeck {
 
   val mansionDeck: List[Cards] = createDeck
 
