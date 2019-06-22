@@ -4,7 +4,7 @@ import de.htwg.se.dominion.model.deckComponent.Cards
 import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 
-class StrategyPatternForActionSpec extends WordSpec with Matchers{
+class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
 
 
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand)
