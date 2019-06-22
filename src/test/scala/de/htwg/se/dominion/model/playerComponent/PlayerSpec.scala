@@ -15,8 +15,6 @@ class PlayerSpec extends WordSpec with Matchers {
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
   var list: List[Player] = List(Luca,Luis)
-  var l = new ListBuffer[Cards]
-  var d = new ListBuffer[Cards]
   var stacker: List[Cards] = Cards.startDeck
   var deck: List[Cards] = Nil
   var deck1: List[Cards] = List(Cards.copper)
