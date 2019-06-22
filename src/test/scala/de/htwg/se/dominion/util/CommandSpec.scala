@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.util
 
-import de.htwg.se.dominion.controller.maincontroller.turnCommand
+import de.htwg.se.dominion.controller.maincontroller.SetCommand
 import org.scalatest._
 
 class incrCommand extends Command {

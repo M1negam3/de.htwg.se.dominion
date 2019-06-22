@@ -31,6 +31,20 @@ object Output {
     """.stripMargin
   }
 
+  def printNextTurn(): String = {
+    Console.BLACK +
+      """
+    ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
+    |
+    |                                    Press t to START the next Turn!
+    |                                    Press r to REDO your Turn!
+    |                                    Press u to Reset the Game!
+    |                                    Press q to QUIT the Game!
+    |
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    """.stripMargin
+  }
+
   def printRules(): String = {
     // TODO REGELN
     Console.WHITE +
@@ -55,14 +69,6 @@ object Output {
 
   def printTurn(idx: Int): String = {
     Console.BLUE + " Player " + (idx + 1) + "`s turn!\n"
-  }
-
-  def printNextTurn(): String = {
-    Console.BLACK +
-      """
-      |     Press t to START the next Turn!
-      |     Press q to QUIT the Game!
-    """.stripMargin
   }
 
   def printTurnEnd(idx: Int): String = {
@@ -91,8 +97,8 @@ object Output {
       "     Press n to StART a new Game!\n" + "     Press q to QUIT the Game!\n"
     s
   }
-  def printTest(): String = {
-    "How many Player´s are you(Min 2 and Max. 5"
+  def printPlayerQuestion(): String = {
+    Console.BLUE + "     How many Player´s are you?(between 2 and 5)\n"
   }
 
   def printPlayers(r: RoundManager): String = {

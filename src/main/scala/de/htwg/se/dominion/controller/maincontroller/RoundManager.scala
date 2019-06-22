@@ -1,76 +1,85 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-
 import de.htwg.se.dominion.model._
 import de.htwg.se.dominion.model.gameComponent.{GameEnd, GameInit, GameTurn}
 import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.stringComponent.Output
+import de.htwg.se.dominion.util.Observable
 
 import scala.collection.mutable.ListBuffer
 
-case class RoundManager(players: List[Player] = Nil,
+case class RoundManager (players: List[Player] = Nil,
                         numberOfRounds: Int = 0,
                         numberOfPlayers: Int = 0,
                         names: List[String] = Nil,
                         score: Map[String, Int] = Map(),
-                        idx: Int = 0) {
-
-
+                        idx: Int = 0,
+                        gameInfo: String = "") {
 
   def getNumberOfPlayers(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val copiedNumber = GameInit.getPlayerCount()
-      RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedNumber, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedNumber, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
     }
 
     def getNames(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val copiedNames = GameInit.getPlayerName(roundManager.numberOfPlayers)
-      RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedNames, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedNames, copiedRoundManager.score, copiedRoundManager.idx, "")
     }
 
     def createPlayer(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val Players = Player.createPlayer(roundManager.numberOfPlayers, roundManager.names)
-      RoundManager(Players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(Players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
     }
 
     def actionPhase(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val action = GameTurn.actionPhase(roundManager.players, roundManager.idx)
-      RoundManager(action, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(action, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
     }
 
     def buyPhase(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val buy = GameTurn.buyPhase(roundManager.players, roundManager.idx)
-      RoundManager(buy, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(buy, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
     }
 
     def score(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val copiedScore = GameEnd.score(roundManager.players)
-      RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedScore, copiedRoundManager.idx)
+      new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedScore, copiedRoundManager.idx, "")
     }
 
     def playerTurn(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val round = GameTurn.round(roundManager.numberOfPlayers, roundManager.idx)
-      RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, round)
+      new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, round, "")
     }
 
   def roundNumber(roundManager: RoundManager): RoundManager = {
     val copiedRoundManager = roundManager
     val roundNumber = copiedRoundManager.numberOfRounds
     if (copiedRoundManager.idx == 0) {
-      RoundManager(copiedRoundManager.players, roundNumber + 1, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
+      new RoundManager(copiedRoundManager.players, roundNumber + 1, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
       return this
     }
     this
   }
 
+  def gameInit(r: RoundManager): RoundManager = {
+    var copiedRoundManager = r
+    copiedRoundManager = getNumberOfPlayers(copiedRoundManager)
+    copiedRoundManager = getNames(copiedRoundManager)
+    copiedRoundManager = createPlayer(copiedRoundManager)
+    copiedRoundManager
+  }
+
   def turn(playerturn: Int, r: RoundManager): RoundManager = {
     val copiedRoundManager = r
-    var turnRoundManager = RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, playerturn)
+    var turnRoundManager = new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds,
+      copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, playerturn, "")
     turnRoundManager = actionPhase(turnRoundManager)
     turnRoundManager = buyPhase(turnRoundManager)
     turnRoundManager
@@ -79,29 +88,13 @@ case class RoundManager(players: List[Player] = Nil,
   def end(r: RoundManager): RoundManager = {
     val copiedRoundManager = r
     val end = GameEnd.end(copiedRoundManager.players)
-    RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx)
-  }
-  def state(r: RoundManager): RoundManager = {
-   r
-  }
-  def getPlayerStrings(r: RoundManager): List[String] = {
-    val copiedRoundManager = r
-    var string = new ListBuffer[String]
-    var z: List[String] = List()
-    for(i <- 0 until copiedRoundManager.players.length) {
-      string(i) +=  copiedRoundManager.players(i).value.toString
-      z = string.toList
-    }
-    z
-  }
-  def getPlayerTurnString(l: List[String], i: Int): String ={
-    var l = "test"
-    l
+    new RoundManager(end, copiedRoundManager.numberOfRounds, copiedRoundManager.numberOfPlayers, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
   }
 
 }
 
 object RoundManager {
+
   case class Builder() {
     var numberOfPlayers: Int = 0
     var numberOfRounds: Int = 0
@@ -123,7 +116,8 @@ object RoundManager {
     }
 
     def build(): RoundManager = {
-      RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int](), idx)
+      new RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[String, Int](), idx, "")
     }
   }
+
 }

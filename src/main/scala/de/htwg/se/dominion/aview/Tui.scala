@@ -2,7 +2,7 @@ package de.htwg.se.dominion.aview
 
 import java.io.BufferedReader
 
-import de.htwg.se.dominion.controller.maincontroller.Controller
+import de.htwg.se.dominion.controller.maincontroller.{Controller, GameStatus}
 import de.htwg.se.dominion.util.Observer
 
 
@@ -28,7 +28,7 @@ class Tui(controller: Controller) extends Observer {
       case "u" => controller.undo()
       case "r" => if (controller.memory.length > 1) {controller.redo()}
       case "n" => controller.newGame()
-      case "t" => if (controller.state.equals("turn")) { controller.turn() }
+      case "t" => if (controller.state.equals("turn")) { controller.turn() } else println("MÖP")
       case "e" => if (controller.state.equals("end")) { controller.endGame() }
       case "h" => controller.help()
       case _ => println(Console.RED + "Input invalid, try again!")
@@ -36,8 +36,10 @@ class Tui(controller: Controller) extends Observer {
   }
 
   override def update(): Boolean = {
-    print(
-      controller.gameInfoString +
-      controller.phaseString); true
+    println(GameStatus.message(controller.gameStatus))
+    print(controller.gameInfoString)
+    //print(controller.gameInfoString + controller.phaseString)
+    controller.gameStatus = GameStatus.IDLE
+    true
   }
 }
