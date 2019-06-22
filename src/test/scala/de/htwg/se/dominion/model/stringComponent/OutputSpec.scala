@@ -3,7 +3,7 @@ package de.htwg.se.dominion.model.stringComponent
 import org.scalatest._
 
 class OutputSpec extends WordSpec with Matchers {
-  var map: Map[String,Int]=Map("luca"->2)
+  var map: Map[Int, String]=Map(2 -> "Luca")
   "A Output" should {
     "have a method printPrep" in {
       Output.printPrep() should be (Console.BLACK +

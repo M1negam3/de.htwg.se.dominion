@@ -9,7 +9,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
   var numberOfRounds: Int = 0
   var numberOfPlayers: Int = 0
   var names: List[String] = Nil
-  var score: Map[String, Int] = Map()
+  var score: Map[Int, String] = Map()
   var idx: Int = 0
   var r = RoundManager(players,numberOfRounds,numberOfPlayers,names,score,idx)
 

@@ -19,20 +19,6 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var startRoundmanager = r
   var memory: ListBuffer[RoundManager] = ListBuffer()
 
-  /*override def newGame(): Unit = {
-    gameInfoString = Output.printPlayerQuestion()
-    phaseString = ""
-    notifyObservers
-    roundmanager = roundmanager.getNumberOfPlayers(roundmanager)
-    roundmanager = roundmanager.getNames(roundmanager)
-    roundmanager = roundmanager.createPlayer(roundmanager)
-    gameInfoString = Output.printPlayers(roundmanager)
-    startRoundmanager = roundmanager
-    phaseString = Output.printPrep()
-    state = "turn"
-    notifyObservers
-  }*/
-
   override def newGame(): Unit = {
     gameInfoString = Output.printPlayerQuestion()
     notifyObservers
@@ -87,16 +73,6 @@ class Controller(r: RoundManager) extends ControllerInterface {
     roundmanager = roundmanager.turn(roundmanager.idx ,roundmanager)
     phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
     notifyObservers
-  }
-
-  trait ControllerState {
-
-    def evaluate(input: String): Unit
-
-    def getCurrentStateAsString: String
-
-    def nextState: ControllerState
-
   }
 
    def getPlayerString(roundManager: RoundManager): String = {
