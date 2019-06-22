@@ -1,9 +1,18 @@
 package de.htwg.se.dominion.model.stringComponent
 
+import de.htwg.se.dominion.controller.maincontroller.RoundManager
+import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest._
 
 class OutputSpec extends WordSpec with Matchers {
   var map: Map[Int, String]=Map(2 -> "Luca")
+  var players: List[Player] = Nil
+  var numberOfRounds: Int = 0
+  var numberOfPlayers: Int = 0
+  var names: List[String] = Nil
+  var score: Map[Int, String] = Map()
+  var idx: Int = 0
+  var r = RoundManager(players,numberOfRounds,numberOfPlayers,names,score,idx)
   "A Output" should {
     "have a method printPrep" in {
       Output.printPrep() should be (Console.BLACK +
@@ -22,6 +31,12 @@ class OutputSpec extends WordSpec with Matchers {
       Output.printActionPhase() should be (Console.BLACK +
         """
     ════════════════════════════════════════════ Action Phase ═════════════════════════════════════════════
+    """.stripMargin)
+    }
+    "have a printBuyPhase" in {
+     Output.printBuyPhase() should be(Console.BLACK +
+       """
+    ═══════════════════════════════════════════ Buy Phase ═════════════════════════════════════════════════
     """.stripMargin)
     }
     "have a printTurn" in {
@@ -52,6 +67,13 @@ class OutputSpec extends WordSpec with Matchers {
       Output.printScore(map) should be (
         "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n                 Luca:2 \n\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n \n\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝\n \n")
     }
+    "have a printPlayerQuestion" in {
+      Output.printPlayerQuestion() should be (Console.BLUE + "     How many Player´s are you?(between 2 and 5)\n")
+    }
+    "have a printPlayers" in {
+      Output.printPlayers(r) should be("")
+    }
+
   }
 
 }

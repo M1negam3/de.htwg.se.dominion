@@ -13,10 +13,14 @@ class PlayerSpec extends WordSpec with Matchers {
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
   var list: List[Player] = List(Luca,Luis)
-  "A player" when {
+  "A Player" when {
     "new" should {
-      "have a toString method" in {
-        //Player.toString() should be ()
+      val player = Player("Your Name",0,Cards.startDeck,Cards.stacker,Cards.hand)
+      "have a name" in {
+        player.name should be("Your Name")
+      }
+      "have a nice String representation" in {
+        player.toString should be("Your Name")
       }
     }
   }
