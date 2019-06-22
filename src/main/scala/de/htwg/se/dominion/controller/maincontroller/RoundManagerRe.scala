@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.gameComponent.GameInitRe
+import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe}
 import de.htwg.se.dominion.model.playerComponent.Player
 
 case class RoundManagerRe(players: List[Player] = List(),
@@ -33,5 +33,9 @@ case class RoundManagerRe(players: List[Player] = List(),
     p
   }
 
-
+  def actionPhase(r: RoundManagerRe): List[Player] = {
+    val copiedRoundManagerRe = r
+    val p = GameTurnRe.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
+    p
+  }
 }

@@ -26,7 +26,7 @@ object GameTurn {
   var playingCards: List[Cards] = Nil
   var l: List[Player] = List()
 
-  def actionPhase(list: List[Player], idx: Int): List[Player] = {
+  /*def actionPhase(list: List[Player], idx: Int): List[Player] = {
     l = list
     index = idx
     var actionNumber = 0
@@ -497,5 +497,5 @@ object GameTurn {
       s = Output.printEnd()
     }
     s
-  }
+  }*/
 }

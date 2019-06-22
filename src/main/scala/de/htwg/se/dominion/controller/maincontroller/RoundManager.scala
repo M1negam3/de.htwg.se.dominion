@@ -16,7 +16,7 @@ case class RoundManager (players: List[Player] = Nil,
                         idx: Int = 0,
                         gameInfo: String = "") {
 
-  def getNumberOfPlayers(roundManager: RoundManager): RoundManager = {
+  /*def getNumberOfPlayers(roundManager: RoundManager): RoundManager = {
       val copiedRoundManager = roundManager
       val copiedNumber = GameInit.getPlayerCount()
       new RoundManager(copiedRoundManager.players, copiedRoundManager.numberOfRounds, copiedNumber, copiedRoundManager.names, copiedRoundManager.score, copiedRoundManager.idx, "")
@@ -121,6 +121,6 @@ object RoundManager {
     def build(): RoundManager = {
       new RoundManager(List[Player](), numberOfRounds, numberOfPlayers, List[String](), Map[Int, String](), idx, "")
     }
-  }
+  }*/
 
 }

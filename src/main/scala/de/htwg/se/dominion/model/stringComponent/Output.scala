@@ -110,31 +110,16 @@ object Output {
     }
     s
   }
-  def getPlayingStateString(l: List[Player], i : Int): String = {
-    i match {
-      case 0 => "     You dont have any Actioncards to play"
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
-      case 0 =>
+  def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
+    var s: String = "     Your Hand Cards are: \n"
+    for (i <- 0 until l(playerturn).hand.length) {
+      s += "          " + l(playerturn).hand(i).CardName + "\n"
+    }
+    stringValue match {
+      case 0 => "     Press any button to start your turn"
+      case 1 => s + "     You dont have any Actioncards to play"
+      case 2 => ""
+
 
     }
   }

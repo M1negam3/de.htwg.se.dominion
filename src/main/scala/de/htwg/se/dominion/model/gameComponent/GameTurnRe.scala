@@ -23,6 +23,11 @@ object GameTurnRe {
         l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1))
       }
     }
+
+    if (actionumber > 0) {
+
+    }
+
     l
   }
 

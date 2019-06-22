@@ -8,7 +8,7 @@ import de.htwg.se.dominion.util.Observer
 
 class Tui(controller: Controller) extends Observer {
 
-  controller.add(this)
+  //controller.add(this)
   var stopProcessingInput = false
 
   def processInput(input: BufferedReader): Unit = {
@@ -25,21 +25,21 @@ class Tui(controller: Controller) extends Observer {
   def processInputLine(input: String): Unit = {
     input match {
       case "q" =>
-      case "u" => controller.undo()
-      case "r" => if (controller.memory.length > 1) {controller.redo()}
-      case "n" => controller.newGame()
-      case "t" => if (controller.state.equals("turn")) { controller.turn() }
-      case "e" => if (controller.state.equals("end")) { controller.endGame() }
-      case "h" => controller.help()
+      case "u" => //controller.undo()
+      case "r" => //if (controller.memory.length > 1) {controller.redo()}
+      case "n" => //controller.newGame()
+      case "t" => //if (controller.state.equals("turn")) { controller.turn() }
+      case "e" => //if (controller.state.equals("end")) { controller.endGame() }
+      case "h" => //controller.help()
       case _ => println(Console.RED + "Input invalid, try again!")
     }
   }
 
   override def update(): Boolean = {
-    print(controller.gameInfoString)
-    println(GameStatus.message(controller.gameStatus))
+    //print(controller.gameInfoString)
+    //println(GameStatus.message(controller.gameStatus))
     //print(controller.gameInfoString + controller.phaseString)
-    controller.gameStatus = GameStatus.IDLE
+    //controller.gameStatus = GameStatus.IDLE
     true
   }
 }

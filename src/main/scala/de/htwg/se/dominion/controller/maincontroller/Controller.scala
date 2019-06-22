@@ -8,9 +8,9 @@ import de.htwg.se.dominion.util._
 
 import scala.collection.mutable.ListBuffer
 
-class Controller(r: RoundManager) extends ControllerInterface {
+class Controller(r: RoundManager) {
 
-  var gameStatus: GameStatus = GameStatus.PREP
+  /*var gameStatus: GameStatus = GameStatus.PREP
   var gameInfoString = ""
   var phaseString = Output.printHeader()
   var state = "Init"
@@ -75,6 +75,6 @@ class Controller(r: RoundManager) extends ControllerInterface {
     roundmanager = roundmanager.turn(roundmanager.idx ,roundmanager)
     phaseString = Output.printTurnEnd(roundmanager.idx) + GameTurn.endCheck(GameTurn.end)
     notifyObservers
-  }
+  }*/
 
 }
