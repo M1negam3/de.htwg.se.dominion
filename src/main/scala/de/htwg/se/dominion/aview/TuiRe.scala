@@ -2,10 +2,10 @@ package de.htwg.se.dominion.aview
 
 import java.io.BufferedReader
 
-import de.htwg.se.dominion.controller.maincontroller.Controller
+import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe}
 import de.htwg.se.dominion.util.Observer
 
-class TuiRe(controller: Controller) extends Observer {
+class TuiRe(controller: ControllerRe) extends Observer {
 
   controller.add(this)
   var stopProcessingInput = false
@@ -26,13 +26,12 @@ class TuiRe(controller: Controller) extends Observer {
       case "q" =>
       case "u" => controller.undo()
       case "r" => controller.redo()
-      case _ =>
-
+      case _ => controller.eval(input)
     }
   }
 
     override def update(): Boolean = {
-      //print(controller.gameInfoString)
+      print(controller.test)
       true
     }
 }
