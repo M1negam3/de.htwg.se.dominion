@@ -19,7 +19,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
   var startRoundmanager = r
   var memory: ListBuffer[RoundManager] = ListBuffer()
 
-  override def newGame(): Unit = {
+  def newGame(): Unit = {
     gameInfoString = Output.printPlayerQuestion()
     notifyObservers
     roundmanager = roundmanager.gameInit(roundmanager)
@@ -32,7 +32,7 @@ class Controller(r: RoundManager) extends ControllerInterface {
     notifyObservers
   }
 
-  override def turn(): Unit = {
+  def turn(): Unit = {
     roundmanager = roundmanager.playerTurn(roundmanager)
     gameInfoString = Output.printActionPhase() + Output.printTurn(roundmanager.idx)
     notifyObservers
@@ -50,12 +50,12 @@ class Controller(r: RoundManager) extends ControllerInterface {
       roundmanager.numberOfPlayers, roundmanager.names, roundmanager.score, roundmanager.idx + 1))
   }
 
-  override def help(): Unit = {
+  def help(): Unit = {
     phaseString = Output.printRules()
     notifyObservers
   }
 
-   override def endGame(): Unit = {
+   def endGame(): Unit = {
     roundmanager = roundmanager.end(roundmanager)
     gameInfoString = Output.printScore(roundmanager.score)
     notifyObservers
@@ -77,7 +77,4 @@ class Controller(r: RoundManager) extends ControllerInterface {
     notifyObservers
   }
 
-   def getPlayerString(roundManager: RoundManager): String = {
-     getPlayerString(roundmanager)
-   }
 }
