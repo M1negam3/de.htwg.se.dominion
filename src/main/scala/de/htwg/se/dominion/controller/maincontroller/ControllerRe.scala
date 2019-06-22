@@ -97,8 +97,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       if (input.isEmpty) {
         return
       }
-
       // Action phase
+      if (controller.roundManager.players(controller.roundManager.playerturn).actions != 0) {
+
+      }
 
       if (false) {
         controller.nextState()
