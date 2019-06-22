@@ -3,6 +3,7 @@ package de.htwg.se.dominion.controller.maincontroller
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.gameComponent.{GameInit, GameInitRe}
+import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
 
@@ -80,8 +81,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       controller.roundManager = controller.roundManager.getNames(controller.roundManager, input)
       controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
       if (controller.roundManager.names.length == controller.roundManager.numberOfPlayer) {
-        controller.roundManager = controller.roundManager
-        println(controller.roundManager.names)
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.createPlayer(controller.roundManager))
         controller.nextState()
       }
     }

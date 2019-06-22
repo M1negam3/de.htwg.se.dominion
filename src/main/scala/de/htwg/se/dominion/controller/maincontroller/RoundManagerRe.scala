@@ -3,8 +3,6 @@ package de.htwg.se.dominion.controller.maincontroller
 import de.htwg.se.dominion.model.gameComponent.GameInitRe
 import de.htwg.se.dominion.model.playerComponent.Player
 
-import scala.collection.mutable.ListBuffer
-
 case class RoundManagerRe(players: List[Player] = List(),
                           names: List[String] = List(),
                           numberOfPlayer: Int = 0,
@@ -29,10 +27,10 @@ case class RoundManagerRe(players: List[Player] = List(),
     }
   }
 
-  def createPlayer(r: RoundManagerRe): RoundManagerRe = {
+  def createPlayer(r: RoundManagerRe): List[Player] = {
     val copiedRoundManagerRe = r
     val p = Player.createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
-    RoundManagerRe(p, copiedRoundManagerRe.names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score)
+    p
   }
 
 }

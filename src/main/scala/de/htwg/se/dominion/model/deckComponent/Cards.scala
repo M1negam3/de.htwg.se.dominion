@@ -179,7 +179,7 @@ object Cards {
 
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperDeck.copperDeck, silverDeck.silverDeck, goldDeck.goldDeck,
-    estateDeck.estateDeck, estateDeck$.mansionDeck, duchyDeck.duchyDeck, villageDeck.villageDeck, festivalDeck.festivalDeck,
+    estateDeck.estateDeck, provinceDeck.provinceDeck, duchyDeck.duchyDeck, villageDeck.villageDeck, festivalDeck.festivalDeck,
     cellarDeck.cellarDeck, mineDeck.mineDeck, smithyDeck.createDeck, remodelDeck.remodelDeck, merchantDeck.merchantDeck,
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
@@ -208,21 +208,19 @@ object goldDeck extends createGoldDeck {
   val goldDeck: List[Cards] = createDeck
 }
 
-object estateDeck extends createProvinceDeck {
-
+object estateDeck extends createEstateDeck {
   val estateDeck: List[Cards] = createDeck
-
-}
-
-object estateDeck$ extends createEstateDeck {
-
-  val mansionDeck: List[Cards] = createDeck
-
 }
 
 object duchyDeck extends createDuchyDeck {
 
   val duchyDeck: List[Cards] = createDeck
+
+}
+
+object provinceDeck extends createProvinceDeck {
+
+  val provinceDeck: List[Cards] = createDeck
 
 }
 
