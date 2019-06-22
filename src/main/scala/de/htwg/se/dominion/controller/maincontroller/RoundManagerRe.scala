@@ -38,4 +38,17 @@ case class RoundManagerRe(players: List[Player] = List(),
     val p = GameTurnRe.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
     p
   }
+
+  def actionPhase2(r: RoundManagerRe, cardnumber: Int): List[Player] = {
+    val copiedRoundManagerRe = r
+    val p = GameTurnRe.actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
+    p
+  }
+
+  def editStringValue(r: RoundManagerRe, newStringValue: Int): List[Player] = {
+    val copiedRoundManagerRe = r
+    var p = copiedRoundManagerRe.players
+    val q = new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, newStringValue)
+    p(copiedRoundManagerRe.playerturn) = q
+  }
 }

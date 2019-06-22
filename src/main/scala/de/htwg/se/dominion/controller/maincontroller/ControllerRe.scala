@@ -92,6 +92,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
   case class playingState(controller: ControllerRe) extends ControllerState {
     var runthrough = 0
+    var continue = false
 
     override def evaluate(input: String): Unit = {
       var skip = false
@@ -100,12 +101,21 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       }
       // Action phase
       runthrough += 1
+      if (runthrough > 2 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 4) {
+        if (Controller.toInt(input).isEmpty) {
+          return
+        }
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
+      }
       if (runthrough > 1 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 3) {
         if (input.equals("Y")) {
-
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
         } else if (input.equals("N")) {
           skip = true
+        } else {
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
         }
+
       }
       if (skip) {
         controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
