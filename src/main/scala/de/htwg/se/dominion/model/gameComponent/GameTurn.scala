@@ -82,20 +82,6 @@ object GameTurn {
             actionNumber = 0
             inputStr = ""
             break
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           } else if (inputStr.equals("Y")) {
             println(Console.BLACK + "     Enter a number to choose a card, which you want to play")
             while (true) {

@@ -157,7 +157,8 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         }
 
         // Choose a Action card to play
-        if (runthrough > 2 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 4) {
+        if (runthrough > 2 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 4 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9)) {
           if (Controller.toInt(input).isEmpty) {
             return
           }
@@ -188,14 +189,13 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
         // First action phase check for action Cards
         if (runthrough == 1 /*|| skip*/) {
-          println("FIRST")
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
         }
       }
 
       // Buy Phase
       if (!action) {
-        println("BUY PHASE")
+
       }
 
       // next Player/State
