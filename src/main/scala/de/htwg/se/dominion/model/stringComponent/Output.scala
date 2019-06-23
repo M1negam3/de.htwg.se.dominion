@@ -3,10 +3,14 @@ package de.htwg.se.dominion.model.stringComponent
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
 import de.htwg.se.dominion.model.playerComponent._
 import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.gameComponent.StrategyPatternForActionPhase
+
+import scala.collection.mutable.ListBuffer
 
 object Output {
 
   var check = false
+  var availableCards: ListBuffer[Int] = ListBuffer()
 
   def printHeader(): String = {
     Console.BLACK +
@@ -125,8 +129,11 @@ object Output {
     var s2: String = Console.BLUE + "     Your Actions are: " + l(playerturn).actions + "\n"
 
     for (j <- 0 until Cards.playingDeck.length) {
-      z += "                         " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(j).head
-        .CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")"
+      if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
+        z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
+          "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
+        availableCards += j
+      }
     }
     for (g <- 0 until Cards.playingDeck.length) {
       if (l(playerturn).money >= Cards.playingDeck(g).head.CostValue) {
@@ -161,13 +168,15 @@ object Output {
       case 13 => "     Choose a Card from your hand"
       case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade"
       case 15 => Console.RED + "     Choose a valid Card from your hand"
-      case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + Console.YELLOW + "     Which card to you want to trash?"
+      case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
       case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
-      case 18 => Console.BLUE + "     Choose a Card you want to add to your hand"
-      case 19 => Console.BLUE + "     You can choose a card that cost up to " + /*discardCardValue +*/ " Money"
-      case 20 => Console.BLUE + "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)"
-      case 21 => z
-      case 22 => Console.YELLOW + "\n \n     Which card to you want to add to your hand?\n"
+      case 18 => Console.BLUE + "     Choose a Card you want to add to your hand\n     You can choose a card that cost up to " + StrategyPatternForActionPhase.discardCardValue + " Money\n" +
+        "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + z + Console.YELLOW +
+        "\n \n     Which card to you want to add to your hand?\n"
+      case 19 => Console.RED + "     Invalid Input, try again"
+      case 20 => Console.BLACK + ""
+      case 21 => ""
+      case 22 => ""
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
       case 25 => Console.BLUE + " Your money is: " + l(playerturn).money

@@ -2,20 +2,22 @@ package de.htwg.se.dominion.model.gameComponent
 
 import de.htwg.se.dominion.model.deckComponent.{Cards, goldDeck, silverDeck}
 import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.stringComponent.Output
 
 object StrategyPatternForActionPhase {
 
   // TODO EFFEKTE UMSCHREIBEN
 
   var discardAmount = 0
+  var discardCardValue = 0
 
   def getCardname(list:List[Player], playerTurn: Int, input: Int): List[Player] = {
     val l = list
     l(playerTurn).playingCards.head.CardName match {
       case "Cellar" => cellar(l, playerTurn, input)
       case "Mine" => mine(l, playerTurn, input)
-      /*case "Remodel" => remodel(l, playerTurn)
-      case "Workshop" => workshop(l, playerTurn)
+      case "Remodel" => remodel(l, playerTurn, input)
+      /*case "Workshop" => workshop(l, playerTurn)
       case "Merchant" => GameTurn.money = GameTurn.money + GameTurn.merchant(l, playerTurn)
         l*/
       case _ => l
@@ -26,6 +28,7 @@ object StrategyPatternForActionPhase {
     val l = list
     l(playerTurn).playingCards.head.CardName match {
       case "Cellar" => cellar2(l, playerTurn, input)
+      case "Remodel" => remodel2(l, playerTurn, input.toInt)
     }
   }
 
@@ -103,86 +106,35 @@ object StrategyPatternForActionPhase {
     l
   }
 
-  /*def mine(list: List[Player], idx: Int): List[Player] = {
+  def remodel(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    val x = l(idx).hand.length
-    var z = true
-    var y = 0
-    while(z) {
-      try {
-        println(Console.BLUE + "     Choose one Moneycard to upgrade")
-        discardAmount = scala.io.StdIn.readInt()
-        if(l(idx).hand(discardAmount).Type == "Money") {
-          y = 1
-        }
-        if (discardAmount < x && y == 1){
-          if(l(idx).hand(discardAmount).CardName == "Copper") {
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, silverDeck.silverDeck))
-            playingDecks = updateDeck(playingDecks, copyList(playingDecks(1)), 1)
-            z = false
-          } else if (l(idx).hand(discardAmount).CardName == "Silver"){
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, goldDeck.goldDeck))
-            playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-            z = false
-          } else if (l(idx).hand(discardAmount).CardName == "Gold")
-            l = Player.updatePlayer(l, upgrading(l(idx),discardAmount, goldDeck.goldDeck))
-          playingDecks = updateDeck(playingDecks, copyList(playingDecks(2)), 2)
-          z = false
-        } else
-          println(Console.RED + "     Choose a valid Card from you hand")
-      } catch {
-        case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
-      }
+    discardCardValue = 0
+    if (input >= 0 && input < l(idx).hand.length) {
+      discardCardValue = l(idx).hand(input).CostValue
+      discardCardValue += 2
+      println(discardCardValue)
+      l = Player.updatePlayer(l, GameTurnRe.removeHandcard(input, l(idx)))
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 18, l(idx).money))
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 19, l(idx).money))
     }
     l
   }
 
-  def remodel(list: List[Player], idx: Int): List[Player] = {
+  def remodel2(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    var discardCardValue = 0
-    var availableCards: ListBuffer[Int] = ListBuffer()
-    breakable {
-      try {
-        while (true) {
-          println(Console.YELLOW + "     Which card to you want to trash?")
-          inputInt = scala.io.StdIn.readInt()
-          if (inputInt >= 0 && inputInt < l(idx).hand.length) {
-            println(Console.BLUE + "     You choose: " + Console.BLACK + l(idx).hand(inputInt).CardName)
-            discardCardValue = l(idx).hand(inputInt).CostValue
-            discardCardValue = discardCardValue + 2
-            l = updatePlayer(l, removeHandcard(inputInt, l(idx)))
-            println(Console.BLUE + "     Choose a Card you want to add to your hand")
-            println(Console.BLUE + "     You can choose a card that cost up to " + discardCardValue + " Money")
-            println(Console.BLUE + "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)")
-            for (i <- 0 until playingDecks.length) {
-              if (discardCardValue >= playingDecks(i).head.CostValue) {
-                println("                         " + Console.BLUE + playingDecks(i).head.CardName + Console.CYAN + " {" + playingDecks(i).length + "} " + Console.MAGENTA + "[" + playingDecks(i).head
-                  .CostValue + "]" + Console.BLUE + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
-                availableCards += i
-              }
-            }
-            print(Console.YELLOW + "\n \n     Which card to you want to add to your hand?\n")
-            while (true) {
-              inputInt = scala.io.StdIn.readInt()
-              if (availableCards.contains(inputInt)) {
-                l = updatePlayer(l, addCardToHand(l(idx), inputInt))
-                playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
-                break
-              } else {
-                println(Console.RED + "     You cant add that, please enter a valid number")
-              }
-            }
-          } else {
-            println(Console.RED + "     Invalid Input, try again!")
-          }
-        }
-      } catch {
-        case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
-      }
+    if (Output.availableCards.contains(input)) {
+      l = Player.updatePlayer(l, GameTurnRe.addCardToHand(l(idx), input))
+      GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 100, l(idx).money))
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 23, l(idx).money))
     }
     l
   }
 
+
+/*
   def workshop (list: List[Player], idx: Integer): List[Player] = {
     var l = list
     var x = true
@@ -227,17 +179,6 @@ object StrategyPatternForActionPhase {
       }
     }
     addMoney
-  }*/
-
-  /*var strategy = GameTurn.playingCards.head.CardName match {
-    case "Cellar" => GameTurn.cellar(GameTurn.l, GameTurn.index)
-    case "Mine" => GameTurn.mine(GameTurn.l, GameTurn.index)
-    case "Remodel" => GameTurn.remodel(GameTurn.l, GameTurn.index)
-    case "Workshop" => GameTurn.workshop(GameTurn.l, GameTurn.index)
-    case "Merchant" =>
-      GameTurn.money = GameTurn.money + GameTurn.merchant(GameTurn.l, GameTurn.index)
-      GameTurn.l
-    case _ => GameTurn.l
   }*/
 
 }

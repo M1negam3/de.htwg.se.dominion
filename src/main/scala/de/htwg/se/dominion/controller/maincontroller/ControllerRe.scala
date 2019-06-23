@@ -112,10 +112,16 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
         // Card Effect phase when you played a Card
         if (runthrough > 4) {
+          // Card cellar 2
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 8 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+          }
+          // Card Remodel 2
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 18 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 23) {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
           }
         }
@@ -135,8 +141,9 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
           // Card Remodel
-          if ( controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16) {
-
+          if ( controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
           // Card Workshop
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
