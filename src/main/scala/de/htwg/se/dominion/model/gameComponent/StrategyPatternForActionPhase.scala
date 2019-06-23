@@ -123,7 +123,7 @@ object StrategyPatternForActionPhase {
 
   def remodel2(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    if (Output.availableCards.contains(input)) {
+    if (Output.availableCards1.contains(input)) {
       l = Player.updatePlayer(l, GameTurnRe.addCardToHand(l(idx), input))
       GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
@@ -135,7 +135,8 @@ object StrategyPatternForActionPhase {
 
   def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    if (Output.availableCards1.contains(input)) {
+    val cards = Output.availableCards
+    if (cards.contains(input)) {
       l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), GameTurnRe.playingDecks(input).head))
       GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))

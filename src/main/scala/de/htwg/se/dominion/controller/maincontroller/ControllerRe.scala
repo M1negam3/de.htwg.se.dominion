@@ -144,6 +144,9 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         }
         // First card effect input
         if (runthrough == 4) {
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9) {
+            runthrough = 3
+          }
           if (Controller.toInt(input).isEmpty) {
             return
           }

@@ -65,7 +65,7 @@ case class RoundManagerRe(players: List[Player] = List(),
 
   def actionCardEffect1(r: RoundManagerRe, input: Int): List[Player] = {
     val copiedRoundManagerRe = r
-    val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
+    val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input.toInt)
     l
   }
 
