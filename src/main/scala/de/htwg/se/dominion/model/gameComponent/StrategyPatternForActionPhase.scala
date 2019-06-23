@@ -17,9 +17,8 @@ object StrategyPatternForActionPhase {
       case "Cellar" => cellar(l, playerTurn, input)
       case "Mine" => mine(l, playerTurn, input)
       case "Remodel" => remodel(l, playerTurn, input)
-      /*case "Workshop" => workshop(l, playerTurn)
-      case "Merchant" => GameTurn.money = GameTurn.money + GameTurn.merchant(l, playerTurn)
-        l*/
+      case "Workshop" => workshop(l, playerTurn, input)
+      case "Merchant" => merchant(l , playerTurn, input)
       case _ => l
     }
   }
@@ -133,52 +132,29 @@ object StrategyPatternForActionPhase {
     l
   }
 
-
-/*
-  def workshop (list: List[Player], idx: Integer): List[Player] = {
+  def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    var x = true
-    var availableCards: ListBuffer[Int] = ListBuffer()
-    var count = 0
-    while (x) {
-      println("You can choose a card costing up to 4")
-      for (i <- 0 until playingDecks.length) {
-        if (playingDecks(i).head.CostValue <= 4) {
-          println("                " + Console.BLUE + playingDecks(i).head.CardName + " Card Effect: " + playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")")
-          availableCards += 1
-          count = i
-        }
-      }
-      while (x) {
-        try {
-          println("Choose one Card")
-          inputInt = scala.io.StdIn.readInt()
-          if(inputInt <= availableCards.length){
-            l = updatePlayer(l, updateStacker(l(idx), playingDecks(inputInt).head))
-            playingDecks = updateDeck(playingDecks, copyList(playingDecks(inputInt)), inputInt)
-            println(l(idx).stacker)
-            x = false
-          } else {
-            println(Console.RED + "Invalid Input, try again!")
-          }
-        } catch {
-          case exception: NumberFormatException => println(Console.RED + "Please enter a correct number!")
-        }
-      }
+    if (Output.availableCards.contains(input)) {
+      l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), GameTurnRe.playingDecks(input).head))
+      GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 100, l(idx).money))
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 21, l(idx).money))
     }
     l
   }
 
-  def merchant(list: List[Player], idx: Int): Int = {
+  def merchant(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    var copiedplayer = l(idx)
-    var addMoney = 0
-    for (i <- 0 until copiedplayer.hand.length) {
-      if (copiedplayer.hand(i).CardName.equals("Silver")) {
-        addMoney = 1
+    for (i <- 0 until l(idx).hand.length) {
+      if (l(idx).hand(i).CardName.equals("Silver")) {
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 20, (l(idx).money + 2)))
+        this
+      } else {
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 22, l(idx).money))
       }
     }
-    addMoney
-  }*/
+    l
+  }
 
 }

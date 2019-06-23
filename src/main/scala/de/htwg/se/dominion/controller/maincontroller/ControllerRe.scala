@@ -146,8 +146,13 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
           // Card Workshop
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
-
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+          }
+          // Card Merchant
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 38) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
         }
 
