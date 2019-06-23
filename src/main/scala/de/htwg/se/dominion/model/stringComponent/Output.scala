@@ -215,6 +215,7 @@ object Output {
       case 38 => Console.BLUE + "     This Card is only usefull with a Silver on your Hand, are you sure you want to play it? (0/1)\n"
       case 39 => Console.BLUE + s + "     Press a button to continue"
       case 40 => Console.BLUE + "     Card gained"
+      case 41 => Console.RED + "      Needs to be larger than 0"
       case _ => "MÖP"
     }
   }
