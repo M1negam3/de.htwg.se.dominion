@@ -3,6 +3,7 @@ package de.htwg.se.dominion.model.stringComponent
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
 import de.htwg.se.dominion.model.playerComponent._
 import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.gameComponent.GameTurnRe
 
 object Output {
 
@@ -129,7 +130,7 @@ object Output {
         .CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")"
     }
     for (g <- 0 until Cards.playingDeck.length) {
-      if (l(playerturn).money >= Cards.playingDeck(g).head.CostValue) {
+      if (GameTurnRe.getMoney(l(playerturn)) >= Cards.playingDeck(g).head.CostValue) {
         x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
       }
     }
@@ -170,7 +171,7 @@ object Output {
       case 22 => Console.YELLOW + "\n \n     Which card to you want to add to your hand?\n"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
-      case 25 => Console.BLUE + " Your money is: " + l(playerturn).money
+      case 25 => Console.BLUE + " Your money is: " + GameTurnRe.getMoney(l(playerturn))
       case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
       case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
       case 28 => x
@@ -178,6 +179,7 @@ object Output {
       case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
       case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
+      case 34 => Console.BLUE + "\n     You don´t have any buys"
     }
   }
 }

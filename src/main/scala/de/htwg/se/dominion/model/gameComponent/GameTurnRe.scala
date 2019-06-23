@@ -12,6 +12,7 @@ object GameTurnRe {
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck
   var draw = 0
+  var availableCards: ListBuffer[Int] = ListBuffer()
 
   def actionPhase(list: List[Player], index: Int): List[Player] = {
     l = list
@@ -161,5 +162,23 @@ object GameTurnRe {
       s = Output.printEnd()
     }
     s
+  }
+  def getMoney(player: Player): Int = {
+    val copiedPlayer = player
+    var m = 0
+    for (i <- 0 until 5) {
+      m += copiedPlayer.hand(i).MoneyValue
+    }
+    m
+  }
+  def buyPhase(list: List[Player], index: Int, input: Int): List[Player] = {
+    var l = list
+    var test = l(index).money
+    var copiedlist = l
+    var copiedCard = playingDecks(input).head
+    l = Player.updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
+    l = Player.updatePlayer(l, Player.updateMoney(l(index), copiedCard.CostValue))
+    playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
+    l
   }
 }
