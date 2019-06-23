@@ -3,6 +3,8 @@ package de.htwg.se.dominion.controller.maincontroller
 import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe}
 import de.htwg.se.dominion.model.playerComponent.Player
 
+import scala.collection.mutable.ListBuffer
+
 case class RoundManagerRe(players: List[Player] = List(),
                           names: List[String] = List(),
                           numberOfPlayer: Int = 0,
@@ -48,7 +50,21 @@ case class RoundManagerRe(players: List[Player] = List(),
   def editStringValue(r: RoundManagerRe, newStringValue: Int): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
-    val q = new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, newStringValue, p(copiedRoundManagerRe.playerturn).money)
-    p(copiedRoundManagerRe.playerturn) = q
+    var q: ListBuffer[Player] = ListBuffer()
+    for (i <- 0 until copiedRoundManagerRe.players.length) {
+      if (i == copiedRoundManagerRe.playerturn) {
+        q += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, newStringValue, p(copiedRoundManagerRe.playerturn).money)
+      } else {
+        q += p(i)
+      }
+    }
+    val l = q.toList
+    l
+  }
+
+  def actionCardEffect(r: RoundManagerRe): List[Player] = {
+    // TODO
+    val copiedRoundManagerRe = r
+    copiedRoundManagerRe.players
   }
 }

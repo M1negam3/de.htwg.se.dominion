@@ -150,7 +150,7 @@ object Output {
         s2 + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
       }
       case 4 => Console.BLACK + "     Enter a number to choose a card, which you want to play"
-      case 5 => Console.BLUE + "     Your card effect is: "+ Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n"
+      case 5 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s
       case 6 => Console.BLUE + s
       case 7 => Console.BLUE + "     Enter the amount of Cards to Discard"
       case 8 => Console.BLUE + "     Choose some Card(s), separate them with a blank"

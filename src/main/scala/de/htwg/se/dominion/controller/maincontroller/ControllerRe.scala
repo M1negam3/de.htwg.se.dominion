@@ -99,30 +99,48 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     var buy = true
     var availableCards: ListBuffer[Int] = ListBuffer()
 
+    var phase = 0
 
     override def evaluate(input: String): Unit = {
       var skip = false
       if (input.isEmpty) {
         return
       }
+
       // Action phase
       runthrough += 1
+      if (runthrough > 3 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 5) {
+        controller.roundManager = controller.roundManager.copy() //TODO
+      }
       if (runthrough > 2 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 4) {
         if (Controller.toInt(input).isEmpty) {
           return
         }
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
       }
-      if (runthrough > 1 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 3) {
+      if (runthrough > 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 3 ||controller.roundManager.players(controller.roundManager.playerturn).stringValue == 24 )) {
         if (input.equals("Y")) {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
-        } else if (input.equals("N")) {
-          skip = true
+          return
+        }
+        if (input.equals("N")) {
+          phase = 1
         } else {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
         }
+      }
+      if (runthrough == 1 || skip) {
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+      }
+
+
+
+      // Buy Phase
+      if (phase == 1) {
 
       }
+
+      // next Player/State
       if (skip) {
         controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
       }

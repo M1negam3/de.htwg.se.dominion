@@ -11,6 +11,7 @@ object GameTurnRe {
 
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck
+  var draw = 0
 
   def actionPhase(list: List[Player], index: Int): List[Player] = {
     l = list
@@ -52,10 +53,16 @@ object GameTurnRe {
   def actionPhase2(list: List[Player], index: Int, cardnumber: Int): List[Player] = {
     l = list
     var playingCards = l(index).playingCards
+    var money = l(index).money
+    var buys = l(index).buys
+
     if (cardnumber < l(index).hand.length && l(index).hand(cardnumber).Type == "Action") {
       playingCards = l(index).hand(cardnumber) :: Nil
       l = Player.updatePlayer(l, removeHandcard(cardnumber, l(index)))
-
+      money += playingCards.head.BonusMoneyValue
+      buys += playingCards.head.BuyAdditionValue
+      draw += playingCards.head.DrawingValue
+      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, l(index).actions, buys, 5, money))
     }
     l
   }
