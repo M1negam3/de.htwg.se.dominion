@@ -6,6 +6,7 @@ import de.htwg.se.dominion.model.deckComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.{GameTurnRe, StrategyPatternForActionPhase}
 
 import scala.collection.mutable.ListBuffer
+import de.htwg.se.dominion.model.gameComponent.GameTurnRe
 
 object Output {
 
@@ -147,7 +148,7 @@ object Output {
     }
 
     for (g <- 0 until GameTurnRe.playingDecks.length) {
-      if (l(playerturn).money >= Cards.playingDeck(g).head.CostValue) {
+      if (GameTurnRe.getMoney(l(playerturn)) >= Cards.playingDeck(g).head.CostValue) {
         x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
       }
     }
@@ -191,17 +192,18 @@ object Output {
       case 22 => Console.RED + "     You dont have a Silver on your Hand"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
-      case 25 => Console.BLUE + " Your money is: " + l(playerturn).money
+      case 25 => Console.BLUE + " Your money is: " + GameTurnRe.getMoney(l(playerturn))
       case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
       case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
       case 28 => x
       case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
       case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
-      case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
+      case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
       case 33 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue +
         "\n\n" + s + "\n" + Console.BLACK + "     You can choose a card costing up to 4\n" + Console.BLUE +
         "     You can choose one of these:" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + s3 + "\n" + Console.YELLOW + "     Which Card do you want?\n"
+      case 34 => Console.BLUE + "\n     You don´t have any buys"
       case 35 => Console.BLUE + "     A Silver Card was added to your Stacker"
       case 36 => Console.BLUE + "     A Gold Card was added to your Stacker"
       case 37 => Console.RED + "      Please choose a Money Card!"

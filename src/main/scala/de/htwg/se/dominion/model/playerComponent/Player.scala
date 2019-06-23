@@ -176,4 +176,14 @@ object Player {
     val stacker: List[Cards] = Nil
     new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
   }
+  def updateMoney(player: Player,i: Int): Player ={
+    val cP = player
+    var m = 0
+    var b = 0
+    m += cP.money
+    m -= i
+    b += cP.buys
+    b -= 1
+    Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,cP.actions,b,cP.stringValue,m)
+  }
 }
