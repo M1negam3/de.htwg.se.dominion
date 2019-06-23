@@ -11,7 +11,6 @@ import de.htwg.se.dominion.model.gameComponent.GameTurnRe
 object Output {
 
   var check = false
-  var availableCards1: ListBuffer[Int] = ListBuffer()
 
   def printHeader(): String = {
     Console.BLACK +
@@ -127,7 +126,6 @@ object Output {
     var z: String = ""
     var x: String = ""
     val y = l(playerturn).hand.length - 1
-    availableCards1 = ListBuffer()
 
     for (i <- 1 until l(playerturn).hand.length) {
       s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
@@ -144,7 +142,6 @@ object Output {
       if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
         z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
           "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
-        availableCards1 += j
       }
     }
 

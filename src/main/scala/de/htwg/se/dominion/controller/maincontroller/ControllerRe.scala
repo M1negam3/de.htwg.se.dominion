@@ -101,6 +101,8 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     var action = true
     var z = 0
     var skip = false
+    var empty = 0
+    var end = false
 
     override def evaluate(input: String): Unit = {
       skip = false
@@ -291,13 +293,25 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0))
       }
 
+      for (i <- 0 until GameTurnRe.playingDecks.length) {
+        if (GameTurnRe.playingDecks(i).isEmpty) {
+          if (i == 3) {
+            end = true
+          }
+          GameTurnRe.playingDecks = GameTurnRe.updatePlayingDecks(GameTurnRe.playingDecks, i)
+          empty += 1
+          if (empty == 3) {
+            end = true
+          }
+        }
+      }
+
       // next Player/State
       if (skip) {
         controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
       }
-      //controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
 
-      if (false) {
+      if (end) {
         controller.nextState()
       }
     }

@@ -210,4 +210,15 @@ object GameTurnRe {
     val o: List[Int] = l.toList
     o
   }
+
+  def getCardsWC(): List[Int] = {
+    var l: ListBuffer[Int] = new ListBuffer[Int]
+    for (i <- 0 until playingDecks.length) {
+      if (StrategyPatternForActionPhase.discardCardValue >= playingDecks(i).head.CostValue) {
+        l += i
+      }
+    }
+    val o: List[Int] = l.toList
+    o
+  }
 }
