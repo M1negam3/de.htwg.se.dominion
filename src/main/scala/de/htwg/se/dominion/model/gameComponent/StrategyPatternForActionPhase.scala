@@ -135,7 +135,7 @@ object StrategyPatternForActionPhase {
 
   def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    val cards = Output.availableCards
+    val cards = GameTurnRe.getCardsWCost4()
     if (cards.contains(input)) {
       l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), GameTurnRe.playingDecks(input).head))
       GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)

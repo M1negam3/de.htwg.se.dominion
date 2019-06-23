@@ -11,7 +11,6 @@ import de.htwg.se.dominion.model.gameComponent.GameTurnRe
 object Output {
 
   var check = false
-  var availableCards: ListBuffer[Int] = ListBuffer()
   var availableCards1: ListBuffer[Int] = ListBuffer()
 
   def printHeader(): String = {
@@ -128,7 +127,6 @@ object Output {
     var z: String = ""
     var x: String = ""
     val y = l(playerturn).hand.length - 1
-    availableCards = ListBuffer()
     availableCards1 = ListBuffer()
 
     for (i <- 1 until l(playerturn).hand.length) {
@@ -139,7 +137,6 @@ object Output {
     for (i <- 0 until GameTurnRe.playingDecks.length) {
       if (GameTurnRe.playingDecks(i).head.CostValue <= 4) {
         s3 += "                " + Console.BLUE + GameTurnRe.playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurnRe.playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
-        availableCards += i
       }
     }
 

@@ -199,4 +199,15 @@ object GameTurnRe {
     l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Cards](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
     l
   }
+
+  def getCardsWCost4(): List[Int] = {
+    var l: ListBuffer[Int] = new ListBuffer[Int]
+    for (i <- 0 until playingDecks.length) {
+      if (playingDecks(i).head.CostValue <= 4) {
+        l += i
+      }
+    }
+    val o: List[Int] = l.toList
+    o
+  }
 }
