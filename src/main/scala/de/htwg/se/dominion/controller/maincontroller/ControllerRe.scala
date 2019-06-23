@@ -244,6 +244,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           }
         } else {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
+          controller.roundManager = controller.roundManager.copy(players = GameTurnRe.clearHand(controller.roundManager.players,controller.roundManager.playerturn))
           skip = true
           return
         }

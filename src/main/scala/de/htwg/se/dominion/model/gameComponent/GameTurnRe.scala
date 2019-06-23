@@ -193,5 +193,12 @@ object GameTurnRe {
     }
     m
   }
-
+  def clearHand(list: List[Player], idx : Int): List[Player] = {
+    var l = list
+    for (e <- 0 until l(idx).hand.length) {
+      l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
+    }
+    l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Cards](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
+    l
+  }
 }
