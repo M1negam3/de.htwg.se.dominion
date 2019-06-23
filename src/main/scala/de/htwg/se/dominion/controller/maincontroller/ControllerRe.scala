@@ -59,7 +59,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
     override def evaluate(input: String): Unit = {
       val number = Controller.toInt(input)
-      if (number.isEmpty) {
+      if (number.isEmpty || number.get < 2 || number.get > 5) {
         return
       }
       controller.nextState()
