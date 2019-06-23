@@ -18,7 +18,7 @@ case class RoundManagerRe(players: List[Player] = List(),
   }
 
   def getNameSetupStrings(): String = {
-    "Player " + (playerturn + 1) + ", please enter your name:"
+    "     Player " + (playerturn + 1) + ", please enter your name:"
   }
 
   def nextPlayer(): Int = {

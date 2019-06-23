@@ -5,14 +5,12 @@ import de.htwg.se.dominion.model.stringComponent.Output
 object GameStatus extends Enumeration {
 
   type GameStatus = Value
-  val IDLE, PREP, FTURN, TURN, END = Value
+  val IDLE, PREP, ACTION, BUY = Value
 
   val map = Map[GameStatus, String] (
     IDLE -> "",
-    PREP -> Output.printHeader(),
-    FTURN -> Output.printPrep(),
-    TURN -> Output.printNextTurn(),
-    END -> Output.printEnd()
+    ACTION -> Output.printActionPhase(),
+    BUY -> Output.printBuyPhase()
     )
 
   def message(gameStatus: GameStatus): String = {

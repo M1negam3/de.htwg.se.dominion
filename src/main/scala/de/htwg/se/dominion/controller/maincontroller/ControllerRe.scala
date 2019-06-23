@@ -13,7 +13,7 @@ import scala.collection.mutable.ListBuffer
 class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterface {
 
   private val undoManager = new UndoManager
-  var gameStatus: GameStatus = GameStatus.PREP
+  var gameStatus: GameStatus = GameStatus.IDLE
   var controllerState: ControllerState = PlayerCountState(this)
 
   def eval(input: String): Unit = {
@@ -67,7 +67,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       controller.roundManager = controller.roundManager.copy(numberOfPlayer = number.get)
     }
 
-    override def getCurrentStateAsString: String = Output.printPlayerQuestion()
+    override def getCurrentStateAsString: String = Output.printHeader() + Output.printPlayerQuestion()
 
     override def nextState: ControllerState = NameSetupState(controller)
   }
@@ -99,9 +99,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     var availableCards: ListBuffer[Int] = ListBuffer()
     var action = true
     var z = 0
+    var skip = false
 
     override def evaluate(input: String): Unit = {
-      var skip = false
+      skip = false
       if (input.isEmpty) {
         return
       }
@@ -171,28 +172,41 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             return
           }
           if (input.equals("N")) {
-            action = false
-            // TODO STRING ACTION PHASE VORBEI
-
+            //action = false
+            skip = true
+            runthrough = 0
           } else {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
           }
         }
 
+        // check for any other action Cards
+        if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 39 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 35 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 36 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 40 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 20 ||
+          controller.roundManager.players(controller.roundManager.playerturn).stringValue == 22) {
+          controller.gameStatus = GameStatus.ACTION
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+        }
+
         // No Action Cards on Hand
-        if (runthrough > 1 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 1) {
-          action = false
-          // TODO STRING ACTION PHASE VORBEI
+        if (runthrough > 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 1)) {
+          //action = false
+          skip = true
+          runthrough = 0
         }
 
         // First action phase check for action Cards
         if (runthrough == 1 /*|| skip*/) {
+          controller.gameStatus = GameStatus.ACTION
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
         }
       }
 
       // Buy Phase
-      if (!action) {
+      /*if (!action) {
         if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
           if (buycount == 0) {
             controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 25))
@@ -249,7 +263,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           skip = true
           return
         }
-      }
+      }*/
 
       // next Player/State
       if (skip) {

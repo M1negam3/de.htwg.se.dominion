@@ -2,7 +2,7 @@ package de.htwg.se.dominion.aview
 
 import java.io.BufferedReader
 
-import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe}
+import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe, GameStatus}
 import de.htwg.se.dominion.util.Observer
 
 class TuiRe(controller: ControllerRe) extends Observer {
@@ -31,7 +31,10 @@ class TuiRe(controller: ControllerRe) extends Observer {
   }
 
     override def update(): Boolean = {
+      println(GameStatus.message(controller.gameStatus))
       println(controller.getCurrentStateAsString)
+
+      controller.gameStatus = GameStatus.IDLE
       true
     }
 }

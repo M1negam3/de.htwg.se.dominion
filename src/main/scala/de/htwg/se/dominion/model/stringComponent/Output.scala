@@ -19,8 +19,8 @@ object Output {
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
 
-                                        Press n to START a NEW Game!
-                                        Press h to get the Rules!
+                                            Welcome to Dominion!
+
                                         Press q to QUIT the Game!
 
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
@@ -46,7 +46,7 @@ object Output {
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
     |
-    |                                    Press t to START the next Turn!
+    |                                    Press any Button to START the next Turn!
     |                                    Press r to REDO your Turn!
     |                                    Press u to Reset the Game!
     |                                    Press q to QUIT the Game!
@@ -109,7 +109,7 @@ object Output {
     s
   }
   def printPlayerQuestion(): String = {
-    Console.BLUE + "     How many Player´s are you?(between 2 and 5)\n"
+    Console.BLUE + "\n     How many Player´s are you?(between 2 and 5)\n"
   }
 
   def printPlayers(r: RoundManager): String = {
@@ -121,7 +121,8 @@ object Output {
   }
   def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
     var actionString: String = ""
-    var s: String = Console.BLUE + "     Your Hand Cards are: \n"
+    var s: String = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+    var t: String = Console.BLUE + "     Player " + (playerturn + 1) + "`s turn\n"
     var s2: String = Console.BLUE + "     Your Actions are: " + l(playerturn).actions + "\n"
     var s3: String = ""
     var z: String = ""
@@ -130,9 +131,11 @@ object Output {
     availableCards = ListBuffer()
     availableCards1 = ListBuffer()
 
-    for (i <- 0 until l(playerturn).hand.length) {
-      s += Console.BLUE + "          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+
+    for (i <- 1 until l(playerturn).hand.length) {
+      s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
     }
+    s += "\n"
 
     for (i <- 0 until GameTurnRe.playingDecks.length) {
       if (GameTurnRe.playingDecks(i).head.CostValue <= 4) {
@@ -156,9 +159,9 @@ object Output {
     }*/
 
     stringValue match {
-      case 0 => Console.WHITE + "     Press any button to start your turn"
-      case 1 => s + Console.RED + "     You dont have any Actioncards to play"
-      case 2 => s2 + Console.RED + "     You dont have any Actioncards to play"
+      case 0 => printNextTurn()
+      case 1 => t + s + Console.RED + "\n     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
+      case 2 => t + s2 + s + Console.RED + "     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
       case 3 => {
         for (i <- 0 until l(playerturn).hand.length) {
           if (l(playerturn).hand(i).Type.equals("Action") && !check) {
@@ -169,7 +172,7 @@ object Output {
           }
         }
         check = false
-        s2 + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
+        t + s2 + s + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
       }
       case 4 => Console.BLACK + "     Enter a number to choose a card, which you want to play"
       case 5 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s
@@ -210,6 +213,8 @@ object Output {
       case 36 => Console.BLUE + "     A Gold Card was added to your Stacker"
       case 37 => Console.RED + "      Please choose a Money Card!"
       case 38 => Console.BLUE + "     This Card is only usefull with a Silver on your Hand, are you sure you want to play it? (0/1)\n"
+      case 39 => Console.BLUE + s + "     Press a button to continue"
+      case 40 => Console.BLUE + "     Card gained"
       case _ => "MÖP"
     }
   }
