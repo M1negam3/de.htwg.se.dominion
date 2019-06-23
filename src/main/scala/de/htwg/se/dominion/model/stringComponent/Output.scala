@@ -130,7 +130,7 @@ object Output {
     }
     for (g <- 0 until Cards.playingDeck.length) {
       if (l(playerturn).money >= Cards.playingDeck(g).head.CostValue) {
-        x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n")
+        x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
       }
     }
     stringValue match {

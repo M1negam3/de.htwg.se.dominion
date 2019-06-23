@@ -2,10 +2,12 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.gameComponent.{GameInitRe}
+import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.gameComponent.GameInitRe
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
+import scala.util.control.Breaks.{break, breakable}
 
 import scala.collection.mutable.ListBuffer
 
@@ -93,6 +95,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
   case class playingState(controller: ControllerRe) extends ControllerState {
     var runthrough = 0
     var continue = false
+    var buycount = 0
+    var buy = true
+    var availableCards: ListBuffer[Int] = ListBuffer()
+
 
     override def evaluate(input: String): Unit = {
       var skip = false
@@ -121,7 +127,46 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
       }
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+      //BuyPhase
+      if(buy == true) {
+        if(buycount == 0){
+          controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 25))
+          buycount += 1
+          return
+        } else if (buycount == 1) {
+          controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 26))
+          buycount += 1
+          return
+        } else if (buycount == 2) {
+          controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 27))
+          buycount += 1
+          return
+        } else if (buycount == 3) {
+          for (g <- 0 until Cards.playingDeck.length) {
+            if (controller.roundManager.players(controller.roundManager.playerturn).money >= Cards.playingDeck(g).head.CostValue) {
+              availableCards += g
+            }
+          }
+          controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 28))
+          buycount += 1
+          return
+        } else if (buycount == 4) {
+          breakable {
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 29))
+          }
+        } else if (buycount == 5) {
+          while (controller.roundManager.players(controller.roundManager.playerturn).buys > 0) {
+            if (input.equals("Y")) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
+            } else if (input.equals("N")) {
+              skip = true
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+            }
+        }
 
+
+      }
       if (false) {
         controller.nextState()
       }
