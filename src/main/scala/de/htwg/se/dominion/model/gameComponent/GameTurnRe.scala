@@ -27,7 +27,7 @@ object GameTurnRe {
       }
       if (actionumber == 0) {
         actionumber = 0
-        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
+        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
       }
     }
 
@@ -39,14 +39,13 @@ object GameTurnRe {
           }
         }
         if (z.equals(l(index).hand.length)) {
-          l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 2, 0))
+          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 2, 0))
           break
         }
         z = 0
-        l = Player.updatePlayer(l, Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 3, 0))
+        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 3, 0))
       }
     }
-
     l
   }
 
@@ -55,6 +54,7 @@ object GameTurnRe {
     var playingCards = l(index).playingCards
     var money = l(index).money
     var buys = l(index).buys
+    var actions = l(index).actions
 
     if (cardnumber < l(index).hand.length && l(index).hand(cardnumber).Type == "Action") {
       playingCards = l(index).hand(cardnumber) :: Nil
@@ -62,7 +62,15 @@ object GameTurnRe {
       money += playingCards.head.BonusMoneyValue
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
-      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, l(index).actions, buys, 5, money))
+      // new
+      actions += playingCards.head.ActionValue
+      actions -= 1
+      playingCards.head.CardName match {
+        case "Cellar" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))
+        case "Mine" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
+        case "Remodel" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
+        case "Workshop" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
+      }
     }
     l
   }

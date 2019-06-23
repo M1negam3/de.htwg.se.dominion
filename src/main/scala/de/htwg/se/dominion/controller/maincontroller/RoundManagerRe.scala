@@ -62,6 +62,17 @@ case class RoundManagerRe(players: List[Player] = List(),
     l
   }
 
+  /*def actionCardString(r: RoundManagerRe): List[Player] = {
+    val copiedRoundManagerRe = r
+    val p = copiedRoundManagerRe.players
+    copiedRoundManagerRe.players(copiedRoundManagerRe.playerturn).playingCards.head.CardName match {
+      case "Cellar" => editStringValue(copiedRoundManagerRe, 7)
+      case "Mine" => editStringValue(copiedRoundManagerRe, 14)
+      case "Remodel" => editStringValue(copiedRoundManagerRe, 16)
+      case "Workshop" => editStringValue(copiedRoundManagerRe, 33)
+    }
+  }*/
+
   def actionCardEffect(r: RoundManagerRe): List[Player] = {
     // TODO
     val copiedRoundManagerRe = r

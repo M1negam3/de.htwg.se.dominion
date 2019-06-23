@@ -152,16 +152,16 @@ object Output {
       case 4 => Console.BLACK + "     Enter a number to choose a card, which you want to play"
       case 5 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s
       case 6 => Console.BLUE + s
-      case 7 => Console.BLUE + "     Enter the amount of Cards to Discard"
+      case 7 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Cards to Discard"
       case 8 => Console.BLUE + "     Choose some Card(s), separate them with a blank"
       case 9 => Console.RED + "     Please enter a Card from your hand between 0 and " + y
       case 10 => Console.RED + "     Please enter the correct amount of Cards to discard"
       case 11 => Console.RED + "     Dont enter the same number twice"
       case 12 => Console.RED + "     Please enter a correct number!"
       case 13 => "     Choose a Card from your hand"
-      case 14 => Console.BLUE + "     Choose one Moneycard to upgrade"
+      case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLUE + "     Choose one Moneycard to upgrade"
       case 15 => Console.RED + "     Choose a valid Card from you hand"
-      case 16 => Console.YELLOW + "     Which card to you want to trash?"
+      case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + Console.YELLOW + "     Which card to you want to trash?"
       case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => Console.BLUE + "     Choose a Card you want to add to your hand"
       case 19 => Console.BLUE + "     You can choose a card that cost up to " + /*discardCardValue +*/ " Money"
@@ -178,6 +178,7 @@ object Output {
       case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
       case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
+      case 33 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLUE + "     You can choose a card costing up to 4"
     }
   }
 }

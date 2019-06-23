@@ -6,17 +6,23 @@ object StrategyPatternForActionPhase {
 
   // TODO EFFEKTE UMSCHREIBEN
 
-  /*def getCardname(player: Player): List[Player] = {
-    player.playingCards.head.CardName match {
-      case "Cellar" => cellar(GameTurn.l, GameTurn.index)
-      case "Mine" => mine(GameTurn.l, GameTurn.index)
-      case "Remodel" => remodel(GameTurn.l, GameTurn.index)
-      case "Workshop" => workshop(GameTurn.l, GameTurn.index)
-      case "Merchant" => GameTurn.money = GameTurn.money + GameTurn.merchant(GameTurn.l, GameTurn.index)
-        GameTurn.l
-      case _ => GameTurn.l
+  def getCardname(list:List[Player], playerTurn: Int): List[Player] = {
+    val l = list
+    l(playerTurn).playingCards.head.CardName match {
+      case "Cellar" => cellar(l, playerTurn)
+      /*case "Mine" => mine(l, playerTurn)
+      case "Remodel" => remodel(l, playerTurn)
+      case "Workshop" => workshop(l, playerTurn)
+      case "Merchant" => GameTurn.money = GameTurn.money + GameTurn.merchant(l, playerTurn)
+        l*/
+      case _ => l
     }
-  }*/
+  }
+
+  def cellar(list: List[Player], idx: Int): List[Player] = {
+    var l = list
+    l
+  }
 
   /*def cellar(list: List[Player], idx: Int): List[Player] = {
     var l = list
