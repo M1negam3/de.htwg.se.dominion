@@ -140,7 +140,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
 
       // Buy Phase
-      if (phase == 1) {
+      if (!action) {
 
       }
 
@@ -188,18 +188,20 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
             }
 
-        } else if (buycount == 5 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30)) {
-          //if (availableCards.contains(input)) {
-            controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
-            return
-          //} else {
-           // controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32))
-            //return
-         // }
+        } else if (buycount == 5 && ((controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30) || (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30))) {
+          if (availableCards.contains(input.toInt)) {
+              controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
+              return
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32))
+              return
+            }
+
         }
       } else {
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
+        skip = true
         return
       }
       /*if (false) {

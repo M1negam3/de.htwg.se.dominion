@@ -177,7 +177,7 @@ object Output {
       case 28 => x
       case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
       case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
-      case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
+      case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
       case 34 => Console.BLUE + "\n     You don´t have any buys"
     }
