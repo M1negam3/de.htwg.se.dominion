@@ -1,17 +1,20 @@
 package de.htwg.se.dominion.model.gameComponent
 
+import de.htwg.se.dominion.model.deckComponent.{Cards, goldDeck, silverDeck}
 import de.htwg.se.dominion.model.playerComponent.Player
 
 object StrategyPatternForActionPhase {
 
   // TODO EFFEKTE UMSCHREIBEN
 
-  def getCardname(list:List[Player], playerTurn: Int): List[Player] = {
+  var discardAmount = 0
+
+  def getCardname(list:List[Player], playerTurn: Int, input: Int): List[Player] = {
     val l = list
     l(playerTurn).playingCards.head.CardName match {
-      case "Cellar" => cellar(l, playerTurn)
-      /*case "Mine" => mine(l, playerTurn)
-      case "Remodel" => remodel(l, playerTurn)
+      case "Cellar" => cellar(l, playerTurn, input)
+      case "Mine" => mine(l, playerTurn, input)
+      /*case "Remodel" => remodel(l, playerTurn)
       case "Workshop" => workshop(l, playerTurn)
       case "Merchant" => GameTurn.money = GameTurn.money + GameTurn.merchant(l, playerTurn)
         l*/
@@ -19,68 +22,88 @@ object StrategyPatternForActionPhase {
     }
   }
 
-  def cellar(list: List[Player], idx: Int): List[Player] = {
+  def getCardName2(list: List[Player], playerTurn: Int, input: String): List [Player] = {
+    val l = list
+    l(playerTurn).playingCards.head.CardName match {
+      case "Cellar" => cellar2(l, playerTurn, input)
+    }
+  }
+
+  def cellar(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
+    if (input <= l(idx).hand.length) {
+      discardAmount = input
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 8, l(idx).money))
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 13, l(idx).money))
+    }
     l
   }
 
-  /*def cellar(list: List[Player], idx: Int): List[Player] = {
+  def cellar2(list: List[Player], idx: Int, strInput: String): List[Player] = {
     var l = list
-    val x = l(idx).hand.length
-    val y = l(idx).hand.length - 1
+    var test = strInput.split(" ")
     var same = false
-    while(boo2)
-      try {
-        println(Console.BLUE + "     Enter the amount of Cards to Discard")
-        discardAmount = scala.io.StdIn.readInt()
-        if (discardAmount <= x){
-          while(boo) {
-            try {
-              println(Console.BLUE + "     Choose some Card(s), separate them with a blank")
-              discardNumber = scala.io.StdIn.readLine()
-              val test = discardNumber.split(" ")
-              if (test.length > 1) {
-                same = false
-                for (i <- 0 until test.length - 1) {
-                  for (j <- 1 until test.length) {
-                    if (test(i) == test(j)) {
-                      same = true
-                    }
-                  }
-                }
-              }
-              if (!same) {
-                if (test.length == discardAmount) {
-                  for (r <- 0 until discardAmount) {
-                    if (test(r).toInt < x) {
-                      l = updatePlayer(l, updateStacker(l(idx), l(idx).hand((test(r).toInt))))
-                      l = updatePlayer(l, removeHandcard(test(r).toInt, l(idx)))
-                      draws += 1
-                    } else
-                      println(Console.RED + "     Please enter a Card from your hand between 0 and " + y)
-                  }
-                  l = updatePlayer(l, draw(l(idx), draws))
-                  boo = false
-                } else {
-                  println(Console.RED + "     Please enter the correct amount of Cards to discard")
-                }
-              } else {
-                println(Console.RED + "     Dont enter the same number twice")
-              }
-            } catch {
-              case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
-            }
+    var draw = 0
+    if (test.length > 1) {
+      same = false
+      for (i <- 0 until test.length - 1) {
+        for (j <- 1 until test.length) {
+          if (test(i) == test(j)) {
+            same = true
           }
-          boo2 = false
-        } else
-          println("     Choose a Card from your hand")
-      } catch {
-        case exception: NumberFormatException => println(Console.RED + "     Please enter a correct number!")
+        }
       }
+    }
+    if (!same) {
+      if ( test.length == discardAmount) {
+        for (i <- 0 until discardAmount) {
+          if (test(i).toInt < l(idx).hand.length) {
+            l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), l(idx).hand(test(i).toInt)))
+            l = Player.updatePlayer(l, GameTurnRe.removeHandcard(test(i).toInt, l(idx)))
+            draw += 1
+          } else {
+            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 9, l(idx).money))
+          }
+        }
+        l = Player.updatePlayer(l, Player.draw(l(idx), draw))
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 100, l(idx).money))
+      } else {
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 10, l(idx).money))
+      }
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 11, l(idx).money))
+    }
     l
   }
 
-  def mine(list: List[Player], idx: Int): List[Player] = {
+  def mine(list: List[Player], idx: Int, input: Int): List[Player] = {
+    var l = list
+    if (input < l(idx).hand.length) {
+      if (l(idx).hand(input).Type == "Money") {
+        if (input < l(idx).hand.length) {
+          if (l(idx).hand(input).CardName == "Copper") {
+            l = Player.updatePlayer(l, Player.upgrading(l(idx), input, silverDeck.silverDeck))
+            GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(1)), 1)
+            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
+          } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
+            l = Player.updatePlayer(l, Player.upgrading(l(idx), input, goldDeck.goldDeck))
+            GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(2)), 2)
+            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
+          }
+        } else {
+          l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 15, l(idx).money))
+        }
+      } else {
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
+      }
+    } else {
+      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
+    }
+    l
+  }
+
+  /*def mine(list: List[Player], idx: Int): List[Player] = {
     var l = list
     val x = l(idx).hand.length
     var z = true

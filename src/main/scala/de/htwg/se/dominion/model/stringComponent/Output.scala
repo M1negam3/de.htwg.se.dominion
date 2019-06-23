@@ -159,8 +159,8 @@ object Output {
       case 11 => Console.RED + "     Dont enter the same number twice"
       case 12 => Console.RED + "     Please enter a correct number!"
       case 13 => "     Choose a Card from your hand"
-      case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLUE + "     Choose one Moneycard to upgrade"
-      case 15 => Console.RED + "     Choose a valid Card from you hand"
+      case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade"
+      case 15 => Console.RED + "     Choose a valid Card from your hand"
       case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + Console.YELLOW + "     Which card to you want to trash?"
       case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => Console.BLUE + "     Choose a Card you want to add to your hand"
@@ -179,6 +179,10 @@ object Output {
       case 31 => Console.BLUE + "\n     The Card " + Cards.playingDeck(stringValue).head.CardName + " was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
       case 33 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLUE + "     You can choose a card costing up to 4"
+      case 35 => Console.BLUE + "     A Silver Card was added to your Stacker"
+      case 36 => Console.BLUE + "     A Gold Card was added to your Stacker"
+      case 37 => Console.RED + "      Please choose a Money Card!"
+      case _ => "MÖP"
     }
   }
 }

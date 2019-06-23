@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe}
+import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
@@ -62,20 +62,15 @@ case class RoundManagerRe(players: List[Player] = List(),
     l
   }
 
-  /*def actionCardString(r: RoundManagerRe): List[Player] = {
+  def actionCardEffect1(r: RoundManagerRe, input: Int): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = copiedRoundManagerRe.players
-    copiedRoundManagerRe.players(copiedRoundManagerRe.playerturn).playingCards.head.CardName match {
-      case "Cellar" => editStringValue(copiedRoundManagerRe, 7)
-      case "Mine" => editStringValue(copiedRoundManagerRe, 14)
-      case "Remodel" => editStringValue(copiedRoundManagerRe, 16)
-      case "Workshop" => editStringValue(copiedRoundManagerRe, 33)
-    }
-  }*/
+    val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
+    l
+  }
 
-  def actionCardEffect(r: RoundManagerRe): List[Player] = {
-    // TODO
+  def actionCardEffect2(r: RoundManagerRe, input: String): List[Player] = {
     val copiedRoundManagerRe = r
-    copiedRoundManagerRe.players
+    val l = StrategyPatternForActionPhase.getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
+    l
   }
 }

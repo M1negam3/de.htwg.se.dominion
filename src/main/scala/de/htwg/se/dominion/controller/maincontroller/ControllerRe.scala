@@ -111,17 +111,28 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       if (action) {
 
         // Card Effect phase when you played a Card
+        if (runthrough > 4) {
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 8 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+          }
+        }
         if (runthrough > 3) {
           // Card Cellar
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7) {
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13) {
             if (Controller.toInt(input).isEmpty) {
               return
             }
-
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
           // Card Mine
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14) {
-
+          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
+            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
           }
           // Card Remodel
           if ( controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16) {
