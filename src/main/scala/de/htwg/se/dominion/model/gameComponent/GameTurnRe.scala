@@ -79,6 +79,17 @@ object GameTurnRe {
     l
   }
 
+  def buyPhase(list: List[Player], index: Int, input: Int): List[Player] = {
+    var l = list
+    var test = l(index).money
+    var copiedlist = l
+    var copiedCard = playingDecks(input).head
+    l = Player.updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
+    l = Player.updatePlayer(l, Player.updateMoney(l(index), copiedCard.CostValue))
+    playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
+    l
+  }
+
   def updateStacker(p: Player, c: Cards): Player = {
     var copiedPlayer = p
     val copiedCard = c
@@ -174,6 +185,7 @@ object GameTurnRe {
     }
     s
   }
+
   def getMoney(player: Player): Int = {
     val copiedPlayer = player
     var m = 0
@@ -182,14 +194,5 @@ object GameTurnRe {
     }
     m
   }
-  def buyPhase(list: List[Player], index: Int, input: Int): List[Player] = {
-    var l = list
-    var test = l(index).money
-    var copiedlist = l
-    var copiedCard = playingDecks(input).head
-    l = Player.updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
-    l = Player.updatePlayer(l, Player.updateMoney(l(index), copiedCard.CostValue))
-    playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
-    l
-  }
+
 }
