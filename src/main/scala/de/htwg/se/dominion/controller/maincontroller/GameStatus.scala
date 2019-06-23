@@ -9,6 +9,7 @@ object GameStatus extends Enumeration {
 
   val map = Map[GameStatus, String] (
     IDLE -> "",
+    PREP -> Output.printNextTurn(),
     ACTION -> Output.printActionPhase(),
     BUY -> Output.printBuyPhase()
     )

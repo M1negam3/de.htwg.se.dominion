@@ -19,9 +19,7 @@ object GameTurnRe {
     var actionumber = l(index).actions
     var z = 0
 
-    l = Player.updatePlayer(l, Player.getHand(l(index)))
-
-    for (f <- 0 until 5) {
+    for (f <- 0 until l(index).hand.length) {
       if (l(index).hand(f).Type.equals("Action")) {
         actionumber = 1
       }

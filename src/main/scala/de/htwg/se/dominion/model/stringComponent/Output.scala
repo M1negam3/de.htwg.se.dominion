@@ -131,7 +131,6 @@ object Output {
     availableCards = ListBuffer()
     availableCards1 = ListBuffer()
 
-
     for (i <- 1 until l(playerturn).hand.length) {
       s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
     }
@@ -159,7 +158,7 @@ object Output {
     }*/
 
     stringValue match {
-      case 0 => printNextTurn()
+      case 0 => ""
       case 1 => t + s + Console.RED + "\n     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
       case 2 => t + s2 + s + Console.RED + "     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
       case 3 => {
@@ -213,7 +212,7 @@ object Output {
       case 36 => Console.BLUE + "     A Gold Card was added to your Stacker"
       case 37 => Console.RED + "      Please choose a Money Card!"
       case 38 => Console.BLUE + "     This Card is only usefull with a Silver on your Hand, are you sure you want to play it? (0/1)\n"
-      case 39 => Console.BLUE + s + "     Press a button to continue"
+      case 39 => Console.BLUE + "     Press a button to continue"
       case 40 => Console.BLUE + "     Card gained"
       case 41 => Console.RED + "      Needs to be larger than 0"
       case _ => "MÖP"

@@ -1,5 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
+import de.htwg.se.dominion.model.gameComponent.GameTurnRe.l
 import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.Player
 
@@ -73,6 +74,7 @@ case class RoundManagerRe(players: List[Player] = List(),
     val l = StrategyPatternForActionPhase.getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
     l
   }
+
   def updateMoney(r: RoundManagerRe, money: Int): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
@@ -85,6 +87,13 @@ case class RoundManagerRe(players: List[Player] = List(),
       }
     }
     val l = q.toList
+    l
+  }
+
+  def getHand(r: RoundManagerRe): List[Player] = {
+    val copiedRoundManagerRe = r
+    var l = copiedRoundManagerRe.players
+    l = Player.updatePlayer(l, Player.getHand(l(copiedRoundManagerRe.playerturn)))
     l
   }
 }
