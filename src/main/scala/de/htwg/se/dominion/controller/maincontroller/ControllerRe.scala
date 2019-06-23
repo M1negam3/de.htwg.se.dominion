@@ -105,10 +105,9 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       if (input.isEmpty) {
         return
       }
-
       // Action phase
-      runthrough += 1
       if (action) {
+        runthrough += 1
         // Card Effect phase when you played a Card
         if (runthrough > 4) {
           // Card cellar 2

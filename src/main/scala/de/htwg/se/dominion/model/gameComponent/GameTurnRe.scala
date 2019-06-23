@@ -17,7 +17,6 @@ object GameTurnRe {
   def actionPhase(list: List[Player], index: Int): List[Player] = {
     l = list
     var actionumber = l(index).actions
-    var money = 0
     var z = 0
 
     l = Player.updatePlayer(l, Player.getHand(l(index)))
