@@ -12,7 +12,7 @@ object GameTurnRe {
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck
   var draw = 0
-  var availableCards: ListBuffer[Int] = ListBuffer()
+
 
   def actionPhase(list: List[Player], index: Int): List[Player] = {
     l = list

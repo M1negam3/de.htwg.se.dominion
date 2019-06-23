@@ -67,4 +67,18 @@ case class RoundManagerRe(players: List[Player] = List(),
     val copiedRoundManagerRe = r
     copiedRoundManagerRe.players
   }
+  def updateMoney(r: RoundManagerRe, money: Int): List[Player] = {
+    val copiedRoundManagerRe = r
+    var p = copiedRoundManagerRe.players
+    var q: ListBuffer[Player] = ListBuffer()
+    for (i <- 0 until copiedRoundManagerRe.players.length) {
+      if (i == copiedRoundManagerRe.playerturn) {
+        q += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, p(copiedRoundManagerRe.playerturn).stringValue, money)
+      } else {
+        q += p(i)
+      }
+    }
+    val l = q.toList
+    l
+  }
 }

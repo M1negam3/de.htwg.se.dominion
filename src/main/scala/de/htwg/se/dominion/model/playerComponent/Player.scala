@@ -178,8 +178,8 @@ object Player {
   }
   def updateMoney(player: Player,i: Int): Player ={
     val cP = player
-    var m = new ListBuffer[Int]
-    var b = new ListBuffer[Int]
+    var m = 0
+    var b = 0
     m += cP.money
     m -= i
     b += cP.buys
