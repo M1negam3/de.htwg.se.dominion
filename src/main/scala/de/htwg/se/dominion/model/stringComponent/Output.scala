@@ -12,6 +12,7 @@ object Output {
 
   var check = false
   var availableCards: ListBuffer[Int] = ListBuffer()
+  var availableCards1: ListBuffer[Int] = ListBuffer()
 
   def printHeader(): String = {
     Console.BLACK +
@@ -127,6 +128,7 @@ object Output {
     var x: String = ""
     val y = l(playerturn).hand.length - 1
     availableCards = ListBuffer()
+    availableCards1 = ListBuffer()
 
     for (i <- 0 until l(playerturn).hand.length) {
       s += Console.BLUE + "          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
@@ -143,15 +145,15 @@ object Output {
       if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
         z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
           "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
-        availableCards += j
+        availableCards1 += j
       }
     }
 
-    for (g <- 0 until GameTurnRe.playingDecks.length) {
+    /*for (g <- 0 until GameTurnRe.playingDecks.length) {
       if (GameTurnRe.getMoney(l(playerturn)) >= Cards.playingDeck(g).head.CostValue) {
-        x += Console.BLUE + "                        " + Cards.playingDeck(g).head.CardName + Console.CYAN + " {" + Cards.playingDeck(g).length + "} " + Console.MAGENTA + "[" + Cards.playingDeck(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
+        x += Console.BLUE + "                        " + GameTurnRe.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurnRe.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurnRe.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurnRe.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
       }
-    }
+    }*/
 
     stringValue match {
       case 0 => Console.WHITE + "     Press any button to start your turn"

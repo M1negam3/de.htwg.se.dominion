@@ -6,8 +6,6 @@ import de.htwg.se.dominion.model.stringComponent.Output
 
 object StrategyPatternForActionPhase {
 
-  // TODO EFFEKTE UMSCHREIBEN
-
   var discardAmount = 0
   var discardCardValue = 0
 
@@ -111,7 +109,6 @@ object StrategyPatternForActionPhase {
     if (input >= 0 && input < l(idx).hand.length) {
       discardCardValue = l(idx).hand(input).CostValue
       discardCardValue += 2
-      println(discardCardValue)
       l = Player.updatePlayer(l, GameTurnRe.removeHandcard(input, l(idx)))
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 18, l(idx).money))
     } else {
@@ -134,7 +131,7 @@ object StrategyPatternForActionPhase {
 
   def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    if (Output.availableCards.contains(input)) {
+    if (Output.availableCards1.contains(input)) {
       l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), GameTurnRe.playingDecks(input).head))
       GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 100, l(idx).money))
