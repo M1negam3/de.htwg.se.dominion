@@ -105,65 +105,6 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       if (input.isEmpty) {
         return
       }
-
-      // Buy Phase
-      if (!action) {
-        if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
-          if (buycount == 0) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 25))
-            buycount += 1
-            return
-          } else if (buycount == 1) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 26))
-            buycount += 1
-            return
-          } else if (buycount == 2) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 27))
-            buycount += 1
-            return
-          } else if (buycount == 3) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager,GameTurnRe.getMoney(controller.roundManager.players(controller.roundManager.playerturn))))
-            for (g <- 0 until GameTurnRe.playingDecks.length) {
-              if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurnRe.playingDecks(g).head.CostValue) {
-                availableCards += g
-                z += 1
-              }
-            }
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 28))
-            buycount += 1
-            return
-          } else if (buycount == 4) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 29))
-            buycount += 1
-            return
-          } else if (buycount == 5 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue != 30)) {
-            if (input.equals("Y")) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
-              return
-            } else if (input.equals("N")) {
-              skip = true
-            } else {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
-            }
-
-          } else if (buycount == 5 && ((controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30) || (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30))) {
-            if (availableCards.contains(input.toInt)) {
-              controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
-              return
-            } else {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32))
-              return
-            }
-
-          }
-        } else {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
-          skip = true
-          return
-        }
-      }
-
       // Action phase
       if (action) {
         runthrough += 1
@@ -247,6 +188,66 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         // First action phase check for action Cards
         if (runthrough == 1 /*|| skip*/) {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+        }
+      }
+
+      // Buy Phase
+      if (!action) {
+        if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
+          if (buycount == 0) {
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 25))
+            buycount += 1
+            return
+          } else if (buycount == 1) {
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 26))
+            buycount += 1
+            return
+          } else if (buycount == 2) {
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 27))
+            buycount += 1
+            return
+          } else if (buycount == 3) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager,GameTurnRe.getMoney(controller.roundManager.players(controller.roundManager.playerturn))))
+            for (g <- 0 until GameTurnRe.playingDecks.length) {
+              if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurnRe.playingDecks(g).head.CostValue) {
+                availableCards += g
+                z += 1
+              }
+            }
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 28))
+            buycount += 1
+            return
+          } else if (buycount == 4) {
+            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 29))
+            buycount += 1
+            return
+          } else if (buycount == 5 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue != 30)) {
+            if (input.equals("Y")) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
+              return
+            } else if (input.equals("N")) {
+              skip = true
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+            }
+
+          } else if (buycount == 5 && ((controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30) || (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30))) {
+            if (availableCards.contains(input.toInt)) {
+              controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
+              return
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32))
+              return
+            }
+
+          }
+        } else {
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
+          controller.roundManager = controller.roundManager.copy(players = GameTurnRe.clearHand(controller.roundManager.players,controller.roundManager.playerturn))
+          buycount = 0
+          skip = true
+          return
         }
       }
 
