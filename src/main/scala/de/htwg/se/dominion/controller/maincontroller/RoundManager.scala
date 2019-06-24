@@ -1,9 +1,7 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.gameComponent.GameTurn.l
-import de.htwg.se.dominion.model.gameComponent.{GameInit, GameTurn, StrategyPatternForActionPhase}
+import de.htwg.se.dominion.model.gameComponent._
 import de.htwg.se.dominion.model.playerComponent.Player
-
 import scala.collection.mutable.ListBuffer
 
 case class RoundManager(players: List[Player] = List(),

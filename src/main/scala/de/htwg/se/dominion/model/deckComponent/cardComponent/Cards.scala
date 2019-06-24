@@ -49,10 +49,10 @@ object Cards {
     1,"+1 Card, +1 Action, +1 Buy, +1 Money","Market","Action")
 
   // Playing Deck
-  val playingDeck: List[List[Cards]] = List(copperHeadDeck$.copperDeck, silverHeadDeck$.silverDeck, goldHeadDeck$.goldDeck,
-    estateHeadDeck$.estateDeck, provinceHeadDeck$.provinceDeck, duchyHeadDeck$.duchyDeck, villageHeadDeck$.villageDeck, festivalHeadDeck$.festivalDeck,
-    cellarHeadDeck$.cellarDeck, mineHeadDeck$.mineDeck, smithyHeadDeck$.createDeck, remodelHeadDeck$.remodelDeck, merchantHeadDeck$.merchantDeck,
-    workshopHeadDeck$.workshopDeck, gardensHeadDeck$.gardensDeck, marketHeadDeck$.marketDeck)
+  val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
+    estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
+    cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
+    workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)
 
   // Starting Decks
   val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, estate, estate, estate)
@@ -67,89 +67,93 @@ object Cards {
   }
 }
 
-object copperHeadDeck$ extends createCopperHeadDeck {
+object copperHeadDeck extends createCopperHeadDeck {
+
   val copperDeck: List[Cards] = createDeck
 }
 
-object silverHeadDeck$ extends createSilverHeadDeck {
+object silverHeadDeck extends createSilverHeadDeck {
+
   val silverDeck: List[Cards] = createDeck
 }
 
-object goldHeadDeck$ extends createGoldHeadDeck {
+object goldHeadDeck extends createGoldHeadDeck {
+
   val goldDeck: List[Cards] = createDeck
 }
 
-object estateHeadDeck$ extends createEstateHeadDeck {
+object estateHeadDeck extends createEstateHeadDeck {
+
   val estateDeck: List[Cards] = createDeck
 }
 
-object duchyHeadDeck$ extends createDuchyHeadDeck {
+object duchyHeadDeck extends createDuchyHeadDeck {
 
   val duchyDeck: List[Cards] = createDeck
 
 }
 
-object provinceHeadDeck$ extends createProvinceHeadDeck {
+object provinceHeadDeck extends createProvinceHeadDeck {
 
   val provinceDeck: List[Cards] = createDeck
 
 }
 
-object villageHeadDeck$ extends createVillageHeadDeck {
+object villageHeadDeck extends createVillageHeadDeck {
 
   val villageDeck: List[Cards] = createDeck
 
 }
 
-object festivalHeadDeck$ extends createFestivalHeadDeck {
+object festivalHeadDeck extends createFestivalHeadDeck {
 
   val festivalDeck: List[Cards] = createDeck
 
 }
 
-object cellarHeadDeck$ extends createCellarHeadDeck {
+object cellarHeadDeck extends createCellarHeadDeck {
 
   val cellarDeck: List[Cards] = createDeck
 
 }
 
-object mineHeadDeck$ extends createMineHeadDeck {
+object mineHeadDeck extends createMineHeadDeck {
 
   val mineDeck: List[Cards] = createDeck
 
 }
 
-object smithyHeadDeck$ extends createSmithyHeadDeck {
+object smithyHeadDeck extends createSmithyHeadDeck {
 
   val smithyDeck: List[Cards] = createDeck
 
 }
 
-object remodelHeadDeck$ extends createRemodelHeadDeck {
+object remodelHeadDeck extends createRemodelHeadDeck {
 
   val remodelDeck: List[Cards] = createDeck
 
 }
 
-object merchantHeadDeck$ extends createMerchantHeadDeck {
+object merchantHeadDeck extends createMerchantHeadDeck {
 
   val merchantDeck: List[Cards] = createDeck
 
 }
 
-object workshopHeadDeck$ extends createWorkshopHeadDeck {
+object workshopHeadDeck extends createWorkshopHeadDeck {
 
   val workshopDeck: List[Cards] = createDeck
 
 }
 
-object gardensHeadDeck$ extends createGardenHeadDeck {
+object gardensHeadDeck extends createGardenHeadDeck {
 
   val gardensDeck: List[Cards] = createDeck
 
 }
 
-object marketHeadDeck$ extends createMarketHeadDeck {
+object marketHeadDeck extends createMarketHeadDeck {
 
   val marketDeck: List[Cards] = createDeck
 
