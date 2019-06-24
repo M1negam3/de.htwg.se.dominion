@@ -125,6 +125,7 @@ object Output {
     var s3: String = ""
     var z: String = ""
     var x: String = ""
+    var s4: String = ""
     val y = l(playerturn).hand.length - 1
 
     for (i <- 1 until l(playerturn).hand.length) {
@@ -163,7 +164,12 @@ object Output {
         t + s2 + s + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
       }
       case 4 => Console.BLACK + "     Enter a number to choose a card, which you want to play"
-      case 5 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s
+      case 5 => {
+        for (i <- 1 until l(playerturn).hand.length) {
+          s4 += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n"
+      }
       case 6 => Console.BLUE + s
       case 7 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Cards to Discard"
       case 8 => Console.BLUE + "     Choose some Card(s), separate them with a blank"

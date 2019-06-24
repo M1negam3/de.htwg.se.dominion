@@ -19,13 +19,15 @@ object GameTurnRe {
     var actionumber = l(index).actions
     var z = 0
 
+    if (actionumber == 0) {
+      actionumber = 0
+      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
+      return l
+    }
+
     for (f <- 0 until l(index).hand.length) {
       if (l(index).hand(f).Type.equals("Action")) {
         actionumber = 1
-      }
-      if (actionumber == 0) {
-        actionumber = 0
-        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
       }
     }
 
