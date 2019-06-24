@@ -16,7 +16,7 @@ object StrategyPatternForActionPhase {
       case "Mine" => mine(l, playerTurn, input)
       case "Remodel" => remodel(l, playerTurn, input)
       case "Workshop" => workshop(l, playerTurn, input)
-      case "Merchant" => merchant(l , playerTurn, input)
+      case "Merchant" => merchant(l , playerTurn)
       case _ => l
     }
   }
@@ -147,7 +147,7 @@ object StrategyPatternForActionPhase {
     l
   }
 
-  def merchant(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def merchant(list: List[Player], idx: Int): List[Player] = {
     var l = list
     for (i <- 0 until l(idx).hand.length) {
       if (l(idx).hand(i).CardName.equals("Silver")) {

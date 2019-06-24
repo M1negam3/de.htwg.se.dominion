@@ -171,7 +171,7 @@ object Output {
       case 10 => Console.RED + "     Please enter the correct amount of Cards to discard"
       case 11 => Console.RED + "     Dont enter the same number twice"
       case 12 => Console.RED + "     Please enter a correct number!"
-      case 13 => "     Choose a Card from your hand"
+      case 13 => Console.RED + "     Needs to be smaller or equal to your Hand Card length!"
       case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade"
       case 15 => Console.RED + "     Choose a valid Card from your hand"
       case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
@@ -180,9 +180,9 @@ object Output {
         "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + z + Console.YELLOW +
         "\n \n     Which card to you want to add to your hand?\n"
       case 19 => Console.RED + "     Invalid Input, try again"
-      case 20 => Console.BLUE + "     You have a Silver on your Hand, +2 Gold"
+      case 20 => Console.BLUE + "     You have a Silver on your Hand, +1 Gold"
       case 21 => Console.RED + "     Please choose a Card which is listed above!\n"
-      case 22 => Console.RED + "     You dont have a Silver on your Hand"
+      case 22 => Console.RED + "     You dont have a Silver on your Hand, Gold stays the same"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
       case 25 => var j = GameTurnRe.getMoney(l(playerturn))
@@ -212,10 +212,11 @@ object Output {
       case 35 => Console.BLUE + "     A Silver Card was added to your Stacker"
       case 36 => Console.BLUE + "     A Gold Card was added to your Stacker"
       case 37 => Console.RED + "      Please choose a Money Card!"
-      case 38 => Console.BLUE + "     This Card is only usefull with a Silver on your Hand, are you sure you want to play it? (0/1)\n"
+      case 38 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" +
+        s + "\n"
       case 39 => Console.BLUE + "     Press a button to continue"
       case 40 => Console.BLUE + "     Card gained"
-      case 41 => Console.RED + "      Needs to be larger than 0"
+      case 41 => Console.RED + "      Needs to be larger than 0!"
       case _ => "MÖP"
     }
   }

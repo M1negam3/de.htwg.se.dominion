@@ -56,19 +56,20 @@ object GameTurnRe {
 
     if (cardnumber < l(index).hand.length && l(index).hand(cardnumber).Type == "Action") {
       playingCards = l(index).hand(cardnumber) :: Nil
+      l = Player.updatePlayer(l, updateStacker(l(index), l(index).hand(cardnumber)))
       l = Player.updatePlayer(l, removeHandcard(cardnumber, l(index)))
       money += playingCards.head.BonusMoneyValue
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
       // new
       actions += playingCards.head.ActionValue
-      actions -= 1
       playingCards.head.CardName match {
         case "Cellar" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))
         case "Mine" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
         case "Remodel" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
         case "Workshop" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
-        case "Merchant" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 38, money))
+        case "Merchant" => l = StrategyPatternForActionPhase.merchant(l, index)
+        case _ => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 5, money))
       }
     } else {
       l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 9, money))
