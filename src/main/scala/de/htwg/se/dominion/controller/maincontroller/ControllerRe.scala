@@ -105,12 +105,65 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     var skip = false
     var empty = 0
     var end = false
+    var z = 0
 
     override def evaluate(input: String): Unit = {
       if (input.isEmpty) {
         return
       }
       // Action phase
+      // Action phase
+      /*if(action) {
+        if(runthrough == 0){
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager))
+        }
+        for(j <- 0 until 5) {
+          if(controller.roundManager.players(controller.roundManager.playerturn).hand(j).Type.equals("Money")) {
+
+            z += 1
+          }
+        }
+        if(z == 5){
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateActions(controller.roundManager,0))
+        }
+        if(controller.roundManager.players(controller.roundManager.playerturn).actions >= 1) {
+          if(runthrough == 0) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 3))
+            runthrough += 1
+          } else if(runthrough == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 3)){
+            if (input.equals("Y")) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
+              return
+            } else if (input.equals("N")) {
+              runthrough = 0
+              action = false
+              return
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+            }
+          } else if (runthrough == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 4)) {
+            if(controller.roundManager.players(controller.roundManager.playerturn).hand(input.toInt).Type.equals("Action") && controller.roundManager.players(controller.roundManager.playerturn).hand.length >= input.toInt) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager,input.toInt))
+              runthrough = 2
+              return
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 43))
+              return
+            }
+          } else if (runthrough == 2 && controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
+            if(GameTurnRe.getCardsWCost4().contains(input.toInt)) {
+              controller.roundManager = controller.roundManager.copy(players = Player.updatePlayer(controller.roundManager.players, GameTurnRe.updateStacker(controller.roundManager.players(controller.roundManager.playerturn),GameTurnRe.playingDecks(input.toInt).head)))
+              return
+            } else {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 19))
+              return
+            }
+          }
+        } else {
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 42))
+          action = false
+        }
+      }*/
       if (action) {
         if (controller.roundManager.players(controller.roundManager.playerturn).actions > 0) {
           if (runthrough == 5) {
