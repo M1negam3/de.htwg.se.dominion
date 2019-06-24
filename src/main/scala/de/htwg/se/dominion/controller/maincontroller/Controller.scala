@@ -4,7 +4,7 @@ import java.io.BufferedReader
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.{GameInit, GameTurn}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output

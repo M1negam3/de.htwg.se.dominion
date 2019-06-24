@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model.gameComponent
 
-import de.htwg.se.dominion.model.deckComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 
