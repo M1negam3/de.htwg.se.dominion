@@ -5,7 +5,7 @@ import java.io.BufferedReader
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.deckComponent.Cards
-import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe}
+import de.htwg.se.dominion.model.gameComponent.{GameInit, GameTurn}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
@@ -13,7 +13,7 @@ import de.htwg.se.dominion.util.UndoManager
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
 
-class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterface {
+class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   private val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.IDLE
@@ -58,7 +58,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     def nextState: ControllerState
   }
 
-  case class PlayerCountState(controller: ControllerRe) extends ControllerState {
+  case class PlayerCountState(controller: Controller) extends ControllerState {
 
     override def evaluate(input: String): Unit = {
       val number = Controller.toInt(input)
@@ -75,7 +75,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     override def nextState: ControllerState = NameSetupState(controller)
   }
 
-  case class NameSetupState(controller: ControllerRe) extends ControllerState {
+  case class NameSetupState(controller: Controller) extends ControllerState {
 
     override def evaluate(input: String): Unit = {
       if (input.isEmpty) {
@@ -95,7 +95,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     override def nextState: ControllerState = playingState(controller)
   }
 
-  case class playingState(controller: ControllerRe) extends ControllerState {
+  case class playingState(controller: Controller) extends ControllerState {
     var runthrough = 0
     var continue = false
     var buycount = 0
@@ -317,10 +317,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
           if (buycount == 0) {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25))
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager, GameTurnRe.getMoney(
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager, GameTurn.getMoney(
               controller.roundManager.players(controller.roundManager.playerturn))))
-            for (g <- 0 until GameTurnRe.playingDecks.length) {
-              if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurnRe.playingDecks(g).head.CostValue) {
+            for (g <- 0 until GameTurn.playingDecks.length) {
+              if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurn.playingDecks(g).head.CostValue) {
                 availableCards += g
               }
             }
@@ -345,7 +345,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
               return
             } else if (availableCards.contains(input.toInt)) {
-              controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
+              controller.roundManager = controller.roundManager.copy(players = (GameTurn.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
               return
             } else {
@@ -356,7 +356,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           }
         } else {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
-          controller.roundManager = controller.roundManager.copy(players = GameTurnRe.clearHand(controller.roundManager.players,controller.roundManager.playerturn))
+          controller.roundManager = controller.roundManager.copy(players = GameTurn.clearHand(controller.roundManager.players,controller.roundManager.playerturn))
           buycount = 0
           skip = true
           action = true
@@ -365,12 +365,12 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
       }
 
-      for (i <- 0 until GameTurnRe.playingDecks.length) {
-        if (GameTurnRe.playingDecks(i).isEmpty) {
+      for (i <- 0 until GameTurn.playingDecks.length) {
+        if (GameTurn.playingDecks(i).isEmpty) {
           if (i == 3) {
             end = true
           }
-          GameTurnRe.playingDecks = GameTurnRe.updatePlayingDecks(GameTurnRe.playingDecks, i)
+          GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)
           empty += 1
           if (empty == 3) {
             end = true
@@ -396,7 +396,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     override def nextState: ControllerState = EndState(controller)
   }
 
-  case class EndState(controller: ControllerRe) extends ControllerState {
+  case class EndState(controller: Controller) extends ControllerState {
     override def evaluate(input: String): Unit = {}
 
     override def getCurrentStateAsString: String = Output.printScore(controller.roundManager.score)

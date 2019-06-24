@@ -1,21 +1,21 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.gameComponent.GameTurnRe.l
-import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe, StrategyPatternForActionPhase}
+import de.htwg.se.dominion.model.gameComponent.GameTurn.l
+import de.htwg.se.dominion.model.gameComponent.{GameInit, GameTurn, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 
-case class RoundManagerRe(players: List[Player] = List(),
-                          names: List[String] = List(),
-                          numberOfPlayer: Int = 0,
-                          playerturn: Int = 0,
-                          score: Map[Int, String] = Map()) {
+case class RoundManager(players: List[Player] = List(),
+                        names: List[String] = List(),
+                        numberOfPlayer: Int = 0,
+                        playerturn: Int = 0,
+                        score: Map[Int, String] = Map()) {
 
-  def getNames(r: RoundManagerRe, name: String): RoundManagerRe = {
+  def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
-    val names = GameInitRe.getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManagerRe(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score)
+    val names = GameInit.getPlayerName(copiedRoundManagerRe.names, name)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score)
   }
 
   def getNameSetupStrings(): String = {
@@ -30,25 +30,25 @@ case class RoundManagerRe(players: List[Player] = List(),
     }
   }
 
-  def createPlayer(r: RoundManagerRe): List[Player] = {
+  def createPlayer(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     val p = Player.createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
     p
   }
 
-  def actionPhase(r: RoundManagerRe): List[Player] = {
+  def actionPhase(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = GameTurnRe.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
+    val p = GameTurn.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
     p
   }
 
-  def actionPhase2(r: RoundManagerRe, cardnumber: Int): List[Player] = {
+  def actionPhase2(r: RoundManager, cardnumber: Int): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = GameTurnRe.actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
+    val p = GameTurn.actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
     p
   }
 
-  def editStringValue(r: RoundManagerRe, newStringValue: Int): List[Player] = {
+  def editStringValue(r: RoundManager, newStringValue: Int): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
     var q: ListBuffer[Player] = ListBuffer()
@@ -63,19 +63,19 @@ case class RoundManagerRe(players: List[Player] = List(),
     l
   }
 
-  def actionCardEffect1(r: RoundManagerRe, input: Int): List[Player] = {
+  def actionCardEffect1(r: RoundManager, input: Int): List[Player] = {
     val copiedRoundManagerRe = r
     val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input.toInt)
     l
   }
 
-  def actionCardEffect2(r: RoundManagerRe, input: String): List[Player] = {
+  def actionCardEffect2(r: RoundManager, input: String): List[Player] = {
     val copiedRoundManagerRe = r
     val l = StrategyPatternForActionPhase.getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
     l
   }
 
-  def updateActions(r: RoundManagerRe): List[Player] = {
+  def updateActions(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
     var l: ListBuffer[Player] = new ListBuffer[Player]
@@ -90,7 +90,7 @@ case class RoundManagerRe(players: List[Player] = List(),
     o
   }
 
-  def updateMoney(r: RoundManagerRe, money: Int): List[Player] = {
+  def updateMoney(r: RoundManager, money: Int): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
     var q: ListBuffer[Player] = ListBuffer()
@@ -104,7 +104,7 @@ case class RoundManagerRe(players: List[Player] = List(),
     val l = q.toList
     l
   }
-  def updateActions(r: RoundManagerRe, actions: Int): List[Player] = {
+  def updateActions(r: RoundManager, actions: Int): List[Player] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
     var q: ListBuffer[Player] = ListBuffer()
@@ -119,7 +119,7 @@ case class RoundManagerRe(players: List[Player] = List(),
     l
   }
 
-  def getHand(r: RoundManagerRe): List[Player] = {
+  def getHand(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
     l = Player.updatePlayer(l, Player.getHand(l(copiedRoundManagerRe.playerturn)))

@@ -63,8 +63,8 @@ object StrategyPatternForActionPhase {
       if ( test.length == discardAmount) {
         for (i <- 0 until discardAmount) {
           if (test(i).toInt < l(idx).hand.length) {
-            l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), l(idx).hand(test(i).toInt)))
-            l = Player.updatePlayer(l, GameTurnRe.removeHandcard(test(i).toInt, l(idx)))
+            l = Player.updatePlayer(l, GameTurn.updateStacker(l(idx), l(idx).hand(test(i).toInt)))
+            l = Player.updatePlayer(l, GameTurn.removeHandcard(test(i).toInt, l(idx)))
             draw += 1
           } else {
             l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 9, l(idx).money))
@@ -88,11 +88,11 @@ object StrategyPatternForActionPhase {
           if (input < l(idx).hand.length) {
             if (l(idx).hand(input).CardName == "Copper") {
               l = Player.updatePlayer(l, Player.upgrading(l(idx), input, silverDeck.silverDeck))
-              GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(1)), 1)
+              GameTurn.playingDecks = GameTurn.updateDeck(GameTurn.playingDecks, GameTurn.copyList(GameTurn.playingDecks(1)), 1)
               l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
             } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
               l = Player.updatePlayer(l, Player.upgrading(l(idx), input, goldDeck.goldDeck))
-              GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(2)), 2)
+              GameTurn.playingDecks = GameTurn.updateDeck(GameTurn.playingDecks, GameTurn.copyList(GameTurn.playingDecks(2)), 2)
               l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
             }
           } else {
@@ -113,7 +113,7 @@ object StrategyPatternForActionPhase {
     if (input >= 0 && input < l(idx).hand.length) {
       discardCardValue = l(idx).hand(input).CostValue
       discardCardValue += 2
-      l = Player.updatePlayer(l, GameTurnRe.removeHandcard(input, l(idx)))
+      l = Player.updatePlayer(l, GameTurn.removeHandcard(input, l(idx)))
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 18, l(idx).money))
     } else {
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 19, l(idx).money))
@@ -123,10 +123,10 @@ object StrategyPatternForActionPhase {
 
   def remodel2(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    val cards = GameTurnRe.getCardsWC()
+    val cards = GameTurn.getCardsWC()
     if (cards.contains(input)) {
-      l = Player.updatePlayer(l, GameTurnRe.addCardToHand(l(idx), input))
-      GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
+      l = Player.updatePlayer(l, GameTurn.addCardToHand(l(idx), input))
+      GameTurn.playingDecks = GameTurn.updateDeck(GameTurn.playingDecks, GameTurn.copyList(GameTurn.playingDecks(input)), input)
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
     } else {
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 23, l(idx).money))
@@ -136,10 +136,10 @@ object StrategyPatternForActionPhase {
 
   def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    val cards = GameTurnRe.getCardsWCost4()
+    val cards = GameTurn.getCardsWCost4()
     if (cards.contains(input)) {
-      l = Player.updatePlayer(l, GameTurnRe.updateStacker(l(idx), GameTurnRe.playingDecks(input).head))
-      GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(input)), input)
+      l = Player.updatePlayer(l, GameTurn.updateStacker(l(idx), GameTurn.playingDecks(input).head))
+      GameTurn.playingDecks = GameTurn.updateDeck(GameTurn.playingDecks, GameTurn.copyList(GameTurn.playingDecks(input)), input)
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
     } else {
       l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 21, l(idx).money))
