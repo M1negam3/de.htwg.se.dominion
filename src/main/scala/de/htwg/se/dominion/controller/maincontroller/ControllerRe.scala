@@ -205,8 +205,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             // Card Cellar
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
-              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 45) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45))
                 runthrough = 4
                 return
               }
@@ -216,6 +218,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45))
                 runthrough = 4
                 return
               }
@@ -226,17 +229,23 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             // Card Mine
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
-              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 46) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46))
                 runthrough = 4
                 return
               }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 9999999
             }
-            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 49) {
+              runthrough = 9999999
+            }
+              if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46))
                 runthrough = 4
                 return
               }
@@ -245,9 +254,11 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             }
 
             // Card Remodel
-            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16 ||
-              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16  ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 47) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47))
                 runthrough = 4
                 return
               }
@@ -256,6 +267,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47))
                 runthrough = 4
                 return
               }
@@ -265,8 +277,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
             // Card Workshop
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33 ||
-              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 48) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
                 runthrough = 4
                 return
               }
@@ -275,6 +289,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
               if (Controller.toInt(input).isEmpty) {
+                controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
                 runthrough = 4
                 return
               }

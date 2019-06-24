@@ -148,11 +148,11 @@ object Cards {
 
   //Winning Points Cards
   val estate = new Cards(2,0,1,0,0,0,
-    0,"1 Winning Point","Estate", "Money")
+    0,"1 Winning Point","Estate", "WinningPoint")
   val duchy = new Cards(5,0,3,0,0,0,
-    0,"3 Winning Point", "Duchy","Money")
+    0,"3 Winning Point", "Duchy","WinningPoint")
   val province = new Cards(8,0,6,0,0,0,
-    0,"5 Winning Point", "Province","Money")
+    0,"5 Winning Point", "Province","WinningPoint")
 
   //Deck
   val village = new Cards(3,0,0,2,0,0,
@@ -184,7 +184,7 @@ object Cards {
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper ,copper, workshop,workshop,workshop)
+  val startDeck : List[Cards] = List(mine, mine, mine, mine, mine, mine, mine, mine, mine, mine)
   val hand : List[Cards] = List(copper, copper, copper, copper, copper)
   val stacker : List[Cards] = Nil
 

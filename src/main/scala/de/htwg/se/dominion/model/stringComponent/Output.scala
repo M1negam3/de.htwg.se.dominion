@@ -149,8 +149,8 @@ object Output {
 
     stringValue match {
       case 0 => ""
-      case 1 => t + s + Console.RED + "\n     You dont have any Actioncards to play\n"
-      case 2 => t + s2 + s + Console.RED + "     You dont have any Actioncards to play\n"
+      case 1 => t + s2 + s + Console.RED + "\n     You dont have any Actions/Actioncards to play\n"
+      case 2 => t + s2 + s + Console.RED + "     You dont have any Actions/Actioncards to play\n"
       case 3 => {
         for (i <- 0 until l(playerturn).hand.length) {
           if (l(playerturn).hand(i).Type.equals("Action") && !check) {
@@ -226,6 +226,11 @@ object Output {
       case 42 => Console.RED + "\n     You don´t have any actions left and/or you dont have any Actioncards to play\n"
       case 43 => Console.RED + "\n     Please choose a Action card from your hand"
       case 44 => Console.BLUE + "\n     You successfully played a Card"
+      case 45 => Console.RED + "      Enter numbers HUAN!\n"
+      case 46 => Console.RED + "      Enter numbers HUAN!\n"
+      case 47 => Console.RED + "      Enter numbers HUAN!\n"
+      case 48 => Console.RED + "      Enter numbers HUAN!\n"
+      case 49 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.RED + "      You dont have a Money Card on your Hand to upgrade!\n"
       case _ => "MÖP"
     }
   }

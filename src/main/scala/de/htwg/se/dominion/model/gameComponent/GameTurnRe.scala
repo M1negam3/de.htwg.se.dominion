@@ -72,7 +72,19 @@ object GameTurnRe {
       actions += playingCards.head.ActionValue
       playingCards.head.CardName match {
         case "Cellar" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))
-        case "Mine" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
+        case "Mine" => {
+          var count = 0
+          for (i <- 0 until l(index).hand.length) {
+            if (l(index).hand(i).Type == "Money") {
+              count += 1
+            }
+          }
+          if (count > 0) {
+            l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
+          } else {
+            l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 49, money))
+          }
+        }
         case "Remodel" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
         case "Workshop" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
         case "Merchant" => l = StrategyPatternForActionPhase.merchant(l, index)

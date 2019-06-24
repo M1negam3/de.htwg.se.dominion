@@ -83,27 +83,27 @@ object StrategyPatternForActionPhase {
 
   def mine(list: List[Player], idx: Int, input: Int): List[Player] = {
     var l = list
-    if (input < l(idx).hand.length) {
-      if (l(idx).hand(input).Type == "Money") {
-        if (input < l(idx).hand.length) {
-          if (l(idx).hand(input).CardName == "Copper") {
-            l = Player.updatePlayer(l, Player.upgrading(l(idx), input, silverDeck.silverDeck))
-            GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(1)), 1)
-            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
-          } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
-            l = Player.updatePlayer(l, Player.upgrading(l(idx), input, goldDeck.goldDeck))
-            GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(2)), 2)
-            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
+      if (input < l(idx).hand.length) {
+        if (l(idx).hand(input).Type == "Money") {
+          if (input < l(idx).hand.length) {
+            if (l(idx).hand(input).CardName == "Copper") {
+              l = Player.updatePlayer(l, Player.upgrading(l(idx), input, silverDeck.silverDeck))
+              GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(1)), 1)
+              l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
+            } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
+              l = Player.updatePlayer(l, Player.upgrading(l(idx), input, goldDeck.goldDeck))
+              GameTurnRe.playingDecks = GameTurnRe.updateDeck(GameTurnRe.playingDecks, GameTurnRe.copyList(GameTurnRe.playingDecks(2)), 2)
+              l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
+            }
+          } else {
+            l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 15, l(idx).money))
           }
         } else {
-          l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 15, l(idx).money))
+          l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
         }
       } else {
         l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
       }
-    } else {
-      l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
-    }
     l
   }
 
