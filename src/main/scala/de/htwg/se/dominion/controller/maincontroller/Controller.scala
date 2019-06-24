@@ -365,7 +365,7 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
       }
 
-      for (i <- 0 until GameTurn.playingDecks.length) {
+      for (i <- 0 until GameTurn.playingDecks.length-3) {
         if (GameTurn.playingDecks(i).isEmpty) {
           if (i == 3) {
             end = true
@@ -376,6 +376,7 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
             end = true
           }
         }
+
       }
 
       // next Player/State

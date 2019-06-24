@@ -47,12 +47,13 @@ object Cards {
     0,"Worth 1 WinningPoint per 10 cards you have(round down)","Gardens", "Action")
   val market = new Cards(5,0,0,1,1,1,
     1,"+1 Card, +1 Action, +1 Buy, +1 Money","Market","Action")
-
+  val fill = new Cards(0,0,0,0,0,0,0,"","","")
+  val fillDeck: List[Cards] = List(fill)
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
     estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
     cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
-    workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)
+    workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck,fillDeck,fillDeck,fillDeck )
 
   // Starting Decks
   val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, estate, estate, estate)
