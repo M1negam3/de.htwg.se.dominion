@@ -99,7 +99,6 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
     var buy = true
     var availableCards: ListBuffer[Int] = ListBuffer()
     var action = true
-    var z = 0
     var skip = false
     var empty = 0
     var end = false
@@ -183,7 +182,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           }
           // Card Workshop
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt))
             runthrough = 6
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
@@ -233,36 +232,19 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       }
 
       // Buy Phase
-      if (!action) {/*
+      if (!action) {
         if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
           if (buycount == 0) {
             controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 25))
-            buycount += 1
-            return
-          } else if (buycount == 1) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 26))
-            buycount += 1
-            return
-          } else if (buycount == 2) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 27))
-            buycount += 1
-            return
-          } else if (buycount == 3) {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager,GameTurnRe.getMoney(controller.roundManager.players(controller.roundManager.playerturn))))
             for (g <- 0 until GameTurnRe.playingDecks.length) {
               if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurnRe.playingDecks(g).head.CostValue) {
                 availableCards += g
-                z += 1
               }
             }
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 28))
             buycount += 1
             return
-          } else if (buycount == 4) {
-            controller.roundManager = controller.roundManager.copy(controller.roundManager.editStringValue(controller.roundManager, 29))
-            buycount += 1
-            return
-          } else if (buycount == 5 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue != 30)) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue != 30)) {
             if (input.equals("Y")) {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
               return
@@ -272,7 +254,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
             }
 
-          } else if (buycount == 5 && ((controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30) || (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30))) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30)) {
             if (availableCards.contains(input.toInt)) {
               controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
@@ -289,7 +271,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           buycount = 0
           skip = true
           return
-        } */
+        }
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0))
       }
 

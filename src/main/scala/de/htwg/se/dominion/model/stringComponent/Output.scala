@@ -145,11 +145,6 @@ object Output {
       }
     }
 
-    /*for (g <- 0 until GameTurnRe.playingDecks.length) {
-      if (GameTurnRe.getMoney(l(playerturn)) >= Cards.playingDeck(g).head.CostValue) {
-        x += Console.BLUE + "                        " + GameTurnRe.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurnRe.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurnRe.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurnRe.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
-      }
-    }*/
 
     stringValue match {
       case 0 => ""
@@ -190,10 +185,22 @@ object Output {
       case 22 => Console.RED + "     You dont have a Silver on your Hand"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
-      case 25 => Console.BLUE + " Your money is: " + GameTurnRe.getMoney(l(playerturn))
+      case 25 => var j = GameTurnRe.getMoney(l(playerturn))
+        for (g <- 0 until GameTurnRe.playingDecks.length) {
+          if (j >= GameTurnRe.playingDecks(g).head.CostValue) {
+            x += Console.BLUE + "                        " + GameTurnRe.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurnRe.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurnRe.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurnRe.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
+          }
+        }
+        Console.BLUE + "     Your money is: " + GameTurnRe.getMoney(l(playerturn)) + "\n" + "     Your Buy actions are: " + l(playerturn).buys +"\n" + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n" + x + "\n     Do you want to buy a Card? (Y/N)\n"
       case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
       case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
-      case 28 => x
+      case 28 => var j = GameTurnRe.getMoney(l(playerturn))
+        for (g <- 0 until GameTurnRe.playingDecks.length) {
+          if (j >= GameTurnRe.playingDecks(g).head.CostValue) {
+            x += Console.BLUE + "                        " + GameTurnRe.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurnRe.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurnRe.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurnRe.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
+          }
+        } 
+        x
       case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
       case 30 => Console.YELLOW + "\n     Which Card do you want to buy?\n"
       case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
