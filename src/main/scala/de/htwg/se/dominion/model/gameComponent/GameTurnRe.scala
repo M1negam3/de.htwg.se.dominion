@@ -53,7 +53,6 @@ object GameTurnRe {
     var money = l(index).money
     var buys = l(index).buys
     var actions = l(index).actions
-    var draws = 0
 
     if (cardnumber < l(index).hand.length && l(index).hand(cardnumber).Type == "Action") {
       playingCards = l(index).hand(cardnumber) :: Nil
@@ -63,8 +62,8 @@ object GameTurnRe {
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
       // new
-      /*
-      l = Player.updatePlayer(l, Player.draw(l(index), draws))
+
+      l = Player.updatePlayer(l, Player.draw(l(index), draw))/*
       actions += playingCards.head.ActionValue
       actions -= 1
       l = Player.updatePlayer(l, updateStacker(l(index), playingCards.head))*/

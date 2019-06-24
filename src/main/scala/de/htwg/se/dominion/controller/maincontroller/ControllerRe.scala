@@ -206,11 +206,19 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 5
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 4
             }
@@ -219,11 +227,19 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 9999999
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 4
             }
@@ -231,10 +247,18 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             // Card Remodel
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 5
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 4
             }
@@ -242,10 +266,18 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             // Card Workshop
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt))
               runthrough = 9999999
             }
             if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 4
+                return
+              }
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
               runthrough = 4
             }
@@ -255,6 +287,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
           // Y, you wanted to play a card, which one
           if (runthrough == 3) {
             if (Controller.toInt(input).isEmpty) {
+              runthrough = 3
               return
             }
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
@@ -263,6 +296,10 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 20 ||
               controller.roundManager.players(controller.roundManager.playerturn).stringValue == 22) {
               runthrough = 9999999
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9) {
+              runthrough = 3
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
             }
           }
 
