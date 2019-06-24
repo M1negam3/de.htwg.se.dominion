@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model.stringComponent
 
-import de.htwg.se.dominion.controller.maincontroller.RoundManager
+
 import de.htwg.se.dominion.model.playerComponent._
 import de.htwg.se.dominion.model.deckComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.{GameTurnRe, StrategyPatternForActionPhase}
@@ -110,13 +110,6 @@ object Output {
     Console.BLUE + "\n     How many Player´s are you?(between 2 and 5)\n"
   }
 
-  def printPlayers(r: RoundManager): String = {
-    var s = ""
-    for (i <- 0 until r.numberOfPlayers) {
-      s += "     Player " + (i + 1) + " was created!\n"
-    }
-    s
-  }
   def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
     var actionString: String = ""
     var s: String = ""

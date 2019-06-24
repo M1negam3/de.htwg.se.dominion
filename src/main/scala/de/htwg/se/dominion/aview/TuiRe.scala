@@ -2,7 +2,7 @@ package de.htwg.se.dominion.aview
 
 import java.io.BufferedReader
 
-import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe, GameStatus}
+import de.htwg.se.dominion.controller.maincontroller.{ControllerRe, GameStatus}
 import de.htwg.se.dominion.util.Observer
 
 class TuiRe(controller: ControllerRe) extends Observer {

@@ -1,7 +1,7 @@
 package de.htwg.se.dominion
 
 import de.htwg.se.dominion.aview.{ TuiRe}
-import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerRe, RoundManager, RoundManagerRe}
+import de.htwg.se.dominion.controller.maincontroller.{ControllerRe, RoundManagerRe}
 
 object Dominion {
 

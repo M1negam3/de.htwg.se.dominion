@@ -326,7 +326,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             }
             buycount += 1
             return
-          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 25)) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 25 || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 24)) {
             if (input.equals("Y")) {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
               return
@@ -337,10 +337,14 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               runthrough = 0
             } else {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+              return
             }
 
-          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30 || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 32)) {
-            if (availableCards.contains(input.toInt)) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30 || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 32 || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 48)) {
+            if (Controller.toInt(input).isEmpty) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
+              return
+            } else if (availableCards.contains(input.toInt)) {
               controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
               return
