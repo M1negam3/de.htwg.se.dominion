@@ -1,5 +1,7 @@
 package de.htwg.se.dominion.controller.maincontroller
 
+import java.io.BufferedReader
+
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.deckComponent.Cards
@@ -7,6 +9,7 @@ import de.htwg.se.dominion.model.gameComponent.{GameInitRe, GameTurnRe}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
+
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
 
@@ -109,124 +112,128 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
       }
       // Action phase
       if (action) {
-        if (runthrough == 6) {
-          runthrough = 1
-        }
-        // Second Card Effect input
-        if (runthrough == 5) {
-          // Card Cellar 2
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 8) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
-            runthrough = 6
+        if (controller.roundManager.players(controller.roundManager.playerturn).actions > 0) {
+          if (runthrough == 6) {
+            runthrough == 1
           }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
-            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
-            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
-            runthrough = 5
-          }
-          // Card Remodel 2
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 18) {
-            if (Controller.toInt(input).isEmpty) {
+          // Second Card Effect input
+          if (runthrough == 5) {
+            // Card Cellar 2
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 8) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+              runthrough = 6
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
               runthrough = 5
-              return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
-            runthrough = 6
+            // Card Remodel 2
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 18) {
+              if (Controller.toInt(input).isEmpty) {
+                runthrough = 5
+                return
+              }
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+              runthrough = 6
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 23) {
+              if (Controller.toInt(input).isEmpty) {
+                return
+              }
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+              runthrough = 5
+            }
           }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 23) {
+          // First card effect input
+          if (runthrough == 4) {
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9) {
+              runthrough = 3
+            }
             if (Controller.toInt(input).isEmpty) {
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
-            runthrough = 5
+            // Card Cellar
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 5
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 4
+            }
+            // Card Mine
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 6
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
+              controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 4
+            }
+            // Card Remodel
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 5
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 4
+            }
+            // Card Workshop
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt))
+              runthrough = 6
+            }
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 4
+            }
+            // Card Merchant
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 38) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+              runthrough = 6
+            }
           }
-        }
-        // First card effect input
-        if (runthrough == 4) {
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9) {
-            runthrough = 3
-          }
-          if (Controller.toInt(input).isEmpty) {
-            return
-          }
-          // Card Cellar
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 7) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 5
-          }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
-            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+          // You choose to play a card tell us which one and play it
+          if (runthrough == 3) {
+            if (Controller.toInt(input).isEmpty) {
+              return
+            }
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
             runthrough = 4
           }
-          // Card Mine
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 14) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 6
+          // either you got a action card or not
+          if (runthrough == 2) {
+            if (input.equals("Y")) {
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
+              runthrough = 3
+            } else if (input.equals("N")) {
+              controller.gameStatus = GameStatus.BUY
+              action = false
+              runthrough = 10
+            } else {
+              controller.gameStatus = GameStatus.BUY
+              action = false
+              runthrough = 10
+            }
           }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
-            controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 4
+          // draw these Cards
+          if (runthrough == 0) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager))
+            controller.gameStatus = GameStatus.ACTION
+            runthrough = 1
           }
-          // Card Remodel
-          if ( controller.roundManager.players(controller.roundManager.playerturn).stringValue == 16) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 5
+          // first time action
+          if (runthrough == 1) {
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+            runthrough = 2
           }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 4
-          }
-          // Card Workshop
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 33) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt))
-            runthrough = 6
-          }
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 4
-          }
-          // Card Merchant
-          if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 38) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
-            runthrough = 6
-          }
-        }
-        // You choose to play a card tell us which one and play it
-        if (runthrough == 3) {
-          if (Controller.toInt(input).isEmpty) {
-            return
-          }
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
-          runthrough = 4
-        }
-        // either you got a action card or not
-        if (runthrough == 2) {
-          if (input.equals("Y")) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
-            runthrough = 3
-          } else if (input.equals("N")) {
-            controller.gameStatus = GameStatus.BUY
-            action = false
-            runthrough = 10
-          } else {
-            controller.gameStatus = GameStatus.BUY
-            action = false
-            runthrough = 10
-          }
-        }
-        // draw these Cards
-        if (runthrough == 0) {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager))
-          controller.gameStatus = GameStatus.ACTION
-          runthrough = 1
-        }
-        // first time action
-        if (runthrough == 1) {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
-          runthrough = 2
+        } else {
+          println("MÖP")
         }
       }
 

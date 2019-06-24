@@ -148,8 +148,8 @@ object Output {
 
     stringValue match {
       case 0 => ""
-      case 1 => t + s + Console.RED + "\n     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
-      case 2 => t + s2 + s + Console.RED + "     You dont have any Actioncards to play\n" + Console.BLACK + "     Enter any button to continue!"
+      case 1 => t + s + Console.RED + "\n     You dont have any Actioncards to play\n"
+      case 2 => t + s2 + s + Console.RED + "     You dont have any Actioncards to play\n"
       case 3 => {
         for (i <- 0 until l(playerturn).hand.length) {
           if (l(playerturn).hand(i).Type.equals("Action") && !check) {
@@ -180,7 +180,7 @@ object Output {
         "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + z + Console.YELLOW +
         "\n \n     Which card to you want to add to your hand?\n"
       case 19 => Console.RED + "     Invalid Input, try again"
-      case 20 => Console.BLUE + "     You have a Silver on you Hand, +2 Gold"
+      case 20 => Console.BLUE + "     You have a Silver on your Hand, +2 Gold"
       case 21 => Console.RED + "     Please choose a Card which is listed above!\n"
       case 22 => Console.RED + "     You dont have a Silver on your Hand"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"

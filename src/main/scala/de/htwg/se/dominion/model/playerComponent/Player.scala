@@ -18,7 +18,7 @@ object Player {
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand, Nil, 0, 1, 0,0)
+      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand, Nil, 1, 1, 0,0)
     }
     val Players: List[Player] = players.toList
     Players
