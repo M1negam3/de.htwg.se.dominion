@@ -184,7 +184,7 @@ object Cards {
     workshopDeck.workshopDeck, gardensDeck.gardensDeck, marketDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, merchant, merchant, merchant)
+  val startDeck : List[Cards] = List(copper, copper, copper ,copper, workshop,workshop,workshop)
   val hand : List[Cards] = List(copper, copper, copper, copper, copper)
   val stacker : List[Cards] = Nil
 

@@ -186,4 +186,11 @@ object Player {
     b -= 1
     Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,cP.actions,b,cP.stringValue,m)
   }
+  def updateAction(player: Player,i: Int): Player ={
+    val cP = player
+    var a = 0
+    a += cP.actions
+    a -= i
+    Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,a,cP.buys,cP.stringValue,cP.money)
+  }
 }

@@ -216,6 +216,9 @@ object Output {
       case 39 => Console.BLUE + "     Press a button to continue"
       case 40 => Console.BLUE + "     Card gained"
       case 41 => Console.RED + "      Needs to be larger than 0"
+      case 42 => Console.RED + "\n     You don´t have any actions left and/or you dont have any Actioncards to play\n"
+      case 43 => Console.RED + "\n     Please choose a Action card from your hand"
+      case 44 => Console.BLUE + "\n     You successfully played a Card"
       case _ => "MÖP"
     }
   }
