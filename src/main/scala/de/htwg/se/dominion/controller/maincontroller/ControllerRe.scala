@@ -250,11 +250,12 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
             }
             buycount += 1
             return
-          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue != 30)) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 25)) {
             if (input.equals("Y")) {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
               return
             } else if (input.equals("N")) {
+              buycount = 0
               skip = true
               action = true
               runthrough = 0
@@ -262,7 +263,7 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
             }
 
-          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30)) {
+          } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 30 || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 32)) {
             if (availableCards.contains(input.toInt)) {
               controller.roundManager = controller.roundManager.copy(players = (GameTurnRe.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
