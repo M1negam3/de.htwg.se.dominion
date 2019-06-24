@@ -131,3 +131,11 @@ trait createMarketHeadDeck extends HeadDeckInterface {
     deck
   }
 }
+
+trait createFillHeadDeck extends HeadDeckInterface {
+
+  override def createDeck: List[Cards] = {
+    val deck = List.fill(1)(Cards.fill)
+    deck
+  }
+}

@@ -123,4 +123,17 @@ case class RoundManager(players: List[Player] = List(),
     l = Player.updatePlayer(l, Player.getHand(l(copiedRoundManagerRe.playerturn)))
     l
   }
+
+  def end(r: RoundManager): List[Player] = {
+    val copiedRoundManagerRe = r
+    var l = copiedRoundManagerRe.players
+    l = GameEnd.end(l)
+    l
+  }
+
+  def score(r: RoundManager): Map[Int, String] = {
+    val copiedRoundManagerRe = r
+    val score = GameEnd.score(copiedRoundManagerRe.players)
+    score
+  }
 }

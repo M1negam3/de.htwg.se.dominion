@@ -365,7 +365,7 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
       }
 
-      for (i <- 0 until GameTurn.playingDecks.length-3) {
+      for (i <- 0 until GameTurn.playingDecks.length - 3) {
         if (GameTurn.playingDecks(i).isEmpty) {
           if (i == 3) {
             end = true
@@ -388,6 +388,8 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
       }
 
       if (end) {
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.end(controller.roundManager))
+        controller.roundManager = controller.roundManager.copy(score = controller.roundManager.score(controller.roundManager))
         controller.nextState()
       }
     }
