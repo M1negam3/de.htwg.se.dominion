@@ -4,21 +4,21 @@ import de.htwg.se.dominion.model.deckComponent.Cards
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards], playingCards: List[Cards], actions: Int, buys: Int, stringValue: Int, money: Int) {
+case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil, hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1, stringValue: Int = 0, money: Int = 0) {
   override def toString: String = this.name
 }
 
 object Player {
 
   var deckLength = 0
-  var copiedPlayer: Player = new Player("", 0, Nil, Nil, Nil, Nil, 0, 1, 0, 0)
+  var copiedPlayer: Player = new Player()
   var copyList: List[Cards] = Nil
 
 
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Cards.hand, Nil, 1, 1, 0,0)
+      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0,0)
     }
     val Players: List[Player] = players.toList
     Players

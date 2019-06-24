@@ -185,7 +185,7 @@ object Cards {
 
   // Starting Decks
   val startDeck : List[Cards] = List(mine, mine, mine, mine, mine, mine, mine, mine, mine, mine)
-  val hand : List[Cards] = List(copper, copper, copper, copper, copper)
+  val hand : List[Cards] = Nil
   val stacker : List[Cards] = Nil
 
 

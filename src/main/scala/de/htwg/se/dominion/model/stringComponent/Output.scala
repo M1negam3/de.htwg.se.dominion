@@ -119,7 +119,7 @@ object Output {
   }
   def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
     var actionString: String = ""
-    var s: String = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+    var s: String = ""
     var t: String = Console.BLUE + "     Player " + (playerturn + 1) + "`s turn\n"
     var s2: String = Console.BLUE + "     Your Actions are: " + l(playerturn).actions + "\n"
     var s3: String = ""
@@ -127,11 +127,6 @@ object Output {
     var x: String = ""
     var s4: String = ""
     val y = l(playerturn).hand.length - 1
-
-    for (i <- 1 until l(playerturn).hand.length) {
-      s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
-    }
-    s += "\n"
 
     for (i <- 0 until GameTurnRe.playingDecks.length) {
       if (GameTurnRe.playingDecks(i).head.CostValue <= 4) {
@@ -149,8 +144,22 @@ object Output {
 
     stringValue match {
       case 0 => ""
-      case 1 => t + s2 + s + Console.RED + "\n     You dont have any Actions/Actioncards to play\n"
-      case 2 => t + s2 + s + Console.RED + "     You dont have any Actions/Actioncards to play\n"
+      case 1 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        t + s2 + s + Console.RED + "\n     You dont have any Actions/Actioncards to play\n"
+      }
+      case 2 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        t +s2 + s + Console.RED + "     You dont have any Actions/Actioncards to play\n"
+      }
       case 3 => {
         for (i <- 0 until l(playerturn).hand.length) {
           if (l(playerturn).hand(i).Type.equals("Action") && !check) {
@@ -160,6 +169,11 @@ object Output {
             actionString += "                            " + Console.BLUE + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")" + "\n"
           }
         }
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
         check = false
         t + s2 + s + Console.BLUE + "     Your action cards are: " + actionString + "\n" + Console.YELLOW + "     Do you want to play a Card? (Y/N)"
       }
@@ -170,17 +184,45 @@ object Output {
         }
         Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n"
       }
-      case 6 => Console.BLUE + s
-      case 7 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Cards to Discard"
+      case 6 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        Console.BLUE + s
+      }
+      case 7 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Cards to Discard"
+      }
       case 8 => Console.BLUE + "     Choose some Card(s), separate them with a blank"
       case 9 => Console.RED + "     Please enter a Card from your hand between 0 and " + y
       case 10 => Console.RED + "     Please enter the correct amount of Cards to discard"
       case 11 => Console.RED + "     Dont enter the same number twice"
       case 12 => Console.RED + "     Please enter a correct number!"
       case 13 => Console.RED + "     Needs to be smaller or equal to your Hand Card length!"
-      case 14 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade"
+      case 14 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade"
+      }
       case 15 => Console.RED + "     Choose a valid Card from your hand"
-      case 16 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
+      case 16 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
+      }
       case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => Console.BLUE + "     Choose a Card you want to add to your hand\n     You can choose a card that cost up to " + StrategyPatternForActionPhase.discardCardValue + " Money\n" +
         "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + z + Console.YELLOW +
@@ -230,7 +272,14 @@ object Output {
       case 46 => Console.RED + "      Enter numbers HUAN!\n"
       case 47 => Console.RED + "      Enter numbers HUAN!\n"
       case 48 => Console.RED + "      Enter numbers HUAN!\n"
-      case 49 => Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.RED + "      You dont have a Money Card on your Hand to upgrade!\n"
+      case 49 => {
+        s = Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n"
+        for (i <- 1 until l(playerturn).hand.length) {
+          s += Console.BLUE + "                          " + l(playerturn).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
+        }
+        s += "\n"
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.RED + "      You dont have a Money Card on your Hand to upgrade!\n"
+      }
       case _ => "MÖP"
     }
   }
