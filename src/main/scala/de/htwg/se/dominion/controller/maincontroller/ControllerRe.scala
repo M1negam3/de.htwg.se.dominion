@@ -320,6 +320,11 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
 
           // Do you want to play a Card? Just Y/N
           if (runthrough == 2) {
+            if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 1) {
+              controller.gameStatus = GameStatus.BUY
+              action = false
+              runthrough = 102
+            }
             if (input.equals("Y")) {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
               runthrough = 3

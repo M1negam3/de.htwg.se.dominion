@@ -39,7 +39,7 @@ object GameTurnRe {
           }
         }
         if (z.equals(l(index).hand.length)) {
-          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 2, 0))
+          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 1, 0))
           break
         }
         z = 0
