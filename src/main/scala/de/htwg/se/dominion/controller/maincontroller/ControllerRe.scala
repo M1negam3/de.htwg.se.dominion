@@ -364,7 +364,8 @@ class ControllerRe (var roundManager: RoundManagerRe) extends ControllerInterfac
         if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
           if (buycount == 0) {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25))
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager,GameTurnRe.getMoney(controller.roundManager.players(controller.roundManager.playerturn))))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateMoney(controller.roundManager, GameTurnRe.getMoney(
+              controller.roundManager.players(controller.roundManager.playerturn))))
             for (g <- 0 until GameTurnRe.playingDecks.length) {
               if (controller.roundManager.players(controller.roundManager.playerturn).money >= GameTurnRe.playingDecks(g).head.CostValue) {
                 availableCards += g

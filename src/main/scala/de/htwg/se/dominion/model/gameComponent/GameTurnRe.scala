@@ -34,7 +34,7 @@ object GameTurnRe {
     if (actionumber > 0) {
       breakable {
         for (i <- 0 until l(index).hand.length) {
-          if (l(index).hand(i).Type == "Money") {
+          if (l(index).hand(i).Type == "Money" || l(index).hand(i).Type == "WinningPoint") {
             z += 1
           }
         }
@@ -206,11 +206,12 @@ object GameTurnRe {
   def getMoney(player: Player): Int = {
     val copiedPlayer = player
     var m = 0
-    for (i <- 0 until 5) {
+    for (i <- 0 until copiedPlayer.hand.length) {
       m += copiedPlayer.hand(i).MoneyValue
     }
     m
   }
+
   def clearHand(list: List[Player], idx : Int): List[Player] = {
     var l = list
     for (e <- 0 until l(idx).hand.length) {
