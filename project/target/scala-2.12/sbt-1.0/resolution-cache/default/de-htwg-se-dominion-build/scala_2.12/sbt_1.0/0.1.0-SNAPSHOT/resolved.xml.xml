@@ -4,7 +4,7 @@
 		module="de-htwg-se-dominion-build"
 		revision="0.1.0-SNAPSHOT"
 		status="integration"
-		publication="20190625153004"
+		publication="20190625205425"
 		e:sbtVersion="1.0" e:scalaVersion="2.12"
 	>
 		<description>

@@ -11,7 +11,6 @@ class GameEndSpec extends WordSpec with Matchers{
   "A GameEnd" should {
     "have a end method" in {
       GameEnd.end(list).head.stacker.length should  be (0)
-
     }
     "have a score method" ignore {
       GameEnd.score(list) should not be ("Luis",0)
