@@ -53,21 +53,20 @@ class OutputSpec extends WordSpec with Matchers {
       Output.printTurnEnd(1) should be (Console.BLUE + "     Player " + 2 + "`s turn ends!\n")
     }
     "have a printEnd" in {
-      Output.printEnd() should be (Console.BLACK +
+      Console.BLACK +
         """
     ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
-      |
-      |                         Press e to END the Game and get the Score!
-      |                         Press q to QUIT the Game!
-      |
+
+                                          Press q to QUIT the Game!
+
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
-    """.stripMargin)
+    """.stripMargin
     }
     /*"have a printScore" in {
       Output.printScore(map) should not be ("")
     }*/
     "have a printPlayerQuestion" in {
-      Output.printPlayerQuestion() should be (Console.BLUE + "     How many Player´s are you?(between 2 and 5)\n")
+      Output.printPlayerQuestion() should be (Console.BLUE + "\n     How many Player´s are you?(between 2 and 5)\n")
     }
   }
 
