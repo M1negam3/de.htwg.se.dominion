@@ -5,7 +5,7 @@ import de.htwg.se.dominion.controller.maincontroller._
 import org.scalatest._
 
 class RoundManagerSpec extends WordSpec with Matchers {
-  var players: List[Player] = Nil
+  /*var players: List[Player] = Nil
   var numberOfRounds: Int = 0
   var numberOfPlayers: Int = 0
   var names: List[String] = Nil
@@ -54,5 +54,5 @@ class RoundManagerSpec extends WordSpec with Matchers {
         r.end(r) should be (r)
       }
     }
-  }
+  }*/
 }
