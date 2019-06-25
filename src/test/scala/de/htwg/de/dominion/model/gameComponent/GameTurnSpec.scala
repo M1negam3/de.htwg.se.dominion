@@ -24,7 +24,7 @@ class GameTurnSpec extends WordSpec with Matchers{
   var end = true
   var copiedCards1: List[Cards] = List(Cards.copper)
   var copiedCards2: List[Cards] = List(Cards.copper,Cards.copper)
-  var copiedCards3: List[Cards] = List(Cards.copper,Cards.copper,Cards.silver,Cards.silver)
+  var copiedCards3: List[Cards] = List(Cards.silver,Cards.silver)
   var listlist: List[List[Cards]] = List(copiedCards1,copiedCards2)
   var listlist2: List[List[Cards]] = List(copiedCards1,copiedCards3)
 
