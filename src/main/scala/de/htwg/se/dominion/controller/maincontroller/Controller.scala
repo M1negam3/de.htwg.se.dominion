@@ -9,18 +9,17 @@ import de.htwg.se.dominion.model.gameComponent.{GameInit, GameTurn}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 import de.htwg.se.dominion.util.UndoManager
-
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
 
 class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
-  private val undoManager = new UndoManager
+  val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.IDLE
   var controllerState: ControllerState = PlayerCountState(this)
 
   def eval(input: String): Unit = {
-    //undoManager.doStep()
+    undoManager.doStep(new SetCommand(this))
     controllerState.evaluate(input)
     notifyObservers
   }
@@ -39,6 +38,15 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   def getCurrentStateAsString: String = controllerState.getCurrentStateAsString
 
+  def controllerStateAsString: String = {
+    controllerState match {
+      case _: PlayerCountState => "PlayerCountState"
+      case _: NameSetupState => "NameSetupState"
+      case _: playingState => "PlayingState"
+      case _: EndState => "EndState"
+    }
+  }
+}
   object Controller {
     def toInt(s: String): Option[Int] = {
       try {
@@ -408,5 +416,3 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
     override def nextState: ControllerState = this
   }
-
-}

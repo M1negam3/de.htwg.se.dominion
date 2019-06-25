@@ -27,7 +27,7 @@ class SwingGui (controller: Controller) extends Frame with Observer {
 
 object SwingGui {
   def getPanel(controller: Controller): Panel = {
-    controller.controllerState match {
+    controller.controllerStateAsString match {
       case _ => new WelcomePanel(controller)
     }
   }
