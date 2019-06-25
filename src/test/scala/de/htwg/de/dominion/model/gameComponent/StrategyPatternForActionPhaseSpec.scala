@@ -30,14 +30,14 @@ class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
   var i = 0
   var playingCards: List[Cards] = List(Cards.cellar,Cards.mine,Cards.remodel,Cards.workshop,Cards.merchant)
   "A StrategyPatternForAction" should {
-    "have a strategy" ignore {
-      var strategy = playingCards.head.CardName match {
+    "have a strategy" in {
+      //var strategy = playingCards.head.CardName match {
         //case "Cellar" => StrategyPatternForActionPhase.cellar(l, i) should be (l)
         //case "Mine" => StrategyPatternForActionPhase.mine(l, i) should be (l)
         //case "Remodel" => StrategyPatternForActionPhase.remodel(l, i) should be (l)
         //case "Workshop" => StrategyPatternForActionPhase.workshop(l, i) should be (l)
         //case "Merchant" =>
-        case _ => GameTurn.l should be (GameTurn.l)
+        //case _ => GameTurn.l should be (GameTurn.l)
       }
       "have a cellar method" in {
 
@@ -63,5 +63,4 @@ class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
       }
     }
 
-  }
 }
