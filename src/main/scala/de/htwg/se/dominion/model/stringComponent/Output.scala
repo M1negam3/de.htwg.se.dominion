@@ -95,12 +95,12 @@ object Output {
     """.stripMargin
   }
 
-  def printScore(m: Map[Int, String]): String = {
+  def printScore(m: List[(Int, String)]): String = {
     var s = "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n" +
             "                                             Player| Points \n \n"
-    for ((k, v) <- m) {
+    for (i <- 0 until m.length) {
 
-      s += "                                           " + v + "| " + k + "\n"
+      s += "                                              " + m(i)._2 + "| " + m(i)._1 + "\n"
     }
     s += "\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝" +
       "\n \n" + printHeader()

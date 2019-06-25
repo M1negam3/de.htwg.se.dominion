@@ -33,13 +33,13 @@ object GameEnd {
     updatedPlayerList
   }
 
-  def score(list: List[Player]): Map[Int, String] = {
+  def score(list: List[Player]): List[(Int, String)] = {
     val copiedPlayerList = list
     val pCount = copiedPlayerList.length
     var wp = 0
-    var mutableScore: Map[Int, String] = Map()
-    var sortedScore: Map[Int, String] = Map()
     var garden = 0
+    var data: ListBuffer[(Int, String)] = new ListBuffer()
+    var sortedData: ListBuffer[(Int, String)] = new ListBuffer()
 
     for (i <- 0 until pCount) {
       for (f <- 0 until copiedPlayerList(i).deck.length) {
@@ -49,15 +49,33 @@ object GameEnd {
         }
       }
       wp += garden * (copiedPlayerList(i).deck.length / 10)
-      mutableScore += (wp -> copiedPlayerList(i).name)
+      data += ((wp, copiedPlayerList(i).name))
       wp = 0
       garden = 0
     }
-    for ((k, v) <- mutableScore) {
-      sortedScore += mutableScore.max
-      mutableScore -= mutableScore.max._1
+
+    for (i <- 0 until data.length - 1) {
+      for (f <- 1 until data.length) {
+        if (data(i)._1 == data(f)._1) {
+          sortedData += data(i)
+          data -= data(i)
+        } else {
+          if (data(i)._1 > data(f)._1) {
+            sortedData += data(i)
+            data -= data(i)
+          } else {
+            sortedData += data(f)
+            data -= data(f)
+          }
+        }
+      }
     }
-    val score: Map[Int, String] = sortedScore
+    if (data.length == 1) {
+      sortedData += data.head
+      data -= data.head
+    }
+
+    val score: List[(Int, String)] = sortedData.toList
     score
   }
 }

@@ -8,7 +8,7 @@ case class RoundManager(players: List[Player] = List(),
                         names: List[String] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
-                        score: Map[Int, String] = Map()) {
+                        score: List[(Int, String)] = List()) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
@@ -131,7 +131,7 @@ case class RoundManager(players: List[Player] = List(),
     l
   }
 
-  def score(r: RoundManager): Map[Int, String] = {
+  def score(r: RoundManager): List[(Int, String)] = {
     val copiedRoundManagerRe = r
     val score = GameEnd.score(copiedRoundManagerRe.players)
     score
