@@ -67,5 +67,11 @@ class PlayerSpec extends WordSpec with Matchers {
     "have a isEmpty method " in {
       Player.isEmpty(Luca) should not be (Luca.stacker.length == 1)
     }
+    "have a updateMoney method" in {
+      Player.updateMoney(Luca, 5) should not be (Luca.money == 1)
+    }
+    "have a updateAction method" in {
+      Player.updateAction(Luca, 1) should not be (Luca.actions == 4)
+    }
   }
 }
