@@ -21,6 +21,7 @@ class StrategyPatternForHandSpec extends  WordSpec with Matchers{
         case 4 => StrategyPatternForHand.strategy4(Player.copiedPlayer, Player.copyList)
         case _ => StrategyPatternForHand.strategy_(Player.copiedPlayer, Player.copyList)
 
+      }
     }
 
   }
