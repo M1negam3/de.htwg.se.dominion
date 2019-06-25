@@ -13,12 +13,14 @@ class StrategyPatternForHandSpec extends  WordSpec with Matchers{
 
   "A stragey " should {
     "have a strategy " in {
-      StrategyPatternForHand.strategy should not be (5)
-      StrategyPatternForHand.strategy0(Player.copiedPlayer, Player.copyList) should be (l)
-      StrategyPatternForHand.strategy1(Player.copiedPlayer, Player.copyList) should be (l)
-      StrategyPatternForHand.strategy2(Player.copiedPlayer, Player.copyList) should be (l)
-      StrategyPatternForHand.strategy3(Player.copiedPlayer, Player.copyList) should be (l)
-      StrategyPatternForHand.strategy4(Player.copiedPlayer, Player.copyList) should be (l)
+
+      var strategy: ListBuffer[Cards] = Player.deckLength match {
+        case 0 => StrategyPatternForHand.strategy0(Player.copiedPlayer, Player.copyList)
+        case 1 => StrategyPatternForHand.strategy1(Player.copiedPlayer, Player.copyList)
+        case 2 => StrategyPatternForHand.strategy2(Player.copiedPlayer, Player.copyList)
+        case 3 => StrategyPatternForHand.strategy3(Player.copiedPlayer, Player.copyList)
+        case 4 => StrategyPatternForHand.strategy4(Player.copiedPlayer, Player.copyList)
+        case _ => StrategyPatternForHand.strategy_(Player.copiedPlayer, Player.copyList)
 
     }
 
