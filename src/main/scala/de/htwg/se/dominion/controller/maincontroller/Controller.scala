@@ -388,6 +388,8 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
       }
 
       if (end) {
+        controller.gameStatus = GameStatus.IDLE
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0))
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.end(controller.roundManager))
         controller.roundManager = controller.roundManager.copy(score = controller.roundManager.score(controller.roundManager))
         controller.nextState()

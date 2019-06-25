@@ -87,23 +87,22 @@ object Output {
     Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
-      |
-      |                         Press e to END the Game and get the Score!
-      |                         Press q to QUIT the Game!
-      |
+
+                                          Press q to QUIT the Game!
+
     ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
     """.stripMargin
   }
 
   def printScore(m: List[(Int, String)]): String = {
-    var s = "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n" +
-            "                                             Player| Points \n \n"
+    var s = Console.BLACK + "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n" +
+            "                                            Player | Points \n \n"
     for (i <- 0 until m.length) {
 
-      s += "                                              " + m(i)._2 + "| " + m(i)._1 + "\n"
+      s += "                                             " + m(i)._2 + " | " + m(i)._1 + "\n"
     }
     s += "\n    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝" +
-      "\n \n" + printHeader()
+      "\n \n" + printEnd()
     s
   }
   def printPlayerQuestion(): String = {
