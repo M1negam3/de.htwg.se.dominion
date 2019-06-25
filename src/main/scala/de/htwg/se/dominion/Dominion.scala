@@ -1,12 +1,14 @@
 package de.htwg.se.dominion
 
-import de.htwg.se.dominion.aview.{ Tui}
+import de.htwg.se.dominion.aview.Tui
+import de.htwg.se.dominion.aview.gui.SwingGui
 import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
 
 object Dominion {
 
   val controller = new Controller(new RoundManager())
   val tui = new Tui(controller)
+  val gui = new SwingGui(controller)
   controller.notifyObservers
 
   def main(args: Array[String]): Unit = {

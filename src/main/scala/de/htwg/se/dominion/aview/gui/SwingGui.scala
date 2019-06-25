@@ -3,6 +3,7 @@ package de.htwg.se.dominion.aview.gui
 import de.htwg.se.dominion.controller.maincontroller.Controller
 import de.htwg.se.dominion.util.Observer
 import scala.swing._
+import Swing._
 
 class SwingGui (controller: Controller) extends Frame with Observer {
   controller.add(this)
@@ -11,7 +12,7 @@ class SwingGui (controller: Controller) extends Frame with Observer {
 
   contents = new WelcomePanel(controller)
 
-  peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
+  //peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
   visible = true
   centerOnScreen()
   resizable = false
