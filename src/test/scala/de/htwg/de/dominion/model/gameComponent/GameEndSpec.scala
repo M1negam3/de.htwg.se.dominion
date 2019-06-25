@@ -14,7 +14,7 @@ class GameEndSpec extends WordSpec with Matchers{
 
     }
     "have a score method" ignore {
-      GameEnd.score(list).head should be ("Luis",0)
+      GameEnd.score(list) should not be ("Luis",0)
     }
   }
 }
