@@ -119,7 +119,7 @@ class OutputSpec extends WordSpec with Matchers {
         s4 += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
 
-      Output.getPlayingStateString(list,0,5) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Cards are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n")
+      Output.getPlayingStateString(list,0,5) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n")
       s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
