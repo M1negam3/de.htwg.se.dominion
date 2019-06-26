@@ -31,6 +31,8 @@ object SwingGui {
     controller.controllerStateAsString match {
       case "PlayerCountState" => new WelcomePanel(controller)
       case "NameSetupState" => new NameInitPanel(controller)
+      case "PlayingState" => new PlayingPanel(controller)
+      case "EndState" => new GameEndPanel(controller)
     }
   }
 }

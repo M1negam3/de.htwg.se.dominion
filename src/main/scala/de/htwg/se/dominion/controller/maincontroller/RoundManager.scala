@@ -1,19 +1,22 @@
 package de.htwg.se.dominion.controller.maincontroller
 
+import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import de.htwg.se.dominion.model.gameComponent._
 import de.htwg.se.dominion.model.playerComponent.Player
+
 import scala.collection.mutable.ListBuffer
 
 case class RoundManager(players: List[Player] = List(),
                         names: List[String] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
-                        score: List[(Int, String)] = List()) {
+                        score: List[(Int, String)] = List(),
+                        playingDecks: List[List[Cards]] = GameTurn.playingDecks) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
     val names = GameInit.getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn.playingDecks)
   }
 
   def getNameSetupStrings(): String = {

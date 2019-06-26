@@ -49,6 +49,18 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   def getCurrentPlayerturn: Int = roundManager.playerturn
 
+  def getCurrentActions: Int = roundManager.players(roundManager.playerturn).actions
+
+  def getCurrentBuys: Int = roundManager.players(roundManager.playerturn).buys
+
+  def getCurrentMoney: Int = roundManager.players(roundManager.playerturn).money
+
+  def getPlayerName: String = roundManager.players(roundManager.playerturn).name
+
+  def getCurrentHand: List[Cards] = roundManager.players(roundManager.playerturn).hand
+
+  def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
+
 }
 
 object Controller {
@@ -132,13 +144,13 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input), playingDecks = GameTurn.playingDecks)
             runthrough = 9999999
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 10 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 11) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input), playingDecks = GameTurn.playingDecks)
             runthrough = 5
           }
 
@@ -149,14 +161,14 @@ case class playingState(controller: Controller) extends ControllerState {
               runthrough = 5
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input), playingDecks = GameTurn.playingDecks)
             runthrough = 9999999
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 23) {
             if (Controller.toInt(input).isEmpty) {
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect2(controller.roundManager, input), playingDecks = GameTurn.playingDecks)
             runthrough = 5
           }
         }
@@ -168,21 +180,25 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 45) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 5
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 13 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 41) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 45),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 4
           }
 
@@ -192,11 +208,13 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 46) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 9999999
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 49) {
@@ -205,11 +223,13 @@ case class playingState(controller: Controller) extends ControllerState {
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 15 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 37) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 46),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 4
           }
 
@@ -218,20 +238,24 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 47) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 5
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 19) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 4
           }
 
@@ -240,20 +264,24 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 48) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, input.toInt),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 9999999
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 21) {
             if (Controller.toInt(input).isEmpty) {
-              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
+              controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48),
+                playingDecks = GameTurn.playingDecks)
               runthrough = 4
               return
             }
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionCardEffect1(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
             runthrough = 4
           }
         }
@@ -264,7 +292,8 @@ case class playingState(controller: Controller) extends ControllerState {
             runthrough = 3
             return
           }
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get),
+            playingDecks = GameTurn.playingDecks)
           runthrough = 4
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 5 ||
             controller.roundManager.players(controller.roundManager.playerturn).stringValue == 20 ||
@@ -273,7 +302,8 @@ case class playingState(controller: Controller) extends ControllerState {
           }
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 9) {
             runthrough = 3
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase2(controller.roundManager, Controller.toInt(input).get),
+              playingDecks = GameTurn.playingDecks)
           }
         }
 
@@ -285,7 +315,7 @@ case class playingState(controller: Controller) extends ControllerState {
             runthrough = 10
           }
           if (input.equals("Y")) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 4), playingDecks = GameTurn.playingDecks)
             runthrough = 3
           } else if (input.equals("N")) {
             controller.gameStatus = GameStatus.BUY
@@ -293,31 +323,31 @@ case class playingState(controller: Controller) extends ControllerState {
             runthrough = 10
           } else {
             runthrough = 2
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24), playingDecks = GameTurn.playingDecks)
           }
         }
 
         // Clear Actioncards and action - 1
         if (runthrough == 9999999) {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateActions(controller.roundManager))
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.updateActions(controller.roundManager), playingDecks = GameTurn.playingDecks)
           runthrough = 1
         }
 
         // draw these Cards
         if (runthrough == 0) {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager))
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager), playingDecks = GameTurn.playingDecks)
           controller.gameStatus = GameStatus.ACTION
           runthrough = 1
         }
 
         // first time action
         if (runthrough == 1) {
-          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager))
+          controller.roundManager = controller.roundManager.copy(players = controller.roundManager.actionPhase(controller.roundManager), playingDecks = GameTurn.playingDecks)
           runthrough = 2
         }
 
       } else {
-        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 2))
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 2), playingDecks = GameTurn.playingDecks)
         action = false
         runthrough = 0
       }
@@ -340,7 +370,7 @@ case class playingState(controller: Controller) extends ControllerState {
         } else if (buycount == 1 && (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 25 ||
           controller.roundManager.players(controller.roundManager.playerturn).stringValue == 24)) {
           if (input.equals("Y")) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30), playingDecks = GameTurn.playingDecks)
             return
           } else if (input.equals("N")) {
             buycount = 0
@@ -348,7 +378,7 @@ case class playingState(controller: Controller) extends ControllerState {
             action = true
             runthrough = 0
           } else {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24), playingDecks = GameTurn.playingDecks)
             return
           }
 
@@ -356,20 +386,21 @@ case class playingState(controller: Controller) extends ControllerState {
           || controller.roundManager.players(controller.roundManager.playerturn).stringValue == 32 ||
           controller.roundManager.players(controller.roundManager.playerturn).stringValue == 48)) {
           if (Controller.toInt(input).isEmpty) {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48), playingDecks = GameTurn.playingDecks)
             return
           } else if (availableCards.contains(input.toInt)) {
-            controller.roundManager = controller.roundManager.copy(players = (GameTurn.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)))
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31))
+            controller.roundManager = controller.roundManager.copy(players = (GameTurn.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)),
+              playingDecks = GameTurn.playingDecks)
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31), playingDecks = GameTurn.playingDecks)
             return
           } else {
-            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32))
+            controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32), playingDecks = GameTurn.playingDecks)
             return
           }
         }
       } else {
-        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34))
-        controller.roundManager = controller.roundManager.copy(players = GameTurn.clearHand(controller.roundManager.players,controller.roundManager.playerturn))
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34), playingDecks = GameTurn.playingDecks)
+        controller.roundManager = controller.roundManager.copy(players = GameTurn.clearHand(controller.roundManager.players,controller.roundManager.playerturn), playingDecks = GameTurn.playingDecks)
         buycount = 0
         skip = true
         action = true
@@ -392,17 +423,17 @@ case class playingState(controller: Controller) extends ControllerState {
 
     // next Player/State
     if (skip) {
-      controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer())
-      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0))
+      controller.roundManager = controller.roundManager.copy(playerturn = controller.roundManager.nextPlayer(), playingDecks = GameTurn.playingDecks)
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0), playingDecks = GameTurn.playingDecks)
       controller.gameStatus = GameStatus.PREP
       skip = false
     }
 
     if (end) {
       controller.gameStatus = GameStatus.IDLE
-      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0))
-      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.end(controller.roundManager))
-      controller.roundManager = controller.roundManager.copy(score = controller.roundManager.score(controller.roundManager))
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0), playingDecks = GameTurn.playingDecks)
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.end(controller.roundManager), playingDecks = GameTurn.playingDecks)
+      controller.roundManager = controller.roundManager.copy(score = controller.roundManager.score(controller.roundManager), playingDecks = GameTurn.playingDecks)
       controller.nextState()
     }
   }
