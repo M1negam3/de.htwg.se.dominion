@@ -67,6 +67,8 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       private val temp = new ImageIcon("src/main/resources/cards/" + actualPlayingDeck(i).head.CardName + ".png").getImage
       private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
       icon = new ImageIcon(resize)
+      text = "Count: " + actualPlayingDeck(i).length
+      font = myFont
     }
     for (i <- labelList.indices) {
       contents += labelList(i)
