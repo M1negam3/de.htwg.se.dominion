@@ -61,6 +61,7 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
 
+  def getCurrentPhase: Boolean = roundManager.action
 }
 
 object Controller {
@@ -125,7 +126,6 @@ case class playingState(controller: Controller) extends ControllerState {
   var buycount = 0
   var buy = true
   var availableCards: ListBuffer[Int] = ListBuffer()
-  var action = true
   var skip = false
   var empty = 0
   var end = false
@@ -136,7 +136,7 @@ case class playingState(controller: Controller) extends ControllerState {
       return
     }
     // Action phase
-    if (action) {
+    if (controller.roundManager.action) {
       if (controller.roundManager.players(controller.roundManager.playerturn).actions > 0) {
         if (runthrough == 5) {
           // Card Mine
@@ -311,7 +311,7 @@ case class playingState(controller: Controller) extends ControllerState {
         if (runthrough == 2) {
           if (controller.roundManager.players(controller.roundManager.playerturn).stringValue == 1) {
             controller.gameStatus = GameStatus.BUY
-            action = false
+            controller.roundManager = controller.roundManager.copy(playingDecks = GameTurn.playingDecks, action = false)
             runthrough = 10
           }
           if (input.equals("Y")) {
@@ -319,7 +319,7 @@ case class playingState(controller: Controller) extends ControllerState {
             runthrough = 3
           } else if (input.equals("N")) {
             controller.gameStatus = GameStatus.BUY
-            action = false
+            controller.roundManager = controller.roundManager.copy(playingDecks = GameTurn.playingDecks, action = false)
             runthrough = 10
           } else {
             runthrough = 2
@@ -347,14 +347,14 @@ case class playingState(controller: Controller) extends ControllerState {
         }
 
       } else {
-        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 2), playingDecks = GameTurn.playingDecks)
-        action = false
+        controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 2), playingDecks = GameTurn.playingDecks,
+          action = false)
         runthrough = 0
       }
     }
 
     // Buy Phase
-    if (!action) {
+    if (!controller.roundManager.action) {
       if(controller.roundManager.players(controller.roundManager.playerturn).buys >= 1) {
         if (buycount == 0) {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25))
@@ -375,7 +375,7 @@ case class playingState(controller: Controller) extends ControllerState {
           } else if (input.equals("N")) {
             buycount = 0
             skip = true
-            action = true
+            controller.roundManager = controller.roundManager.copy(playingDecks = GameTurn.playingDecks, action = true)
             runthrough = 0
           } else {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24), playingDecks = GameTurn.playingDecks)
@@ -400,10 +400,10 @@ case class playingState(controller: Controller) extends ControllerState {
         }
       } else {
         controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 34), playingDecks = GameTurn.playingDecks)
-        controller.roundManager = controller.roundManager.copy(players = GameTurn.clearHand(controller.roundManager.players,controller.roundManager.playerturn), playingDecks = GameTurn.playingDecks)
+        controller.roundManager = controller.roundManager.copy(players = GameTurn.clearHand(controller.roundManager.players,controller.roundManager.playerturn),
+          playingDecks = GameTurn.playingDecks, action = true)
         buycount = 0
         skip = true
-        action = true
         runthrough = 0
       }
     }

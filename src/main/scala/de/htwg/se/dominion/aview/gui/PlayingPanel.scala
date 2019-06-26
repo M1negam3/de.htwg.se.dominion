@@ -5,4 +5,6 @@ import scala.swing._
 
 class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
+  preferredSize = new Dimension(2000, 1000)
+
 }
