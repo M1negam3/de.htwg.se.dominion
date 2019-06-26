@@ -9,7 +9,7 @@ import Swing._
 
 class NameInitPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
-  val myFont = new Font("Herculanum", java.awt.Font.PLAIN, 20)
+  val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 20)
 
   val currentPlayerturn: Int = controller.getCurrentPlayerturn + 1
   val nameTextBox: TextField = new TextField() {

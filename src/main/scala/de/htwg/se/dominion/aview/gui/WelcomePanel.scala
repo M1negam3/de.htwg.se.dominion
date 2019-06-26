@@ -8,7 +8,7 @@ import scala.swing.event.ButtonClicked
 
 class WelcomePanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
-  val myFont = new Font("Herculanum", java.awt.Font.PLAIN, 20)
+  val myFont = new Font("Charlemagne Std", java.awt.Font.BOLD, 20)
 
   val twoPlayerButton: Button = new Button("2 Players") {
     font = myFont
@@ -36,7 +36,7 @@ class WelcomePanel(controller: Controller) extends BoxPanel(Orientation.Vertical
 
   contents += new FlowPanel() {
     contents += new Label("How many Players are you?") {
-      font = new Font("Herculanum", java.awt.Font.PLAIN, 40)
+      font = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 40)
     }
   }
 

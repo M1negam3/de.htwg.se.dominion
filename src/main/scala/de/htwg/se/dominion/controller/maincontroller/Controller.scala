@@ -57,6 +57,10 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   def getPlayerName: String = roundManager.players(roundManager.playerturn).name
 
+  def getCurrentDeck: List[Cards] = roundManager.players(roundManager.playerturn).deck
+
+  def getCurrentStacker: List[Cards] = roundManager.players(roundManager.playerturn).stacker
+
   def getCurrentHand: List[Cards] = roundManager.players(roundManager.playerturn).hand
 
   def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
