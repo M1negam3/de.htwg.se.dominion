@@ -24,7 +24,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
 
   contents += new BoxPanel(Orientation.Horizontal) {
     val Hand: List[Cards] = controller.getCurrentHand
-    val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
+    val labelList: immutable.IndexedSeq[Label] = for (i <-  Hand.indices) yield new Label {
       private val temp = new ImageIcon("src/main/resources/cards/" + Hand(i).CardName + ".png").getImage
       private val resize = temp.getScaledInstance(100, 133, java.awt.Image.SCALE_SMOOTH)
     }
