@@ -24,27 +24,35 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     border = BorderFactory.createLineBorder(Color.BLACK, 2)
   }
 
-  val deckPanel = new BoxPanel(Orientation.Horizontal) {
+  val deckPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label {
       private val temp = new ImageIcon("src/main/resources/cards/Card_back.png").getImage
-      private val resize = temp.getScaledInstance(118, 184, java.awt.Image.SCALE_SMOOTH)
+      private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
       icon = new ImageIcon(resize)
     }
-    if (controller.getCurrentPhase) {
-        val Hand: List[Cards] = controller.getCurrentHand
-        val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
-          private val temp = new ImageIcon("src/main/resources/cards/" + Hand(i).CardName + ".png").getImage
-          private val resize = temp.getScaledInstance(118, 184, java.awt.Image.SCALE_SMOOTH)
-          icon = new ImageIcon(resize)
-        }
-        labelList.foreach(x => contents += x
-        )
-      }
-    }
-    /*contents += new Label {
+    contents += new Label {
       text = "      Size: " + controller.getCurrentDeck.length
       font = myFont
-    }*/
+    }
+  }
+
+  val handPanel = new BoxPanel(Orientation.Horizontal) {
+    if (controller.getCurrentPhase) {
+      val Hand: List[Cards] = controller.getCurrentHand
+      val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
+        private val temp = new ImageIcon("src/main/resources/cards/" + Hand(i).CardName + ".png").getImage
+        private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+      }
+      labelList.foreach(x => contents += x
+      )
+    }
+  }
+
+  val southPanel = new BoxPanel(Orientation.Horizontal) {
+    contents += deckPanel
+    contents += handPanel
+  }
 
   val playingDeckPanel = new FlowPanel() {
     val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
@@ -52,8 +60,6 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
       private val resize = temp.getScaledInstance(118, 184, java.awt.Image.SCALE_SMOOTH)
       icon = new ImageIcon(resize)
-      text = "      Size: " + playingDecks(i).length
-      font = myFont
     }
     labelList.foreach(x => contents += x)
   }
@@ -64,7 +70,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   contents += new BorderPanel {
     layout(infoPanel) = North
     layout(playingDeckPanel) = Center
-    layout(deckPanel) = South
+    layout(southPanel) = South
     layout(nextButton) = East
     layout(prevButton) = West
   }

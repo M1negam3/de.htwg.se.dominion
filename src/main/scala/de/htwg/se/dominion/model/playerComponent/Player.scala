@@ -25,13 +25,11 @@ object Player {
   }
 
   def getHand(player: Player): Player = {
-    // TODO Strategy Pattern
     copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
-    //l = StrategyPatternForHand.strategy
     copyList.length match {
       case 0 =>
         copiedPlayer = isEmpty(copiedPlayer)
@@ -80,11 +78,6 @@ object Player {
     }
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
-    /*print(Console.BLUE + "     Player " + copiedPlayer.value + " Hand Cards are: ")
-    for (f <- 0 until hand.length - 1) {
-      print(Console.BLUE + hand(f).CardName + Console.BLACK + " (" + f + ")" + Console.BLUE +  ", ")
-    }
-    println(hand.last.CardName + Console.BLACK + " (" + 4 + ")")*/
     deckLength = 0
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
   }
