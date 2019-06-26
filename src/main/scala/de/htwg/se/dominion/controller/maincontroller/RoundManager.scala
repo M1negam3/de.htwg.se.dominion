@@ -11,7 +11,8 @@ case class RoundManager(players: List[Player] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Cards]] = GameTurn.playingDecks) {
+                        playingDecks: List[List[Cards]] = GameTurn.playingDecks,
+                        action: Boolean = true) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
