@@ -19,7 +19,7 @@ class ControllerSpec extends WordSpec with Matchers {
   }
   "returns the current controller state as string representation" in {
     controller.controllerState = playingState(controller)
-    controller.controllerStateAsString should be("playingState")
+    controller.controllerStateAsString should be("PlayingState")
   }
   "have a numberofPlayer" in {
     controller.roundManager = controller.roundManager.copy(numberOfPlayer = 2)
