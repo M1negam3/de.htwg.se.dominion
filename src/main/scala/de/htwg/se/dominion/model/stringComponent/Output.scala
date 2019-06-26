@@ -201,7 +201,7 @@ object Output {
         s += "\n"
         Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
       }
-      case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
+      //case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => {
         for (j <- 0 until GameTurn.playingDecks.length) {
           if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
@@ -228,13 +228,13 @@ object Output {
         Console.BLUE + "     Your money is: " + GameTurn.getMoney(l(playerturn)) + "\n" + "     Your Buy actions are: " + l(playerturn).buys +"\n" + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n" + x + "\n     Do you want to buy a Card? (Y/N)\n"
       case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
       case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
-      case 28 => var j = GameTurn.getMoney(l(playerturn))
+      /*case 28 => var j = GameTurn.getMoney(l(playerturn))
         for (g <- 0 until GameTurn.playingDecks.length) {
           if (j >= GameTurn.playingDecks(g).head.CostValue) {
             x += Console.BLUE + "                        " + GameTurn.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
           }
         } 
-        x
+        x*/
       case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
       case 30 => Console.YELLOW + "     Which Card do you want to buy?\n"
       case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
