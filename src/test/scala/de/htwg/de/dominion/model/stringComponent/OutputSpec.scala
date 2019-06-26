@@ -94,11 +94,13 @@ class OutputSpec extends WordSpec with Matchers {
       }
       s += "\n"
       Output.getPlayingStateString(list,0,1) should  be (t + s2 + s + Console.RED + "\n     You dont have any Actions/Actioncards to play\n")
+      s = ""
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
       s += "\n"
       Output.getPlayingStateString(list,0,2) should  be (t +s2 + s + Console.RED + "     You dont have any Actions/Actioncards to play\n")
+      s = ""
       for (i <- 0 until list(0).hand.length) {
         if (list(0).hand(i).Type.equals("Action") && !check) {
           actionString += list(0).hand(i).CardName + Console.BLACK + " (" + i + ")" + "\n"
