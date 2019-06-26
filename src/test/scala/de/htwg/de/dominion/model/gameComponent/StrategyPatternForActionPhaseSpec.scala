@@ -40,13 +40,13 @@ class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
         //case _ => GameTurn.l should be (GameTurn.l)
       }
       "have a cellar method" in {
-
+        StrategyPatternForActionPhase.cellar2(l,0,"0 1") should be (l)
       }
       "have a cellar2 method" in {
-
+        StrategyPatternForActionPhase.cellar(l,0,0) should be (l)
       }
       "have a mine method" in {
-        StrategyPatternForActionPhase.merchant(l,0) should be (l)
+        StrategyPatternForActionPhase.mine(l,0,0) should be (l)
       }
       "have a remodel method" in {
         StrategyPatternForActionPhase.remodel(l,0,0) should be (l)
@@ -58,7 +58,7 @@ class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
         StrategyPatternForActionPhase.workshop(l,0,0) should be (l)
       }
       "have a merchant method" in {
-        //StrategyPatternForActionPhase.merchant(l,0) should be (l1)
+        StrategyPatternForActionPhase.merchant(l,0) should be (l)
         //StrategyPatternForActionPhase.merchant(l5,0) should be (l6)
       }
     }
