@@ -60,6 +60,12 @@ class OutputSpec extends WordSpec with Matchers {
     "have a printTurn" in {
       Output.printTurn(1) should be (Console.BLUE + " Player " + 2 + "`s turn!\n")
     }
+    "have a printRules method" ignore{
+      Output.printRules() should be (Console.WHITE +
+        """
+          |DAS SIND DIE REGELN
+        """.stripMargin)
+    }
     "have a printNextTurn" ignore {
       Output.printNextTurn() should be (Console.BLACK +
         """

@@ -21,7 +21,7 @@ class SwingGuiSpec extends WordSpec with Matchers {
         SwingGui.getPanel(controller).isInstanceOf[NameInitPanel] should be(true)
       }
 
-      "Controller is in InGameState" ignore {
+      "Controller is in InGameState" in {
         controller.controllerState = playingState(controller)
         controller.roundManager = controller.roundManager.copy(players = List(Player("test", 0, List(), List(), List(), List(), 0, 0, 0, 0)))
         SwingGui.getPanel(controller).isInstanceOf[PlayingPanel] should be(true)
