@@ -1,5 +1,31 @@
 package de.htwg.de.dominion.controller.maincontroller
 
-class ControllerSpec {
+import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, RoundManager, playingState}
+import de.htwg.se.dominion.model.gameComponent.GameEnd
+import org.scalatest._
+
+class ControllerSpec extends WordSpec with Matchers {
+ val roundManager = RoundManager()
+  val controller = new Controller(roundManager )
+
+
+  "A Controller" should{
+
+  }
+  "switches to the next state correctly" in {
+    controller.controllerState = playingState(controller)
+    controller.nextState()
+    controller.controllerState should be(EndState(controller))
+  }
+  "returns the current controller state as string representation" in {
+    controller.controllerState = playingState(controller)
+    controller.controllerStateAsString should be("playingState")
+  }
+  "have a numberofPlayer" in {
+    controller.roundManager = controller.roundManager.copy(numberOfPlayer = 2)
+    controller.roundManager.numberOfPlayer should be (2)
+  }
+
+
 
 }
