@@ -1,13 +1,16 @@
 package de.htwg.se.dominion.aview.gui
 
 import java.awt.Color
+
 import de.htwg.se.dominion.controller.maincontroller.Controller
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import javax.swing.{BorderFactory, ImageIcon}
+
 import scala.swing.BorderPanel.Position._
 import scala.collection.immutable
 import scala.swing._
 import Swing._
+import scala.collection.mutable.ListBuffer
 import scala.swing.event.ButtonClicked
 
 class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
@@ -31,7 +34,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       icon = new ImageIcon(resize)
     }
     contents += new Label {
-      text = "      Size: " + controller.getCurrentDeck.length
+      text = "        Count: " + controller.getCurrentDeck.length
       font = myFont
     }
   }
@@ -49,19 +52,30 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     }
   }
 
+  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
+  var listBuffer: ListBuffer[List[Cards]] = ListBuffer()
+  for (i <- playingDecks.indices) {
+    if (playingDecks(i).head.CostValue < 20) {
+      listBuffer += playingDecks(i)
+    }
+  }
+  val actualPlayingDeck: List[List[Cards]] = listBuffer.toList
+  listBuffer = ListBuffer()
+
+  val playingDeckPanel = new FlowPanel() {
+    val labelList: immutable.IndexedSeq[Label] = for (i <- actualPlayingDeck.indices) yield new Label {
+      private val temp = new ImageIcon("src/main/resources/cards/" + actualPlayingDeck(i).head.CardName + ".png").getImage
+      private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
+      icon = new ImageIcon(resize)
+    }
+    for (i <- labelList.indices) {
+      contents += labelList(i)
+    }
+  }
+
   val southPanel = new BoxPanel(Orientation.Horizontal) {
     contents += deckPanel
     contents += handPanel
-  }
-
-  val playingDeckPanel = new FlowPanel() {
-    val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
-    val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
-      private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
-      private val resize = temp.getScaledInstance(118, 184, java.awt.Image.SCALE_SMOOTH)
-      icon = new ImageIcon(resize)
-    }
-    labelList.foreach(x => contents += x)
   }
 
   val nextButton = new Button("\u2192")

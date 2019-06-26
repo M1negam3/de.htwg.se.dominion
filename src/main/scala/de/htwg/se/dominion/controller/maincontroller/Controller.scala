@@ -414,7 +414,7 @@ case class playingState(controller: Controller) extends ControllerState {
 
     for (i <- 0 until GameTurn.playingDecks.length - 3) {
       if (GameTurn.playingDecks(i).isEmpty) {
-        if (i == 3) {
+        if (i == 5) {
           end = true
         }
         GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)

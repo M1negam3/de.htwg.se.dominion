@@ -52,9 +52,9 @@ object Cards {
 
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
-    estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
-    cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
-    workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck)
+    estateHeadDeck.estateDeck, duchyHeadDeck.duchyDeck, provinceHeadDeck.provinceDeck, cellarHeadDeck.cellarDeck,
+    villageHeadDeck.villageDeck, merchantHeadDeck.merchantDeck, workshopHeadDeck.workshopDeck, smithyHeadDeck.smithyDeck,
+    remodelHeadDeck.remodelDeck, gardensHeadDeck.gardensDeck, festivalHeadDeck.festivalDeck, mineHeadDeck.mineDeck, marketHeadDeck.marketDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck)
 
   // Starting Decks
   val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, estate, estate, estate)
