@@ -12,7 +12,7 @@ class SwingGui (controller: Controller) extends Frame with Observer {
 
   contents = new WelcomePanel(controller)
 
-  //peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
+  peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
   visible = true
   centerOnScreen()
   resizable = false
@@ -29,7 +29,8 @@ class SwingGui (controller: Controller) extends Frame with Observer {
 object SwingGui {
   def getPanel(controller: Controller): Panel = {
     controller.controllerStateAsString match {
-      case _ => new WelcomePanel(controller)
+      case "PlayerCountState" => new WelcomePanel(controller)
+      case "NameSetupState" => new NameInitPanel(controller)
     }
   }
 }

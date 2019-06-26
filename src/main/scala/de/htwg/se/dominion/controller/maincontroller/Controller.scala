@@ -46,6 +46,9 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
       case _: EndState => "EndState"
     }
   }
+
+  def getCurrentPlayerturn: Int = roundManager.playerturn
+
 }
 
 object Controller {
