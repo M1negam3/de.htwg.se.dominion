@@ -9,7 +9,7 @@ class GameEndSpec extends WordSpec with Matchers{
   var Luca = new Player("Luca",0,deck,stacker,Cards.hand)
   var Luis = new Player("Luis",0,Cards.startDeck,stacker,Cards.hand)
   var list: List[Player] = List(Luca,Luis)
-  var finished: List[(Int,String)] = List((4,"Luca"),(3,"Luis"))
+  var finished: List[(Int,String)] = List((3,"Luca"),(3,"Luis"))
   "A GameEnd" should {
     "have a end method" in {
       GameEnd.end(list).head.stacker.length should  be (0)
