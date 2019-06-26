@@ -153,7 +153,7 @@ class OutputSpec extends WordSpec with Matchers {
         }
         s += "\n"
       Output.getPlayingStateString(list,0,16) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?")
-      Output.getPlayingStateString(list,0,17) should be (Console.BLUE + "     You choose: " + Console.BLACK + list(0).hand(2).CardName)
+      //Output.getPlayingStateString(list,0,17) should be (Console.BLUE + "     You choose: " + Console.BLACK + list(0).hand(2).CardName)
       for (j <- 0 until GameTurn.playingDecks.length) {
         if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
           z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +

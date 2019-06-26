@@ -201,7 +201,7 @@ object Output {
         s += "\n"
         Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?"
       }
-      case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
+      //case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => {
         for (j <- 0 until GameTurn.playingDecks.length) {
           if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
