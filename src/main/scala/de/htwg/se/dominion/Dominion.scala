@@ -10,7 +10,6 @@ object Dominion {
   val tui = new Tui(controller)
   val gui = new SwingGui(controller)
   controller.notifyObservers
-  //test
 
   def main(args: Array[String]): Unit = {
     var input: String = ""

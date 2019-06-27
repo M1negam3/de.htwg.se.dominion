@@ -66,6 +66,15 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
   def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
 
   def getCurrentPhase: Boolean = roundManager.action
+
+  def getCurrentPhaseAsString(b: Boolean): String = {
+    b match {
+      case true => "Action Phase"
+      case false => "Buy Phase"
+    }
+  }
+
+  def getCurrentStringValue: Int = roundManager.players(roundManager.playerturn).stringValue
 }
 
 object Controller {
