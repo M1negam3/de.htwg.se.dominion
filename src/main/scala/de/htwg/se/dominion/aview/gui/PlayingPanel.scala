@@ -118,33 +118,23 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   val okButton = new Button("Okay")
 
   val optionPanelQuestion = new BoxPanel(Orientation.Vertical) {
-    if (controller.getCurrentStringValue == 0) {
-      contents += new Label("Press here to continue!")
-    }
-    if (controller.getCurrentStringValue == 31) {
-      contents += new Label("The Card was bought and added to your stacker!")
-      contents += new Label("Press here to continue!")
-    }
-    if (controller.getCurrentStringValue == 1) {
-      contents += new Label("You dont have any Action cards to play")
-    }
-    if (controller.getCurrentStringValue == 3) {
-      contents += new Label("Do you want to play a Card?")
-      font = myFont
-    }
-    if (controller.getCurrentStringValue == 25) {
-        contents += new Label("Do you want to buy a Card?")
-        font = myFont
-    }
-    if (controller.getCurrentStringValue == 30) {
-      contents += new Label("Which Card do you want to Buy?")
-      contents += new Label("Click on it")
-      font = myFont
-    }
-    if (controller.getCurrentStringValue == 4) {
-      contents += new Label("Which Card do you want to Play?")
-      contents += new Label("Click on it")
-      font = myFont
+    controller.getCurrentStringValue match {
+      case 0 => contents += new Label("Press here to continue!")
+      case 1 => contents += new Label("You dont have any Action cards to play")
+      case 3 => contents += new Label("Do you want to play a Card?")
+      case 4 => {
+        contents += new Label("Which Card do you want to Play?")
+        contents += new Label("Click on it")
+      }
+      case 25 => contents += new Label("Do you want to buy a Card?")
+      case 30 => {
+        contents += new Label("Which Card do you want to Buy?")
+        contents += new Label("Click on it")
+      }
+      case 31 => {
+        contents += new Label("The Card was bought and added to your stacker!")
+        contents += new Label("Press here to continue!")
+      }
     }
   }
 
