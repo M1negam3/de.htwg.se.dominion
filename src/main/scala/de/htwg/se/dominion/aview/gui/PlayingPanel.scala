@@ -39,6 +39,14 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     }
   }
 
+  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
+  var listBuffer: ListBuffer[List[Cards]] = ListBuffer()
+  for (i <- playingDecks.indices) {
+    if (playingDecks(i).head.CostValue < 20) {
+      listBuffer += playingDecks(i)
+    }
+  }
+
   val handPanel = new BoxPanel(Orientation.Horizontal) {
     if (controller.getCurrentPhase) {
       val Hand: List[Cards] = controller.getCurrentHand
@@ -47,18 +55,34 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
         icon = new ImageIcon(resize)
       }
-      labelList.foreach(x => contents += x
-      )
+      labelList.foreach(x => contents += x)
     }
   }
+  /*val buyPanel = new BoxPanel(Orientation.Horizontal) {
+    if (controller.getCurrentPhase) {
+      var buyCards: List[Cards] = List()
+      var buys = 3
+      var listBuffer1 = new ListBuffer[Cards]
+      val Hand: List[Cards] = controller.getCurrentHand
+      /*for(i <- Hand.indices){
+        buys += controller.getCurrentHand(i).MoneyValue
+      }*/
+      for (i <- playingDecks.indices) {
+        if (playingDecks(i).head.CostValue <= buys ) {
+          listBuffer1 += playingDecks(i).head
+        }
+      }
+      buyCards = listBuffer1.toList
+      val labelList1: immutable.IndexedSeq[Label] = for (i <- buyCards.indices) yield new Label {
+        private val temp = new ImageIcon("src/main/resources/cards/" + actualPlayingDeck(i).head.CardName + ".png").getImage
+        private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
+        icon = new ImageIcon(resize)
+      }
+      labelList1.foreach(x => contents += x)
+    }
+  }*/
 
-  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
-  var listBuffer: ListBuffer[List[Cards]] = ListBuffer()
-  for (i <- playingDecks.indices) {
-    if (playingDecks(i).head.CostValue < 20) {
-      listBuffer += playingDecks(i)
-    }
-  }
+
   val actualPlayingDeck: List[List[Cards]] = listBuffer.toList
   listBuffer = ListBuffer()
 
@@ -78,6 +102,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   val southPanel = new BoxPanel(Orientation.Horizontal) {
     contents += deckPanel
     contents += handPanel
+    //contents += buyPanel
   }
 
   val nextButton = new Button("\u2192")

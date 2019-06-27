@@ -4,7 +4,7 @@ import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager, 
 import org.scalatest.{Matchers, WordSpec}
 
 class SetCommandSpec extends WordSpec with Matchers {
-  "An EvalStep" when {
+  "An SetCommand" when {
 
     val roundManager = RoundManager()
     val controller = new Controller(roundManager)
