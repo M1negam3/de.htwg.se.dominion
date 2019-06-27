@@ -7,13 +7,14 @@ import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
- val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
+  var names: List[String] = List("Luca","Luis")
+  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
   val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false,0,true)
   val roundManager2 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true,0,false)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   val controller2 = new Controller(roundManager2)
-  var names: List[String] = List("Luca","Luis")
+
   var names1: List[String] = List("Luca1","Luis")
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
@@ -60,7 +61,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
     "when in actionphase" in {
       controller2.controllerState = playingState(controller2)
-      controller2.controllerState.evaluate("")
+      controller2.controllerState.evaluate("k")
       controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (0)
       controller2.controllerState = playingState(controller2)
       controller2.controllerState.evaluate("k")
@@ -105,7 +106,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller1.controllerState.evaluate("0")
       controller1.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
       controller1.controllerState = playingState(controller1)
-      controller1.gameStatus should be ("IDLE")
+      controller1.gameStatus should not be ("IDLE")
       controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (0)
       controller1.roundManager.score should not be (Nil)
     }
