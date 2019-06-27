@@ -54,9 +54,7 @@ class ControllerSpec extends WordSpec with Matchers {
     }
     "when in actionphase" in {
       controller1.controllerState = playingState(controller1)
-      controller1.eval("k")
       controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (1)
-      controller2.eval("k")
       controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (3)
 
     }
