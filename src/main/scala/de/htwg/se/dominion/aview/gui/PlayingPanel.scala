@@ -155,6 +155,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       }
       case 33 => contents += new Label("Click on the card you want to add")
       case 37 => contents += new Label("Please choose a Money Card!")
+      case 45 => contents += new Label("Enter a number")
       case 41 => contents += new Label("You need to discard at least 1 Card")
     }
 
@@ -168,7 +169,8 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       contents += yesButton
       contents += noButton
     }
-    if (controller.getCurrentStringValue == 7 || controller.getCurrentStringValue == 13 || controller.getCurrentStringValue == 41) {
+    if (controller.getCurrentStringValue == 7 || controller.getCurrentStringValue == 13 || controller.getCurrentStringValue == 41
+      || controller.getCurrentStringValue == 45) {
       contents += new TextField {
         listenTo(keys)
         reactions += {
