@@ -8,7 +8,7 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
-  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false)
+  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   var names: List[String] = List("Luca","Luis")
@@ -16,7 +16,7 @@ class ControllerSpec extends WordSpec with Matchers {
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
-  var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
+  var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,0,1,0,0)
   var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,0,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
@@ -57,6 +57,9 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
+      controller1.controllerState = playingState(controller1)
+      controller.controllerState.evaluate("k")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (2)
 
     }
 
@@ -96,8 +99,6 @@ class ControllerSpec extends WordSpec with Matchers {
       controller1.controllerState.evaluate("Y")
       controller1.controllerState.evaluate("0")
       controller1.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
-
     }
-
   }
 }
