@@ -8,14 +8,16 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
+  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false)
   val controller = new Controller(roundManager)
+  val controller1 = new Controller(roundManager1)
   var names: List[String] = List("Luca","Luis")
   var names1: List[String] = List("Luca1","Luis")
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
-  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,0,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
@@ -55,6 +57,11 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
+
+    }
+
+
+    "when in buyphase" in {
       controller.controllerState = playingState(controller)
       controller.roundManager = controller.roundManager.copy(players = players1)
       controller.controllerState.evaluate("k")
@@ -71,7 +78,26 @@ class ControllerSpec extends WordSpec with Matchers {
         playingDecks = GameTurn.playingDecks)
       controller.controllerState.evaluate("")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (24)
+      /*controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48),
+        playingDecks = GameTurn.playingDecks)
+      controller.controllerState.evaluate("0")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
+      controller.roundManager = controller.roundManager.copy(players = players1)
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30),
+        playingDecks = GameTurn.playingDecks)
+      controller.controllerState.evaluate("30")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
+      /*controller.roundManager = controller.roundManager.copy(players = players2)
+      controller.controllerState.evaluate("k")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (34)*/
+
+      /*controller1.controllerState = playingState(controller1)
+      controller1.controllerState.evaluate("k")
+      controller1.controllerState.evaluate("Y")
+      controller1.controllerState.evaluate("0")
+      controller1.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
 
     }
+
   }
 }
