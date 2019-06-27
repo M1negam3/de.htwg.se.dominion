@@ -7,7 +7,7 @@ import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
- val roundManager = RoundManager()
+ val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
   val controller = new Controller(roundManager)
   var names: List[String] = List("Luca","Luis")
   var names1: List[String] = List("Luca1","Luis")
@@ -15,13 +15,11 @@ class ControllerSpec extends WordSpec with Matchers {
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
-  val roundManager2 = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,true)
-  val roundManager3 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true)
-  val controller1 = new Controller(roundManager2)
-  val controller2 = new Controller(roundManager3)
+  var players2: List[Player] = List(Luca2,Luis)
 
 
   "A Controller" should{
@@ -46,6 +44,9 @@ class ControllerSpec extends WordSpec with Matchers {
     controller.roundManager = controller.roundManager.copy(numberOfPlayer = 2)
     controller.roundManager.numberOfPlayer should be (2)
   }
+  "have a getCurrentPhaseAsString method" in {
+    controller.getCurrentPhaseAsString(false) should be ("Buy Phase")
+  }
   "A playingState" should {
     "does nothing when theres no input" in {
       controller.controllerState = playingState(controller)
@@ -54,11 +55,22 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
-      controller1.controllerState = playingState(controller1)
-      controller1.controllerState.evaluate("k")
-      controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (1)
-      controller2.controllerState.evaluate("k")
-      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (3)
+      controller.controllerState = playingState(controller)
+      controller.roundManager = controller.roundManager.copy(players = players1)
+      controller.controllerState.evaluate("k")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (25)
+      controller.controllerState.evaluate("Y")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
+      controller.controllerState.evaluate("asd")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (48)
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25),
+        playingDecks = GameTurn.playingDecks)
+      controller.controllerState.evaluate("N")
+      controller.roundManager.action should be (true)
+      controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24),
+        playingDecks = GameTurn.playingDecks)
+      controller.controllerState.evaluate("")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (24)
 
     }
   }
