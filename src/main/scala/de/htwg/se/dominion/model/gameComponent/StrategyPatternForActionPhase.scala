@@ -150,8 +150,9 @@ object StrategyPatternForActionPhase {
     var l = list
     for (i <- 0 until l(idx).hand.length) {
       if (l(idx).hand(i).CardName.equals("Silver")) {
-        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 20, (l(idx).money + 2)))
-        this
+        l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand,
+          l(idx).playingCards, l(idx).actions, l(idx).buys, 20, (l(idx).money + 2)))
+        return l
       } else {
         l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 22, l(idx).money))
       }

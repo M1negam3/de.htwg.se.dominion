@@ -110,7 +110,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   val optionPanelQuestion = new BoxPanel(Orientation.Vertical) {
     controller.getCurrentStringValue match {
       case 0 => contents += new Label("Press here to continue!")
-      case 1 => contents += new Label("You dont have any Action cards to play")
+      case 1 => contents += new Label("You dont have any Actions/Action Cards to play")
       case 3 => contents += new Label("Do you want to play a Card?")
       case 4 => {
         contents += new Label("Which Card do you want to Play?")

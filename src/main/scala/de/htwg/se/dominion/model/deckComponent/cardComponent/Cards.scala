@@ -56,7 +56,7 @@ object Cards {
     marketHeadDeck.marketDeck)
 
   // Starting Decks
-  val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, workshop, workshop, workshop)
+  val startDeck : List[Cards] = List(silver, silver, silver, silver, silver, silver, silver, merchant, merchant, merchant)
   val hand : List[Cards] = List()
   val stacker : List[Cards] = Nil
 

@@ -21,7 +21,8 @@ object GameTurn {
 
     if (actionumber == 0) {
       actionumber = 0
-      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, 0, 1, 1, 0))
+      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand,
+        l(index).playingCards, actionumber, 1, 1, l(index).money))
       return l
     }
 
@@ -39,11 +40,13 @@ object GameTurn {
           }
         }
         if (z.equals(l(index).hand.length)) {
-          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 1, 0))
+          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
+            l(index).hand, l(index).playingCards, actionumber, 1, 1, l(index).money))
           break
         }
         z = 0
-        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, l(index).playingCards, actionumber, 1, 3, 0))
+        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
+          l(index).hand, l(index).playingCards, actionumber, 1, 3, l(index).money))
       }
     }
     l
@@ -83,7 +86,10 @@ object GameTurn {
         }
         case "Remodel" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
         case "Workshop" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
-        case "Merchant" => l = StrategyPatternForActionPhase.merchant(l, index)
+        case "Merchant" => {
+          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, l(index).stringValue, money))
+          l = StrategyPatternForActionPhase.merchant(l, index)
+        }
         case _ => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 5, money))
       }
     } else {
