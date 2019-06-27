@@ -8,7 +8,7 @@ import de.htwg.se.dominion.model.playerComponent.Player
 import scala.collection.immutable.List
 
 class GameTurnSpec extends WordSpec with Matchers{
-  var x: List[Int]= List(0,1,3,6,8,10,11,12,13,14)
+  var x: List[Int]= List(0,1,3,6,7,8,9,10,11,12)
   var y: List[Int]= List(0)
   val hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper)
