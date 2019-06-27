@@ -24,6 +24,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
   var r2 = RoundManager(list,names,2,0)
   var r3 = RoundManager(list2,names,2,1)
   var r4 = RoundManager(list2,names,2,1)
+  var test2: List[Player] = List()
 
 
 
@@ -38,13 +39,13 @@ class RoundManagerSpec extends WordSpec with Matchers {
       "have a getNUmberOfPlayers method" ignore {
 
       }
-      "have a getNameSetupStrings method" ignore {
+      "have a getNameSetupStrings method" in {
         r.getNameSetupStrings() should be ("     Player " + (playerturn + 1) + ", please enter your name:")
       }
       "have a createPlayer method" in {
         r.createPlayer(r) should be (players)
       }
-      "have a editStringValue method" ignore {
+      "have a editStringValue method" in {
         r.editStringValue(r2, 20) should be (list4)
       }
       "have a updateActions1 method" ignore {
@@ -54,12 +55,12 @@ class RoundManagerSpec extends WordSpec with Matchers {
         r.score(r) should be (score)
       }
       "have a update Money method" in {
-        r.updateMoney(r, 3) should be (list2)
+        r.updateMoney(r, 3) should be (test2)
       }
       /*"have a updateActions method" in {
         r.updateActions(r3, 2) should be (list)
       }*/
-      "have a getHand method" ignore {
+      "have a getHand method" in {
         r.getHand(r) should be (r.players)
       }
       "have a end method" in {
