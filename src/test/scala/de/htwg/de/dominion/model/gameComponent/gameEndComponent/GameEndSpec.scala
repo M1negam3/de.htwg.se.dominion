@@ -1,4 +1,4 @@
-package de.htwg.se.dominion.model.gameComponent
+package de.htwg.de.dominion.model.gameComponent.gameEndComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
