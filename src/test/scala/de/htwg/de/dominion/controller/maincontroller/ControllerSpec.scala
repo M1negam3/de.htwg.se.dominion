@@ -8,16 +8,18 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
-  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true)
+  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false,0,true)
+  val roundManager2 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true,0,false)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
+  val controller2 = new Controller(roundManager2)
   var names: List[String] = List("Luca","Luis")
   var names1: List[String] = List("Luca1","Luis")
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
-  var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,0,1,0,0)
-  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,0,0,0)
+  var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
@@ -57,9 +59,12 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
-      controller1.controllerState = playingState(controller1)
-      controller.controllerState.evaluate("k")
-      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (2)
+      controller2.controllerState = playingState(controller2)
+      controller2.controllerState.evaluate("")
+      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (0)
+      controller2.controllerState = playingState(controller2)
+      controller2.controllerState.evaluate("k")
+      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (1)
 
     }
 
@@ -99,6 +104,10 @@ class ControllerSpec extends WordSpec with Matchers {
       controller1.controllerState.evaluate("Y")
       controller1.controllerState.evaluate("0")
       controller1.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
+      controller1.controllerState = playingState(controller1)
+      controller1.gameStatus should be ("IDLE")
+      controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (0)
+      controller1.roundManager.score should not be (Nil)
     }
   }
 }
