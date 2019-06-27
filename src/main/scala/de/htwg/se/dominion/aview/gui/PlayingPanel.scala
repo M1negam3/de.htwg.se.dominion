@@ -41,6 +41,9 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     }
   }
 
+  var s: String = ""
+  var l: ListBuffer[Int] = ListBuffer()
+
   val handPanel = new BoxPanel(Orientation.Horizontal) {
       val Hand: List[Cards] = controller.getCurrentHand
       val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
@@ -48,10 +51,17 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
         icon = new ImageIcon(resize)
         listenTo(mouse.clicks)
-        if (controller.getCurrentStringValue == 4 || controller.getCurrentStringValue == 8 || controller.getCurrentStringValue == 9
+        if (controller.getCurrentStringValue == 4 || controller.getCurrentStringValue == 9
           || controller.getCurrentStringValue == 14 || controller.getCurrentStringValue == 37 || controller.getCurrentStringValue == 16) {
           reactions += {
             case _: MouseClicked => controller.eval((i).toString)
+          }
+        }
+        if (controller.getCurrentStringValue == 8 || controller.getCurrentStringValue == 10 || controller.getCurrentStringValue == 11) {
+          reactions += {
+            case _: MouseClicked => {
+              l += i
+            }
           }
         }
       }
@@ -106,6 +116,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   val yesButton = new Button("Yes")
   val noButton = new Button("No")
   val okButton = new Button("Okay")
+  val doneButton = new Button("Done")
 
   val optionPanelQuestion = new BoxPanel(Orientation.Vertical) {
     controller.getCurrentStringValue match {
@@ -117,8 +128,14 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         contents += new Label("Click on it")
       }
       case 7 => contents += new Label("Enter the amount of Cards to Discard")
-      case 8 => contents += new Label("Choose some Card(s) by clicking on them")
+      case 8 => {
+        contents += new Label("Choose some Card(s) by clicking on them")
+        contents += new Label("Press here when you are done selecting")
+      }
       case 9 => contents += new Label("Please choose a action Card!")
+      case 10 => contents += new Label("Please select the right amount of Cards")
+      case 11 => contents += new Label("Dont click the same Card twice!")
+      case 13 => contents += new Label("Enter a Number that is not larger than you have Cards!")
       case 14 => contents += new Label("Choose one Moneycard to upgrade")
       case 16 => contents += new Label("Which card to you want to trash?")
       case 18 => contents += new Label("Click on the card you want to add to your hand!")
@@ -138,7 +155,9 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       }
       case 33 => contents += new Label("Click on the card you want to add")
       case 37 => contents += new Label("Please choose a Money Card!")
+      case 41 => contents += new Label("You need to discard at least 1 Card")
     }
+
   }
 
   val optionPanelButtons = new BoxPanel(Orientation.Horizontal) {
@@ -149,13 +168,16 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       contents += yesButton
       contents += noButton
     }
-    if (controller.getCurrentStringValue == 7) {
+    if (controller.getCurrentStringValue == 7 || controller.getCurrentStringValue == 13 || controller.getCurrentStringValue == 41) {
       contents += new TextField {
-      listenTo(keys)
-      reactions += {
-        case KeyPressed(_, Key.Enter, _, _) => controller.eval(text)
+        listenTo(keys)
+        reactions += {
+          case KeyPressed(_, Key.Enter, _, _) => controller.eval(text)
+        }
       }
-      }
+    }
+    if (controller.getCurrentStringValue == 8 || controller.getCurrentStringValue == 10 || controller.getCurrentStringValue == 11) {
+      contents += doneButton
     }
   }
 
@@ -187,12 +209,22 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   listenTo(yesButton)
   listenTo(noButton)
   listenTo(okButton)
+  listenTo(doneButton)
 
   reactions += {
     case ButtonClicked(`yesButton`) => controller.eval("Y")
     case ButtonClicked(`noButton`) => controller.eval("N")
     case ButtonClicked(`okButton`) => controller.eval("o")
     case ButtonClicked(`nextButton`) => controller.eval("a")
+    case ButtonClicked(`doneButton`) => {
+      for (i <- 0 until l.length - 1) {
+        s += l(i).toString + ","
+      }
+      s += l.last
+      controller.eval(s)
+      l = ListBuffer()
+      s = ""
+    }
     case ButtonClicked(`prevButton`) => controller.undo()
   }
 

@@ -45,7 +45,7 @@ object StrategyPatternForActionPhase {
 
   def cellar2(list: List[Player], idx: Int, strInput: String): List[Player] = {
     var l = list
-    var test = strInput.split(" ")
+    var test = strInput.split(",")
     var same = false
     var draw = 0
     if (test.length > 1) {
