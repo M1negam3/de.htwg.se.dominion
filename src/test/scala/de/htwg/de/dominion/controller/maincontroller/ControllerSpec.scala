@@ -15,13 +15,11 @@ class ControllerSpec extends WordSpec with Matchers {
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
-  val roundManager2 = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,true)
-  val roundManager3 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true)
-  val controller1 = new Controller(roundManager2)
-  val controller2 = new Controller(roundManager3)
+  var players2: List[Player] = List(Luca2,Luis)
 
 
   "A Controller" should{
@@ -58,9 +56,10 @@ class ControllerSpec extends WordSpec with Matchers {
     }
     "when in actionphase" in {
       controller.controllerState = playingState(controller)
+      controller.roundManager = controller.roundManager.copy(players = players1)
       controller.controllerState.evaluate("k")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (1)
-      controller.roundManager = controller.roundManager.copy(players = players1)
+      controller.roundManager = controller.roundManager.copy(players = players2)
       controller.controllerState.evaluate("k")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (3)
 
