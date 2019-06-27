@@ -13,7 +13,7 @@ class ControllerSpec extends WordSpec with Matchers {
   var names1: List[String] = List("Luca1","Luis")
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand1,Nil,1,1,0,0)
+  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
