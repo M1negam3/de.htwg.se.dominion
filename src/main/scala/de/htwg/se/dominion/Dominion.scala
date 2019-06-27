@@ -8,9 +8,9 @@ object Dominion {
 
   val controller = new Controller(new RoundManager())
   val tui = new Tui(controller)
-  val gui = new SwingGui(controller)
+  //val gui = new SwingGui(controller)
   controller.notifyObservers
-  //test
+
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
