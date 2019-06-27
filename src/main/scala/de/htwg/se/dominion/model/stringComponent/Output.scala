@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model.stringComponent
 
 
+import de.htwg.se.dominion.model.OutputInterface
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import de.htwg.se.dominion.model.playerComponent._
 import de.htwg.se.dominion.model.gameComponent.{GameTurn, StrategyPatternForActionPhase}
@@ -8,11 +9,11 @@ import de.htwg.se.dominion.model.gameComponent.{GameTurn, StrategyPatternForActi
 import scala.collection.mutable.ListBuffer
 import de.htwg.se.dominion.model.gameComponent.GameTurn
 
-object Output {
+object Output extends OutputInterface {
 
   var check = false
 
-  def printHeader(): String = {
+  override def printHeader(): String = {
     Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
@@ -25,7 +26,7 @@ object Output {
     """.stripMargin
   }
 
-  def printPrep(): String = {
+  override def printPrep(): String = {
     Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
@@ -39,7 +40,7 @@ object Output {
     """.stripMargin
   }
 
-  def printNextTurn(): String = {
+  override def printNextTurn(): String = {
     Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
@@ -53,29 +54,29 @@ object Output {
     """.stripMargin
   }
 
-  def printActionPhase(): String = {
+  override def printActionPhase(): String = {
     Console.BLACK +
       """
     ════════════════════════════════════════════ Action Phase ═════════════════════════════════════════════
     """.stripMargin
   }
 
-  def printBuyPhase(): String = {
+  override def printBuyPhase(): String = {
     Console.BLACK +
       """
     ═══════════════════════════════════════════ Buy Phase ═════════════════════════════════════════════════
     """.stripMargin
   }
 
-  def printTurn(idx: Int): String = {
+  override def printTurn(idx: Int): String = {
     Console.BLUE + " Player " + (idx + 1) + "`s turn!\n"
   }
 
-  def printTurnEnd(idx: Int): String = {
+  override def printTurnEnd(idx: Int): String = {
     Console.BLUE + "     Player " + (idx + 1) + "`s turn ends!\n"
   }
 
-  def printEnd(): String = {
+  override def printEnd(): String = {
     Console.BLACK +
       """
     ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
@@ -86,7 +87,7 @@ object Output {
     """.stripMargin
   }
 
-  def printScore(m: List[(Int, String)]): String = {
+  override def printScore(m: List[(Int, String)]): String = {
     var s = Console.BLACK + "    ╔═══════════════════════════════════════════ Score ═══════════════════════════════════════════════════╗\n \n" +
             "                                            Player | Points \n \n"
     for (i <- 0 until m.length) {
@@ -97,11 +98,11 @@ object Output {
       "\n \n" + printEnd()
     s
   }
-  def printPlayerQuestion(): String = {
+  override def printPlayerQuestion(): String = {
     Console.BLUE + "\n     How many Player´s are you?(between 2 and 5)\n"
   }
 
-  def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
+  override def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String = {
     var actionString: String = ""
     var s: String = ""
     var t: String = Console.BLUE + "     Player " + (playerturn + 1) + "`s turn\n"
@@ -265,7 +266,6 @@ object Output {
         s += "\n"
         Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.RED + "      You dont have a Money Card on your Hand to upgrade!\n"
       }
-      case _ => "MÖP"
     }
   }
 }

@@ -1,14 +1,17 @@
 package de.htwg.se.dominion.model.playerComponent
 
+import de.htwg.se.dominion.model.PlayerInterface
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil, hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1, stringValue: Int = 0, money: Int = 0) {
+case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil,
+                  hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1,
+                  stringValue: Int = 0, money: Int = 0) {
   override def toString: String = this.name
 }
 
-object Player {
+object Player extends PlayerInterface{
 
   var deckLength = 0
   var copiedPlayer: Player = new Player()

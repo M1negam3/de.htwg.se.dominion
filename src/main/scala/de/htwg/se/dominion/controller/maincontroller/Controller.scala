@@ -18,7 +18,7 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
   var gameStatus: GameStatus = GameStatus.IDLE
   var controllerState: ControllerState = PlayerCountState(this)
 
-  def eval(input: String): Unit = {
+  override def eval(input: String): Unit = {
     undoManager.doStep(new SetCommand(this))
     controllerState.evaluate(input)
     notifyObservers
@@ -36,9 +36,9 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   def nextState(): Unit = controllerState = controllerState.nextState
 
-  def getCurrentStateAsString: String = controllerState.getCurrentStateAsString
+  override def getCurrentStateAsString: String = controllerState.getCurrentStateAsString
 
-  def controllerStateAsString: String = {
+  override def controllerStateAsString: String = {
     controllerState match {
       case _: PlayerCountState => "PlayerCountState"
       case _: NameSetupState => "NameSetupState"
@@ -47,36 +47,36 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
     }
   }
 
-  def getCurrentPlayerturn: Int = roundManager.playerturn
+  override def getCurrentPlayerturn: Int = roundManager.playerturn
 
-  def getCurrentActions: Int = roundManager.players(roundManager.playerturn).actions
+  override def getCurrentActions: Int = roundManager.players(roundManager.playerturn).actions
 
-  def getCurrentBuys: Int = roundManager.players(roundManager.playerturn).buys
+  override def getCurrentBuys: Int = roundManager.players(roundManager.playerturn).buys
 
-  def getCurrentMoney: Int = roundManager.players(roundManager.playerturn).money
+  override def getCurrentMoney: Int = roundManager.players(roundManager.playerturn).money
 
-  def getPlayerName: String = roundManager.players(roundManager.playerturn).name
+  override def getPlayerName: String = roundManager.players(roundManager.playerturn).name
 
-  def getCurrentDeck: List[Cards] = roundManager.players(roundManager.playerturn).deck
+  override def getCurrentDeck: List[Cards] = roundManager.players(roundManager.playerturn).deck
 
-  def getCurrentStacker: List[Cards] = roundManager.players(roundManager.playerturn).stacker
+  override def getCurrentStacker: List[Cards] = roundManager.players(roundManager.playerturn).stacker
 
-  def getCurrentHand: List[Cards] = roundManager.players(roundManager.playerturn).hand
+  override def getCurrentHand: List[Cards] = roundManager.players(roundManager.playerturn).hand
 
-  def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
+  override def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
 
-  def getCurrentPhase: Boolean = roundManager.action
+  override def getCurrentPhase: Boolean = roundManager.action
 
-  def getCurrentPhaseAsString(b: Boolean): String = {
+  override def getCurrentPhaseAsString(b: Boolean): String = {
     b match {
       case true => "Action Phase"
       case false => "Buy Phase"
     }
   }
 
-  def getCurrentStringValue: Int = roundManager.players(roundManager.playerturn).stringValue
+  override def getCurrentStringValue: Int = roundManager.players(roundManager.playerturn).stringValue
 
-  def getCurrentScore: List[(Int, String)] = roundManager.score
+  override def getCurrentScore: List[(Int, String)] = roundManager.score
 }
 
 object Controller {
