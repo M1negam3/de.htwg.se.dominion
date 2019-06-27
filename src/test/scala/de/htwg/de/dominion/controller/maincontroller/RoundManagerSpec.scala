@@ -11,7 +11,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
   var names: List[String] = Nil
   var score: List[(Int, String)] = Nil
   var playerturn: Int = 0
-  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,3)
+  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,3,1,0,0)
   var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
   var Luis2 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,3)
   var Luis3 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,0,1,0,3)
@@ -24,6 +24,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
   var r2 = RoundManager(list,names,2,0)
   var r3 = RoundManager(list2,names,2,1)
   var r4 = RoundManager(list2,names,2,1)
+  var r5 = RoundManager(list)
   var test2: List[Player] = List()
 
 
@@ -48,7 +49,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
       "have a editStringValue method" in {
         r.editStringValue(r2, 20) should be (list4)
       }
-      "have a updateActions1 method" ignore {
+      "have a updateA1 method" in {
         r.updateActions(r3) should be (list3)
       }
       "have a score method " in {
@@ -57,11 +58,11 @@ class RoundManagerSpec extends WordSpec with Matchers {
       "have a update Money method" in {
         r.updateMoney(r, 3) should be (test2)
       }
-      /*"have a updateActions method" in {
+      "have a updateActions method" in {
         r.updateActions(r3, 2) should be (list)
-      }*/
+      }
       "have a getHand method" in {
-        r.getHand(r) should be (r.players)
+        r.getHand(r5) should not be (r5.players)
       }
       "have a end method" in {
         r.end(r) should be (r.players)
