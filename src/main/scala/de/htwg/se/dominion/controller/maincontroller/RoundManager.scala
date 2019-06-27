@@ -5,6 +5,7 @@ import de.htwg.se.dominion.model.gameComponent._
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
+import scala.util.control.Breaks.{break, breakable}
 
 case class RoundManager(players: List[Player] = List(),
                         names: List[String] = List(),
@@ -12,7 +13,9 @@ case class RoundManager(players: List[Player] = List(),
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
                         playingDecks: List[List[Cards]] = GameTurn.playingDecks,
-                        action: Boolean = true) {
+                        action: Boolean = true,
+                        empty: Int = 0,
+                        end: Boolean = false) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r

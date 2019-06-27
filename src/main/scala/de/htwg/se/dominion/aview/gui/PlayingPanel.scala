@@ -57,10 +57,11 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       labelList.foreach(x => contents += x)
   }
 
-  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
+
 
   val playingDeckPanel = new FlowPanel() {
     if (controller.getCurrentPhase) {
+      val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
       val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
         private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
@@ -73,7 +74,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         contents += labelList(i)
       }
     } else {
-
+      val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
       val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
         private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)

@@ -407,6 +407,21 @@ case class playingState(controller: Controller) extends ControllerState {
             controller.roundManager = controller.roundManager.copy(players = (GameTurn.buyPhase(controller.roundManager.players,controller.roundManager.playerturn,input.toInt)),
               playingDecks = GameTurn.playingDecks)
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 31), playingDecks = GameTurn.playingDecks)
+            breakable {
+              for (i <- GameTurn.playingDecks.indices) {
+                if (GameTurn.playingDecks(i).isEmpty) {
+                  if (i == 5) {
+                    controller.roundManager = controller.roundManager.copy(end = true)
+                  }
+                  GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)
+                  controller.roundManager = controller.roundManager.copy(empty = controller.roundManager.empty + 1, playingDecks = GameTurn.playingDecks)
+                  if (controller.roundManager.empty == 3) {
+                    controller.roundManager = controller.roundManager.copy(end = true)
+                  }
+                  break
+                }
+              }
+            }
             return
           } else {
             controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 32), playingDecks = GameTurn.playingDecks)
@@ -424,15 +439,15 @@ case class playingState(controller: Controller) extends ControllerState {
     }
 
     breakable {
-      for (i <- 0 until GameTurn.playingDecks.length) {
+      for (i <- GameTurn.playingDecks.indices) {
         if (GameTurn.playingDecks(i).isEmpty) {
           if (i == 5) {
-            end = true
+            controller.roundManager = controller.roundManager.copy(end = true)
           }
           GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)
-          empty += 1
-          if (empty == 3) {
-            end = true
+          controller.roundManager = controller.roundManager.copy(empty = controller.roundManager.empty + 1, playingDecks = GameTurn.playingDecks)
+          if (controller.roundManager.empty == 3) {
+            controller.roundManager = controller.roundManager.copy(end = true)
           }
           break
         }
@@ -447,7 +462,7 @@ case class playingState(controller: Controller) extends ControllerState {
       skip = false
     }
 
-    if (end) {
+    if (controller.roundManager.end) {
       controller.gameStatus = GameStatus.IDLE
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 0), playingDecks = GameTurn.playingDecks)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.end(controller.roundManager), playingDecks = GameTurn.playingDecks)
