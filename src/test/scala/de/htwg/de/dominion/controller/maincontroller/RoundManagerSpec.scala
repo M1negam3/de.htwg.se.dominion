@@ -27,8 +27,7 @@ class RoundManagerSpec extends WordSpec with Matchers {
 
 
 
-  "A Round Manager" when {
-    "new" should {
+  "A Round Manager" should {
       "have this values" in {
         r.players should be(Nil)
         r.numberOfPlayer should be(0)
@@ -67,5 +66,4 @@ class RoundManagerSpec extends WordSpec with Matchers {
         r.end(r) should be (r.players)
       }
     }
-  }
 }
