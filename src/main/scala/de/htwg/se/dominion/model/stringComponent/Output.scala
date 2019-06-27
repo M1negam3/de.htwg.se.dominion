@@ -53,14 +53,6 @@ object Output {
     """.stripMargin
   }
 
-  def printRules(): String = {
-    // TODO REGELN
-    Console.WHITE +
-      """
-        |DAS SIND DIE REGELN
-      """.stripMargin
-  }
-
   def printActionPhase(): String = {
     Console.BLACK +
       """

@@ -60,18 +60,18 @@ class OutputSpec extends WordSpec with Matchers {
     "have a printTurn" in {
       Output.printTurn(1) should be (Console.BLUE + " Player " + 2 + "`s turn!\n")
     }
-    "have a printRules method" ignore{
-      Output.printRules() should be (Console.WHITE +
-        """
-          |DAS SIND DIE REGELN
-        """.stripMargin)
-    }
-    "have a printNextTurn" ignore {
+    "have a printNextTurn" in {
       Output.printNextTurn() should be (Console.BLACK +
         """
-          |     Press t to START the next Turn!
-          |     Press q to QUIT the Game!
-        """.stripMargin)
+    ╔═══════════════════════════════════════════ Dominion ════════════════════════════════════════════════╗
+    |
+    |                                    Press any Button to START the next Turn!
+    |                                    Press r to REDO your Turn!
+    |                                    Press u to Reset the Game!
+    |                                    Press q to QUIT the Game!
+    |
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════════════╝
+    """.stripMargin)
     }
     "have a printTurnEnd" in {
       Output.printTurnEnd(1) should be (Console.BLUE + "     Player " + 2 + "`s turn ends!\n")
