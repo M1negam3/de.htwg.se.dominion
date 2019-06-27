@@ -64,11 +64,7 @@ object GameTurn {
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
       // new
-
-      l = Player.updatePlayer(l, Player.draw(l(index), draw))/*
-      actions += playingCards.head.ActionValue
-      actions -= 1
-      l = Player.updatePlayer(l, updateStacker(l(index), playingCards.head))*/
+      l = Player.updatePlayer(l, Player.draw(l(index), draw))
       actions += playingCards.head.ActionValue
       playingCards.head.CardName match {
         case "Cellar" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))

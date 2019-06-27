@@ -11,8 +11,8 @@ import scala.collection.immutable
 import scala.swing._
 import Swing._
 import scala.collection.mutable.ListBuffer
-import scala.swing.event.{ButtonClicked, MouseClicked}
-import scala.util.control.Breaks.{breakable, break}
+import scala.swing.event.{ButtonClicked, Key, KeyPressed, MouseClicked}
+import scala.util.control.Breaks.{break, breakable}
 
 class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
@@ -48,7 +48,8 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
         icon = new ImageIcon(resize)
         listenTo(mouse.clicks)
-        if (controller.getCurrentStringValue == 4) {
+        if (controller.getCurrentStringValue == 4 || controller.getCurrentStringValue == 8 || controller.getCurrentStringValue == 9
+          || controller.getCurrentStringValue == 14 || controller.getCurrentStringValue == 37) {
           reactions += {
             case _: MouseClicked => controller.eval((i).toString)
           }
@@ -56,8 +57,6 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       }
       labelList.foreach(x => contents += x)
   }
-
-
 
   val playingDeckPanel = new FlowPanel() {
     if (controller.getCurrentPhase) {
@@ -109,6 +108,10 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         contents += new Label("Which Card do you want to Play?")
         contents += new Label("Click on it")
       }
+      case 7 => contents += new Label("Enter the amount of Cards to Discard")
+      case 8 => contents += new Label("Choose some Card(s) by clicking on them")
+      case 9 => contents += new Label("Please choose a action Card!")
+      case 14 => contents += new Label("Choose one Moneycard to upgrade")
       case 25 => contents += new Label("Do you want to buy a Card?")
       case 30 => {
         contents += new Label("Which Card do you want to Buy?")
@@ -121,6 +124,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       case 32 => {
         contents += new Label("You cant buy that, please click a valid Card")
       }
+      case 37 => contents += new Label("Please choose a Money Card!")
     }
   }
 
@@ -131,6 +135,14 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     if (controller.getCurrentStringValue == 3 || controller.getCurrentStringValue == 25) {
       contents += yesButton
       contents += noButton
+    }
+    if (controller.getCurrentStringValue == 7) {
+      contents += new TextField {
+      listenTo(keys)
+      reactions += {
+        case KeyPressed(_, Key.Enter, _, _) => controller.eval(text)
+      }
+      }
     }
   }
 
