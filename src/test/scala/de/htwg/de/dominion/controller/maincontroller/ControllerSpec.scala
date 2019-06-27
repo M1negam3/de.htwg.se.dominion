@@ -8,14 +8,13 @@ import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
   var names: List[String] = List("Luca","Luis")
+  var names1: List[String] = List("Luca1","Luis")
   val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
-  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false,0,true)
-  val roundManager2 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true,0,false)
+  val roundManager1 = RoundManager(players1,names1,2,0,Nil,GameTurn.playingDecks,false,0,true)
+  val roundManager2 = RoundManager(players1,names1,2,0,Nil,GameTurn.playingDecks,true,0,false)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   val controller2 = new Controller(roundManager2)
-
-  var names1: List[String] = List("Luca1","Luis")
   var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
   var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
   var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
