@@ -36,7 +36,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       icon = new ImageIcon(resize)
     }
     contents += new Label {
-      text = "        Count: " + controller.getCurrentDeck.length
+      text = "    Deck Count: " + controller.getCurrentDeck.length
       font = myFont
     }
   }
@@ -49,7 +49,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         icon = new ImageIcon(resize)
         listenTo(mouse.clicks)
         if (controller.getCurrentStringValue == 4 || controller.getCurrentStringValue == 8 || controller.getCurrentStringValue == 9
-          || controller.getCurrentStringValue == 14 || controller.getCurrentStringValue == 37) {
+          || controller.getCurrentStringValue == 14 || controller.getCurrentStringValue == 37 || controller.getCurrentStringValue == 16) {
           reactions += {
             case _: MouseClicked => controller.eval((i).toString)
           }
@@ -68,6 +68,14 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         text = "Count: " + playingDecks(i).length
         font = myFont
         listenTo(mouse.clicks)
+        if (controller.getCurrentStringValue == 18 || controller.getCurrentStringValue == 23 || controller.getCurrentStringValue == 33
+          || controller.getCurrentStringValue == 21) {
+          reactions += {
+            case _: MouseClicked => {
+              controller.eval((i).toString)
+            }
+          }
+        }
       }
       for (i <- labelList.indices) {
         contents += labelList(i)
@@ -112,6 +120,10 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       case 8 => contents += new Label("Choose some Card(s) by clicking on them")
       case 9 => contents += new Label("Please choose a action Card!")
       case 14 => contents += new Label("Choose one Moneycard to upgrade")
+      case 16 => contents += new Label("Which card to you want to trash?")
+      case 18 => contents += new Label("Click on the card you want to add to your hand!")
+      case 21 => contents += new Label("Please choose a card that costs up to 4!")
+      case 23 => contents += new Label("You cant add that, please choose a valid card")
       case 25 => contents += new Label("Do you want to buy a Card?")
       case 30 => {
         contents += new Label("Which Card do you want to Buy?")
@@ -124,6 +136,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       case 32 => {
         contents += new Label("You cant buy that, please click a valid Card")
       }
+      case 33 => contents += new Label("Click on the card you want to add")
       case 37 => contents += new Label("Please choose a Money Card!")
     }
   }
