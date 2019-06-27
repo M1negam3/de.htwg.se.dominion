@@ -46,6 +46,9 @@ class ControllerSpec extends WordSpec with Matchers {
     controller.roundManager = controller.roundManager.copy(numberOfPlayer = 2)
     controller.roundManager.numberOfPlayer should be (2)
   }
+  "have a getCurrentPhaseAsString method" in {
+    controller.getCurrentPhaseAsString(false) should be ("Buy Phase")
+  }
   "A playingState" should {
     "does nothing when theres no input" in {
       controller.controllerState = playingState(controller)
@@ -54,11 +57,12 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
-      controller1.controllerState = playingState(controller1)
-      controller1.controllerState.evaluate("k")
-      controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (1)
-      controller2.controllerState.evaluate("k")
-      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (3)
+      controller.controllerState = playingState(controller)
+      controller.controllerState.evaluate("k")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (1)
+      controller.roundManager = controller.roundManager.copy(players = players1)
+      controller.controllerState.evaluate("k")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (3)
 
     }
   }
