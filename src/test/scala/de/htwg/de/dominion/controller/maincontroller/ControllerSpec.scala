@@ -7,7 +7,7 @@ import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
- val roundManager = RoundManager()
+ val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
   val controller = new Controller(roundManager)
   var names: List[String] = List("Luca","Luis")
   var names1: List[String] = List("Luca1","Luis")
@@ -58,10 +58,10 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.controllerState = playingState(controller)
       controller.roundManager = controller.roundManager.copy(players = players1)
       controller.controllerState.evaluate("k")
-      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (0)
-      controller.roundManager = controller.roundManager.copy(players = players2)
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (25)
+      //controller.roundManager = controller.roundManager.copy(players = players2)
       controller.controllerState.evaluate("")
-      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (3)
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (25)
 
     }
   }
