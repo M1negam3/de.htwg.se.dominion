@@ -109,7 +109,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller1.controllerState = playingState(controller1)
       controller1.gameStatus should not be ("IDLE")
       controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (0)
-      controller1.roundManager.score should not be (defscore)
+      controller1.roundManager.score should  be (defscore)
     }
   }
 }
