@@ -36,16 +36,29 @@ class ControllerSpec extends WordSpec with Matchers {
   "A playingState" when {
     val state = controller.controllerState
     var names: List[String] = List("Luca","Luis")
+    var names1: List[String] = List("Luca1","Luis")
+    var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
     var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
+    var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
     var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
     var players: List[Player] = List(Luca,Luis)
-    val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,true)
+    var players1: List[Player] = List(Luca1,Luis)
+    val roundManager2 = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,true)
+    val roundManager3 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,true)
+    val controller1 = new Controller(roundManager2)
+    val controller2 = new Controller(roundManager3)
     "does nothing when theres no input" in {
+      controller.controllerState = playingState(controller)
       val oldRM = controller.roundManager
       state.evaluate("")
       controller.roundManager should be(oldRM)
     }
     "when in actionphase" in {
+      controller1.controllerState = playingState(controller1)
+      controller1.eval("k")
+      controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (1)
+      controller2.eval("k")
+      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (3)
 
     }
   }
