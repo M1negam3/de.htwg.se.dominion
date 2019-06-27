@@ -31,7 +31,15 @@ class ControllerSpec extends WordSpec with Matchers {
     controller.roundManager = controller.roundManager.copy(numberOfPlayer = 2)
     controller.roundManager.numberOfPlayer should be (2)
   }
+  "A playingState" when {
+    val state = controller.controllerState
+    "does nothing when theres no input" in {
+      val oldRM = controller.roundManager
+      state.evaluate("")
+      controller.roundManager should be(oldRM)
+    }
+    "when in actionphase" in {
 
-
-
+    }
+  }
 }
