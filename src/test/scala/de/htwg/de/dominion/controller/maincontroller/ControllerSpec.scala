@@ -25,6 +25,7 @@ class ControllerSpec extends WordSpec with Matchers {
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   val controller2 = new Controller(roundManager2)
+  val defscore: List[(Int, String)] = List()
 
 
   "A Controller" should{
@@ -65,7 +66,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (0)
       controller2.controllerState = playingState(controller2)
       controller2.controllerState.evaluate("k")
-      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (1)
+      controller2.roundManager.players(controller2.roundManager.playerturn).stringValue should be (0)
 
     }
 
@@ -108,7 +109,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller1.controllerState = playingState(controller1)
       controller1.gameStatus should not be ("IDLE")
       controller1.roundManager.players(controller1.roundManager.playerturn).stringValue should be (0)
-      controller1.roundManager.score should not be (Nil)
+      controller1.roundManager.score should not be (defscore)
     }
   }
 }
