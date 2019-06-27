@@ -68,11 +68,8 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (25)
       controller.controllerState.evaluate("Y")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
-      controller1.controllerState.evaluate("0")
-      controller1.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)
-
-      /*controller.controllerState.evaluate("asd")
-      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (48)*/
+      controller.controllerState.evaluate("asd")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (48)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25),
         playingDecks = GameTurn.playingDecks)
       controller.controllerState.evaluate("N")
