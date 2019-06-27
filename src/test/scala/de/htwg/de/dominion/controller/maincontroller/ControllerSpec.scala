@@ -9,8 +9,6 @@ import org.scalatest._
 class ControllerSpec extends WordSpec with Matchers {
  val roundManager = RoundManager()
   val controller = new Controller(roundManager)
-
-
   "A Controller" should{
 
   }

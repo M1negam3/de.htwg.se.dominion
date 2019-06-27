@@ -75,6 +75,8 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
   }
 
   def getCurrentStringValue: Int = roundManager.players(roundManager.playerturn).stringValue
+
+  def getCurrentScore: List[(Int, String)] = roundManager.score
 }
 
 object Controller {
@@ -421,15 +423,18 @@ case class playingState(controller: Controller) extends ControllerState {
       }
     }
 
-    for (i <- 0 until GameTurn.playingDecks.length - 3) {
-      if (GameTurn.playingDecks(i).isEmpty) {
-        if (i == 5) {
-          end = true
-        }
-        GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)
-        empty += 1
-        if (empty == 3) {
-          end = true
+    breakable {
+      for (i <- 0 until GameTurn.playingDecks.length) {
+        if (GameTurn.playingDecks(i).isEmpty) {
+          if (i == 5) {
+            end = true
+          }
+          GameTurn.playingDecks = GameTurn.updatePlayingDecks(GameTurn.playingDecks, i)
+          empty += 1
+          if (empty == 3) {
+            end = true
+          }
+          break
         }
       }
     }
