@@ -2,7 +2,7 @@ package de.htwg.se.dominion.model.stringComponent
 
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
-import de.htwg.se.dominion.model.gameComponent.{GameTurn, StrategyPatternForActionPhase}
+import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output.check
 import org.scalatest._

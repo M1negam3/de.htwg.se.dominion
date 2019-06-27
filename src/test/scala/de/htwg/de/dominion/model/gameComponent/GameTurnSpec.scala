@@ -1,8 +1,8 @@
 package de.htwg.de.dominion.model.gameComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.{Cards, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
+import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.dominion.model.gameComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.immutable.List

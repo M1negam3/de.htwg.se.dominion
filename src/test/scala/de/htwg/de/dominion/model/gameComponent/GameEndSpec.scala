@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model.gameComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
+import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
 import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 class GameEndSpec extends WordSpec with Matchers{

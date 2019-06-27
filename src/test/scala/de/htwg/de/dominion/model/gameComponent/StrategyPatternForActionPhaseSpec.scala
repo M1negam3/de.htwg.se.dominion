@@ -2,8 +2,8 @@ package de.htwg.se.dominion.model.gameComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
 import de.htwg.se.dominion.model.gameComponent._
+import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.StrategyPatternForActionPhase
 import de.htwg.se.dominion.model.playerComponent.Player
-import de.htwg.se.dominion.model.gameComponent.StrategyPatternForActionPhase
 import org.scalatest.{Matchers, WordSpec}
 
 class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{

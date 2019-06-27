@@ -1,13 +1,14 @@
-package de.htwg.se.dominion.model.gameComponent
+package de.htwg.se.dominion.model.gameComponent.gameEndComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.gameComponent.GameEndInterface
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 
-object GameEnd {
+object GameEnd extends GameEndInterface {
 
-  def end(list: List[Player]): List[Player] = {
+  override def end(list: List[Player]): List[Player] = {
     var copiedPlayerList = list
     var copiedDeck = new ListBuffer[Cards]
     var copiedPlayerl = new ListBuffer[Player]
@@ -33,7 +34,7 @@ object GameEnd {
     updatedPlayerList
   }
 
-  def score(list: List[Player]): List[(Int, String)] = {
+  override def score(list: List[Player]): List[(Int, String)] = {
     val copiedPlayerList = list
     val pCount = copiedPlayerList.length
     var wp = 0

@@ -1,20 +1,21 @@
-package de.htwg.se.dominion.model.gameComponent
+package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
 import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.Output
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-object GameTurn {
+object GameTurn extends GameTurnInterface {
 
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck
   var draw = 0
 
 
-  def actionPhase(list: List[Player], index: Int): List[Player] = {
+  override def actionPhase(list: List[Player], index: Int): List[Player] = {
     l = list
     var actionumber = l(index).actions
     var z = 0
@@ -52,7 +53,7 @@ object GameTurn {
     l
   }
 
-  def actionPhase2(list: List[Player], index: Int, cardnumber: Int): List[Player] = {
+  override def actionPhase2(list: List[Player], index: Int, cardnumber: Int): List[Player] = {
     l = list
     var playingCards = l(index).playingCards
     var money = l(index).money
@@ -98,7 +99,7 @@ object GameTurn {
     l
   }
 
-  def buyPhase(list: List[Player], index: Int, input: Int): List[Player] = {
+  override def buyPhase(list: List[Player], index: Int, input: Int): List[Player] = {
     var l = list
     var test = l(index).money
     var copiedlist = l
@@ -109,7 +110,7 @@ object GameTurn {
     l
   }
 
-  def updateStacker(p: Player, c: Cards): Player = {
+  override def updateStacker(p: Player, c: Cards): Player = {
     var copiedPlayer = p
     val copiedCard = c
     var copiedStacker = new ListBuffer[Cards]
@@ -121,7 +122,7 @@ object GameTurn {
     new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
-  def addCardToHand(p : Player, idx: Int): Player = {
+  override def addCardToHand(p : Player, idx: Int): Player = {
     val copiedPlayer = p
     var listBuffer: ListBuffer[Cards] = ListBuffer()
     for (i <- 0 until copiedPlayer.hand.length) {
@@ -132,7 +133,7 @@ object GameTurn {
     new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, updatedHand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
-  def removeHandcard(i: Int, player: Player): Player = {
+  override def removeHandcard(i: Int, player: Player): Player = {
     val copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     for (j <- 0 until player.hand.length) {
@@ -144,7 +145,7 @@ object GameTurn {
     Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
-  def copyList(cards: List[Cards]): List[Cards] = {
+  override def copyList(cards: List[Cards]): List[Cards] = {
     var l = new ListBuffer[Cards]
 
     for (j <- 1 until cards.length) {
@@ -154,7 +155,7 @@ object GameTurn {
     copiedList
   }
 
-  def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
+  override def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
     var copiedPlayingDecks = l
     var changedList = o
     val idx = i
@@ -170,7 +171,7 @@ object GameTurn {
     updatedList
   }
 
-  def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]] = {
+  override def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]] = {
     val copiedPD = l
     var updatedPD = new ListBuffer[List[Cards]]
     for (i <- 0 until copiedPD.length) {
@@ -183,7 +184,7 @@ object GameTurn {
     updatedList
   }
 
-  def round(pCount: Int, playerTurn: Int): Int = {
+  override def round(pCount: Int, playerTurn: Int): Int = {
     val playerCount = pCount - 1
     var turn = playerTurn
     if (playerTurn > playerCount) {
@@ -192,7 +193,7 @@ object GameTurn {
     turn
   }
 
-  def endCheck(end: Boolean): String = {
+  override def endCheck(end: Boolean): String = {
     var s =
       Console.BLACK +
         """
@@ -205,7 +206,7 @@ object GameTurn {
     s
   }
 
-  def getMoney(player: Player): Int = {
+  override def getMoney(player: Player): Int = {
     val copiedPlayer = player
     var m = 0
     for (i <- 0 until copiedPlayer.hand.length) {
@@ -214,7 +215,7 @@ object GameTurn {
     m
   }
 
-  def clearHand(list: List[Player], idx : Int): List[Player] = {
+  override def clearHand(list: List[Player], idx : Int): List[Player] = {
     var l = list
     for (e <- 0 until l(idx).hand.length) {
       l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
@@ -223,7 +224,7 @@ object GameTurn {
     l
   }
 
-  def getCardsWCost4(): List[Int] = {
+  override def getCardsWCost4(): List[Int] = {
     var l: ListBuffer[Int] = new ListBuffer[Int]
     for (i <- 0 until playingDecks.length) {
       if (playingDecks(i).head.CostValue <= 4) {
@@ -234,7 +235,7 @@ object GameTurn {
     o
   }
 
-  def getCardsWC(): List[Int] = {
+  override def getCardsWC(): List[Int] = {
     var l: ListBuffer[Int] = new ListBuffer[Int]
     for (i <- 0 until playingDecks.length) {
       if (StrategyPatternForActionPhase.discardCardValue >= playingDecks(i).head.CostValue) {

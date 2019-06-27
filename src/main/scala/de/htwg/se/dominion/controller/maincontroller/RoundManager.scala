@@ -2,6 +2,9 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
 import de.htwg.se.dominion.model.gameComponent._
+import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
+import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
+import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer

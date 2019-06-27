@@ -1,4 +1,4 @@
-package de.htwg.se.dominion.model.gameComponent
+package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.{goldHeadDeck, silverHeadDeck}
 import de.htwg.se.dominion.model.playerComponent.Player

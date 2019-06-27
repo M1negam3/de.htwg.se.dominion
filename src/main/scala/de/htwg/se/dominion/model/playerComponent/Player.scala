@@ -11,14 +11,14 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
   override def toString: String = this.name
 }
 
-object Player extends PlayerInterface{
+object Player extends PlayerInterface {
 
   var deckLength = 0
   var copiedPlayer: Player = new Player()
   var copyList: List[Cards] = Nil
 
 
-  def createPlayer(pCount: Int, names: List[String]): List[Player] = {
+  override def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
       players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0,0)
@@ -27,7 +27,7 @@ object Player extends PlayerInterface{
     Players
   }
 
-  def getHand(player: Player): Player = {
+  override def getHand(player: Player): Player = {
     copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
@@ -85,7 +85,7 @@ object Player extends PlayerInterface{
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
   }
 
-  def getMoney(player: Player): Int = {
+  override def getMoney(player: Player): Int = {
     val copiedPlayer = player
     var m = 0
     for (i <- 0 until 5) {
@@ -94,7 +94,7 @@ object Player extends PlayerInterface{
     m
   }
 
-  def updatePlayer(list: List[Player], player: Player): List[Player] = {
+  override def updatePlayer(list: List[Player], player: Player): List[Player] = {
     val copiedPlayer = player
     val copiedPlayerList = list
     val idx = copiedPlayer.value - 1
@@ -110,7 +110,7 @@ object Player extends PlayerInterface{
     updatedList
   }
 
-  def draw(player: Player, n: Integer): Player = {
+  override def draw(player: Player, n: Integer): Player = {
     val copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     var listBuffer2: ListBuffer[Cards] = ListBuffer()
@@ -152,7 +152,8 @@ object Player extends PlayerInterface{
       Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
     }
   }
-  def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
+
+  override def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
     var copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     for (j <- 0 until player.hand.length) {
@@ -165,14 +166,15 @@ object Player extends PlayerInterface{
     Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck,copiedPlayer.stacker,x, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
   }
 
-  def isEmpty(player: Player): Player = {
+  override def isEmpty(player: Player): Player = {
     val copiedPlayer = player
     val copiedStacker = player.stacker
     val copiedDeck = Cards.shuffle(copiedStacker)
     val stacker: List[Cards] = Nil
     new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
   }
-  def updateMoney(player: Player,i: Int): Player ={
+
+  override def updateMoney(player: Player,i: Int): Player ={
     val cP = player
     var m = 0
     var b = 0
@@ -182,7 +184,8 @@ object Player extends PlayerInterface{
     b -= 1
     Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,cP.actions,b,cP.stringValue,m)
   }
-  def updateAction(player: Player,i: Int): Player ={
+
+  override def updateAction(player: Player,i: Int): Player ={
     val cP = player
     var a = 0
     a += cP.actions

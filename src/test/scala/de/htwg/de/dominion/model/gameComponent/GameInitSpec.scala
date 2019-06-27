@@ -2,6 +2,7 @@ package de.htwg.de.dominion.model.gameComponent
 
 import org.scalatest.{Matchers, WordSpec}
 import de.htwg.se.dominion.model.gameComponent._
+import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
 
 class GameInitSpec extends WordSpec with Matchers{
    var old: List[String] = List("Luca","Luis")
