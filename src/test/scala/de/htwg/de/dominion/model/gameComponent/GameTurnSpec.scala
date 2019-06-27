@@ -1,6 +1,6 @@
 package de.htwg.de.dominion.model.gameComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.{Cards, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, fillHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
+import de.htwg.se.dominion.model.deckComponent.cardComponent.{Cards, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
 import org.scalatest.{Matchers, WordSpec}
 import de.htwg.se.dominion.model.gameComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.Player
@@ -57,7 +57,7 @@ class GameTurnSpec extends WordSpec with Matchers{
       var test: List[List[Cards]] =List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
         estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
         cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
-        workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck)
+        workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)
       GameTurn.updatePlayingDecks(GameTurn.playingDecks, 19) should be (test)
     }
     "have a round method" in {

@@ -12,6 +12,7 @@ import scala.swing._
 import Swing._
 import scala.collection.mutable.ListBuffer
 import scala.swing.event.{ButtonClicked, MouseClicked}
+import scala.util.control.Breaks.{breakable, break}
 
 class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
@@ -40,14 +41,6 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
     }
   }
 
-  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
-  var listBuffer: ListBuffer[List[Cards]] = ListBuffer()
-  for (i <- playingDecks.indices) {
-    if (playingDecks(i).head.CostValue < 20) {
-      listBuffer += playingDecks(i)
-    }
-  }
-
   val handPanel = new BoxPanel(Orientation.Horizontal) {
       val Hand: List[Cards] = controller.getCurrentHand
       val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
@@ -64,52 +57,41 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       labelList.foreach(x => contents += x)
   }
 
-  val actualPlayingDeck: List[List[Cards]] = listBuffer.toList
-  listBuffer = ListBuffer()
+  val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
 
   val playingDeckPanel = new FlowPanel() {
     if (controller.getCurrentPhase) {
-      val labelList: immutable.IndexedSeq[Label] = for (i <- actualPlayingDeck.indices) yield new Label {
-        private val temp = new ImageIcon("src/main/resources/cards/" + actualPlayingDeck(i).head.CardName + ".png").getImage
+      val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
+        private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
         icon = new ImageIcon(resize)
-        text = "Count: " + actualPlayingDeck(i).length
+        text = "Count: " + playingDecks(i).length
         font = myFont
         listenTo(mouse.clicks)
-        if (controller.getCurrentStringValue == 30) {
-          reactions += {
-            case _: MouseClicked => controller.eval((i).toString)
-          }
-        }
       }
       for (i <- labelList.indices) {
         contents += labelList(i)
       }
     } else {
-      var listBuffer2: ListBuffer[List[Cards]] = ListBuffer()
-      for (i <- playingDecks.indices) {
-        if (controller.getCurrentMoney >= playingDecks(i).head.CostValue) {
-          listBuffer2 += playingDecks(i)
-        }
-      }
-      val actualPlayingDeck: List[List[Cards]] = listBuffer2.toList
-      listBuffer2 = ListBuffer()
-      val labelList: immutable.IndexedSeq[Label] = for (i <- actualPlayingDeck.indices) yield new Label {
-        private val temp = new ImageIcon("src/main/resources/cards/" + actualPlayingDeck(i).head.CardName + ".png").getImage
+
+      val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
+        private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
         icon = new ImageIcon(resize)
-        text = "Count: " + actualPlayingDeck(i).length
+        text = "Count: " + playingDecks(i).length
         font = myFont
         listenTo(mouse.clicks)
-        if (controller.getCurrentStringValue == 30) {
+        if (controller.getCurrentStringValue == 30 || controller.getCurrentStringValue == 32) {
           reactions += {
-            case _: MouseClicked => controller.eval((i).toString)
+            case _: MouseClicked => {
+              controller.eval((i).toString)
+            }
           }
         }
       }
-      for (i <- labelList.indices) {
-        contents += labelList(i)
-      }
+        for (i <- labelList.indices) {
+          contents += labelList(i)
+        }
     }
   }
 
@@ -134,6 +116,9 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
       case 31 => {
         contents += new Label("The Card was bought and added to your stacker!")
         contents += new Label("Press here to continue!")
+      }
+      case 32 => {
+        contents += new Label("You cant buy that, please click a valid Card")
       }
     }
   }

@@ -48,13 +48,12 @@ object Cards {
   val market = new Cards(5,0,0,1,1,1,
     1,"+1 Card, +1 Action, +1 Buy, +1 Money","Market","Action")
 
-  val fill = new Cards(100,0,0,0,0,0,0,"","","")
-
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
     estateHeadDeck.estateDeck, duchyHeadDeck.duchyDeck, provinceHeadDeck.provinceDeck, cellarHeadDeck.cellarDeck,
     villageHeadDeck.villageDeck, merchantHeadDeck.merchantDeck, workshopHeadDeck.workshopDeck, smithyHeadDeck.smithyDeck,
-    remodelHeadDeck.remodelDeck, gardensHeadDeck.gardensDeck, festivalHeadDeck.festivalDeck, mineHeadDeck.mineDeck, marketHeadDeck.marketDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck, fillHeadDeck.fillDeck)
+    remodelHeadDeck.remodelDeck, gardensHeadDeck.gardensDeck, festivalHeadDeck.festivalDeck, mineHeadDeck.mineDeck,
+    marketHeadDeck.marketDeck)
 
   // Starting Decks
   val startDeck : List[Cards] = List(copper, copper, copper, copper, copper, copper, copper, estate, estate, estate)
@@ -159,8 +158,4 @@ object marketHeadDeck extends createMarketHeadDeck {
 
   val marketDeck: List[Cards] = createDeck
 
-}
-object fillHeadDeck extends createFillHeadDeck {
-
-  val fillDeck: List[Cards] = createDeck
 }
