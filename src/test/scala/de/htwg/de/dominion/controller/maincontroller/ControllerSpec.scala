@@ -61,10 +61,10 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (25)
       controller.controllerState.evaluate("Y")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
-      controller.controllerState.evaluate("")
-      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (24)
-      controller.controllerState.evaluate("N")
-      controller.roundManager.action should be (true)
+      controller.controllerState.evaluate("asd")
+      controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (32)
+      /*controller.controllerState.evaluate("N")
+      controller.roundManager.action should be (true)*/
 
     }
   }
