@@ -1,7 +1,6 @@
 package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{goldHeadDeck, silverHeadDeck}
-import de.htwg.se.dominion.model.deckComponent.cardComponent.goldHeadDeck
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 object StrategyPatternForActionPhase {
