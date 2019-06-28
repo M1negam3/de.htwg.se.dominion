@@ -13,6 +13,7 @@ case class StrategyPatternForActionPhase(playerInterface: PlayerInterface,static
   var discardAmount = 0
   var discardCardValue = 0
 
+
   def getCardname(list:List[PlayerInterface], playerTurn: Int, input: Int): List[PlayerInterface] = {
     val l = list
     l(playerTurn).getPlayingCards.head.CardName match {
@@ -92,11 +93,11 @@ case class StrategyPatternForActionPhase(playerInterface: PlayerInterface,static
           if (input < l(idx).getHand.length) {
             if (l(idx).getHand(input).CardName == "Copper") {
               l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.upgrading(l(idx), input, silverHeadDeck.silverDeck))
-              staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(GameTurn().playingDecks(1)), 1)
+              //staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(staticGameTurnInterface.getPlayingDecks(1)), 1)
               l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 35, l(idx).getMoney))
             } else if (l(idx).getHand(input).CardName == "Silver" || l(idx).getHand(input).CardName == "Gold") {
               l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.upgrading(l(idx), input, goldHeadDeck.goldDeck))
-              staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(GameTurn().playingDecks(2)), 2)
+              //staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(GameTurn().playingDecks(2)), 2)
               l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 36, l(idx).getMoney))
             }
           } else {
@@ -130,7 +131,7 @@ case class StrategyPatternForActionPhase(playerInterface: PlayerInterface,static
     val cards = gameTurnInterface.getCardsWC()
     if (cards.contains(input)) {
       l = staticPlayerInterface.updatePlayer(l, gameTurnInterface.addCardToHand(l(idx), input))
-      staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, GameTurn().copyList(GameTurn().playingDecks(input)), input)
+      //staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(staticGameTurnInterface.getPlayingDecks(input)), input)
       l = staticPlayerInterface.updatePlayer(l, playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 40, l(idx).getMoney))
     } else {
       l = staticPlayerInterface.updatePlayer(l, playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 23, l(idx).getMoney))
@@ -140,10 +141,10 @@ case class StrategyPatternForActionPhase(playerInterface: PlayerInterface,static
 
   def workshop(list: List[PlayerInterface], idx: Int, input: Int): List[PlayerInterface] = {
     var l = list
-    val cards = GameTurn().getCardsWCost4()
+    val cards = gameTurnInterface.getCardsWCost4()
     if (cards.contains(input)) {
       l = staticPlayerInterface.updatePlayer(l, gameTurnInterface.updateStacker(l(idx), staticGameTurnInterface.getPlayingDecks(input).head))
-      staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(GameTurn().playingDecks(input)), input)
+      //staticGameTurnInterface.getPlayingDecks = gameTurnInterface.updateDeck(staticGameTurnInterface.getPlayingDecks, gameTurnInterface.copyList(GameTurn().playingDecks(input)), input)
       l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 40, l(idx).getMoney))
     } else {
       l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 21, l(idx).getMoney))

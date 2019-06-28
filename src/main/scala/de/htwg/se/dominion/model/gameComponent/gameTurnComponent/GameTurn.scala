@@ -251,8 +251,8 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
     staticGameTurnInterface(Card.playingDeck)
   }
 }
-case class StaticGameTurn(playingDecks) extends StaticGameTurnInterface {
+case class StaticGameTurn(playingDecks: List[List[Card]]) extends StaticGameTurnInterface {
 
-  override def getPlayingDecks: List[List[Card]] = { playingDecks }
+  override def getPlayingDecks: List[List[Card]] = { playingDecks}
 
 }

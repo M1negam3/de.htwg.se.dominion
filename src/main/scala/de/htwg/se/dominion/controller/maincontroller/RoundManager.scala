@@ -5,7 +5,7 @@ import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
 import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
 import de.htwg.se.dominion.model.gameComponent.GameInitInterface
 import de.htwg.se.dominion.model.gameComponent.GameEndInterface
@@ -23,11 +23,11 @@ case class RoundManager(players: List[PlayerInterface] = List(),
                         action: Boolean = true,
                         empty: Int = 0,
                         end: Boolean = false,
-                        playerInterface: PlayerInterface,
+                        playerInterface: PlayerInterface  ,
                         staticPlayerInterface: StaticPlayerInterface,
                         gameInitInterface: GameInitInterface,
                         gameEndInterface: GameEndInterface,
-                        gameTurnInterface: GameTurnInterface,
+                        gameTurnInterface: GameTurnInterface ,
                         staticGameTurnInterface: StaticGameTurnInterface
                        ) {
 

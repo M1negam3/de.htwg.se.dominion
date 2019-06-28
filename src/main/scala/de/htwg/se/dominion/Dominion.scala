@@ -3,6 +3,10 @@ package de.htwg.se.dominion
 import de.htwg.se.dominion.aview.Tui
 import de.htwg.se.dominion.aview.gui.SwingGui
 import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.gameComponent.GameInitInterface
+import de.htwg.se.dominion.model.gameComponent.GameEndInterface
+import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTurnInterface}
 
 object Dominion {
 

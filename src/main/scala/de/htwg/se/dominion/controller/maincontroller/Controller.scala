@@ -266,7 +266,7 @@ case class playingState(controller: Controller) extends ControllerState {
           if (controller.roundManager.players(controller.roundManager.playerturn).getStringValue == 19) {
             if (Controller.toInt(input).isEmpty) {
               controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 47),
-                playingDecks = GameTurn().playingDecks)
+                playingDecks = controller.roundManager.staticGameTurnInterface.getPlayingDecks)
               runthrough = 4
               return
             }
