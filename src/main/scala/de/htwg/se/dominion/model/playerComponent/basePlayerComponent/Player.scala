@@ -5,44 +5,56 @@ import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerI
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String, value: Int, deck: List[Card], stacker: List[Card], hand: List[Card],playingCards: List[Card],actions: Int,buys: Int,stringValue: Int, money: Int) extends PlayerInterface {
+case class Player(name: String, value: Int, deck: List[Card], stacker: List[Card], hand: List[Card],
+                  playingCards: List[Card], actions: Int, buys: Int,stringValue: Int, money: Int) extends PlayerInterface {
+
   override def toString: String = this.name
+
   override def getName: String = {
     name
   }
+
   override def getValue: Int= {
     value
   }
+
   override def getDeck: List[Card] = {
     deck
   }
+
   override def getStacker: List[Card] = {
     stacker
   }
+
   override def getHand: List[Card] = {
     hand
   }
+
   override def getPlayingCards: List[Card] = {
     playingCards
   }
+
   override def getActions: Int = {
     actions
   }
+
   override def getBuys: Int = {
     buys
   }
+
   override def getStringValue: Int = {
     stringValue
   }
+
   override def getMoney: Int = {
     money
   }
 
 }
-  case class StaticPlayer() extends StaticPlayerInterface {
+
+case class StaticPlayer() extends StaticPlayerInterface {
   var deckLength = 0
   var copyList: List[Card] = Nil
-
 
   override def createPlayer(pCount: Int, names: List[String]): List[PlayerInterface] = {
     var players = new ListBuffer[Player]
