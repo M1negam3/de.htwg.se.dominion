@@ -8,7 +8,7 @@ import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-object GameTurn extends GameTurnInterface {
+case class GameTurn() extends GameTurnInterface {
 
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck
@@ -22,7 +22,7 @@ object GameTurn extends GameTurnInterface {
 
     if (actionumber == 0) {
       actionumber = 0
-      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand,
+      l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand,
         l(index).playingCards, actionumber, 1, 1, l(index).money))
       return l
     }
@@ -41,12 +41,12 @@ object GameTurn extends GameTurnInterface {
           }
         }
         if (z.equals(l(index).hand.length)) {
-          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
+          l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
             l(index).hand, l(index).playingCards, actionumber, 1, 1, l(index).money))
           break
         }
         z = 0
-        l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
+        l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker,
           l(index).hand, l(index).playingCards, actionumber, 1, 3, l(index).money))
       }
     }
@@ -62,16 +62,16 @@ object GameTurn extends GameTurnInterface {
 
     if (cardnumber < l(index).hand.length && l(index).hand(cardnumber).Type == "Action") {
       playingCards = l(index).hand(cardnumber) :: Nil
-      l = Player.updatePlayer(l, updateStacker(l(index), l(index).hand(cardnumber)))
-      l = Player.updatePlayer(l, removeHandcard(cardnumber, l(index)))
+      l = Player().updatePlayer(l, updateStacker(l(index), l(index).hand(cardnumber)))
+      l = Player().updatePlayer(l, removeHandcard(cardnumber, l(index)))
       money += playingCards.head.BonusMoneyValue
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
       // new
-      l = Player.updatePlayer(l, Player.draw(l(index), draw))
+      l = Player().updatePlayer(l, Player().draw(l(index), draw))
       actions += playingCards.head.ActionValue
       playingCards.head.CardName match {
-        case "Cellar" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))
+        case "Cellar" => l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 7, money))
         case "Mine" => {
           var count = 0
           for (i <- 0 until l(index).hand.length) {
@@ -80,21 +80,21 @@ object GameTurn extends GameTurnInterface {
             }
           }
           if (count > 0) {
-            l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
+            l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 14, money))
           } else {
-            l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 49, money))
+            l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 49, money))
           }
         }
-        case "Remodel" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
-        case "Workshop" => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
+        case "Remodel" => l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 16, money))
+        case "Workshop" => l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 33, money))
         case "Merchant" => {
-          l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, l(index).stringValue, money))
+          l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, l(index).stringValue, money))
           l = StrategyPatternForActionPhase.merchant(l, index)
         }
-        case _ => l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 5, money))
+        case _ => l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 5, money))
       }
     } else {
-      l = Player.updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 9, money))
+      l = Player().updatePlayer(l, new Player(l(index).name, l(index).value, l(index).deck, l(index).stacker, l(index).hand, playingCards, actions, buys, 9, money))
     }
     l
   }
@@ -104,8 +104,8 @@ object GameTurn extends GameTurnInterface {
     var test = l(index).money
     var copiedlist = l
     var copiedCard = playingDecks(input).head
-    l = Player.updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
-    l = Player.updatePlayer(l, Player.updateMoney(l(index), copiedCard.CostValue))
+    l = Player().updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
+    l = Player().updatePlayer(l, Player().updateMoney(l(index), copiedCard.CostValue))
     playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
     l
   }
@@ -201,7 +201,7 @@ object GameTurn extends GameTurnInterface {
           |     Press q to QUIT the Game!
         """.stripMargin
     if (end) {
-      s = Output.printEnd()
+      s = Output().printEnd()
     }
     s
   }
@@ -218,9 +218,9 @@ object GameTurn extends GameTurnInterface {
   override def clearHand(list: List[Player], idx : Int): List[Player] = {
     var l = list
     for (e <- 0 until l(idx).hand.length) {
-      l = Player.updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
+      l = Player().updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
     }
-    l = Player.updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Cards](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
+    l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Cards](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
     l
   }
 

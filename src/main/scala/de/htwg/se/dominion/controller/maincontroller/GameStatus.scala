@@ -7,11 +7,11 @@ object GameStatus extends Enumeration {
   type GameStatus = Value
   val IDLE, PREP, ACTION, BUY = Value
 
-  val map = Map[GameStatus, String] (
+  val map: Map[GameStatus, String] = Map[GameStatus, String] (
     IDLE -> "",
-    PREP -> Output.printNextTurn(),
-    ACTION -> Output.printActionPhase(),
-    BUY -> Output.printBuyPhase()
+    PREP -> Output().printNextTurn(),
+    ACTION -> Output().printActionPhase(),
+    BUY -> Output().printBuyPhase()
     )
 
   def message(gameStatus: GameStatus): String = {

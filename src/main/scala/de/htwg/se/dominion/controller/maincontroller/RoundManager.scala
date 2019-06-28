@@ -15,15 +15,15 @@ case class RoundManager(players: List[Player] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Cards]] = GameTurn.playingDecks,
+                        playingDecks: List[List[Cards]] = GameTurn().playingDecks,
                         action: Boolean = true,
                         empty: Int = 0,
                         end: Boolean = false) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
-    val names = GameInit.getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn.playingDecks)
+    val names = GameInit().getPlayerName(copiedRoundManagerRe.names, name)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn().playingDecks)
   }
 
   def getNameSetupStrings(): String = {
@@ -40,19 +40,19 @@ case class RoundManager(players: List[Player] = List(),
 
   def createPlayer(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = Player.createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
+    val p = Player().createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
     p
   }
 
   def actionPhase(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = GameTurn.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
+    val p = GameTurn().actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
     p
   }
 
   def actionPhase2(r: RoundManager, cardnumber: Int): List[Player] = {
     val copiedRoundManagerRe = r
-    val p = GameTurn.actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
+    val p = GameTurn().actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
     p
   }
 
@@ -130,20 +130,20 @@ case class RoundManager(players: List[Player] = List(),
   def getHand(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
-    l = Player.updatePlayer(l, Player.getHand(l(copiedRoundManagerRe.playerturn)))
+    l = Player().updatePlayer(l, Player().getHand(l(copiedRoundManagerRe.playerturn)))
     l
   }
 
   def end(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
-    l = GameEnd.end(l)
+    l = GameEnd().end(l)
     l
   }
 
   def score(r: RoundManager): List[(Int, String)] = {
     val copiedRoundManagerRe = r
-    val score = GameEnd.score(copiedRoundManagerRe.players)
+    val score = GameEnd().score(copiedRoundManagerRe.players)
     score
   }
 }

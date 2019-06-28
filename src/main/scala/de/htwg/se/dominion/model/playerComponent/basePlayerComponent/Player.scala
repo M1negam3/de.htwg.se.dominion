@@ -7,14 +7,12 @@ import scala.collection.mutable.ListBuffer
 
 case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil,
                   hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1,
-                  stringValue: Int = 0, money: Int = 0) {
-  override def toString: String = this.name
-}
+                  stringValue: Int = 0, money: Int = 0) extends PlayerInterface {
 
-object Player extends PlayerInterface {
+  override def toString: String = this.name
 
   var deckLength = 0
-  var copiedPlayer: Player = new Player()
+  //var copiedPlayer: Player = Player()
   var copyList: List[Cards] = Nil
 
 
@@ -28,7 +26,7 @@ object Player extends PlayerInterface {
   }
 
   override def getHand(player: Player): Player = {
-    copiedPlayer = player
+    var copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
     var l = new ListBuffer[Cards]

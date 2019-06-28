@@ -6,7 +6,7 @@ import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 
-object GameEnd extends GameEndInterface {
+case class GameEnd() extends GameEndInterface {
 
   override def end(list: List[Player]): List[Player] = {
     var copiedPlayerList = list

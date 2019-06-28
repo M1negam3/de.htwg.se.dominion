@@ -40,32 +40,32 @@ class GameTurnSpec extends WordSpec with Matchers{
 
     }
     "have an updateStacker method" in {
-      GameTurn.updateStacker(Luca, Cards.copper) should be (Luca4)
+      GameTurn().updateStacker(Luca, Cards.copper) should be (Luca4)
     }
     "have an addCardToHand method" in {
-      GameTurn.addCardToHand(Luca2, 0) should be
+      GameTurn().addCardToHand(Luca2, 0) should be
     }
     "have a removeHandCard method " in {
-      GameTurn.removeHandcard(0, Luca) should be (Luca1)
+      GameTurn().removeHandcard(0, Luca) should be (Luca1)
     }
     "have a copyList method " in {
-      GameTurn.copyList(copiedCards2) should be (copiedCards1)
+      GameTurn().copyList(copiedCards2) should be (copiedCards1)
     }
     "have an updateDeck method" in{
-      GameTurn.updateDeck(listlist,List(Cards.silver,Cards.silver), 1) should be (listlist2)
+      GameTurn().updateDeck(listlist,List(Cards.silver,Cards.silver), 1) should be (listlist2)
     }
     "have an updatePlayingDecks method" ignore {
       var test: List[List[Cards]] =List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
         estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
         cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
         workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)
-      GameTurn.updatePlayingDecks(GameTurn.playingDecks, 19) should be (test)
+      GameTurn().updatePlayingDecks(GameTurn().playingDecks, 19) should be (test)
     }
     "have a round method" in {
-      GameTurn.round(2,3) should be (0)
+      GameTurn().round(2,3) should be (0)
     }
     "have an endCheck method" in {
-      GameTurn.endCheck(end) should be (
+      GameTurn().endCheck(end) should be (
         Console.BLACK +
           """
     ╔═══════════════════════════════════════════ Game End ════════════════════════════════════════════════╗
@@ -76,16 +76,16 @@ class GameTurnSpec extends WordSpec with Matchers{
     """.stripMargin)
     }
     "have a getMoney method" in {
-      GameTurn.getMoney(list(0)) should be (5)
+      GameTurn().getMoney(list(0)) should be (5)
     }
     "have a clearHand method" in {
-      GameTurn.clearHand(list,0) should not be (list(0).hand.length == 1)
+      GameTurn().clearHand(list,0) should not be (list(0).hand.length == 1)
     }
     "have a getCardsWCost4" in {
-      GameTurn.getCardsWCost4() should be (x)
+      GameTurn().getCardsWCost4() should be (x)
     }
     "have a getCardsWC method " in {
-      GameTurn.getCardsWC() should be(y)
+      GameTurn().getCardsWC() should be(y)
     }
   }
 }
