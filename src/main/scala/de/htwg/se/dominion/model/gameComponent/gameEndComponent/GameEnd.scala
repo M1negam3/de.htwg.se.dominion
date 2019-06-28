@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model.gameComponent.gameEndComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.GameEndInterface
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
@@ -10,9 +10,9 @@ case class GameEnd() extends GameEndInterface {
 
   override def end(list: List[Player]): List[Player] = {
     var copiedPlayerList = list
-    var copiedDeck = new ListBuffer[Cards]
+    var copiedDeck = new ListBuffer[Card]
     var copiedPlayerl = new ListBuffer[Player]
-    val emptyStacker: List[Cards] = Nil
+    val emptyStacker: List[Card] = Nil
     for (i <- 0 until copiedPlayerList.length) {
       if (copiedPlayerList(i).deck.nonEmpty) {
         for (f <- 0 until copiedPlayerList(i).deck.length) {
@@ -26,8 +26,8 @@ case class GameEnd() extends GameEndInterface {
         }
       }
 
-      val updatedDeck: List[Cards] = copiedDeck.toList
-      copiedDeck = ListBuffer[Cards]()
+      val updatedDeck: List[Card] = copiedDeck.toList
+      copiedDeck = ListBuffer[Card]()
       copiedPlayerl += new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand, copiedPlayerList(i).playingCards, copiedPlayerList(i).actions, copiedPlayerList(i).value, copiedPlayerList(i).stringValue, copiedPlayerList(i).money)
     }
     val updatedPlayerList: List[Player] = copiedPlayerl.toList

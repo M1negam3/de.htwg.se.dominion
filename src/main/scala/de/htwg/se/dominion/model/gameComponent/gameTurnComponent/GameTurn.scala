@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
@@ -11,7 +11,7 @@ import scala.util.control.Breaks.{break, breakable}
 case class GameTurn() extends GameTurnInterface {
 
   var l: List[Player] = Nil
-  var playingDecks: List[List[Cards]] = Cards.playingDeck
+  var playingDecks: List[List[Card]] = Card.playingDeck
   var draw = 0
 
 
@@ -110,21 +110,21 @@ case class GameTurn() extends GameTurnInterface {
     l
   }
 
-  override def updateStacker(p: Player, c: Cards): Player = {
+  override def updateStacker(p: Player, c: Card): Player = {
     var copiedPlayer = p
     val copiedCard = c
-    var copiedStacker = new ListBuffer[Cards]
+    var copiedStacker = new ListBuffer[Card]
     for (i <- 0 until copiedPlayer.stacker.length) {
       copiedStacker += copiedPlayer.stacker(i)
     }
     copiedStacker += copiedCard
-    val updatedStacker: List[Cards] = copiedStacker.toList
+    val updatedStacker: List[Card] = copiedStacker.toList
     new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, updatedStacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
   override def addCardToHand(p : Player, idx: Int): Player = {
     val copiedPlayer = p
-    var listBuffer: ListBuffer[Cards] = ListBuffer()
+    var listBuffer: ListBuffer[Card] = ListBuffer()
     for (i <- 0 until copiedPlayer.hand.length) {
       listBuffer += copiedPlayer.hand(i)
     }
@@ -135,31 +135,31 @@ case class GameTurn() extends GameTurnInterface {
 
   override def removeHandcard(i: Int, player: Player): Player = {
     val copiedPlayer = player
-    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    var listBuffer1: ListBuffer[Card] = ListBuffer()
     for (j <- 0 until player.hand.length) {
       listBuffer1 += player.hand(j)
     }
-    var z: List[Cards] = Nil
+    var z: List[Card] = Nil
     listBuffer1 -= player.hand(i)
     z = listBuffer1.toList
     Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
 
-  override def copyList(cards: List[Cards]): List[Cards] = {
-    var l = new ListBuffer[Cards]
+  override def copyList(cards: List[Card]): List[Card] = {
+    var l = new ListBuffer[Card]
 
     for (j <- 1 until cards.length) {
       l += cards(j)
     }
-    val copiedList: List[Cards] = l.toList
+    val copiedList: List[Card] = l.toList
     copiedList
   }
 
-  override def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]] = {
+  override def updateDeck(l: List[List[Card]], o: List[Card], i: Int): List[List[Card]] = {
     var copiedPlayingDecks = l
     var changedList = o
     val idx = i
-    var updatedPlayingDeck: ListBuffer[List[Cards]] = ListBuffer()
+    var updatedPlayingDeck: ListBuffer[List[Card]] = ListBuffer()
     for (i <- 0 until copiedPlayingDecks.length) {
       if (i == idx) {
         updatedPlayingDeck += changedList
@@ -167,20 +167,20 @@ case class GameTurn() extends GameTurnInterface {
         updatedPlayingDeck += copiedPlayingDecks(i)
       }
     }
-    val updatedList: List[List[Cards]] = updatedPlayingDeck.toList
+    val updatedList: List[List[Card]] = updatedPlayingDeck.toList
     updatedList
   }
 
-  override def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]] = {
+  override def updatePlayingDecks(l: List[List[Card]], idx: Int): List[List[Card]] = {
     val copiedPD = l
-    var updatedPD = new ListBuffer[List[Cards]]
+    var updatedPD = new ListBuffer[List[Card]]
     for (i <- 0 until copiedPD.length) {
       updatedPD += copiedPD(i)
       if (i == idx) {
         updatedPD -= updatedPD(i)
       }
     }
-    val updatedList: List[List[Cards]] = updatedPD.toList
+    val updatedList: List[List[Card]] = updatedPD.toList
     updatedList
   }
 
@@ -220,7 +220,7 @@ case class GameTurn() extends GameTurnInterface {
     for (e <- 0 until l(idx).hand.length) {
       l = Player().updatePlayer(l, updateStacker(l(idx), l(idx).hand(e)))
     }
-    l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Cards](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
+    l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, List[Card](),l(idx).playingCards,l(idx).actions,1,l(idx).stringValue,0))
     l
   }
 

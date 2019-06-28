@@ -1,7 +1,7 @@
 package de.htwg.de.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
@@ -10,12 +10,12 @@ class ControllerSpec extends WordSpec with Matchers {
   var names: List[String] = List("Luca","Luis")
   var names1: List[String] = List("Luca1","Luis")
 
-  var hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.village)
-  var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var Luca = Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
-  var Luca1 = Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
-  var Luca2 = Player("Luca",0,Cards.startDeck,Cards.stacker,hand,Nil,1,1,0,0)
-  var Luis = Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
+  var hand: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.village)
+  var hand1: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  var Luca = Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
+  var Luca1 = Player("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = Player("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
+  var Luis = Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
   var players2: List[Player] = List(Luca2,Luis)

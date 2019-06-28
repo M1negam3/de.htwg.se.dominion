@@ -1,6 +1,6 @@
 package de.htwg.de.dominion.model.playerComponent.basePlayerComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
@@ -9,26 +9,26 @@ import scala.collection.immutable.List
 class PlayerSpec extends WordSpec with Matchers {
   val pCount = 2
   val names: List[String] = List("Luca","Luis")
-  val hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  val silver: List[Cards] = List(Cards.silver,Cards.silver,Cards.silver,Cards.silver,Cards.silver)
-  var Luca = Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand)
-  var Luis = Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
+  val hand: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  val silver: List[Card] = List(Card.silver,Card.silver,Card.silver,Card.silver,Card.silver)
+  var Luca = Player("Luca",0,Card.startDeck,Card.stacker,Card.hand)
+  var Luis = Player("Luis",0,Card.startDeck,Card.stacker,hand)
   var list: List[Player] = List(Luca,Luis)
-  var stacker: List[Cards] = Cards.startDeck
-  var deck: List[Cards] = Nil
-  var deck1: List[Cards] = List(Cards.copper)
-  var deck2: List[Cards] = List(Cards.copper,Cards.copper)
-  var deck3: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper)
-  var deck4: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var Luca0 = Player("Luca",0,deck,stacker,Cards.hand)
-  var Luca2 = Player("Luca",0,deck2,stacker,Cards.hand)
-  var Luca3 = Player("Luca",0,deck3,stacker,Cards.hand)
-  var Luca4 = Player("Luca",0,deck4,stacker,Cards.hand)
-  var Luca1 = Player("Luca",0,deck1,stacker,Cards.hand)
+  var stacker: List[Card] = Card.startDeck
+  var deck: List[Card] = Nil
+  var deck1: List[Card] = List(Card.copper)
+  var deck2: List[Card] = List(Card.copper,Card.copper)
+  var deck3: List[Card] = List(Card.copper,Card.copper,Card.copper)
+  var deck4: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper)
+  var Luca0 = Player("Luca",0,deck,stacker,Card.hand)
+  var Luca2 = Player("Luca",0,deck2,stacker,Card.hand)
+  var Luca3 = Player("Luca",0,deck3,stacker,Card.hand)
+  var Luca4 = Player("Luca",0,deck4,stacker,Card.hand)
+  var Luca1 = Player("Luca",0,deck1,stacker,Card.hand)
 
   "A Player" when {
     "new" should {
-      val player = Player("Your Name",0,Cards.startDeck,Cards.stacker,Cards.hand)
+      val player = Player("Your Name",0,Card.startDeck,Card.stacker,Card.hand)
       "have a name" in {
         player.name should be("Your Name")
       }
@@ -42,12 +42,12 @@ class PlayerSpec extends WordSpec with Matchers {
       Player().createPlayer(2,names) should not be (list.head == Luis)
     }
     "have a getHand method" in {
-      Player().getHand(Luca) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player().getHand(Luca0) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player().getHand(Luca1) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player().getHand(Luca2) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player().getHand(Luca3) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player().getHand(Luca4) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
+      Player().getHand(Luca0) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
+      Player().getHand(Luca1) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
+      Player().getHand(Luca2) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
+      Player().getHand(Luca3) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
+      Player().getHand(Luca4) should not be (Card.copper,Card.copper,Card.copper,Card.copper)
 
     }
     "have a getMoney method" in {
@@ -61,7 +61,7 @@ class PlayerSpec extends WordSpec with Matchers {
       Player().draw(Luca2,5) should not be (list.head.hand.length == 5)
     }
     "have a upgrading method" in {
-      Player().upgrading(Luis, 0, silver) should not be (Luis.hand.head == Cards.copper)
+      Player().upgrading(Luis, 0, silver) should not be (Luis.hand.head == Card.copper)
     }
     "have a isEmpty method " in {
       Player().isEmpty(Luca) should not be (Luca.stacker.length == 1)

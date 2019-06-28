@@ -1,7 +1,7 @@
 package de.htwg.de.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{Cards, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{Card, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
@@ -11,23 +11,23 @@ import scala.collection.immutable.List
 class GameTurnSpec extends WordSpec with Matchers{
   var x: List[Int]= List(0,1,3,6,7,8,9,10,11,12)
   var y: List[Int]= List(0)
-  val hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var hand1: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  val hand2: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var deck: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var Luca = new Player("Luca",0,Cards.startDeck,Nil,hand,hand)
-  var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
-  var Luca1 = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand1,hand)
-  var Luca2 = new Player("Luca",0,deck,Cards.stacker,hand,hand)
-  var Luca3 = new Player("Luca",0,deck,Cards.stacker,hand2,hand)
-  var Luca4 = new Player("Luca",0,Cards.startDeck,List(Cards.copper),hand,hand)
+  val hand: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  var hand1: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper)
+  val hand2: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  var deck: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  var Luca = new Player("Luca",0,Card.startDeck,Nil,hand,hand)
+  var Luis = new Player("Luis",0,Card.startDeck,Card.stacker,hand)
+  var Luca1 = new Player("Luca",0,Card.startDeck,Card.stacker,hand1,hand)
+  var Luca2 = new Player("Luca",0,deck,Card.stacker,hand,hand)
+  var Luca3 = new Player("Luca",0,deck,Card.stacker,hand2,hand)
+  var Luca4 = new Player("Luca",0,Card.startDeck,List(Card.copper),hand,hand)
   var list: List[Player] = List(Luca,Luis)
   var end = true
-  var copiedCards1: List[Cards] = List(Cards.copper)
-  var copiedCards2: List[Cards] = List(Cards.copper,Cards.copper)
-  var copiedCards3: List[Cards] = List(Cards.silver,Cards.silver)
-  var listlist: List[List[Cards]] = List(copiedCards1,copiedCards2)
-  var listlist2: List[List[Cards]] = List(copiedCards1,copiedCards3)
+  var copiedCards1: List[Card] = List(Card.copper)
+  var copiedCards2: List[Card] = List(Card.copper,Card.copper)
+  var copiedCards3: List[Card] = List(Card.silver,Card.silver)
+  var listlist: List[List[Card]] = List(copiedCards1,copiedCards2)
+  var listlist2: List[List[Card]] = List(copiedCards1,copiedCards3)
 
   "a GameTurn" should {
     "have a actionPhase method " in {
@@ -40,7 +40,7 @@ class GameTurnSpec extends WordSpec with Matchers{
 
     }
     "have an updateStacker method" in {
-      GameTurn().updateStacker(Luca, Cards.copper) should be (Luca4)
+      GameTurn().updateStacker(Luca, Card.copper) should be (Luca4)
     }
     "have an addCardToHand method" in {
       GameTurn().addCardToHand(Luca2, 0) should be
@@ -52,10 +52,10 @@ class GameTurnSpec extends WordSpec with Matchers{
       GameTurn().copyList(copiedCards2) should be (copiedCards1)
     }
     "have an updateDeck method" in{
-      GameTurn().updateDeck(listlist,List(Cards.silver,Cards.silver), 1) should be (listlist2)
+      GameTurn().updateDeck(listlist,List(Card.silver,Card.silver), 1) should be (listlist2)
     }
     "have an updatePlayingDecks method" ignore {
-      var test: List[List[Cards]] =List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
+      var test: List[List[Card]] =List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
         estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
         cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
         workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)

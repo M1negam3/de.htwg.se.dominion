@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent._
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
 import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
@@ -15,7 +15,7 @@ case class RoundManager(players: List[Player] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Cards]] = GameTurn().playingDecks,
+                        playingDecks: List[List[Card]] = GameTurn().playingDecks,
                         action: Boolean = true,
                         empty: Int = 0,
                         end: Boolean = false) {

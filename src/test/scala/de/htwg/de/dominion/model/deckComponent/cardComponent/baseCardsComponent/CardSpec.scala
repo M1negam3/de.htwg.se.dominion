@@ -1,27 +1,27 @@
 package de.htwg.de.dominion.model.deckComponent.cardComponent.baseCardsComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import org.scalatest._
 
-class CardsSpec extends WordSpec with Matchers {
+class CardSpec extends WordSpec with Matchers {
   "A Card" when {
     "new" should {
-      val copper = new Cards (0, 1, 0, 0, 0, 0, 0, "None", "Copper","Money")
-      val gold = new Cards (6, 3, 0, 0, 0, 0, 0, "None", "Gold", "Money")
-      val silver = new Cards (3, 2, 0, 0, 0, 0, 0, "None", "Silver", "Money")
-      val mansion = new Cards (2, 0, 1, 0, 0, 0, 0, "None", "Mansion", "Money")
-      val duchy = new Cards (5, 0, 3, 0, 0, 0, 0, "None", "Duchy", "Money")
-      val province = new Cards (8, 0, 6, 0, 0, 0, 0, "None", "Province", "Money")
-      val village = new Cards(3,0,0,2,0,0,1,"None","Village", "Action")
-      val festival = new Cards(5,0,0,2,1,2,0,"None","Festival", "Action")
-      val cellar = new Cards(2,0,0,1,0,0,0,"Discard any number of cards, then draw that many", "Cellar", "Action")
-      val mine = new Cards(5,0,0,0,0,0,0,"You may trash a Treasure from your hand. Gain a Treasure to your hand costing up to 3 more than it.","Mine", "Action")
-      val smithy = new Cards(4,0,0,0,0,0,3,"None","Smithy", "Action")
-      val remodel = new Cards(4,0,0,0,0,0,0,"Trash a card from your hand. Gain a card costing up to 2 more than it.","Remodel", "Action")
-      val merchant = new Cards(3,0,0,1,0,0,1,"The first time you play a Silver this turn, +1", "Merchant", "Action")
-      val workshop = new Cards(3,0,0,0,0,0,0,"Gain a card costing up to 4.", "Workshop", "Action")
-      val gardens = new Cards(4,0,0,0,0,0,0,"Worth 1 WinningPonit per 10 cards you have(round down)","Gardens", "Action")
-      val market = new Cards(5,0,0,1,1,1,1,"None","Market", "Action")
+      val copper = new Card (0, 1, 0, 0, 0, 0, 0, "None", "Copper","Money")
+      val gold = new Card (6, 3, 0, 0, 0, 0, 0, "None", "Gold", "Money")
+      val silver = new Card (3, 2, 0, 0, 0, 0, 0, "None", "Silver", "Money")
+      val mansion = new Card (2, 0, 1, 0, 0, 0, 0, "None", "Mansion", "Money")
+      val duchy = new Card (5, 0, 3, 0, 0, 0, 0, "None", "Duchy", "Money")
+      val province = new Card (8, 0, 6, 0, 0, 0, 0, "None", "Province", "Money")
+      val village = new Card(3,0,0,2,0,0,1,"None","Village", "Action")
+      val festival = new Card(5,0,0,2,1,2,0,"None","Festival", "Action")
+      val cellar = new Card(2,0,0,1,0,0,0,"Discard any number of cards, then draw that many", "Cellar", "Action")
+      val mine = new Card(5,0,0,0,0,0,0,"You may trash a Treasure from your hand. Gain a Treasure to your hand costing up to 3 more than it.","Mine", "Action")
+      val smithy = new Card(4,0,0,0,0,0,3,"None","Smithy", "Action")
+      val remodel = new Card(4,0,0,0,0,0,0,"Trash a card from your hand. Gain a card costing up to 2 more than it.","Remodel", "Action")
+      val merchant = new Card(3,0,0,1,0,0,1,"The first time you play a Silver this turn, +1", "Merchant", "Action")
+      val workshop = new Card(3,0,0,0,0,0,0,"Gain a card costing up to 4.", "Workshop", "Action")
+      val gardens = new Card(4,0,0,0,0,0,0,"Worth 1 WinningPonit per 10 cards you have(round down)","Gardens", "Action")
+      val market = new Card(5,0,0,1,1,1,1,"None","Market", "Action")
       "have a BuyValue" in {
         copper.CostValue should be(0)
         silver.CostValue should be(3)
@@ -204,10 +204,10 @@ class CardsSpec extends WordSpec with Matchers {
       }
     }
   }
-  var list: List[Cards]=List(Cards.copper,Cards.silver,Cards.gold)
+  var list: List[Card]=List(Card.copper,Card.silver,Card.gold)
   "A card " should {
     "have a method shuffle" in{
-      Cards.shuffle(list) should not be (Cards.copper,Cards.silver,Cards.gold)
+      Card.shuffle(list) should not be (Card.copper,Card.silver,Card.gold)
     }
   }
 }

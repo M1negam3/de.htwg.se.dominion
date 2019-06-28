@@ -1,7 +1,7 @@
 package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.maincontroller._
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
@@ -11,12 +11,12 @@ class RoundManagerSpec extends WordSpec with Matchers {
   var names: List[String] = Nil
   var score: List[(Int, String)] = Nil
   var playerturn: Int = 0
-  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,3,1,0,0)
-  var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,0)
-  var Luis2 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,0,3)
-  var Luis3 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,0,1,0,3)
-  var Luis4 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,1,1,20,0)
-  var Luca2 = new Player("Luis",0,Cards.startDeck,Cards.stacker,Cards.hand,Nil,3,1,20,0)
+  var Luca = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,3,1,0,0)
+  var Luis = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
+  var Luis2 = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,3)
+  var Luis3 = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,0,1,0,3)
+  var Luis4 = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,20,0)
+  var Luca2 = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,3,1,20,0)
   var list: List[Player] = List(Luca,Luis)
   var list2: List[Player] = List(Luca,Luis2)
   var list3: List[Player] = List(Luca,Luis3)

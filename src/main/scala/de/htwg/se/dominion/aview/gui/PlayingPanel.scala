@@ -3,7 +3,7 @@ package de.htwg.se.dominion.aview.gui
 import java.awt.Color
 
 import de.htwg.se.dominion.controller.maincontroller.Controller
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import javax.swing.{BorderFactory, ImageIcon, JFrame, JOptionPane}
 
 import scala.swing.BorderPanel.Position._
@@ -45,7 +45,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   var l: ListBuffer[Int] = ListBuffer()
 
   val handPanel = new BoxPanel(Orientation.Horizontal) {
-      val Hand: List[Cards] = controller.getCurrentHand
+      val Hand: List[Card] = controller.getCurrentHand
       val labelList: immutable.IndexedSeq[Label] = for (i <- Hand.indices) yield new Label {
         private val temp = new ImageIcon("src/main/resources/cards/" + Hand(i).CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
@@ -70,7 +70,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
 
   val playingDeckPanel = new FlowPanel() {
     if (controller.getCurrentPhase) {
-      val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
+      val playingDecks: List[List[Card]] = controller.getCurrentPlayingDecks
       val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
         private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
@@ -91,7 +91,7 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
         contents += labelList(i)
       }
     } else {
-      val playingDecks: List[List[Cards]] = controller.getCurrentPlayingDecks
+      val playingDecks: List[List[Card]] = controller.getCurrentPlayingDecks
       val labelList: immutable.IndexedSeq[Label] = for (i <- playingDecks.indices) yield new Label {
         private val temp = new ImageIcon("src/main/resources/cards/" + playingDecks(i).head.CardName + ".png").getImage
         private val resize = temp.getScaledInstance(177, 276, java.awt.Image.SCALE_SMOOTH)
@@ -121,21 +121,21 @@ class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   val optionPanelQuestion = new BoxPanel(Orientation.Vertical) {
     controller.getCurrentStringValue match {
       case 0 => contents += new Label("Press here to continue!")
-      case 1 => contents += new Label("You dont have any Actions/Action Cards to play")
+      case 1 => contents += new Label("You dont have any Actions/Action Card to play")
       case 3 => contents += new Label("Do you want to play a Card?")
       case 4 => {
         contents += new Label("Which Card do you want to Play?")
         contents += new Label("Click on it")
       }
-      case 7 => contents += new Label("Enter the amount of Cards to Discard")
+      case 7 => contents += new Label("Enter the amount of Card to Discard")
       case 8 => {
         contents += new Label("Choose some Card(s) by clicking on them")
         contents += new Label("Press here when you are done selecting")
       }
       case 9 => contents += new Label("Please choose a action Card!")
-      case 10 => contents += new Label("Please select the right amount of Cards")
+      case 10 => contents += new Label("Please select the right amount of Card")
       case 11 => contents += new Label("Dont click the same Card twice!")
-      case 13 => contents += new Label("Enter a Number that is not larger than you have Cards!")
+      case 13 => contents += new Label("Enter a Number that is not larger than you have Card!")
       case 14 => contents += new Label("Choose one Moneycard to upgrade")
       case 16 => contents += new Label("Which card to you want to trash?")
       case 18 => contents += new Label("Click on the card you want to add to your hand!")

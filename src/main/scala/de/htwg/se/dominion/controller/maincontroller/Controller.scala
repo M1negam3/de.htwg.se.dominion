@@ -4,7 +4,7 @@ import java.io.BufferedReader
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
@@ -58,13 +58,13 @@ class Controller(var roundManager: RoundManager) extends ControllerInterface {
 
   override def getPlayerName: String = roundManager.players(roundManager.playerturn).name
 
-  override def getCurrentDeck: List[Cards] = roundManager.players(roundManager.playerturn).deck
+  override def getCurrentDeck: List[Card] = roundManager.players(roundManager.playerturn).deck
 
-  override def getCurrentStacker: List[Cards] = roundManager.players(roundManager.playerturn).stacker
+  override def getCurrentStacker: List[Card] = roundManager.players(roundManager.playerturn).stacker
 
-  override def getCurrentHand: List[Cards] = roundManager.players(roundManager.playerturn).hand
+  override def getCurrentHand: List[Card] = roundManager.players(roundManager.playerturn).hand
 
-  override def getCurrentPlayingDecks: List[List[Cards]] = roundManager.playingDecks
+  override def getCurrentPlayingDecks: List[List[Card]] = roundManager.playingDecks
 
   override def getCurrentPhase: Boolean = roundManager.action
 
@@ -349,7 +349,7 @@ case class playingState(controller: Controller) extends ControllerState {
           runthrough = 1
         }
 
-        // draw these Cards
+        // draw these Card
         if (runthrough == 0) {
           controller.roundManager = controller.roundManager.copy(players = controller.roundManager.getHand(controller.roundManager), playingDecks = GameTurn().playingDecks)
           controller.gameStatus = GameStatus.ACTION

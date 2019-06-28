@@ -1,25 +1,25 @@
 package de.htwg.se.dominion.model.playerComponent.basePlayerComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.playerComponent.PlayerInterface
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil,
-                  hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1,
+case class Player(name: String = "", value: Int = 0, deck: List[Card]= Nil, stacker: List[Card] = Nil,
+                  hand: List[Card] = Nil, playingCards: List[Card] = Nil, actions: Int = 1, buys: Int = 1,
                   stringValue: Int = 0, money: Int = 0) extends PlayerInterface {
 
   override def toString: String = this.name
-
+  
   var deckLength = 0
   //var copiedPlayer: Player = Player()
-  var copyList: List[Cards] = Nil
+  var copyList: List[Card] = Nil
 
 
   override def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0,0)
+      players += new Player(names(i), i + 1, Card.shuffle(Card.startDeck), Card.stacker, Nil, Nil, 1, 1, 0,0)
     }
     val Players: List[Player] = players.toList
     Players
@@ -29,8 +29,8 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
     var copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
-    var l = new ListBuffer[Cards]
-    var d = new ListBuffer[Cards]
+    var l = new ListBuffer[Card]
+    var d = new ListBuffer[Card]
     copyList.length match {
       case 0 =>
         copiedPlayer = isEmpty(copiedPlayer)
@@ -77,8 +77,8 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
     for (f <- 5 until copyList.length) {
       d += copyList(f)
     }
-    val hand: List[Cards] = l.toList
-    val deck: List[Cards] = d.toList
+    val hand: List[Card] = l.toList
+    val deck: List[Card] = d.toList
     deckLength = 0
     new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
   }
@@ -110,11 +110,11 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
 
   override def draw(player: Player, n: Integer): Player = {
     val copiedPlayer = player
-    var listBuffer1: ListBuffer[Cards] = ListBuffer()
-    var listBuffer2: ListBuffer[Cards] = ListBuffer()
-    var listBuffer3: ListBuffer[Cards] = ListBuffer()
-    var z: List[Cards] = Nil
-    var x: List[Cards] = Nil
+    var listBuffer1: ListBuffer[Card] = ListBuffer()
+    var listBuffer2: ListBuffer[Card] = ListBuffer()
+    var listBuffer3: ListBuffer[Card] = ListBuffer()
+    var z: List[Card] = Nil
+    var x: List[Card] = Nil
     var p = player
 
     for(o <- 0 until player.hand.length){
@@ -151,13 +151,13 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
     }
   }
 
-  override def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
+  override def upgrading(player: Player, i : Integer, z: List[Card]): Player  = {
     var copiedPlayer = player
-    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    var listBuffer1: ListBuffer[Card] = ListBuffer()
     for (j <- 0 until player.hand.length) {
       listBuffer1 += player.hand(j)
     }
-    var x: List[Cards] = Nil
+    var x: List[Card] = Nil
     listBuffer1 -= player.hand(i)
     listBuffer1 +=z.head
     x = listBuffer1.toList
@@ -167,8 +167,8 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
   override def isEmpty(player: Player): Player = {
     val copiedPlayer = player
     val copiedStacker = player.stacker
-    val copiedDeck = Cards.shuffle(copiedStacker)
-    val stacker: List[Cards] = Nil
+    val copiedDeck = Card.shuffle(copiedStacker)
+    val stacker: List[Card] = Nil
     new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
   }
 

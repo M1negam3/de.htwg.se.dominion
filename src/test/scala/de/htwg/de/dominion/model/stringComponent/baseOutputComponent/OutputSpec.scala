@@ -1,6 +1,6 @@
 package de.htwg.de.dominion.model.stringComponent.baseOutputComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
@@ -17,9 +17,9 @@ class OutputSpec extends WordSpec with Matchers {
   var names: List[String] = Nil
   var score: Map[Int, String] = Map()
   var idx: Int = 0
-  val hand: List[Cards] = List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-  var Luca = new Player("Luca",0,Cards.startDeck,Cards.stacker,hand,hand)
-  var Luis = new Player("Luis",0,Cards.startDeck,Cards.stacker,hand)
+  val hand: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
+  var Luca = new Player("Luca",0,Card.startDeck,Card.stacker,hand,hand)
+  var Luis = new Player("Luis",0,Card.startDeck,Card.stacker,hand)
   var list: List[Player] = List(Luca,Luis)
   val y = list(0).hand.length - 1
   var s: String = ""
@@ -94,7 +94,7 @@ class OutputSpec extends WordSpec with Matchers {
     }
     "have a getPlayingStateString" in {
       Output().getPlayingStateString(list,0,0) should be ("")
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
@@ -115,7 +115,7 @@ class OutputSpec extends WordSpec with Matchers {
           actionString += "                            " + Console.BLUE + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")" + "\n"
         }
       }
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
@@ -127,33 +127,33 @@ class OutputSpec extends WordSpec with Matchers {
         s4 += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
 
-      Output().getPlayingStateString(list,0,5) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n")
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      Output().getPlayingStateString(list,0,5) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n")
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
       s += "\n"
       Output().getPlayingStateString(list,0,6) should be (Console.BLUE + s)
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
       s += "\n"
-      Output().getPlayingStateString(list,0,7) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Cards to Discard")
+      Output().getPlayingStateString(list,0,7) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Enter the amount of Card to Discard")
       Output().getPlayingStateString(list,0,8) should be (Console.BLUE + "     Choose some Card(s), separate them with a blank")
       Output().getPlayingStateString(list,0,9) should be (Console.RED + "     Please enter a Card from your hand between 0 and " + y)
-      Output().getPlayingStateString(list,0,10) should be (Console.RED + "     Please enter the correct amount of Cards to discard")
+      Output().getPlayingStateString(list,0,10) should be (Console.RED + "     Please enter the correct amount of Card to discard")
       Output().getPlayingStateString(list,0,11) should be (Console.RED + "     Dont enter the same number twice")
       Output().getPlayingStateString(list,0,12) should be (Console.RED + "     Please enter a correct number!")
       Output().getPlayingStateString(list,0,13) should be (Console.RED + "     Needs to be smaller or equal to your Hand Card length!")
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }
       s += "\n"
       Output().getPlayingStateString(list,0,14) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.BLACK + "     Choose one Moneycard to upgrade")
       Output().getPlayingStateString(list,0,15) should be (Console.RED + "     Choose a valid Card from your hand")
-        s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+        s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
         for (i <- 1 until list(0).hand.length) {
           s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
         }
@@ -161,9 +161,9 @@ class OutputSpec extends WordSpec with Matchers {
       Output().getPlayingStateString(list,0,16) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?")
       //Output.getPlayingStateString(list,0,17) should be (Console.BLUE + "     You choose: " + Console.BLACK + list(0).hand(2).CardName)
       for (j <- 0 until GameTurn().playingDecks.length) {
-        if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
-          z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
-            "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
+        if (StrategyPatternForActionPhase.discardCardValue >= Card.playingDeck(j).head.CostValue) {
+          z += "                                " + Console.BLUE + Card.playingDeck(j).head.CardName + Console.CYAN + " {" + Card.playingDeck(j).length + "} " + Console.MAGENTA +
+            "[" + Card.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Card.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
         }
       }
       Output().getPlayingStateString(list,0,18) should be (Console.BLUE + "     Choose a Card you want to add to your hand\n     You can choose a card that cost up to " + StrategyPatternForActionPhase.discardCardValue + " Money\n" +
@@ -197,7 +197,7 @@ class OutputSpec extends WordSpec with Matchers {
       Output().getPlayingStateString(list,0,32) should be (Console.RED + "     You cant buy that, please enter a valid number")
       for (i <- 0 until GameTurn().playingDecks.length) {
         if (GameTurn().playingDecks(i).head.CostValue <= 4) {
-          s3 += "                " + Console.BLUE + GameTurn().playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" +
+          s3 += "                " + Console.BLUE + GameTurn().playingDecks(i).head.CardName + Console.MAGENTA + " [" + Card.playingDeck(i).head.CostValue + "]" +
             Console.BLUE + " Card Effect: " + GameTurn().playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
         }
       }
@@ -221,7 +221,7 @@ class OutputSpec extends WordSpec with Matchers {
       Output().getPlayingStateString(list,0,46) should be (Console.RED + "      Enter numbers HUAN!\n")
       Output().getPlayingStateString(list,0,47) should be (Console.RED + "      Enter numbers HUAN!\n")
       Output().getPlayingStateString(list,0,48) should be (Console.RED + "      Enter numbers HUAN!\n")
-      s = Console.BLUE + "     Your Hand Cards are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
+      s = Console.BLUE + "     Your Hand Card are: " + list(0).hand.head.CardName + Console.BLACK + " (0)\n"
       for (i <- 1 until list(0).hand.length) {
         s += Console.BLUE + "                          " + list(0).hand(i).CardName + Console.BLACK + " (" + i + ")\n"
       }

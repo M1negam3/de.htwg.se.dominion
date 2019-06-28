@@ -2,7 +2,7 @@ package de.htwg.se.dominion.controller
 
 
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.util.{Observable, UndoManager}
 
 trait ControllerInterface extends Observable{
@@ -27,13 +27,13 @@ trait ControllerInterface extends Observable{
 
   def getPlayerName: String
 
-  def getCurrentDeck: List[Cards]
+  def getCurrentDeck: List[Card]
 
-  def getCurrentStacker: List[Cards]
+  def getCurrentStacker: List[Card]
 
-  def getCurrentHand: List[Cards]
+  def getCurrentHand: List[Card]
 
-  def getCurrentPlayingDecks: List[List[Cards]]
+  def getCurrentPlayingDecks: List[List[Card]]
 
   def getCurrentPhase: Boolean
 

@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.model.gameComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 trait GameTurnInterface {
@@ -11,17 +11,17 @@ trait GameTurnInterface {
 
   def buyPhase(list: List[Player], index: Int, input: Int): List[Player]
 
-  def updateStacker(p: Player, c: Cards): Player
+  def updateStacker(p: Player, c: Card): Player
 
   def addCardToHand(p : Player, idx: Int): Player
 
   def removeHandcard(i: Int, player: Player): Player
 
-  def copyList(cards: List[Cards]): List[Cards]
+  def copyList(cards: List[Card]): List[Card]
 
-  def updateDeck(l: List[List[Cards]], o: List[Cards], i: Int): List[List[Cards]]
+  def updateDeck(l: List[List[Card]], o: List[Card], i: Int): List[List[Card]]
 
-  def updatePlayingDecks(l: List[List[Cards]], idx: Int): List[List[Cards]]
+  def updatePlayingDecks(l: List[List[Card]], idx: Int): List[List[Card]]
 
   def round(pCount: Int, playerTurn: Int): Int
 
