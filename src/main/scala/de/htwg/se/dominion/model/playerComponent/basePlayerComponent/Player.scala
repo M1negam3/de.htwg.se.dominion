@@ -1,7 +1,7 @@
-package de.htwg.se.dominion.model.playerComponent
+package de.htwg.se.dominion.model.playerComponent.basePlayerComponent
 
-import de.htwg.se.dominion.model.PlayerInterface
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.playerComponent.PlayerInterface
 
 import scala.collection.mutable.ListBuffer
 

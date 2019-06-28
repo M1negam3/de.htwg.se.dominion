@@ -1,6 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.stringComponent.Output
+import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 
 object GameStatus extends Enumeration {
 

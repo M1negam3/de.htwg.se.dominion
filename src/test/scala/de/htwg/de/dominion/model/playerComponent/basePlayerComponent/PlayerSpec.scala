@@ -1,10 +1,9 @@
-package de.htwg.se.dominion.model.playerComponent
+package de.htwg.de.dominion.model.playerComponent.basePlayerComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent._
-import de.htwg.se.dominion.model.playerComponent.Player.{copiedPlayer, copyList, isEmpty}
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
-import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.List
 
 class PlayerSpec extends WordSpec with Matchers {

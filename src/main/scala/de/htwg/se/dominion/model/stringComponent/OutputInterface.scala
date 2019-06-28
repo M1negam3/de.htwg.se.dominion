@@ -1,6 +1,6 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.stringComponent
 
-import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 trait OutputInterface {
 

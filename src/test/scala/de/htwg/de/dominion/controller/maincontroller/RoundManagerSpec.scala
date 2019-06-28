@@ -1,8 +1,8 @@
 package de.htwg.se.dominion.controller.maincontroller
 
-import de.htwg.se.dominion.model.playerComponent.Player
 import de.htwg.se.dominion.controller.maincontroller._
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
 class RoundManagerSpec extends WordSpec with Matchers {

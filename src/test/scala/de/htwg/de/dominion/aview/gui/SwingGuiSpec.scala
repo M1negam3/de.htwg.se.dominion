@@ -2,7 +2,7 @@ package de.htwg.de.dominion.aview.gui
 
 import de.htwg.se.dominion.aview.gui._
 import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
-import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
 class SwingGuiSpec extends WordSpec with Matchers {

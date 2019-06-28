@@ -1,6 +1,7 @@
-package de.htwg.se.dominion.model.deckComponent.cardComponent
+package de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent
 
 import de.htwg.se.dominion.model.deckComponent._
+import de.htwg.se.dominion.model.deckComponent.cardComponent.{createCellarHeadDeck, createCopperHeadDeck, createDuchyHeadDeck, createEstateHeadDeck, createFestivalHeadDeck, createGardenHeadDeck, createGoldHeadDeck, createMarketHeadDeck, createMerchantHeadDeck, createMineHeadDeck, createProvinceHeadDeck, createRemodelHeadDeck, createSilverHeadDeck, createSmithyHeadDeck, createVillageHeadDeck, createWorkshopHeadDeck}
 
 import scala.util.Random
 

@@ -1,7 +1,7 @@
-package de.htwg.se.dominion.model.deckComponent
+package de.htwg.de.dominion.model.deckComponent.cardComponent.baseCardsComponent
 
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import org.scalatest._
-import de.htwg.se.dominion.model.deckComponent.cardComponent._
 
 class CardsSpec extends WordSpec with Matchers {
   "A Card" when {

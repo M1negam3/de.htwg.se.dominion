@@ -1,7 +1,7 @@
-package de.htwg.se.dominion.model
+package de.htwg.se.dominion.model.playerComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
-import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 trait PlayerInterface {
 

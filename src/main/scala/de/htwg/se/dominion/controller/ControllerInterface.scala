@@ -2,7 +2,7 @@ package de.htwg.se.dominion.controller
 
 
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.util.{Observable, UndoManager}
 
 trait ControllerInterface extends Observable{

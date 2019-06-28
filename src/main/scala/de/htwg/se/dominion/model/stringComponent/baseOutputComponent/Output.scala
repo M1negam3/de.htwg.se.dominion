@@ -1,10 +1,9 @@
-package de.htwg.se.dominion.model.stringComponent
+package de.htwg.se.dominion.model.stringComponent.baseOutputComponent
 
-
-import de.htwg.se.dominion.model.OutputInterface
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
-import de.htwg.se.dominion.model.playerComponent._
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.stringComponent.OutputInterface
 
 object Output extends OutputInterface {
 
@@ -223,7 +222,7 @@ object Output extends OutputInterface {
           if (j >= GameTurn.playingDecks(g).head.CostValue) {
             x += Console.BLUE + "                        " + GameTurn.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
           }
-        } 
+        }
         x*/
       case 29 => Console.YELLOW + "\n     Do you want to buy a Card? (Y/N)\n"
       case 30 => Console.YELLOW + "     Which Card do you want to buy?\n"

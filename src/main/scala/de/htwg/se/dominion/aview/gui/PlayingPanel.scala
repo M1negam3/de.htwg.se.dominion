@@ -3,7 +3,7 @@ package de.htwg.se.dominion.aview.gui
 import java.awt.Color
 
 import de.htwg.se.dominion.controller.maincontroller.Controller
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import javax.swing.{BorderFactory, ImageIcon, JFrame, JOptionPane}
 
 import scala.swing.BorderPanel.Position._

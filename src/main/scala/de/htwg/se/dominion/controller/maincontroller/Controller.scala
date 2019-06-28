@@ -4,10 +4,10 @@ import java.io.BufferedReader
 
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
-import de.htwg.se.dominion.model.playerComponent.Player
-import de.htwg.se.dominion.model.stringComponent.Output
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import de.htwg.se.dominion.util.UndoManager
 
 import scala.util.control.Breaks.{break, breakable}

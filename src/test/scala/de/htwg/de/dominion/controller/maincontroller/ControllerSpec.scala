@@ -1,9 +1,9 @@
 package de.htwg.de.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
-import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {

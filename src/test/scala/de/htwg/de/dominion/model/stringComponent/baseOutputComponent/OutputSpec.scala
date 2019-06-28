@@ -1,10 +1,10 @@
-package de.htwg.se.dominion.model.stringComponent
+package de.htwg.de.dominion.model.stringComponent.baseOutputComponent
 
-import de.htwg.se.dominion.controller.maincontroller.RoundManager
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
-import de.htwg.se.dominion.model.playerComponent.Player
-import de.htwg.se.dominion.model.stringComponent.Output.check
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
+import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output.check
 import org.scalatest._
 
 import scala.collection.immutable.List

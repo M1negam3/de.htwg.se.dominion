@@ -1,8 +1,9 @@
 package de.htwg.de.dominion.model.gameComponent.gameEndComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
-import de.htwg.se.dominion.model.playerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import org.scalatest.{Matchers, WordSpec}
 class GameEndSpec extends WordSpec with Matchers{
   var deck: List[Cards] =List(Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.copper,Cards.estate,Cards.estate,Cards.gardens)

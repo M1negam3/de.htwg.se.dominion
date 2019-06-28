@@ -1,7 +1,7 @@
-package de.htwg.se.dominion.model.deckComponent
+package de.htwg.se.dominion.model.deckComponent.cardComponent
 
-import de.htwg.se.dominion.model.HeadDeckInterface
-import de.htwg.se.dominion.model.deckComponent.cardComponent.Cards
+import de.htwg.se.dominion.model.deckComponent.HeadDeckInterface
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 
 trait createCopperHeadDeck extends HeadDeckInterface {
 
