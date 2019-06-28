@@ -8,7 +8,7 @@ import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-object GameTurn extends GameTurnInterface {
+object GameTurn  extends GameTurnInterface {
 
   var l: List[Player] = Nil
   var playingDecks: List[List[Cards]] = Cards.playingDeck

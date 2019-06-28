@@ -1,24 +1,50 @@
 package de.htwg.se.dominion.model.playerComponent.basePlayerComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
-import de.htwg.se.dominion.model.playerComponent.PlayerInterface
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
 
 import scala.collection.mutable.ListBuffer
 
-case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil,
-                  hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1,
-                  stringValue: Int = 0, money: Int = 0) {
+case class Player(name: String, value: Int, deck: List[Cards], stacker: List[Cards], hand: List[Cards],playingCards: List[Cards],actions: Int,buys: Int,stringValue: Int, money: Int) extends PlayerInterface {
   override def toString: String = this.name
+  override def getName: String = {
+    name
+  }
+  override def getValue: Int= {
+    value
+  }
+  override def getDeck: List[Cards] = {
+    deck
+  }
+  override def getStacker: List[Cards] = {
+    stacker
+  }
+  override def getHand: List[Cards] = {
+    hand
+  }
+  override def getPlayingCards: List[Cards] = {
+    playingCards
+  }
+  override def getActions: Int = {
+    actions
+  }
+  override def getBuys: Int = {
+    buys
+  }
+  override def getStringValue: Int = {
+    stringValue
+  }
+  override def getMoney: Int = {
+    money
+  }
+
 }
-
-object Player extends PlayerInterface {
-
+  case class StaticPlayer() extends StaticPlayerInterface {
   var deckLength = 0
-  var copiedPlayer: Player = new Player()
   var copyList: List[Cards] = Nil
 
 
-  override def createPlayer(pCount: Int, names: List[String]): List[Player] = {
+  override def createPlayer(pCount: Int, names: List[String]): List[PlayerInterface] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
       players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0,0)
@@ -27,23 +53,23 @@ object Player extends PlayerInterface {
     Players
   }
 
-  override def getHand(player: Player): Player = {
-    copiedPlayer = player
-    copyList = copiedPlayer.deck
+  override def getHand(player: PlayerInterface): PlayerInterface = {
+    var copiedPlayer = player
+    copyList = copiedPlayer.getDeck
     deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     copyList.length match {
       case 0 =>
         copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
+        copyList = copiedPlayer.getDeck
         for (i <- 0 until 5) {
           l += copyList(i)
         }
       case 1 =>
         l += copyList.head
         copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
+        copyList = copiedPlayer.getDeck
         for (i <- 0 until 4) {
           l += copyList(i)
         }
@@ -51,7 +77,7 @@ object Player extends PlayerInterface {
         l += copyList.head
         l += copyList(1)
         copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
+        copyList = copiedPlayer.getDeck
         for (i <- 0 until 3) {
           l += copyList(i)
         }
@@ -60,7 +86,7 @@ object Player extends PlayerInterface {
           l += copyList(i)
         }
         copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
+        copyList = copiedPlayer.getDeck
         for (i <- 0 until 2) {
           l += copyList(i)
         }
@@ -69,7 +95,7 @@ object Player extends PlayerInterface {
           l += copyList(i)
         }
         copiedPlayer = isEmpty(copiedPlayer)
-        copyList = copiedPlayer.deck
+        copyList = copiedPlayer.getDeck
         l += copyList.head
       case _ =>
         for (i <- 0 until 5) {
@@ -82,23 +108,23 @@ object Player extends PlayerInterface {
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
     deckLength = 0
-    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
+    new Player(copiedPlayer.getName, copiedPlayer.getValue, deck, copiedPlayer.getStacker, hand, copiedPlayer.getPlayingCards, 1, 1, 0,0)
   }
 
-  override def getMoney(player: Player): Int = {
+  override def getMoney(player: PlayerInterface): Int = {
     val copiedPlayer = player
     var m = 0
     for (i <- 0 until 5) {
-      m += copiedPlayer.hand(i).MoneyValue
+      m += copiedPlayer.getHand(i).MoneyValue
     }
     m
   }
 
-  override def updatePlayer(list: List[Player], player: Player): List[Player] = {
+  override def updatePlayer(list: List[PlayerInterface], player: PlayerInterface): List[PlayerInterface] = {
     val copiedPlayer = player
     val copiedPlayerList = list
-    val idx = copiedPlayer.value - 1
-    var updatedPlayerList = new ListBuffer[Player]
+    val idx = copiedPlayer.getValue - 1
+    var updatedPlayerList = new ListBuffer[PlayerInterface]
     for (i <- 0 until copiedPlayerList.length) {
       if (i == idx) {
         updatedPlayerList += copiedPlayer
@@ -106,11 +132,11 @@ object Player extends PlayerInterface {
         updatedPlayerList += copiedPlayerList(i)
       }
     }
-    val updatedList: List[Player] = updatedPlayerList.toList
+    val updatedList: List[PlayerInterface] = updatedPlayerList.toList
     updatedList
   }
 
-  override def draw(player: Player, n: Integer): Player = {
+  override def draw(player: PlayerInterface, n: Integer): PlayerInterface = {
     val copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     var listBuffer2: ListBuffer[Cards] = ListBuffer()
@@ -119,17 +145,17 @@ object Player extends PlayerInterface {
     var x: List[Cards] = Nil
     var p = player
 
-    for(o <- 0 until player.hand.length){
-      listBuffer1 += player.hand(o)
+    for(o <-  player.getHand.indices){
+      listBuffer1 += player.getHand(o)
     }
-    if (player.deck.length < n) {
+    if (player.getDeck.length < n) {
       p = isEmpty(player)
       listBuffer3 = listBuffer2
-      for (j <- 0 until player.deck.length) {
-        listBuffer2 += player.deck(j)
+      for (j <- 0 until player.getDeck.length) {
+        listBuffer2 += player.getDeck(j)
       }
-      for (i <- 0 until p.deck.length) {
-        listBuffer2 += p.deck(i)
+      for (i <- 0 until p.getDeck.length) {
+        listBuffer2 += p.getDeck(i)
       }
       for(i <- 0 until n){
         listBuffer1 += listBuffer2(i)
@@ -137,59 +163,59 @@ object Player extends PlayerInterface {
       }
       z = listBuffer1.toList
       x = listBuffer2.toList
-      Player(copiedPlayer.name,copiedPlayer.value,x,p.stacker,z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
+      Player(copiedPlayer.getName,copiedPlayer.getValue,x,p.getStacker,z, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
     }else{
       listBuffer3 = listBuffer2
-      for(j <- 0 until player.deck.length){
-        listBuffer2 += player.deck(j)
+      for(j <- 0 until player.getDeck.length){
+        listBuffer2 += player.getDeck(j)
       }
       for (i <- 0 until n) {
-        listBuffer1 += player.deck(i)
+        listBuffer1 += player.getDeck(i)
         listBuffer3 -= listBuffer2(i)
       }
       z = listBuffer1.toList
       x = listBuffer3.toList
-      Player(copiedPlayer.name, copiedPlayer.value, x, copiedPlayer.stacker, z, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
+      Player(copiedPlayer.getName, copiedPlayer.getValue, x, copiedPlayer.getStacker, z, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
     }
   }
 
-  override def upgrading(player: Player, i : Integer, z: List[Cards]): Player  = {
+  override def upgrading(player: PlayerInterface, i : Integer, z: List[Cards]): PlayerInterface  = {
     var copiedPlayer = player
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
-    for (j <- 0 until player.hand.length) {
-      listBuffer1 += player.hand(j)
+    for (j <- 0 until player.getHand.length) {
+      listBuffer1 += player.getHand(j)
     }
     var x: List[Cards] = Nil
-    listBuffer1 -= player.hand(i)
+    listBuffer1 -= player.getHand(i)
     listBuffer1 +=z.head
     x = listBuffer1.toList
-    Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck,copiedPlayer.stacker,x, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
+    Player(copiedPlayer.getName, copiedPlayer.getValue, copiedPlayer.getDeck,copiedPlayer.getStacker,x, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
   }
 
-  override def isEmpty(player: Player): Player = {
+  override def isEmpty(player: PlayerInterface): PlayerInterface = {
     val copiedPlayer = player
-    val copiedStacker = player.stacker
+    val copiedStacker = player.getStacker
     val copiedDeck = Cards.shuffle(copiedStacker)
     val stacker: List[Cards] = Nil
-    new Player(copiedPlayer.name, copiedPlayer.value, copiedDeck, stacker, copiedPlayer.hand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue,copiedPlayer.money)
+    new Player(copiedPlayer.getName, copiedPlayer.getValue, copiedDeck, stacker, copiedPlayer.getHand, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
   }
 
-  override def updateMoney(player: Player,i: Int): Player ={
+  override def updateMoney(player: PlayerInterface,i: Int): PlayerInterface ={
     val cP = player
     var m = 0
     var b = 0
-    m += cP.money
+    m += cP.getMoney
     m -= i
-    b += cP.buys
+    b += cP.getBuys
     b -= 1
-    Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,cP.actions,b,cP.stringValue,m)
+    Player(cP.getName,cP.getValue,cP.getDeck,cP.getStacker,cP.getHand,cP.getPlayingCards,cP.getActions,b,cP.getStringValue,m)
   }
 
-  override def updateAction(player: Player,i: Int): Player ={
+  override def updateAction(player: PlayerInterface,i: Int): PlayerInterface ={
     val cP = player
     var a = 0
-    a += cP.actions
+    a += cP.getActions
     a -= i
-    Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,a,cP.buys,cP.stringValue,cP.money)
+    Player(cP.getName,cP.getValue,cP.getDeck,cP.getStacker,cP.getHand,cP.getPlayingCards,a,cP.getBuys,cP.getStringValue,cP.getMoney)
   }
 }
