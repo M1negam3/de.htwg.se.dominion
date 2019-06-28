@@ -5,7 +5,7 @@ import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerI
 
 import scala.collection.mutable.ListBuffer
 
-case class playerInterface(name: String, value: Int, deck: List[Card], stacker: List[Card], hand: List[Card],
+case class Player(name: String, value: Int, deck: List[Card], stacker: List[Card], hand: List[Card],
                            playingCards: List[Card], actions: Int, buys: Int, stringValue: Int, money: Int) extends PlayerInterface {
 
   override def toString: String = this.getName
@@ -52,16 +52,16 @@ case class playerInterface(name: String, value: Int, deck: List[Card], stacker: 
 
 }
 
-case class StaticPlayer() extends StaticPlayerInterface {
+case class StaticPlayer(playerInterface: PlayerInterface) extends StaticPlayerInterface {
   var deckLength = 0
   var copyList: List[Card] = Nil
 
   override def createPlayer(pCount: Int, names: List[String]): List[PlayerInterface] = {
-    var players = new ListBuffer[playerInterface]
+    var players = new ListBuffer[PlayerInterface]
     for (i <- 0 until pCount) {
-      players += new playerInterface(names(i), i + 1, Card.shuffle(Card.startDeck), Card.stacker, Nil, Nil, 1, 1, 0,0)
+      players +=  playerInterface(names(i), i + 1, Card.shuffle(Card.startDeck), Card.stacker, Nil, Nil, 1, 1, 0,0)
     }
-    val Players: List[playerInterface] = players.toList
+    val Players: List[PlayerInterface] = players.toList
     Players
   }
 
@@ -120,7 +120,7 @@ case class StaticPlayer() extends StaticPlayerInterface {
     val hand: List[Card] = l.toList
     val deck: List[Card] = d.toList
     deckLength = 0
-    new playerInterface(copiedPlayer.getName, copiedPlayer.getValue, deck, copiedPlayer.getStacker, hand, copiedPlayer.getPlayingCards, 1, 1, 0,0)
+    playerInterface(copiedPlayer.getName, copiedPlayer.getValue, deck, copiedPlayer.getStacker, hand, copiedPlayer.getPlayingCards, 1, 1, 0,0)
   }
 
   override def getMoney(player: PlayerInterface): Int = {
@@ -209,7 +209,7 @@ case class StaticPlayer() extends StaticPlayerInterface {
     val copiedStacker = player.getStacker
     val copiedDeck = Card.shuffle(copiedStacker)
     val stacker: List[Card] = Nil
-    new playerInterface(copiedPlayer.getName, copiedPlayer.getValue, copiedDeck, stacker, copiedPlayer.getHand, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
+    playerInterface(copiedPlayer.getName, copiedPlayer.getValue, copiedDeck, stacker, copiedPlayer.getHand, copiedPlayer.getPlayingCards, copiedPlayer.getActions, copiedPlayer.getBuys, copiedPlayer.getStringValue,copiedPlayer.getMoney)
   }
 
   override def updateMoney(player: PlayerInterface,i: Int): PlayerInterface ={

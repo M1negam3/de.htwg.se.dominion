@@ -1,15 +1,15 @@
 package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
-import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
+import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTurnInterface}
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface: PlayerInterface) extends GameTurnInterface {
+case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface: PlayerInterface, staticGameTurnInterface: StaticGameTurnInterface) extends GameTurnInterface {
 
   var l: List[PlayerInterface] = Nil
   var playingDecks: List[List[Card]] = Card.playingDeck
@@ -73,7 +73,7 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
       l = staticPlayerInterface.updatePlayer(l, Player().draw(l(index), draw))
       actions += playingCards.head.ActionValue
       playingCards.head.CardName match {
-        case "Cellar" => l = staticPlayerInterface.updatePlayer(l, new playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, 7, money))
+        case "Cellar" => l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, 7, money))
         case "Mine" => {
           var count = 0
           for (i <- 0 until l(index).getHand.length) {
@@ -247,4 +247,12 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
     val o: List[Int] = l.toList
     o
   }
+  override def createGetPlayingDeck(): StaticGameTurnInterface = {
+    staticGameTurnInterface(Card.playingDeck)
+  }
+}
+case class StaticGameTurn(playingDecks) extends StaticGameTurnInterface {
+
+  override def getPlayingDecks: List[List[Card]] = { playingDecks }
+
 }

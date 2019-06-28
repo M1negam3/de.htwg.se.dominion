@@ -9,7 +9,7 @@ import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInter
 import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
 import de.htwg.se.dominion.model.gameComponent.GameInitInterface
 import de.htwg.se.dominion.model.gameComponent.GameEndInterface
-import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
+import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTurnInterface}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
@@ -27,7 +27,8 @@ case class RoundManager(players: List[PlayerInterface] = List(),
                         staticPlayerInterface: StaticPlayerInterface,
                         gameInitInterface: GameInitInterface,
                         gameEndInterface: GameEndInterface,
-                        gameTurnInterface: GameTurnInterface
+                        gameTurnInterface: GameTurnInterface,
+                        staticGameTurnInterface: StaticGameTurnInterface
                        ) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
@@ -83,13 +84,13 @@ case class RoundManager(players: List[PlayerInterface] = List(),
 
   def actionCardEffect1(r: RoundManager, input: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
-    val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input.toInt)
+    val l = StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface).getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input.toInt)
     l
   }
 
   def actionCardEffect2(r: RoundManager, input: String): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
-    val l = StrategyPatternForActionPhase.getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
+    val l = StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface).getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
     l
   }
 
