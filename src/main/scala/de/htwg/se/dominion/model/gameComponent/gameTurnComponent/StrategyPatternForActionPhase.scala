@@ -1,16 +1,21 @@
 package de.htwg.se.dominion.model.gameComponent.gameTurnComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{goldHeadDeck, silverHeadDeck}
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
+import de.htwg.se.dominion.model.gameComponent.GameInitInterface
+import de.htwg.se.dominion.model.gameComponent.GameEndInterface
+import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
 
-object StrategyPatternForActionPhase {
+case class StrategyPatternForActionPhase(playerInterface: PlayerInterface,staticPlayerInterface: StaticPlayerInterface,gameTurnInterface: GameTurnInterface) {
 
   var discardAmount = 0
   var discardCardValue = 0
 
-  def getCardname(list:List[Player], playerTurn: Int, input: Int): List[Player] = {
+  def getCardname(list:List[PlayerInterface], playerTurn: Int, input: Int): List[PlayerInterface] = {
     val l = list
-    l(playerTurn).playingCards.head.CardName match {
+    l(playerTurn).getPlayingCards.head.CardName match {
       case "Cellar" => cellar(l, playerTurn, input)
       case "Mine" => mine(l, playerTurn, input)
       case "Remodel" => remodel(l, playerTurn, input)
@@ -20,30 +25,30 @@ object StrategyPatternForActionPhase {
     }
   }
 
-  def getCardName2(list: List[Player], playerTurn: Int, input: String): List [Player] = {
+  def getCardName2(list: List[PlayerInterface], playerTurn: Int, input: String): List [PlayerInterface] = {
     val l = list
-    l(playerTurn).playingCards.head.CardName match {
+    l(playerTurn).getPlayingCards.head.CardName match {
       case "Cellar" => cellar2(l, playerTurn, input)
       case "Remodel" => remodel2(l, playerTurn, input.toInt)
     }
   }
 
-  def cellar(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def cellar(list: List[PlayerInterface], idx: Int, input: Int): List[PlayerInterface] = {
     var l = list
-    if (input <= l(idx).hand.length) {
+    if (input <= l(idx).getHand.length) {
       if (input > 0) {
         discardAmount = input
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 8, l(idx).money))
+        l = staticPlayerInterface.updatePlayer(l, playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 8, l(idx).getGetMoney))
       } else {
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 41, l(idx).money))
+        l = staticPlayerInterface.updatePlayer(l, playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 41, l(idx).getGetMoney))
       }
     } else {
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 13, l(idx).money))
+      l = staticPlayerInterface.updatePlayer(l, playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 13, l(idx).getGetMoney))
     }
     l
   }
 
-  def cellar2(list: List[Player], idx: Int, strInput: String): List[Player] = {
+  def cellar2(list: List[PlayerInterface], idx: Int, strInput: String): List[PlayerInterface] = {
     var l = list
     var test = strInput.split(",")
     var same = false
@@ -61,100 +66,100 @@ object StrategyPatternForActionPhase {
     if (!same) {
       if ( test.length == discardAmount) {
         for (i <- 0 until discardAmount) {
-          if (test(i).toInt < l(idx).hand.length) {
-            l = Player().updatePlayer(l, GameTurn().updateStacker(l(idx), l(idx).hand(test(i).toInt)))
-            l = Player().updatePlayer(l, GameTurn().removeHandcard(test(i).toInt, l(idx)))
+          if (test(i).toInt < l(idx).getHand.length) {
+            l = staticPlayerInterface.updatePlayer(l, gameTurnInterface.updateStacker(l(idx), l(idx).getHand(test(i).toInt)))
+            l = staticPlayerInterface.updatePlayer(l, gameTurnInterface.removeHandcard(test(i).toInt, l(idx)))
             draw += 1
           } else {
-            l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 9, l(idx).money))
+            l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 9, l(idx).getGetMoney))
           }
         }
-        l = Player().updatePlayer(l, Player().draw(l(idx), draw))
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 39, l(idx).money))
+        l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.draw(l(idx), draw))
+        l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 39, l(idx).getGetMoney))
       } else {
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 10, l(idx).money))
+        l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 10, l(idx).getGetMoney))
       }
     } else {
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 11, l(idx).money))
+      l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 11, l(idx).getGetMoney))
     }
     l
   }
 
-  def mine(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def mine(list: List[playerInterface], idx: Int, input: Int): List[playerInterface] = {
     var l = list
-      if (input < l(idx).hand.length) {
-        if (l(idx).hand(input).Type == "Money") {
-          if (input < l(idx).hand.length) {
-            if (l(idx).hand(input).CardName == "Copper") {
-              l = Player().updatePlayer(l, Player().upgrading(l(idx), input, silverHeadDeck.silverDeck))
+      if (input < l(idx).getHand.length) {
+        if (l(idx).getHand(input).Type == "Money") {
+          if (input < l(idx).getHand.length) {
+            if (l(idx).getHand(input).CardName == "Copper") {
+              l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.upgrading(l(idx), input, silverHeadDeck.silverDeck))
               GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(1)), 1)
-              l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
-            } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
+              l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 35, l(idx).getGetMoney))
+            } else if (l(idx).getHand(input).CardName == "Silver" || l(idx).getHand(input).CardName == "Gold") {
               l = Player().updatePlayer(l, Player().upgrading(l(idx), input, goldHeadDeck.goldDeck))
               GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(2)), 2)
-              l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
+              l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 36, l(idx).getGetMoney))
             }
           } else {
-            l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 15, l(idx).money))
+            l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 15, l(idx).getGetMoney))
           }
         } else {
-          l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
+          l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 37, l(idx).getGetMoney))
         }
       } else {
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 37, l(idx).money))
+        l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 37, l(idx).getGetMoney))
       }
     l
   }
 
-  def remodel(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def remodel(list: List[playerInterface], idx: Int, input: Int): List[playerInterface] = {
     var l = list
     discardCardValue = 0
-    if (input >= 0 && input < l(idx).hand.length) {
-      discardCardValue = l(idx).hand(input).CostValue
+    if (input >= 0 && input < l(idx).getHand.length) {
+      discardCardValue = l(idx).getHand(input).CostValue
       discardCardValue += 2
       l = Player().updatePlayer(l, GameTurn().removeHandcard(input, l(idx)))
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 18, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 18, l(idx).getGetMoney))
     } else {
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 19, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 19, l(idx).getGetMoney))
     }
     l
   }
 
-  def remodel2(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def remodel2(list: List[playerInterface], idx: Int, input: Int): List[playerInterface] = {
     var l = list
     val cards = GameTurn().getCardsWC()
     if (cards.contains(input)) {
       l = Player().updatePlayer(l, GameTurn().addCardToHand(l(idx), input))
       GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(input)), input)
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 40, l(idx).getGetMoney))
     } else {
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 23, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 23, l(idx).getGetMoney))
     }
     l
   }
 
-  def workshop(list: List[Player], idx: Int, input: Int): List[Player] = {
+  def workshop(list: List[playerInterface], idx: Int, input: Int): List[playerInterface] = {
     var l = list
     val cards = GameTurn().getCardsWCost4()
     if (cards.contains(input)) {
       l = Player().updatePlayer(l, GameTurn().updateStacker(l(idx), GameTurn().playingDecks(input).head))
       GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(input)), input)
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 40, l(idx).getGetMoney))
     } else {
-      l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 21, l(idx).money))
+      l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 21, l(idx).getGetMoney))
     }
     l
   }
 
-  def merchant(list: List[Player], idx: Int): List[Player] = {
+  def merchant(list: List[playerInterface], idx: Int): List[playerInterface] = {
     var l = list
-    for (i <- 0 until l(idx).hand.length) {
-      if (l(idx).hand(i).CardName.equals("Silver")) {
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand,
-          l(idx).playingCards, l(idx).actions, l(idx).buys, 20, (l(idx).money + 2)))
+    for (i <- 0 until l(idx).getHand.length) {
+      if (l(idx).getHand(i).CardName.equals("Silver")) {
+        l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand,
+          l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 20, (l(idx).getGetMoney + 2)))
         return l
       } else {
-        l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 22, l(idx).money))
+        l = Player().updatePlayer(l, new playerInterface(l(idx).getName, l(idx).getValue, l(idx).getDeck, l(idx).getStacker, l(idx).getHand, l(idx).getPlayingCards, l(idx).getActions, l(idx).getBuys, 22, l(idx).getGetMoney))
       }
     }
     l

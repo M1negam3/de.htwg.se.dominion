@@ -3,7 +3,7 @@ package de.htwg.de.dominion.model.gameComponent.gameTurnComponent
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{Card, cellarHeadDeck, copperHeadDeck, duchyHeadDeck, estateHeadDeck, festivalHeadDeck, gardensHeadDeck, goldHeadDeck, marketHeadDeck, merchantHeadDeck, mineHeadDeck, provinceHeadDeck, remodelHeadDeck, silverHeadDeck, smithyHeadDeck, villageHeadDeck, workshopHeadDeck}
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 import org.scalatest.{Matchers, WordSpec}
 
 import scala.collection.immutable.List
@@ -15,13 +15,13 @@ class GameTurnSpec extends WordSpec with Matchers{
   var hand1: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper)
   val hand2: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
   var deck: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
-  var Luca = new Player("Luca",0,Card.startDeck,Nil,hand,hand)
-  var Luis = new Player("Luis",0,Card.startDeck,Card.stacker,hand)
-  var Luca1 = new Player("Luca",0,Card.startDeck,Card.stacker,hand1,hand)
-  var Luca2 = new Player("Luca",0,deck,Card.stacker,hand,hand)
-  var Luca3 = new Player("Luca",0,deck,Card.stacker,hand2,hand)
-  var Luca4 = new Player("Luca",0,Card.startDeck,List(Card.copper),hand,hand)
-  var list: List[Player] = List(Luca,Luis)
+  var Luca = new playerInterface("Luca",0,Card.startDeck,Nil,hand,hand)
+  var Luis = new playerInterface("Luis",0,Card.startDeck,Card.stacker,hand)
+  var Luca1 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,hand1,hand)
+  var Luca2 = new playerInterface("Luca",0,deck,Card.stacker,hand,hand)
+  var Luca3 = new playerInterface("Luca",0,deck,Card.stacker,hand2,hand)
+  var Luca4 = new playerInterface("Luca",0,Card.startDeck,List(Card.copper),hand,hand)
+  var list: List[playerInterface] = List(Luca,Luis)
   var end = true
   var copiedCards1: List[Card] = List(Card.copper)
   var copiedCards2: List[Card] = List(Card.copper,Card.copper)
@@ -79,7 +79,7 @@ class GameTurnSpec extends WordSpec with Matchers{
       GameTurn().getMoney(list(0)) should be (5)
     }
     "have a clearHand method" in {
-      GameTurn().clearHand(list,0) should not be (list(0).hand.length == 1)
+      GameTurn().clearHand(list,0) should not be (list(0).getHand.length == 1)
     }
     "have a getCardsWCost4" in {
       GameTurn().getCardsWCost4() should be (x)

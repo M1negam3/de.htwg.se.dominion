@@ -3,29 +3,29 @@ package de.htwg.de.dominion.model.gameComponent.gameTurnComponent
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.StrategyPatternForActionPhase
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 import org.scalatest.{Matchers, WordSpec}
 
 class StrategyPatternForActionPhaseSpec extends WordSpec with Matchers{
 
   var hand: List[Card] = List(Card.copper,Card.merchant,Card.silver,Card.copper,Card.copper)
-  var Luca = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand)
-  var Luca1 = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,22)
-  var Luca2 = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,20,2)
-  var Luca3 = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,21)
-  var Luca4 = new Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,40)
+  var Luca = new playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand)
+  var Luca1 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,22)
+  var Luca2 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,20,2)
+  var Luca3 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,21)
+  var Luca4 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,0,40)
 
 
-  var Luca5 = new Player("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,0)
+  var Luca5 = new playerInterface("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,0)
 
-  var Luis = new Player("Luis",0,Card.startDeck,Card.stacker,Card.hand)
-  var l: List[Player] = List(Luca,Luis)
-  var l1: List[Player] = List(Luca1,Luis)
-  var l2: List[Player] = List(Luca2,Luis)
-  var l3: List[Player] = List(Luca3,Luis)
-  var l4: List[Player] = List(Luca4,Luis)
-  var l5: List[Player] = List(Luca5,Luis)
-  var l6: List[Player] = List(Luca2,Luis)
+  var Luis = new playerInterface("Luis",0,Card.startDeck,Card.stacker,Card.hand)
+  var l: List[playerInterface] = List(Luca,Luis)
+  var l1: List[playerInterface] = List(Luca1,Luis)
+  var l2: List[playerInterface] = List(Luca2,Luis)
+  var l3: List[playerInterface] = List(Luca3,Luis)
+  var l4: List[playerInterface] = List(Luca4,Luis)
+  var l5: List[playerInterface] = List(Luca5,Luis)
+  var l6: List[playerInterface] = List(Luca2,Luis)
 
   var i = 0
   var playingCards: List[Card] = List(Card.cellar,Card.mine,Card.remodel,Card.workshop,Card.merchant)

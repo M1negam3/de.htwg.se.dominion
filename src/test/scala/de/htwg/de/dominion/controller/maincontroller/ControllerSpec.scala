@@ -3,7 +3,7 @@ package de.htwg.de.dominion.controller.maincontroller
 import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
@@ -12,13 +12,13 @@ class ControllerSpec extends WordSpec with Matchers {
 
   var hand: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.village)
   var hand1: List[Card] = List(Card.copper,Card.copper,Card.copper,Card.copper,Card.copper)
-  var Luca = Player("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
-  var Luca1 = Player("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
-  var Luca2 = Player("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
-  var Luis = Player("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
-  var players: List[Player] = List(Luca,Luis)
-  var players1: List[Player] = List(Luca1,Luis)
-  var players2: List[Player] = List(Luca2,Luis)
+  var Luca = playerInterface("Luca",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
+  var Luca1 = playerInterface("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
+  var Luca2 = playerInterface("Luca",0,Card.startDeck,Card.stacker,hand,Nil,1,1,0,0)
+  var Luis = playerInterface("Luis",0,Card.startDeck,Card.stacker,Card.hand,Nil,1,1,0,0)
+  var players: List[playerInterface] = List(Luca,Luis)
+  var players1: List[playerInterface] = List(Luca1,Luis)
+  var players2: List[playerInterface] = List(Luca2,Luis)
   val roundManager = RoundManager(players,names,2,0,Nil,GameTurn().playingDecks,false)
   val roundManager1 = RoundManager(players1,names1,2,0,Nil,GameTurn().playingDecks,false,0,true)
   val roundManager2 = RoundManager(players1,names1,2,0,Nil,GameTurn().playingDecks,true,0,false)

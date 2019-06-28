@@ -1,21 +1,22 @@
 package de.htwg.se.dominion.model.gameComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.PlayerInterface
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 
 trait GameTurnInterface {
 
-  def actionPhase(list: List[Player], index: Int): List[Player]
+  def actionPhase(list: List[PlayerInterface], index: Int): List[PlayerInterface]
 
-  def actionPhase2(list: List[Player], index: Int, cardnumber: Int): List[Player]
+  def actionPhase2(list: List[PlayerInterface], index: Int, cardnumber: Int): List[PlayerInterface]
 
-  def buyPhase(list: List[Player], index: Int, input: Int): List[Player]
+  def buyPhase(list: List[PlayerInterface], index: Int, input: Int): List[PlayerInterface]
 
-  def updateStacker(p: Player, c: Card): Player
+  def updateStacker(p: PlayerInterface, c: Card): PlayerInterface
 
-  def addCardToHand(p : Player, idx: Int): Player
+  def addCardToHand(p : PlayerInterface, idx: Int): PlayerInterface
 
-  def removeHandcard(i: Int, player: Player): Player
+  def removeHandcard(i: Int, player: PlayerInterface): PlayerInterface
 
   def copyList(cards: List[Card]): List[Card]
 
@@ -27,9 +28,9 @@ trait GameTurnInterface {
 
   def endCheck(end: Boolean): String
 
-  def getMoney(player: Player): Int
+  def getMoney(player: PlayerInterface): Int
 
-  def clearHand(list: List[Player], idx : Int): List[Player]
+  def clearHand(list: List[PlayerInterface], idx : Int): List[PlayerInterface]
 
   def getCardsWCost4(): List[Int]
 

@@ -1,29 +1,39 @@
 package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
-import de.htwg.se.dominion.model.gameComponent._
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
 import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.gameComponent.GameInitInterface
+import de.htwg.se.dominion.model.gameComponent.GameEndInterface
+import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-case class RoundManager(players: List[Player] = List(),
+case class RoundManager(players: List[PlayerInterface] = List(),
                         names: List[String] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Card]] = GameTurn().playingDecks,
+                        playingDecks: List[List[Card]] = Card.playingDeck,
                         action: Boolean = true,
                         empty: Int = 0,
-                        end: Boolean = false) {
+                        end: Boolean = false,
+                        playerInterface: PlayerInterface,
+                        staticPlayerInterface: StaticPlayerInterface,
+                        gameInitInterface: GameInitInterface,
+                        gameEndInterface: GameEndInterface,
+                        gameTurnInterface: GameTurnInterface
+                       ) {
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
-    val names = GameInit().getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn().playingDecks)
+    val names = gameInitInterface.getPlayerName(copiedRoundManagerRe.names, name)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, playingDecks,copiedRoundManagerRe.action,copiedRoundManagerRe.empty,copiedRoundManagerRe.end,copiedRoundManagerRe.playerInterface,copiedRoundManagerRe.gameInitInterface,copiedRoundManagerRe.gameEndInterface)
   }
 
   def getNameSetupStrings(): String = {
@@ -38,31 +48,31 @@ case class RoundManager(players: List[Player] = List(),
     }
   }
 
-  def createPlayer(r: RoundManager): List[Player] = {
+  def createPlayer(r: RoundManager): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
-    val p = Player().createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
+    val p = staticPlayerInterface.createPlayer(copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.names)
     p
   }
 
-  def actionPhase(r: RoundManager): List[Player] = {
+  def actionPhase(r: RoundManager): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
-    val p = GameTurn().actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
+    val p = gameTurnInterface.actionPhase(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn)
     p
   }
 
-  def actionPhase2(r: RoundManager, cardnumber: Int): List[Player] = {
+  def actionPhase2(r: RoundManager, cardnumber: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
-    val p = GameTurn().actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
+    val p = gameTurnInterface.actionPhase2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, cardnumber)
     p
   }
 
-  def editStringValue(r: RoundManager, newStringValue: Int): List[Player] = {
+  def editStringValue(r: RoundManager, newStringValue: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
-    var q: ListBuffer[Player] = ListBuffer()
+    var q: ListBuffer[PlayerInterface] = ListBuffer()
     for (i <- 0 until copiedRoundManagerRe.players.length) {
       if (i == copiedRoundManagerRe.playerturn) {
-        q += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, newStringValue, p(copiedRoundManagerRe.playerturn).money)
+        q += playerInterface(p(copiedRoundManagerRe.playerturn).getName, p(copiedRoundManagerRe.playerturn).getValue, p(copiedRoundManagerRe.playerturn).getDeck, p(copiedRoundManagerRe.playerturn).getStacker, p(copiedRoundManagerRe.playerturn).getHand, p(copiedRoundManagerRe.playerturn).getPlayingCards, p(copiedRoundManagerRe.playerturn).getActions, p(copiedRoundManagerRe.playerturn).getBuys, newStringValue, p(copiedRoundManagerRe.playerturn).getMoney)
       } else {
         q += p(i)
       }
@@ -71,40 +81,40 @@ case class RoundManager(players: List[Player] = List(),
     l
   }
 
-  def actionCardEffect1(r: RoundManager, input: Int): List[Player] = {
+  def actionCardEffect1(r: RoundManager, input: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     val l = StrategyPatternForActionPhase.getCardname(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input.toInt)
     l
   }
 
-  def actionCardEffect2(r: RoundManager, input: String): List[Player] = {
+  def actionCardEffect2(r: RoundManager, input: String): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     val l = StrategyPatternForActionPhase.getCardName2(copiedRoundManagerRe.players, copiedRoundManagerRe.playerturn, input)
     l
   }
 
-  def updateActions(r: RoundManager): List[Player] = {
+  def updateActions(r: RoundManager): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
-    var l: ListBuffer[Player] = new ListBuffer[Player]
+    var l: ListBuffer[PlayerInterface] = new ListBuffer[PlayerInterface]
     for (i <- 0 until p.length) {
       if (i == copiedRoundManagerRe.playerturn) {
-        l += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, List(), (p(copiedRoundManagerRe.playerturn).actions - 1), p(copiedRoundManagerRe.playerturn).buys, p(copiedRoundManagerRe.playerturn).stringValue, p(copiedRoundManagerRe.playerturn).money)
+        l += playerInterface(p(copiedRoundManagerRe.playerturn).getName, p(copiedRoundManagerRe.playerturn).getValue, p(copiedRoundManagerRe.playerturn).getDeck, p(copiedRoundManagerRe.playerturn).getStacker, p(copiedRoundManagerRe.playerturn).getHand, List(), (p(copiedRoundManagerRe.playerturn).getActions - 1), p(copiedRoundManagerRe.playerturn).getBuys, p(copiedRoundManagerRe.playerturn).getStringValue, p(copiedRoundManagerRe.playerturn).getMoney)
       } else {
         l += p(i)
       }
     }
-    val o: List[Player] = l.toList
+    val o: List[PlayerInterface] = l.toList
     o
   }
 
-  def updateMoney(r: RoundManager, money: Int): List[Player] = {
+  def updateMoney(r: RoundManager, money: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
-    var q: ListBuffer[Player] = ListBuffer()
+    var q: ListBuffer[PlayerInterface] = ListBuffer()
     for (i <- 0 until copiedRoundManagerRe.players.length) {
       if (i == copiedRoundManagerRe.playerturn) {
-        q += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, p(copiedRoundManagerRe.playerturn).actions, p(copiedRoundManagerRe.playerturn).buys, p(copiedRoundManagerRe.playerturn).stringValue, money)
+        q += playerInterface(p(copiedRoundManagerRe.playerturn).getName, p(copiedRoundManagerRe.playerturn).getValue, p(copiedRoundManagerRe.playerturn).getDeck, p(copiedRoundManagerRe.playerturn).getStacker, p(copiedRoundManagerRe.playerturn).getHand, p(copiedRoundManagerRe.playerturn).getPlayingCards, p(copiedRoundManagerRe.playerturn).getActions, p(copiedRoundManagerRe.playerturn).getBuys, p(copiedRoundManagerRe.playerturn).getStringValue, money)
       } else {
         q += p(i)
       }
@@ -112,13 +122,13 @@ case class RoundManager(players: List[Player] = List(),
     val l = q.toList
     l
   }
-  def updateActions(r: RoundManager, actions: Int): List[Player] = {
+  def updateActions(r: RoundManager, actions: Int): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var p = copiedRoundManagerRe.players
-    var q: ListBuffer[Player] = ListBuffer()
+    var q: ListBuffer[PlayerInterface] = ListBuffer()
     for (i <- 0 until copiedRoundManagerRe.players.length) {
       if (i == copiedRoundManagerRe.playerturn) {
-        q += new Player(p(copiedRoundManagerRe.playerturn).name, p(copiedRoundManagerRe.playerturn).value, p(copiedRoundManagerRe.playerturn).deck, p(copiedRoundManagerRe.playerturn).stacker, p(copiedRoundManagerRe.playerturn).hand, p(copiedRoundManagerRe.playerturn).playingCards, actions, p(copiedRoundManagerRe.playerturn).buys, p(copiedRoundManagerRe.playerturn).stringValue, p(copiedRoundManagerRe.playerturn).money)
+        q += playerInterface(p(copiedRoundManagerRe.playerturn).getName, p(copiedRoundManagerRe.playerturn).getValue, p(copiedRoundManagerRe.playerturn).getDeck, p(copiedRoundManagerRe.playerturn).getStacker, p(copiedRoundManagerRe.playerturn).getHand, p(copiedRoundManagerRe.playerturn).getPlayingCards, actions, p(copiedRoundManagerRe.playerturn).getBuys, p(copiedRoundManagerRe.playerturn).getStringValue, p(copiedRoundManagerRe.playerturn).getMoney)
       } else {
         q += p(i)
       }
@@ -127,23 +137,23 @@ case class RoundManager(players: List[Player] = List(),
     l
   }
 
-  def getHand(r: RoundManager): List[Player] = {
+  def getHand(r: RoundManager): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
-    l = Player().updatePlayer(l, Player().getHand(l(copiedRoundManagerRe.playerturn)))
+    l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.getHand(l(copiedRoundManagerRe.playerturn)))
     l
   }
 
-  def end(r: RoundManager): List[Player] = {
+  def end(r: RoundManager): List[PlayerInterface] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
-    l = GameEnd().end(l)
+    l =  gameEndInterface.end(l)
     l
   }
 
   def score(r: RoundManager): List[(Int, String)] = {
     val copiedRoundManagerRe = r
-    val score = GameEnd().score(copiedRoundManagerRe.players)
+    val score = gameEndInterface.score(copiedRoundManagerRe.players)
     score
   }
 }

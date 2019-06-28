@@ -2,39 +2,40 @@ package de.htwg.se.dominion.model.gameComponent.gameEndComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.GameEndInterface
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 
 import scala.collection.mutable.ListBuffer
 
-case class GameEnd() extends GameEndInterface {
+case class GameEnd(staticPlayerInterface: StaticPlayerInterface, playerInterface: PlayerInterface) extends GameEndInterface {
 
-  override def end(list: List[Player]): List[Player] = {
+  override def end(list: List[PlayerInterface]): List[PlayerInterface] = {
     var copiedPlayerList = list
     var copiedDeck = new ListBuffer[Card]
-    var copiedPlayerl = new ListBuffer[Player]
+    var copiedPlayerl = new ListBuffer[PlayerInterface]
     val emptyStacker: List[Card] = Nil
     for (i <- 0 until copiedPlayerList.length) {
-      if (copiedPlayerList(i).deck.nonEmpty) {
-        for (f <- 0 until copiedPlayerList(i).deck.length) {
-          copiedDeck += copiedPlayerList(i).deck(f)
+      if (copiedPlayerList(i).getDeck.nonEmpty) {
+        for (f <- 0 until copiedPlayerList(i).getDeck.length) {
+          copiedDeck += copiedPlayerList(i).getDeck(f)
         }
       }
 
-      if (copiedPlayerList(i).stacker.nonEmpty) {
-        for (g <- 0 until copiedPlayerList(i).stacker.length) {
-          copiedDeck += copiedPlayerList(i).stacker(g)
+      if (copiedPlayerList(i).getStacker.nonEmpty) {
+        for (g <- 0 until copiedPlayerList(i).getStacker.length) {
+          copiedDeck += copiedPlayerList(i).getStacker(g)
         }
       }
 
       val updatedDeck: List[Card] = copiedDeck.toList
       copiedDeck = ListBuffer[Card]()
-      copiedPlayerl += new Player(copiedPlayerList(i).name, copiedPlayerList(i).value, updatedDeck, emptyStacker, copiedPlayerList(i).hand, copiedPlayerList(i).playingCards, copiedPlayerList(i).actions, copiedPlayerList(i).value, copiedPlayerList(i).stringValue, copiedPlayerList(i).money)
+      copiedPlayerl += playerInterface(copiedPlayerList(i).getName, copiedPlayerList(i).getValue, updatedDeck, emptyStacker, copiedPlayerList(i).getHand, copiedPlayerList(i).getPlayingCards, copiedPlayerList(i).getActions, copiedPlayerList(i).getValue, copiedPlayerList(i).getStringValue, copiedPlayerList(i)getMmoney)
     }
-    val updatedPlayerList: List[Player] = copiedPlayerl.toList
+    val updatedPlayerList: List[PlayerInterface] = copiedPlayerl.toList
     updatedPlayerList
   }
 
-  override def score(list: List[Player]): List[(Int, String)] = {
+  override def score(list: List[PlayerInterface]): List[(Int, String)] = {
     val copiedPlayerList = list
     val pCount = copiedPlayerList.length
     var wp = 0
@@ -43,14 +44,14 @@ case class GameEnd() extends GameEndInterface {
     var sortedData: ListBuffer[(Int, String)] = new ListBuffer()
 
     for (i <- 0 until pCount) {
-      for (f <- 0 until copiedPlayerList(i).deck.length) {
-        wp += copiedPlayerList(i).deck(f).WpValue
-        if (copiedPlayerList(i).deck(f).CardName.equals("Gardens")) {
+      for (f <- 0 until copiedPlayerList(i).getDeck.length) {
+        wp += copiedPlayerList(i).getDeck(f).WpValue
+        if (copiedPlayerList(i).getDeck(f).CardName.equals("Gardens")) {
           garden += 1
         }
       }
-      wp += garden * (copiedPlayerList(i).deck.length / 10)
-      data += ((wp, copiedPlayerList(i).name))
+      wp += garden * (copiedPlayerList(i).getDeck.length / 10)
+      data += ((wp, copiedPlayerList(i).getName))
       wp = 0
       garden = 0
     }

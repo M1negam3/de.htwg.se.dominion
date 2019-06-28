@@ -6,7 +6,7 @@ import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import de.htwg.se.dominion.util.UndoManager
 

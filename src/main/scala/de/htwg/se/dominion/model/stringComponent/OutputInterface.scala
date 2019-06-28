@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model.stringComponent
 
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.PlayerInterface
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 
 trait OutputInterface {
 
@@ -24,5 +25,5 @@ trait OutputInterface {
 
   def printPlayerQuestion(): String
 
-  def getPlayingStateString(l: List[Player], playerturn: Int, stringValue : Int): String
+  def getPlayingStateString(l: List[PlayerInterface], playerturn: Int, stringValue : Int): String
 }

@@ -2,7 +2,7 @@ package de.htwg.de.dominion.aview.gui
 
 import de.htwg.se.dominion.aview.gui._
 import de.htwg.se.dominion.controller.maincontroller.{Controller, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
 import org.scalatest._
 
 class SwingGuiSpec extends WordSpec with Matchers {
@@ -23,7 +23,7 @@ class SwingGuiSpec extends WordSpec with Matchers {
 
       "Controller is in InGameState" in {
         controller.controllerState = playingState(controller)
-        controller.roundManager = controller.roundManager.copy(players = List(Player("test", 0, List(), List(), List(), List(), 0, 0, 0, 0)))
+        controller.roundManager = controller.roundManager.copy(players = List(playerInterface("test", 0, List(), List(), List(), List(), 0, 0, 0, 0)))
         SwingGui.getPanel(controller).isInstanceOf[PlayingPanel] should be(true)
       }
 
