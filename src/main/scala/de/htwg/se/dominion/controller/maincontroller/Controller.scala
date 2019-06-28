@@ -9,11 +9,12 @@ import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import de.htwg.se.dominion.util.UndoManager
+import javax.inject.Inject
 
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
 
-class Controller(var roundManager: RoundManager) extends ControllerInterface {
+class Controller @Inject() (var roundManager: RoundManager) extends ControllerInterface {
 
   val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.IDLE
