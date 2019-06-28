@@ -1,29 +1,50 @@
 package de.htwg.se.dominion.model.playerComponent
 
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
+import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.{Card, Cards}
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 trait PlayerInterface {
-  def createPlayer(pCount: Int, names: List[String]): List[Player]
 
-  def getHand(player: Player): Player
+  def getName: String
 
-  def getMoney(player: Player): Int
+  def getValue: Int
 
-  def updatePlayer(list: List[Player], player: Player): List[Player]
+  def getDeck: List[Card]
 
-  def draw(player: Player, n: Integer): Player
+  def getStacker: List[Card]
 
-  def upgrading(player: Player, i : Integer, z: List[Card]): Player
+  def getHand: List[Card]
 
-  def isEmpty(player: Player): Player
+  def getPlayingCards: List[Card]
 
-  def updateMoney(player: Player,i: Int): Player
+  def getActions: Int
 
-  def updateAction(player: Player,i: Int): Player
+  def getBuys: Int
+
+  def getStringValue: Int
+
+  def getMoney: Int
+
 }
 
 trait StaticPlayerInterface {
 
+  def createPlayer(pCount: Int, names: List[String]): List[PlayerInterface]
+
+  def getHand(player: PlayerInterface): PlayerInterface
+
+  def getMoney(player: PlayerInterface): Int
+
+  def updatePlayer(list: List[PlayerInterface], player: PlayerInterface): List[PlayerInterface]
+
+  def draw(player: PlayerInterface, n: Integer): PlayerInterface
+
+  def upgrading(player: PlayerInterface, i : Integer, z: List[Card]): PlayerInterface
+
+  def isEmpty(player: PlayerInterface): PlayerInterface
+
+  def updateMoney(player: PlayerInterface,i: Int): PlayerInterface
+
+  def updateAction(player: PlayerInterface,i: Int): PlayerInterface
 
 }
