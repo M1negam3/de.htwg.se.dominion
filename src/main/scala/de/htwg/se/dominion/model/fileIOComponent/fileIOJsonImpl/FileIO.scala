@@ -47,7 +47,7 @@ class FileIO extends FileIOInterface {
         "Names" -> Json.toJson(roundManager.names),
         "number of Players" -> JsNumber(roundManager.numberOfPlayer),
         "player Turn" -> JsNumber(roundManager.playerturn),
-        "score" -> Json.toJson(roundManager.score),
+        //"score" -> Json.toJson(roundManager.score),
         //"playing Decks" -> Json.toJson(roundManager.playingDecks),
         "action" -> JsBoolean(roundManager.action),
         "empty" -> JsNumber(roundManager.empty),
