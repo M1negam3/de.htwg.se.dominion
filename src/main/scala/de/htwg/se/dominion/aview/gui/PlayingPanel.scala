@@ -17,7 +17,7 @@ import scala.util.control.Breaks.{break, breakable}
 class PlayingPanel(controller: Controller) extends BoxPanel(Orientation.Vertical) {
 
   val myFont = new Font("Charlemagne Std Bold", java.awt.Font.BOLD, 15)
-  preferredSize = new Dimension(1800, 1200)
+  preferredSize = new Dimension(1600, 1000)
 
   val infoPanel = new BoxPanel(Orientation.Vertical) {
     contents += new Label("Player: " + (controller.getCurrentPlayerturn + 1) + " (" + controller.getPlayerName + ")"
