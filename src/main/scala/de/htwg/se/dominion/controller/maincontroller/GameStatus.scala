@@ -1,17 +1,18 @@
 package de.htwg.se.dominion.controller.maincontroller
 
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
+import de.htwg.se.dominion.model.stringComponent.OutputInterface
 
-object GameStatus extends Enumeration {
+case class GameStatus (outputInterface: OutputInterface)extends Enumeration {
 
   type GameStatus = Value
   val IDLE, PREP, ACTION, BUY = Value
 
   val map: Map[GameStatus, String] = Map[GameStatus, String] (
     IDLE -> "",
-    PREP -> Output().printNextTurn(),
-    ACTION -> Output().printActionPhase(),
-    BUY -> Output().printBuyPhase()
+    PREP -> outputInterface.printNextTurn(),
+    ACTION -> outputInterface.printActionPhase(),
+    BUY -> outputInterface.printBuyPhase()
     )
 
   def message(gameStatus: GameStatus): String = {

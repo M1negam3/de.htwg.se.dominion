@@ -5,11 +5,12 @@ import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTur
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
 import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.stringComponent.OutputInterface
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
 
-case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface: PlayerInterface, staticGameTurnInterface: StaticGameTurnInterface) extends GameTurnInterface {
+case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface: PlayerInterface, staticGameTurnInterface: StaticGameTurnInterface, gameTurnInterface: GameTurnInterface, outputInterface: OutputInterface) extends GameTurnInterface {
 
   var l: List[PlayerInterface] = Nil
   var playingDecks: List[List[Card]] = Card.playingDeck
@@ -70,7 +71,7 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
       buys += playingCards.head.BuyAdditionValue
       draw += playingCards.head.DrawingValue
       // new
-      l = staticPlayerInterface.updatePlayer(l, Player().draw(l(index), draw))
+      l = staticPlayerInterface.updatePlayer(l, staticPlayerInterface.draw(l(index), draw))
       actions += playingCards.head.ActionValue
       playingCards.head.CardName match {
         case "Cellar" => l = staticPlayerInterface.updatePlayer(l,  playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, 7, money))
@@ -91,7 +92,7 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
         case "Workshop" => l = staticPlayerInterface.updatePlayer(l, playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, 33, money))
         case "Merchant" => {
           l = staticPlayerInterface.updatePlayer(l, playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, l(index).getStringValue, money))
-          l = StrategyPatternForActionPhase.merchant(l, index)
+          l = StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface)merchant(l, index)
         }
         case _ => l = staticPlayerInterface.updatePlayer(l, playerInterface(l(index).getName, l(index).getValue, l(index).getDeck, l(index).getStacker, l(index).getHand, playingCards, actions, buys, 5, money))
       }
@@ -203,7 +204,7 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
           |     Press q to QUIT the Game!
         """.stripMargin
     if (end) {
-      s = Output().printEnd()
+      s = outputInterface.printEnd()
     }
     s
   }
@@ -240,7 +241,7 @@ case class GameTurn(staticPlayerInterface: StaticPlayerInterface,playerInterface
   override def getCardsWC(): List[Int] = {
     var l: ListBuffer[Int] = new ListBuffer[Int]
     for (i <- 0 until playingDecks.length) {
-      if (StrategyPatternForActionPhase.discardCardValue >= playingDecks(i).head.CostValue) {
+      if (StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface).discardCardValue >= playingDecks(i).head.CostValue) {
         l += i
       }
     }

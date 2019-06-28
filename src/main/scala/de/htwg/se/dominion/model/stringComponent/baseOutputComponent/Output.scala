@@ -2,12 +2,15 @@ package de.htwg.se.dominion.model.stringComponent.baseOutputComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Card
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
-import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.playerInterface
+import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
+import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerInterface}
+import de.htwg.se.dominion.model.gameComponent.GameInitInterface
+import de.htwg.se.dominion.model.gameComponent.GameEndInterface
+import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTurnInterface}
 import de.htwg.se.dominion.model.stringComponent.OutputInterface
-import de.htwg.se.dominion.model.playerComponent.PlayerInterface
-import de.htwg.se.dominion.model.gameComponent.GameTurnInterface
 
-case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnInterface) extends OutputInterface {
+
+case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnInterface, staticPlayerInterface: StaticPlayerInterface,staticGameTurnInterface: StaticGameTurnInterface) extends OutputInterface {
 
   var check = false
 
@@ -151,7 +154,7 @@ case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnIn
         for (i <- 1 until l(playerturn).getHand.length) {
           s4 += Console.BLUE + "                          " + l(playerturn).getHand(i).CardName + Console.BLACK + " (" + i + ")\n"
         }
-        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).getPlayingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Card are: " + l(playerturn).hand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n"
+        Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).getPlayingCards.head.EffectValue + "\n\n" + Console.BLUE + "     Your Hand Card are: " + l(playerturn).getHand.head.CardName + Console.BLACK + " (0)\n" + s4 + "\n"
       }
       case 6 => {
         s = Console.BLUE + "     Your Hand Card are: " + l(playerturn).getHand.head.CardName + Console.BLACK + " (0)\n"
@@ -194,13 +197,13 @@ case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnIn
       }
       //case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => {
-        for (j <- 0 until GameTurn().playingDecks.length) {
-          if (StrategyPatternForActionPhase.discardCardValue >= Card.playingDeck(j).head.CostValue) {
+        for (j <- 0 until staticGameTurnInterface.getPlayingDecks.length) {
+          if (StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface).discardCardValue >= Card.playingDeck(j).head.CostValue) {
             z += "                                " + Console.BLUE + Card.playingDeck(j).head.CardName + Console.CYAN + " {" + Card.playingDeck(j).length + "} " + Console.MAGENTA +
               "[" + Card.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Card.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
           }
         }
-        Console.BLUE + "     Choose a Card you want to add to your hand\n     You can choose a card that cost up to " + StrategyPatternForActionPhase.discardCardValue + " Money\n" +
+        Console.BLUE + "     Choose a Card you want to add to your hand\n     You can choose a card that cost up to " + StrategyPatternForActionPhase(playerInterface,staticPlayerInterface,gameTurnInterface,staticGameTurnInterface).discardCardValue + " Money\n" +
           "     You can pick one of these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + " [Cost]" + Console.BLACK + " (PRESS)\n" + z + Console.YELLOW +
           "\n \n     Which card to you want to add to your hand?\n"
       }
@@ -210,7 +213,7 @@ case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnIn
       case 22 => Console.RED + "     You dont have a Silver on your Hand, Gold stays the same"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
-      case 25 => /*var j = gameTurnInterface.getMoney(l(playerturn))
+      /*case 25 => var j = gameTurnInterface.getMoney(l(playerturn))
         for (g <- 0 until GameTurn().playingDecks.length) {
           if (j >= gameTurnInterface.playingDecks(g).head.CostValue) {
             x += Console.BLUE + "                        " + gameTurnInterface.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn().playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn().playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn().playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
@@ -230,7 +233,7 @@ case class Output(playerInterface: PlayerInterface,gameTurnInterface: GameTurnIn
       case 30 => Console.YELLOW + "     Which Card do you want to buy?\n"
       case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
-      case 33 => /*{
+      /*case 33 => {
         for (i <- 0 until GameTurn().playingDecks.length) {
           if (GameTurn().playingDecks(i).head.CostValue <= 4) {
             s3 += "                " + Console.BLUE + gameTurnInterface.playingDecks(i).head.CardName + Console.MAGENTA + " [" + Card.playingDeck(i).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn().playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"

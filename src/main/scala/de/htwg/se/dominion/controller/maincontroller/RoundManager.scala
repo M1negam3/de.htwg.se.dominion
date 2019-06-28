@@ -10,6 +10,7 @@ import de.htwg.se.dominion.model.playerComponent.{PlayerInterface, StaticPlayerI
 import de.htwg.se.dominion.model.gameComponent.GameInitInterface
 import de.htwg.se.dominion.model.gameComponent.GameEndInterface
 import de.htwg.se.dominion.model.gameComponent.{GameTurnInterface, StaticGameTurnInterface}
+import de.htwg.se.dominion.model.stringComponent.OutputInterface
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}

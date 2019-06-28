@@ -4,6 +4,7 @@ import java.io.BufferedReader
 
 import de.htwg.se.dominion.controller.maincontroller.{Controller, GameStatus}
 import de.htwg.se.dominion.util.Observer
+import de.htwg.se.dominion.model.stringComponent.OutputInterface
 
 class Tui(controller: Controller) extends Observer {
 
@@ -31,10 +32,10 @@ class Tui(controller: Controller) extends Observer {
   }
 
     override def update(): Boolean = {
-      println(GameStatus.message(controller.gameStatus))
+      println(GameStatus(outputInterface = OutputInterface).message(controller.gameStatus))
       println(controller.getCurrentStateAsString)
 
-      controller.gameStatus = GameStatus.IDLE
+      controller.gameStatus = GameStatus(outputInterface = ).IDLE
       true
     }
 }
