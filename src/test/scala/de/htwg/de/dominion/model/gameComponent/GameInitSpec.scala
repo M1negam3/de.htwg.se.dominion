@@ -9,7 +9,7 @@ class GameInitSpec extends WordSpec with Matchers{
   var resu: List[String] = List("Luca","Luis","Test")
   "A GameIni" should {
       "have a getPlayerName method" in {
-        GameInit.getPlayerName(old,newer) should be (resu)
+        GameInit().getPlayerName(old,newer) should be (resu)
       }
     }
 }

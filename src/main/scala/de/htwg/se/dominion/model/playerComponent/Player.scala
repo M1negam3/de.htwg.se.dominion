@@ -6,26 +6,22 @@ import scala.collection.mutable.ListBuffer
 
 case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, stacker: List[Cards] = Nil, hand: List[Cards] = Nil, playingCards: List[Cards] = Nil, actions: Int = 1, buys: Int = 1, stringValue: Int = 0, money: Int = 0) {
   override def toString: String = this.name
-}
-
-object Player {
 
   var deckLength = 0
-  var copiedPlayer: Player = new Player()
   var copyList: List[Cards] = Nil
 
 
   def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
-      players += new Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0,0)
+      players += Player(names(i), i + 1, Cards.shuffle(Cards.startDeck), Cards.stacker, Nil, Nil, 1, 1, 0, 0)
     }
     val Players: List[Player] = players.toList
     Players
   }
 
   def getHand(player: Player): Player = {
-    copiedPlayer = player
+    var copiedPlayer = player
     copyList = copiedPlayer.deck
     deckLength = copyList.length
     var l = new ListBuffer[Cards]
@@ -79,7 +75,7 @@ object Player {
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
     deckLength = 0
-    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
+    Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
   }
 
   def getMoney(player: Player): Int = {

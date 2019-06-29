@@ -7,8 +7,8 @@ import de.htwg.se.dominion.model.playerComponent.Player
 import org.scalatest._
 
 class ControllerSpec extends WordSpec with Matchers {
- val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
-  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn.playingDecks,false)
+ val roundManager = RoundManager(players,names,2,0,Nil,GameTurn().playingDecks,false)
+  val roundManager1 = RoundManager(players1,names,2,0,Nil,GameTurn().playingDecks,false)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   var names: List[String] = List("Luca","Luis")
@@ -71,11 +71,11 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.controllerState.evaluate("asd")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (48)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25),
-        playingDecks = GameTurn.playingDecks)
+        playingDecks = GameTurn().playingDecks)
       controller.controllerState.evaluate("N")
       controller.roundManager.action should be (true)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24),
-        playingDecks = GameTurn.playingDecks)
+        playingDecks = GameTurn().playingDecks)
       controller.controllerState.evaluate("")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (24)
       /*controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48),
@@ -84,7 +84,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
       controller.roundManager = controller.roundManager.copy(players = players1)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30),
-        playingDecks = GameTurn.playingDecks)
+        playingDecks = GameTurn().playingDecks)
       controller.controllerState.evaluate("30")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
       /*controller.roundManager = controller.roundManager.copy(players = players2)

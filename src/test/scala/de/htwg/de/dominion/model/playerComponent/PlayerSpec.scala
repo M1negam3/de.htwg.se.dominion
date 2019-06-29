@@ -1,7 +1,6 @@
 package de.htwg.se.dominion.model.playerComponent
 
 import de.htwg.se.dominion.model.deckComponent.cardComponent._
-import de.htwg.se.dominion.model.playerComponent.Player.{copiedPlayer, copyList, isEmpty}
 import org.scalatest._
 
 import scala.collection.mutable.ListBuffer
@@ -40,38 +39,38 @@ class PlayerSpec extends WordSpec with Matchers {
   }
   "A player" should {
     "have a createPlayer method" in {
-      Player.createPlayer(2,names) should not be (list.head == Luis)
+      Player().createPlayer(2,names) should not be (list.head == Luis)
     }
     "have a getHand method" in {
-      Player.getHand(Luca) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player.getHand(Luca0) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player.getHand(Luca1) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player.getHand(Luca2) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player.getHand(Luca3) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
-      Player.getHand(Luca4) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca0) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca1) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca2) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca3) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
+      Player().getHand(Luca4) should not be (Cards.copper,Cards.copper,Cards.copper,Cards.copper)
 
     }
     "have a getMoney method" in {
-      Player.getMoney(Luis) should not be be (5)
+      Player().getMoney(Luis) should not be be (5)
     }
     "have a updatePlayer method " in {
-      Player.updatePlayer(list, Player.draw(Luca, 2)) should not be (Luca.hand.length == 4)
+      Player().updatePlayer(list, Player().draw(Luca, 2)) should not be (Luca.hand.length == 4)
     }
     "have a draw method" in {
-      Player.draw(Luca, 5) should not be (list.head.hand.length == 5)
-      Player.draw(Luca2,5) should not be (list.head.hand.length == 5)
+      Player().draw(Luca, 5) should not be (list.head.hand.length == 5)
+      Player().draw(Luca2,5) should not be (list.head.hand.length == 5)
     }
     "have a upgrading method" in {
-      Player.upgrading(Luis, 0, silver) should not be (Luis.hand.head == Cards.copper)
+      Player().upgrading(Luis, 0, silver) should not be (Luis.hand.head == Cards.copper)
     }
     "have a isEmpty method " in {
-      Player.isEmpty(Luca) should not be (Luca.stacker.length == 1)
+      Player().isEmpty(Luca) should not be (Luca.stacker.length == 1)
     }
     "have a updateMoney method" in {
-      Player.updateMoney(Luca, 5) should not be (Luca.money == 1)
+      Player().updateMoney(Luca, 5) should not be (Luca.money == 1)
     }
     "have a updateAction method" in {
-      Player.updateAction(Luca, 1) should not be (Luca.actions == 4)
+      Player().updateAction(Luca, 1) should not be (Luca.actions == 4)
     }
   }
 }

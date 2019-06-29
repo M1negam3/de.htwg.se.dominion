@@ -8,7 +8,7 @@ import de.htwg.se.dominion.model.gameComponent.{GameTurn, StrategyPatternForActi
 import scala.collection.mutable.ListBuffer
 import de.htwg.se.dominion.model.gameComponent.GameTurn
 
-object Output {
+case class Output() {
 
   var check = false
 
@@ -195,7 +195,7 @@ object Output {
       }
       //case 17 => Console.BLUE + "     You choose: " + Console.BLACK + l(playerturn).hand(stringValue).CardName
       case 18 => {
-        for (j <- 0 until GameTurn.playingDecks.length) {
+        for (j <- 0 until GameTurn().playingDecks.length) {
           if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
             z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
               "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
@@ -211,13 +211,13 @@ object Output {
       case 22 => Console.RED + "     You dont have a Silver on your Hand, Gold stays the same"
       case 23 => Console.RED + "     You cant add that, please enter a valid number"
       case 24 => Console.RED + "     Try Y or N!"
-      case 25 => var j = GameTurn.getMoney(l(playerturn))
-        for (g <- 0 until GameTurn.playingDecks.length) {
-          if (j >= GameTurn.playingDecks(g).head.CostValue) {
-            x += Console.BLUE + "                        " + GameTurn.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
+      case 25 => var j = GameTurn().getMoney(l(playerturn))
+        for (g <- 0 until GameTurn().playingDecks.length) {
+          if (j >= GameTurn().playingDecks(g).head.CostValue) {
+            x += Console.BLUE + "                        " + GameTurn().playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn().playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn().playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn().playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
           }
         }
-        Console.BLUE + "     Your money is: " + GameTurn.getMoney(l(playerturn)) + "\n" + "     Your Buy actions are: " + l(playerturn).buys +"\n" + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n" + x + "\n     Do you want to buy a Card? (Y/N)\n"
+        Console.BLUE + "     Your money is: " + GameTurn().getMoney(l(playerturn)) + "\n" + "     Your Buy actions are: " + l(playerturn).buys +"\n" + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n" + x + "\n     Do you want to buy a Card? (Y/N)\n"
       case 26 => Console.BLUE + "     Your Buy actions are: " + l(playerturn).buys
       case 27 => Console.BLUE + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n"
       /*case 28 => var j = GameTurn.getMoney(l(playerturn))
@@ -232,9 +232,9 @@ object Output {
       case 31 => Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n"
       case 32 => Console.RED + "     You cant buy that, please enter a valid number"
       case 33 => {
-        for (i <- 0 until GameTurn.playingDecks.length) {
-          if (GameTurn.playingDecks(i).head.CostValue <= 4) {
-            s3 += "                " + Console.BLUE + GameTurn.playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn.playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
+        for (i <- 0 until GameTurn().playingDecks.length) {
+          if (GameTurn().playingDecks(i).head.CostValue <= 4) {
+            s3 += "                " + Console.BLUE + GameTurn().playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn().playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
           }
         }
         Console.BLUE + "     Your card effect is: " + Console.BLACK + l(playerturn).playingCards.head.EffectValue +
