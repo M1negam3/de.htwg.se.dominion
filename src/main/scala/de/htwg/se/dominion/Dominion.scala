@@ -11,7 +11,7 @@ object Dominion {
   val injector: Injector = Guice.createInjector(new DominionModule)
   val controller: Controller = injector.getInstance(classOf[Controller])
   val tui = new Tui(controller)
-  //val gui = new SwingGui(controller)
+  val gui = new SwingGui(controller)
   controller.notifyObservers
 
   def main(args: Array[String]): Unit = {
