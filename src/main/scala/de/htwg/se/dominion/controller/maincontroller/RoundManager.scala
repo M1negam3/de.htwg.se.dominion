@@ -134,13 +134,13 @@ case class RoundManager(players: List[Player] = List(),
   def end(r: RoundManager): List[Player] = {
     val copiedRoundManagerRe = r
     var l = copiedRoundManagerRe.players
-    l = GameEnd.end(l)
+    l = GameEnd().end(l)
     l
   }
 
   def score(r: RoundManager): List[(Int, String)] = {
     val copiedRoundManagerRe = r
-    val score = GameEnd.score(copiedRoundManagerRe.players)
+    val score = GameEnd().score(copiedRoundManagerRe.players)
     score
   }
 }

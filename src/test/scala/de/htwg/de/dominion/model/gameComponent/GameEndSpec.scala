@@ -13,10 +13,10 @@ class GameEndSpec extends WordSpec with Matchers{
   var finished: List[(Int,String)] = List((3,"Luca"),(3,"Luis"))
   "A GameEnd" should {
     "have a end method" in {
-      GameEnd.end(list).head.stacker.length should  be (0)
+      GameEnd().end(list).head.stacker.length should  be (0)
     }
     "have a score method" in {
-      GameEnd.score(list) should  be (finished)
+      GameEnd().score(list) should  be (finished)
     }
   }
 }

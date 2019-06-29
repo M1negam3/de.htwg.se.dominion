@@ -5,7 +5,7 @@ import de.htwg.se.dominion.model.playerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 
-object GameEnd {
+case class GameEnd() {
 
   def end(list: List[Player]): List[Player] = {
     var copiedPlayerList = list

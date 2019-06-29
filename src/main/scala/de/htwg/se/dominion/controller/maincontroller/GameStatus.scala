@@ -17,5 +17,4 @@ object GameStatus extends Enumeration {
   def message(gameStatus: GameStatus): String = {
     map(gameStatus)
   }
-
 }
