@@ -2,6 +2,8 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import java.io.BufferedReader
 
+import com.google.inject.Guice
+import de.htwg.se.dominion.DominionModule
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
@@ -14,7 +16,7 @@ import javax.inject.Inject
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
 
-class Controller @Inject() (var roundManager: RoundManager) extends ControllerInterface {
+class Controller @Inject()(var roundManager: RoundManager) extends ControllerInterface {
 
   val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.IDLE

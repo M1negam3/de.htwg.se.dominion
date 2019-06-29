@@ -11,11 +11,6 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
 
   override def toString: String = this.name
 
-  var deckLength = 0
-  //var copiedPlayer: Player = Player()
-  var copyList: List[Cards] = Nil
-
-
   override def createPlayer(pCount: Int, names: List[String]): List[Player] = {
     var players = new ListBuffer[Player]
     for (i <- 0 until pCount) {
@@ -27,8 +22,8 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
 
   override def getHand(player: Player): Player = {
     var copiedPlayer = player
-    copyList = copiedPlayer.deck
-    deckLength = copyList.length
+    var copyList = copiedPlayer.deck
+    val deckLength = copyList.length
     var l = new ListBuffer[Cards]
     var d = new ListBuffer[Cards]
     copyList.length match {
@@ -79,8 +74,7 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
     }
     val hand: List[Cards] = l.toList
     val deck: List[Cards] = d.toList
-    deckLength = 0
-    new Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
+    Player(copiedPlayer.name, copiedPlayer.value, deck, copiedPlayer.stacker, hand, copiedPlayer.playingCards, 1, 1, 0,0)
   }
 
   override def getMoney(player: Player): Int = {
