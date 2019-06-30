@@ -12,9 +12,9 @@ class FileIO extends FileIOInterface {
   override def load: RoundManager = {
     var roundManager: RoundManager = null
     val file = scala.xml.XML.loadFile("roundManager.xml")
-    val namesAttr = file \\ "roundManager" \ "@names"
+    val namesAttr = (file \\ "roundManager" \ "@names")
     val names = namesAttr.asInstanceOf[List[String]]
-    val playersAttr = file \\ "roundManager" \ "@players"
+    val playersAttr = file \\ "roundManager" \ "@players" \\ "@money"
     val players = playersAttr.asInstanceOf[List[Player]]
     val numberOfPlayersAttr = file \\ "roundManager" \ "@numberOfPlayer"
     val numberOfPlayer = numberOfPlayersAttr.text.toInt
@@ -44,14 +44,16 @@ class FileIO extends FileIOInterface {
   }
 
   def currentStateToXml(roundManager: RoundManager): Elem = {
-    <roundManager names={roundManager.names}
-                  numberOfPlayers={roundManager.numberOfPlayer}
-                  playerTurn={roundManager.playerturn}
-                  score={roundManager.score}
-                  playingDecks={roundManager.playingDecks}
-                  action={roundManager.action}
-                  empty={roundManager.empty}
-                  end={roundManager.end}>
+    <roundManager>
+      <names>{roundManager.names}</names>
+      <players>{roundManager.players}</players>
+      <numberOfPlayers>{roundManager.numberOfPlayer}</numberOfPlayers>
+      <playerTurn>{roundManager.playerturn}</playerTurn>
+      <score>{roundManager.score}</score>
+      <playingDecks>{roundManager.playingDecks}</playingDecks>
+      <action>{roundManager.action}</action>
+      <empty>{roundManager.empty}</empty>
+      <end>{roundManager.end}</end>
     </roundManager>
   }
 
