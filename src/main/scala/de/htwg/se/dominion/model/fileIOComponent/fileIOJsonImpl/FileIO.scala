@@ -40,7 +40,7 @@ class FileIO extends FileIOInterface {
       "Money Value" -> cards.MoneyValue,
       "Wp Value" -> cards.WpValue,
       "Action Value" -> cards.ActionValue,
-      "Buy Addition Value" -> cards.BuyAdditionValue ,
+      "Buy Addition Value" -> cards.BuyAdditionValue,
       "Bonus Money Value" -> cards.BonusMoneyValue,
       "Drawing Value" -> cards.DrawingValue,
       "Effect Value" -> cards.EffectValue,
@@ -92,5 +92,4 @@ class FileIO extends FileIOInterface {
       )
     )
   }
-
 }

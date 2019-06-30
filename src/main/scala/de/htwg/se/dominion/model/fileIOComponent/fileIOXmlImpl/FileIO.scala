@@ -14,7 +14,7 @@ class FileIO extends FileIOInterface {
     val file = scala.xml.XML.loadFile("roundManager.xml")
     val namesAttr = (file \\ "roundManager" \ "@names")
     val names = namesAttr.asInstanceOf[List[String]]
-    val playersAttr = file \\ "roundManager" \ "@players" \\ "@money"
+    val playersAttr = file \\ "roundManager" \ "@players"
     val players = playersAttr.asInstanceOf[List[Player]]
     val numberOfPlayersAttr = file \\ "roundManager" \ "@numberOfPlayer"
     val numberOfPlayer = numberOfPlayersAttr.text.toInt
@@ -43,18 +43,49 @@ class FileIO extends FileIOInterface {
     pw.close()
   }
 
+  def cardsToXml(cards: Cards) = {
+    <cards>
+      <costValue>{cards.CostValue}</costValue>
+      <moneyValue>{cards.MoneyValue}</moneyValue>
+      <wpValue>{cards.WpValue}</wpValue>
+      <actionValue>{cards.ActionValue}</actionValue>
+      <buyAdditionValue>{cards.BuyAdditionValue}</buyAdditionValue>
+      <bonusMoneyValue>{cards.BonusMoneyValue}</bonusMoneyValue>
+      <drawingValue>{cards.DrawingValue}</drawingValue>
+      <effectValue>{cards.EffectValue}</effectValue>
+      <cardName>{cards.CardName}</cardName>
+      <type>{cards.Type}</type>
+    </cards>
+  }
+
+  def playerToXml(player: Player) = {
+    <player>
+      <name>{player.name}</name>
+      <value>{player.value}</value>
+      <deck>{player.deck}</deck>
+      <stacker>{player.stacker}</stacker>
+      <hand>{player.hand}</hand>
+      <playingCards>{player.playingCards}</playingCards>
+      <action>{player.actions}</action>
+      <buys>{player.buys}</buys>
+      <stringValue>{player.stringValue}</stringValue>
+      <money>{player.money}</money>
+    </player>
+  }
+
   def currentStateToXml(roundManager: RoundManager): Elem = {
-    <roundManager>
-      <names>{roundManager.names}</names>
+    <roundmanager>
       <players>{roundManager.players}</players>
+      <names>{roundManager.names}</names>
       <numberOfPlayers>{roundManager.numberOfPlayer}</numberOfPlayers>
       <playerTurn>{roundManager.playerturn}</playerTurn>
       <score>{roundManager.score}</score>
-      <playingDecks>{roundManager.playingDecks}</playingDecks>
+      <playingDeck>{roundManager.playingDecks}</playingDeck>
       <action>{roundManager.action}</action>
       <empty>{roundManager.empty}</empty>
       <end>{roundManager.end}</end>
-    </roundManager>
+    </roundmanager>
   }
 
 }
+
