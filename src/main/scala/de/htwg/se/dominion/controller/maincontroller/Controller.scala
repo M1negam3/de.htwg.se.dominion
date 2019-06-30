@@ -2,9 +2,12 @@ package de.htwg.se.dominion.controller.maincontroller
 
 import java.io.BufferedReader
 
+import com.google.inject.Guice
+import de.htwg.se.dominion.DominionModule
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.GameStatus.GameStatus
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
+import de.htwg.se.dominion.model.fileIOComponent.FileIOInterface
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.GameTurn
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import de.htwg.se.dominion.model.stringComponent.baseOutputComponent.Output
@@ -19,6 +22,8 @@ class Controller @Inject() (var roundManager: RoundManager) extends ControllerIn
   val undoManager = new UndoManager
   var gameStatus: GameStatus = GameStatus.IDLE
   var controllerState: ControllerState = PlayerCountState(this)
+  val injector = Guice.createInjector(new DominionModule)
+  val fileIo = injector.getInstance(classOf[FileIOInterface])
 
   override def eval(input: String): Unit = {
     undoManager.doStep(new SetCommand(this))
@@ -33,6 +38,18 @@ class Controller @Inject() (var roundManager: RoundManager) extends ControllerIn
 
   override def redo(): Unit = {
     undoManager.redoStep()
+    notifyObservers
+  }
+
+  override def save(): Unit = {
+    fileIo.save(roundManager)
+    gameStatus = GameStatus.SAVED
+    notifyObservers
+  }
+
+  override def load(): Unit = {
+    roundManager = fileIo.load
+    gameStatus = GameStatus.LOADED
     notifyObservers
   }
 

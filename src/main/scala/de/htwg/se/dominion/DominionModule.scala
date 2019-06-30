@@ -27,6 +27,7 @@ class DominionModule extends AbstractModule with ScalaModule {
     bind[ControllerInterface].to[Controller]
     bind[RoundManager].toInstance(RoundManager())
     bind[Player].toInstance(Player())
-    //bind[FileIOInterface].to[fileIOJsonImpl.FileIO]
+
+    bind[FileIOInterface].to[fileIOJsonImpl.FileIO]
   }
 }

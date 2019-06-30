@@ -35,6 +35,6 @@ class GameEndPanel(controller: Controller) extends BoxPanel(Orientation.Vertical
   }
 
   reactions += {
-    case ButtonClicked(`quitButton`) => controller.eval("q")
+    case ButtonClicked(`quitButton`) => System.exit(0)
   }
 }
