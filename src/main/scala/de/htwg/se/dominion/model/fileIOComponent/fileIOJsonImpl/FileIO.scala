@@ -65,21 +65,20 @@ class FileIO extends FileIOInterface {
   }
 
   implicit val roundManagerWrites = new Writes[RoundManager] {
-    def writes(roundManager: RoundManager) = Json.obj(
-      "Players" -> roundManager.players,
-      "Names" -> roundManager.names,
-      "number Of Players" -> roundManager.numberOfPlayer,
-      "score" -> roundManager.score,
-      "playing Decks" -> roundManager.playingDecks,
-      "action" -> roundManager.action,
-      "empty" -> roundManager.empty,
-      "end" -> roundManager.end
+    def writes(roundManager: RoundManager) = Json.obj (
+    "Players" -> roundManager.players,
+    "Names" -> roundManager.names,
+    "number Of Players" -> roundManager.numberOfPlayer,
+    "score" -> roundManager.score,
+    "playing Decks" -> roundManager.playingDecks,
+    "action" -> roundManager.action,
+    "empty" -> roundManager.empty,
+    "end" -> roundManager.end
     )
   }
 
   def currentStateToJson(roundManager: RoundManager) = {
     Json.obj(
-      "GameState" -> Json.obj(
         "Players" -> Json.toJson(roundManager.players),
         "Names" -> Json.toJson(roundManager.names),
         "number Of Players" -> JsNumber(roundManager.numberOfPlayer),
@@ -89,7 +88,6 @@ class FileIO extends FileIOInterface {
         "action" -> JsBoolean(roundManager.action),
         "empty" -> JsNumber(roundManager.empty),
         "end" -> JsBoolean(roundManager.end)
-      )
     )
   }
 }

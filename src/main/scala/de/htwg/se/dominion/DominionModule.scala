@@ -3,8 +3,6 @@ package de.htwg.se.dominion
 import com.google.inject.AbstractModule
 import de.htwg.se.dominion.controller.ControllerInterface
 import de.htwg.se.dominion.controller.maincontroller.{Controller, RoundManager}
-import de.htwg.se.dominion.model.deckComponent.HeadDeckInterface
-import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.fileIOComponent.FileIOInterface
 import de.htwg.se.dominion.model.gameComponent.{GameEndInterface, GameInitInterface, GameTurnInterface}
 import de.htwg.se.dominion.model.playerComponent.PlayerInterface
@@ -28,6 +26,6 @@ class DominionModule extends AbstractModule with ScalaModule {
     bind[RoundManager].toInstance(RoundManager())
     bind[Player].toInstance(Player())
 
-    bind[FileIOInterface].to[fileIOXmlImpl.FileIO]
+    bind[FileIOInterface].to[fileIOJsonImpl.FileIO]
   }
 }

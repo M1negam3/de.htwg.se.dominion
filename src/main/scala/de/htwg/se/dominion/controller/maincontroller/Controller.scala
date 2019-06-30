@@ -48,6 +48,7 @@ class Controller @Inject() (var roundManager: RoundManager) extends ControllerIn
   }
 
   override def load(): Unit = {
+    val roundmanager2 = fileIo.load
     roundManager = fileIo.load
     gameStatus = GameStatus.LOADED
     notifyObservers
