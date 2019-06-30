@@ -13,6 +13,10 @@ trait ControllerInterface extends Observable{
 
   def redo(): Unit
 
+  def save(): Unit
+
+  def load(): Unit
+
   def getCurrentStateAsString: String
 
   def controllerStateAsString: String
