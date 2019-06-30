@@ -43,6 +43,7 @@ class FileIO extends FileIOInterface {
     pw.close()
   }
 
+
   def cardsToXml(cards: Cards) = {
     <cards>
       <costValue>{cards.CostValue}</costValue>
@@ -58,24 +59,48 @@ class FileIO extends FileIOInterface {
     </cards>
   }
 
-  def playerToXml(player: Player) = {
-    <player>
-      <name>{player.name}</name>
-      <value>{player.value}</value>
-      <deck>{player.deck}</deck>
-      <stacker>{player.stacker}</stacker>
-      <hand>{player.hand}</hand>
-      <playingCards>{player.playingCards}</playingCards>
-      <action>{player.actions}</action>
-      <buys>{player.buys}</buys>
-      <stringValue>{player.stringValue}</stringValue>
-      <money>{player.money}</money>
-    </player>
+  def playerToXml(player: Player): Elem = {
+        <player>
+          <name>
+            {player.name}
+          </name>
+          <value>
+            {player.value}
+          </value>
+          <deck>
+            {player.deck}
+          </deck>
+          <stacker>
+            {player.stacker}
+          </stacker>
+          <hand>
+            {player.hand}
+          </hand>
+          <playingCards>
+            {player.playingCards}
+          </playingCards>
+          <action>
+            {player.actions}
+          </action>
+          <buys>
+            {player.buys}
+          </buys>
+          <stringValue>
+            {player.stringValue}
+          </stringValue>
+          <money>
+            {player.money}
+          </money>
+        </player>
   }
 
   def currentStateToXml(roundManager: RoundManager): Elem = {
     <roundmanager>
-      <players>{roundManager.players}</players>
+      <player>{
+        for {
+          player <- roundManager.players.indices
+        }yield playerToXml(roundManager.players(player))
+      }</player>
       <names>{roundManager.names}</names>
       <numberOfPlayers>{roundManager.numberOfPlayer}</numberOfPlayers>
       <playerTurn>{roundManager.playerturn}</playerTurn>

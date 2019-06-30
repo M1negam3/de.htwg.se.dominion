@@ -1,6 +1,53 @@
 <roundmanager>
-    <players>a b</players>
-    <names>a b</names>
+    <player>
+        <player>
+            <name> asd </name>
+            <value> 1 </value>
+            <deck>
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+            </deck>
+            <stacker> </stacker>
+            <hand> </hand>
+            <playingCards> </playingCards>
+            <action> 1 </action>
+            <buys> 1 </buys>
+            <stringValue> 0 </stringValue>
+            <money> 0 </money>
+        </player>
+        <player>
+            <name> gfhjf </name>
+            <value> 2 </value>
+            <deck>
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(2,0,1,0,0,0,0,1 Winning Point,Estate,WinningPoint)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+                Cards(0,1,0,0,0,0,0,1 Money,Copper,Money)
+            </deck>
+            <stacker> </stacker>
+            <hand> </hand>
+            <playingCards> </playingCards>
+            <action> 1 </action>
+            <buys> 1 </buys>
+            <stringValue> 0 </stringValue>
+            <money> 0 </money>
+        </player>
+    </player>
+    <names>asd gfhjf</names>
     <numberOfPlayers>2</numberOfPlayers>
     <playerTurn>0</playerTurn>
     <score></score>
