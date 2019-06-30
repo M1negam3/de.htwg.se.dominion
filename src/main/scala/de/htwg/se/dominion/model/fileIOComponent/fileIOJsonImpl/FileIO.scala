@@ -1,7 +1,5 @@
 package de.htwg.se.dominion.model.fileIOComponent.fileIOJsonImpl
 
-import com.google.inject.Guice
-import de.htwg.se.dominion.DominionModule
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.fileIOComponent.FileIOInterface
@@ -13,11 +11,8 @@ import play.api.libs.json._
 class FileIO extends FileIOInterface {
 
   override def load: RoundManager = {
-    var roundManager: RoundManager = null
     val source: String = Source.fromFile("roundmanager.json").getLines.mkString
     val json: JsValue = Json.parse(source)
-    val injector = Guice.createInjector(new DominionModule)
-
     val players = (json \\ "Players").asInstanceOf[List[Player]]
     val names = (json \\ "Names").asInstanceOf[List[String]]
     val numberOfPlayer = (json \ "number Of Players").get.toString.toInt
@@ -28,8 +23,7 @@ class FileIO extends FileIOInterface {
     val empty = (json \ "empty").get.toString.toInt
     val end = (json \ "end").get.toString.toBoolean
 
-    roundManager = roundManager.copy(players, names, numberOfPlayer, playerTurn, score,
-      playingDecks, action, empty, end)
+    val roundManager = RoundManager(players, names, numberOfPlayer, playerTurn, score, playingDecks, action, empty, end)
     roundManager
   }
 
@@ -88,7 +82,7 @@ class FileIO extends FileIOInterface {
       "GameState" -> Json.obj(
         "Players" -> Json.toJson(roundManager.players),
         "Names" -> Json.toJson(roundManager.names),
-        "number of Players" -> JsNumber(roundManager.numberOfPlayer),
+        "number Of Players" -> JsNumber(roundManager.numberOfPlayer),
         "player Turn" -> JsNumber(roundManager.playerturn),
         "score" -> Json.toJson(roundManager.score),
         "playing Decks" -> Json.toJson(roundManager.playingDecks),

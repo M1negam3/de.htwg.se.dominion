@@ -15,28 +15,6 @@
         "Card Name" : "Copper",
         "Type" : "Money"
       }, {
-        "Cost Value" : 0,
-        "Money Value" : 1,
-        "Wp Value" : 0,
-        "Action Value" : 0,
-        "Buy Addition Value" : 0,
-        "Bonus Money Value" : 0,
-        "Drawing Value" : 0,
-        "Effect Value" : "1 Money",
-        "Card Name" : "Copper",
-        "Type" : "Money"
-      }, {
-        "Cost Value" : 0,
-        "Money Value" : 1,
-        "Wp Value" : 0,
-        "Action Value" : 0,
-        "Buy Addition Value" : 0,
-        "Bonus Money Value" : 0,
-        "Drawing Value" : 0,
-        "Effect Value" : "1 Money",
-        "Card Name" : "Copper",
-        "Type" : "Money"
-      }, {
         "Cost Value" : 2,
         "Money Value" : 0,
         "Wp Value" : 1,
@@ -102,6 +80,28 @@
         "Effect Value" : "1 Winning Point",
         "Card Name" : "Estate",
         "Type" : "WinningPoint"
+      }, {
+        "Cost Value" : 0,
+        "Money Value" : 1,
+        "Wp Value" : 0,
+        "Action Value" : 0,
+        "Buy Addition Value" : 0,
+        "Bonus Money Value" : 0,
+        "Drawing Value" : 0,
+        "Effect Value" : "1 Money",
+        "Card Name" : "Copper",
+        "Type" : "Money"
+      }, {
+        "Cost Value" : 0,
+        "Money Value" : 1,
+        "Wp Value" : 0,
+        "Action Value" : 0,
+        "Buy Addition Value" : 0,
+        "Bonus Money Value" : 0,
+        "Drawing Value" : 0,
+        "Effect Value" : "1 Money",
+        "Card Name" : "Copper",
+        "Type" : "Money"
       }, {
         "Cost Value" : 0,
         "Money Value" : 1,
@@ -147,28 +147,6 @@
         "Card Name" : "Copper",
         "Type" : "Money"
       }, {
-        "Cost Value" : 0,
-        "Money Value" : 1,
-        "Wp Value" : 0,
-        "Action Value" : 0,
-        "Buy Addition Value" : 0,
-        "Bonus Money Value" : 0,
-        "Drawing Value" : 0,
-        "Effect Value" : "1 Money",
-        "Card Name" : "Copper",
-        "Type" : "Money"
-      }, {
-        "Cost Value" : 0,
-        "Money Value" : 1,
-        "Wp Value" : 0,
-        "Action Value" : 0,
-        "Buy Addition Value" : 0,
-        "Bonus Money Value" : 0,
-        "Drawing Value" : 0,
-        "Effect Value" : "1 Money",
-        "Card Name" : "Copper",
-        "Type" : "Money"
-      }, {
         "Cost Value" : 2,
         "Money Value" : 0,
         "Wp Value" : 1,
@@ -179,6 +157,28 @@
         "Effect Value" : "1 Winning Point",
         "Card Name" : "Estate",
         "Type" : "WinningPoint"
+      }, {
+        "Cost Value" : 0,
+        "Money Value" : 1,
+        "Wp Value" : 0,
+        "Action Value" : 0,
+        "Buy Addition Value" : 0,
+        "Bonus Money Value" : 0,
+        "Drawing Value" : 0,
+        "Effect Value" : "1 Money",
+        "Card Name" : "Copper",
+        "Type" : "Money"
+      }, {
+        "Cost Value" : 0,
+        "Money Value" : 1,
+        "Wp Value" : 0,
+        "Action Value" : 0,
+        "Buy Addition Value" : 0,
+        "Bonus Money Value" : 0,
+        "Drawing Value" : 0,
+        "Effect Value" : "1 Money",
+        "Card Name" : "Copper",
+        "Type" : "Money"
       }, {
         "Cost Value" : 2,
         "Money Value" : 0,
@@ -244,7 +244,7 @@
       "money" : 0
     } ],
     "Names" : [ "a", "b" ],
-    "number of Players" : 2,
+    "number Of Players" : 2,
     "player Turn" : 0,
     "score" : [ ],
     "playing Decks" : [ [ {
