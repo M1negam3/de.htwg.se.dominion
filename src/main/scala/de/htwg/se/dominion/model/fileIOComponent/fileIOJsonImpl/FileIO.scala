@@ -40,15 +40,58 @@ class FileIO extends FileIOInterface {
     pw.close()
   }
 
+  implicit val cardsWrites = new Writes[Cards] {
+    def writes(cards: Cards) = Json.obj(
+      "Cost Value" -> cards.CostValue,
+      "Money Value" -> cards.MoneyValue,
+      "Wp Value" -> cards.WpValue,
+      "Action Value" -> cards.ActionValue,
+      "Buy Addition Value" -> cards.BuyAdditionValue ,
+      "Bonus Money Value" -> cards.BonusMoneyValue,
+      "Drawing Value" -> cards.DrawingValue,
+      "Effect Value" -> cards.EffectValue,
+      "Card Name" -> cards.CardName,
+      "Type" -> cards.Type
+    )
+  }
+
+  implicit val playerWrites = new Writes[Player] {
+    def writes(player: Player) = Json.obj(
+      "name" -> player.name,
+      "value" -> player.value,
+      "deck" -> player.deck,
+      "stacker" -> player.stacker,
+      "hand" -> player.hand,
+      "playingCards" -> player.hand,
+      "actions" -> player.actions,
+      "buys" -> player.buys,
+      "string Value" -> player.stringValue,
+      "money" -> player.money
+    )
+  }
+
+  implicit val roundManagerWrites = new Writes[RoundManager] {
+    def writes(roundManager: RoundManager) = Json.obj(
+      "Players" -> roundManager.players,
+      "Names" -> roundManager.names,
+      "number Of Players" -> roundManager.numberOfPlayer,
+      "score" -> roundManager.score,
+      "playing Decks" -> roundManager.playingDecks,
+      "action" -> roundManager.action,
+      "empty" -> roundManager.empty,
+      "end" -> roundManager.end
+    )
+  }
+
   def currentStateToJson(roundManager: RoundManager) = {
     Json.obj(
       "GameState" -> Json.obj(
-        //"Players" -> Json.toJson(roundManager.players),
+        "Players" -> Json.toJson(roundManager.players),
         "Names" -> Json.toJson(roundManager.names),
         "number of Players" -> JsNumber(roundManager.numberOfPlayer),
         "player Turn" -> JsNumber(roundManager.playerturn),
-        //"score" -> Json.toJson(roundManager.score),
-        //"playing Decks" -> Json.toJson(roundManager.playingDecks),
+        "score" -> Json.toJson(roundManager.score),
+        "playing Decks" -> Json.toJson(roundManager.playingDecks),
         "action" -> JsBoolean(roundManager.action),
         "empty" -> JsNumber(roundManager.empty),
         "end" -> JsBoolean(roundManager.end)
