@@ -10,12 +10,13 @@ import scala.xml.{Elem, PrettyPrinter}
 class FileIO extends FileIOInterface {
 
   override def load: RoundManager = {
-    var roundManager: RoundManager = null
-    val file = scala.xml.XML.loadFile("roundManager.xml")
-    val namesAttr = (file \\ "roundManager" \ "@names")
-    val names = namesAttr.asInstanceOf[List[String]]
-    val playersAttr = file \\ "roundManager" \ "@players"
+    val file = scala.xml.XML.loadFile("roundmanager.xml")
+
+    val playersAttr = file \\ "roundManager" \\ "@players"
     val players = playersAttr.asInstanceOf[List[Player]]
+
+    val namesAttr = file \\ "roundManager" \ "@names"
+    val names = namesAttr.asInstanceOf[List[String]]
     val numberOfPlayersAttr = file \\ "roundManager" \ "@numberOfPlayer"
     val numberOfPlayer = numberOfPlayersAttr.text.toInt
     val playerTurnAttr = file \\ "roundManager" \ "@playerTurn"
@@ -30,7 +31,7 @@ class FileIO extends FileIOInterface {
     val empty = emptyAttr.text.toInt
     val endAttr = file \\ "roundManager" \ "@end"
     val end = endAttr.text.toBoolean
-    roundManager = new RoundManager(players,names,numberOfPlayer,playerTurn,score,playingDeck,action,empty,end)
+    val roundManager = RoundManager(players,names,numberOfPlayer,playerTurn,score,playingDeck,action,empty,end)
     roundManager
   }
 
@@ -41,6 +42,10 @@ class FileIO extends FileIOInterface {
     val xml = prettyPrinter.format(currentStateToXml(roundManager))
     pw.write(xml)
     pw.close()
+  }
+
+  def saveXML(roundManager: RoundManager): Unit = {
+    scala.xml.XML.save("roundmanager.xml", currentStateToXml(roundManager))
   }
 
 
@@ -59,49 +64,18 @@ class FileIO extends FileIOInterface {
     </cards>
   }
 
-  def playerToXml(player: Player): Elem = {
-        <player>
-          <name>
-            {player.name}
-          </name>
-          <value>
-            {player.value}
-          </value>
-          <deck>
-            {player.deck}
-          </deck>
-          <stacker>
-            {player.stacker}
-          </stacker>
-          <hand>
-            {player.hand}
-          </hand>
-          <playingCards>
-            {player.playingCards}
-          </playingCards>
-          <action>
-            {player.actions}
-          </action>
-          <buys>
-            {player.buys}
-          </buys>
-          <stringValue>
-            {player.stringValue}
-          </stringValue>
-          <money>
-            {player.money}
-          </money>
-        </player>
-  }
-
   def currentStateToXml(roundManager: RoundManager): Elem = {
     <roundmanager>
-      <player>{
+      <players>
+        {for {
+        player <- roundManager.players.indices
+      } yield playerToXml(roundManager.players(player))
+        }</players>
+      <names>{
         for {
-          player <- roundManager.players.indices
-        }yield playerToXml(roundManager.players(player))
-      }</player>
-      <names>{roundManager.names}</names>
+          name <- roundManager.names.indices
+        } yield namesToXml(roundManager.names(name))
+        }</names>
       <numberOfPlayers>{roundManager.numberOfPlayer}</numberOfPlayers>
       <playerTurn>{roundManager.playerturn}</playerTurn>
       <score>{roundManager.score}</score>
@@ -112,5 +86,23 @@ class FileIO extends FileIOInterface {
     </roundmanager>
   }
 
+  def playerToXml(player: Player): Elem = {
+    <player>
+      <name>{player.name}</name>
+      <value>{player.value}</value>
+      <deck>{player.deck}</deck>
+      <stacker>{player.stacker}</stacker>
+      <hand>{player.hand}</hand>
+      <playingCards>{player.playingCards}</playingCards>
+      <action>{player.actions}</action>
+      <buys>{player.buys}</buys>
+      <stringValue>{player.stringValue}</stringValue>
+      <money>{player.money}</money>
+    </player>
+  }
+
+  def namesToXml(name: String): Elem = {
+    <name>{name}</name>
+  }
 }
 
