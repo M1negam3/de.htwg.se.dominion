@@ -24,7 +24,7 @@ class FileIO extends FileIOInterface {
     val playerTurn = (json \ "player Turn").get.toString.toInt
     val score = (json \\ "score").asInstanceOf[List[(Int, String)]]
     val playingDecks = (json \\ "playing Decks").asInstanceOf[List[List[Cards]]]
-    val action = (json \ "action").get.toString().toBoolean
+    val action = (json \ "action").get.toString.toBoolean
     val empty = (json \ "empty").get.toString.toInt
     val end = (json \ "end").get.toString.toBoolean
 
