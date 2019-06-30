@@ -79,7 +79,6 @@ class FileIO extends FileIOInterface {
 
   def currentStateToJson(roundManager: RoundManager) = {
     Json.obj(
-      "GameState" -> Json.obj(
         "Players" -> Json.toJson(roundManager.players),
         "Names" -> Json.toJson(roundManager.names),
         "number Of Players" -> JsNumber(roundManager.numberOfPlayer),
@@ -89,7 +88,6 @@ class FileIO extends FileIOInterface {
         "action" -> JsBoolean(roundManager.action),
         "empty" -> JsNumber(roundManager.empty),
         "end" -> JsBoolean(roundManager.end)
-      )
     )
   }
 }
