@@ -1,6 +1,7 @@
 package de.htwg.se.dominion.model.fileIOComponent.fileIOJsonImpl
 
 import de.htwg.se.dominion.controller.maincontroller.RoundManager
+import de.htwg.se.dominion.model.ModelInterface
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.fileIOComponent.FileIOInterface
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
@@ -89,5 +90,10 @@ import play.api.libs.json._
         "empty" -> JsNumber(roundManager.empty),
         "end" -> JsBoolean(roundManager.end)
     )
+  }
+  override def load(modelInterface: ModelInterface): (String, RoundManager) = ???
+
+  override def save(controllerState: String, modelInterface: ModelInterface): Unit = ???
+}
   }
 }*/

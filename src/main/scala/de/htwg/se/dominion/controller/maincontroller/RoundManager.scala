@@ -25,55 +25,62 @@ case class RoundManager(players: List[Player] = List(),
 
   override def toXML: Elem = {
     <RoundManager>
-      <players>{for {
-        player <- players.indices
-      } yield playerToXml(players(player))}</players>
-      <names>{names}</names>
+      <players>{for (i <- players.indices) yield playerToXml(players(i))}</players>
+      <names>{for (i <- names.indices) yield <name>{names(i)}</name>}</names>
       <numberOfPlayes>{numberOfPlayer}</numberOfPlayes>
       <playerturn>{playerturn}</playerturn>
-      <score>{score}</score>
-      <playingDecks>{playingDecks}</playingDecks>
+      <score>{tupleListToXML(score)}</score>
+      <playingDecks>{for (i <- playingDecks.indices) yield <playingDeck>{cardsListToXML(playingDecks(i))}</playingDeck>}</playingDecks>
       <action>{action}</action>
       <empty>{empty}</empty>
       <end>{end}</end>
     </RoundManager>
   }
 
-  override def fromXML(node: Node): RoundManager = {
-    val numberOfPlayers = (node \ "numberOfPlayers").text.toInt
-    val playerTurn = (node \ "playerturn").text.toInt
-    val action = (node \ "action").text.toBoolean
-    val empty = (node \ "empty").text.toInt
-    val end = (node \ "end").text.toBoolean
-    //val players =
-
-    /*this.copy(
-      players = ,
-      names = ,
-      numberOfPlayer = numberOfPlayers,
-      playerturn = playerTurn,
-      score = ,
-      playingDecks = ,
-      action = action,
-      empty = empty,
-      end = end
-
-    )*/
+  def tupleListToXML(l: List[(Int, String)]): List[Elem] = {
+    var list = List.empty[Elem]
+    l.foreach(kv => list = <score><points>{kv._1}</points><player>{kv._2}</player></score> :: list)
+    list
   }
 
-  override def playerToXml(player: Player): Elem = {
+  def cardsListToXML(l: List[Cards]): List[Elem] = {
+    var list = List.empty[Elem]
+    l.foreach(c => list = cardsToXml(c) :: list)
+    list
+  }
+
+  def playerToXml(player: Player): Elem = {
     <player>
       <name>{player.name}</name>
       <value>{player.value}</value>
-      <deck>{player.deck}</deck>
-      <stacker>{player.stacker}</stacker>
-      <hand>{player.hand}</hand>
-      <playingCards>{player.playingCards}</playingCards>
+      <deck>{for (i <- player.deck.indices) yield cardsToXml(player.deck(i))}</deck>
+      <stacker>{for (i <- player.stacker.indices) yield cardsToXml(player.stacker(i))}</stacker>
+      <hand>{for (i <- player.hand.indices) yield cardsToXml(player.hand(i))}</hand>
+      <playingCards>{for (i <- player.playingCards.indices) yield cardsToXml(player.playingCards(i))}</playingCards>
       <action>{player.actions}</action>
       <buys>{player.buys}</buys>
       <stringValue>{player.stringValue}</stringValue>
       <money>{player.money}</money>
     </player>
+  }
+
+  def cardsToXml(cards: Cards) = {
+    <card>
+      <costValue>{cards.CostValue}</costValue>
+      <moneyValue>{cards.MoneyValue}</moneyValue>
+      <wpValue>{cards.WpValue}</wpValue>
+      <actionValue>{cards.ActionValue}</actionValue>
+      <buyAdditionValue>{cards.BuyAdditionValue}</buyAdditionValue>
+      <bonusMoneyValue>{cards.BonusMoneyValue}</bonusMoneyValue>
+      <drawingValue>{cards.DrawingValue}</drawingValue>
+      <effectValue>{cards.EffectValue}</effectValue>
+      <cardName>{cards.CardName}</cardName>
+      <type>{cards.Type}</type>
+    </card>
+  }
+
+  override def fromXML(node: Node): RoundManager = {
+    ???
   }
 
   def getNames(r: RoundManager, name: String): RoundManager = {

@@ -19,7 +19,7 @@ class SwingGui (controller: Controller) extends Frame with Observer {
     }
   }
 
-  peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
+  //peer.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE)
   visible = true
   centerOnScreen()
   resizable = true
