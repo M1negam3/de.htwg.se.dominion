@@ -22,7 +22,6 @@ case class RoundManager(players: List[Player] = List(),
                         empty: Int = 0,
                         end: Boolean = false) extends ModelInterface {
 
-
   override def toXML: Elem = {
     <RoundManager>
       <players>{for (i <- players.indices) yield playerToXml(players(i))}</players>
@@ -39,13 +38,13 @@ case class RoundManager(players: List[Player] = List(),
 
   def tupleListToXML(l: List[(Int, String)]): List[Elem] = {
     var list = List.empty[Elem]
-    l.foreach(kv => list = <score><points>{kv._1}</points><player>{kv._2}</player></score> :: list)
+    l.foreach(kv => list = <entry><points>{kv._1}</points><player>{kv._2}</player></entry> :: list)
     list
   }
 
   def cardsListToXML(l: List[Cards]): List[Elem] = {
     var list = List.empty[Elem]
-    l.foreach(c => list = cardsToXml(c) :: list)
+    l.foreach(c => list = Cards.cardsToXml(c) :: list)
     list
   }
 
@@ -53,10 +52,10 @@ case class RoundManager(players: List[Player] = List(),
     <player>
       <name>{player.name}</name>
       <value>{player.value}</value>
-      <deck>{for (i <- player.deck.indices) yield cardsToXml(player.deck(i))}</deck>
-      <stacker>{for (i <- player.stacker.indices) yield cardsToXml(player.stacker(i))}</stacker>
-      <hand>{for (i <- player.hand.indices) yield cardsToXml(player.hand(i))}</hand>
-      <playingCards>{for (i <- player.playingCards.indices) yield cardsToXml(player.playingCards(i))}</playingCards>
+      <deck>{for (i <- player.deck.indices) yield Cards.cardsToXml(player.deck(i))}</deck>
+      <stacker>{for (i <- player.stacker.indices) yield Cards.cardsToXml(player.stacker(i))}</stacker>
+      <hand>{for (i <- player.hand.indices) yield Cards.cardsToXml(player.hand(i))}</hand>
+      <playingCards>{for (i <- player.playingCards.indices) yield Cards.cardsToXml(player.playingCards(i))}</playingCards>
       <action>{player.actions}</action>
       <buys>{player.buys}</buys>
       <stringValue>{player.stringValue}</stringValue>
@@ -64,23 +63,63 @@ case class RoundManager(players: List[Player] = List(),
     </player>
   }
 
-  def cardsToXml(cards: Cards) = {
-    <card>
-      <costValue>{cards.CostValue}</costValue>
-      <moneyValue>{cards.MoneyValue}</moneyValue>
-      <wpValue>{cards.WpValue}</wpValue>
-      <actionValue>{cards.ActionValue}</actionValue>
-      <buyAdditionValue>{cards.BuyAdditionValue}</buyAdditionValue>
-      <bonusMoneyValue>{cards.BonusMoneyValue}</bonusMoneyValue>
-      <drawingValue>{cards.DrawingValue}</drawingValue>
-      <effectValue>{cards.EffectValue}</effectValue>
-      <cardName>{cards.CardName}</cardName>
-      <type>{cards.Type}</type>
-    </card>
+  override def fromXML(node: Node): RoundManager = {
+    val playersNode = (node \ "players").head.child
+    val players = playersNode.map(node => fromXML(node))
+
+    val namesNode = (node \ "names").head.child
+    val names = namesNode.map(node => (node \\ "name").text)
+
+    val numberOfPlayers = (node \ "numberOfPlayers").text.toInt
+
+    val playerTurn = (node \ "playerTurn").text.toInt
+
+    val scoreNode = (node \ "score").head.child
+    var score = List.empty[(Int, String)]
+    scoreNode.foreach(node => score = score + ((node \ "points").text.toInt, (node \ "player").text))
+
+    val playingDecksNode = (node \ "playingDecks").head.child
+
+    val action = (node \ "action").text.toBoolean
+
+    val empty = (node \ "empty").text.toInt
+
+    val end = (node \ "end").text.toBoolean
+
+    RoundManager(players, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
   }
 
-  override def fromXML(node: Node): RoundManager = {
-    ???
+  def playerFromXML(node: scala.xml.Node): Player = {
+    val name= (node \ "name").text.trim
+    val value= (node \ "value").text.toInt
+    val action = (node \ "action").text.toInt
+    val buys = (node \ "buys").text.toInt
+    val stringValue = (node \ "stringValue").text.toInt
+    val money = (node \ "money").text.toInt
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+
+    for (i <- (node \ "deck").indices) {
+      listBuffer1 += Cards.fromXML(node \ "deck")
+    }
+    val playerdeck: List[Cards] = listBuffer1.toList
+    listBuffer1 = ListBuffer()
+    for (i <- (node \ "stacker").indices) {
+      listBuffer1 += Cards.fromXML(node \ "stacker")
+    }
+    val playerstacker: List[Cards] = listBuffer1.toList
+    listBuffer1 = ListBuffer()
+    for (i <- (node \ "hand").indices) {
+      listBuffer1 += Cards.fromXML(node \ "hand")
+    }
+    val playerhand: List[Cards] = listBuffer1.toList
+    listBuffer1 = ListBuffer()
+    for (i <- (node \ "playingCards").indices) {
+      listBuffer1 += Cards.fromXML(node \ "playingCards")
+    }
+    val playerplayingCards: List[Cards]= listBuffer1.toList
+    listBuffer1 = ListBuffer()
+
+    Player(name,value,playerdeck,playerstacker,playerhand,playerplayingCards,action,buys,stringValue,money)
   }
 
   def getNames(r: RoundManager, name: String): RoundManager = {

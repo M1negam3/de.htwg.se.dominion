@@ -10,8 +10,6 @@ import scala.xml.Elem
 
 class FileIO extends FileIOInterface {
 
-
-
   override def load(modelInterface: ModelInterface): (String, RoundManager) = {
     val saveState = scala.xml.XML.loadFile("roundmanager.xml")
     val controllerStateString = (saveState \ "state").text.trim
@@ -34,9 +32,6 @@ class FileIO extends FileIOInterface {
     pw.write(gameToXml.toString())
     pw.close()
   }
-
-
-
 
 
 

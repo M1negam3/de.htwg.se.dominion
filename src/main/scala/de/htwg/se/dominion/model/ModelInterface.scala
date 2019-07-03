@@ -11,6 +11,4 @@ trait ModelInterface {
 
   def fromXML(node: scala.xml.Node): RoundManager
 
-  def playerToXml(player: Player): Elem
-
 }

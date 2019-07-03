@@ -4,6 +4,7 @@ import de.htwg.se.dominion.model.deckComponent._
 import de.htwg.se.dominion.model.deckComponent.cardComponent.{createCellarHeadDeck, createCopperHeadDeck, createDuchyHeadDeck, createEstateHeadDeck, createFestivalHeadDeck, createGardenHeadDeck, createGoldHeadDeck, createMarketHeadDeck, createMerchantHeadDeck, createMineHeadDeck, createProvinceHeadDeck, createRemodelHeadDeck, createSilverHeadDeck, createSmithyHeadDeck, createVillageHeadDeck, createWorkshopHeadDeck}
 
 import scala.util.Random
+import scala.xml.NodeSeq
 
 case class Cards(CostValue : Int = 0, MoneyValue : Int = 0, WpValue : Int = 0, ActionValue : Int = 0, BuyAdditionValue : Int = 0,
                  BonusMoneyValue : Int = 0, DrawingValue : Int = 0, EffectValue : String = "", CardName : String = "", Type : String = "") {
@@ -50,8 +51,24 @@ object Cards {
     1,"+1 Card, +1 Action, +1 Buy, +1 Money","Market","Action")
 
 
+  //toXML Funktion
+  def cardsToXml(cards: Cards) = {
+    <card>
+      <costValue>{cards.CostValue}</costValue>
+      <moneyValue>{cards.MoneyValue}</moneyValue>
+      <wpValue>{cards.WpValue}</wpValue>
+      <actionValue>{cards.ActionValue}</actionValue>
+      <buyAdditionValue>{cards.BuyAdditionValue}</buyAdditionValue>
+      <bonusMoneyValue>{cards.BonusMoneyValue}</bonusMoneyValue>
+      <drawingValue>{cards.DrawingValue}</drawingValue>
+      <effectValue>{cards.EffectValue}</effectValue>
+      <cardName>{cards.CardName}</cardName>
+      <type>{cards.Type}</type>
+    </card>
+  }
+
   //fromXml Funktion
-  def fromXML(node: scala.xml.Node): Cards = {
+  def fromXML(node: scala.xml.NodeSeq): Cards = {
     val costValue = (node \ "CostValue").text.toInt
     val moneyValue = (node \ "MostValue").text.toInt
     val WpValue = (node \ "WpValue").text.toInt
