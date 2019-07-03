@@ -3,6 +3,7 @@ package de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent
 import de.htwg.se.dominion.model.deckComponent._
 import de.htwg.se.dominion.model.deckComponent.cardComponent.{createCellarHeadDeck, createCopperHeadDeck, createDuchyHeadDeck, createEstateHeadDeck, createFestivalHeadDeck, createGardenHeadDeck, createGoldHeadDeck, createMarketHeadDeck, createMerchantHeadDeck, createMineHeadDeck, createProvinceHeadDeck, createRemodelHeadDeck, createSilverHeadDeck, createSmithyHeadDeck, createVillageHeadDeck, createWorkshopHeadDeck}
 
+import scala.collection.mutable.ListBuffer
 import scala.util.Random
 import scala.xml.NodeSeq
 
@@ -80,6 +81,15 @@ object Cards {
     val CardName = (node \ "cardName")(i).text.trim
     val Type = (node \ "type")(i).text.trim
     Cards(costValue,moneyValue,WpValue,ActionValue,BuyAdditionValue,BonusMoneyValue,DrawingValue,EffectValue,CardName,Type)
+  }
+  def ListfromXml(node: scala.xml.NodeSeq, i: Int): List[Cards] = {
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    for (k<-(node\ "playingDeck" \ "card").indices) {
+        listBuffer1 += fromXML((node \ "playingDeck"\ "card"),k)
+      }
+
+    var listFromXml = listBuffer1.toList
+    listFromXml
   }
 
   // Playing Deck

@@ -26,8 +26,8 @@ case class RoundManager(players: List[Player] = List(),
     <RoundManager>
       <players>{for (i <- players.indices) yield playerToXml(players(i))}</players>
       <names>{for (i <- names.indices) yield <name>{names(i)}</name>}</names>
-      <numberOfPlayes>{numberOfPlayer}</numberOfPlayes>
-      <playerturn>{playerturn}</playerturn>
+      <numberOfPlayers>{numberOfPlayer}</numberOfPlayers>
+      <playerTurn>{playerturn}</playerTurn>
       <score>{tupleListToXML(score)}</score>
       <playingDecks>{for (i <- playingDecks.indices) yield <playingDeck>{cardsListToXML(playingDecks(i))}</playingDeck>}</playingDecks>
       <action>{action}</action>
@@ -64,6 +64,8 @@ case class RoundManager(players: List[Player] = List(),
   }
 
   override def fromXML(node: Node): RoundManager = {
+    var listBuffer1: ListBuffer[List[Cards]] = ListBuffer()
+
     val playersNode = (node \ "players").head.child
     val players = (playersNode.map(node => playerFromXML(node))).toList
 
@@ -79,7 +81,10 @@ case class RoundManager(players: List[Player] = List(),
     //scoreNode.foreach(node => score = score + ((node \ "points").text.toInt, (node \ "player").text))
 
     val playingDecksNode = (node \ "playingDecks").head.child
-    var playingDecks = Nil
+    for(i <- (node \ "playingDecks" \ "playingDeck").indices) {
+      listBuffer1 += Cards.ListfromXml(node \ "playingDecks",i)
+    }
+    var playingDecks = listBuffer1.toList
 
     val action = (node \ "action").text.toBoolean
 
@@ -104,18 +109,24 @@ case class RoundManager(players: List[Player] = List(),
     }
     val playerdeck: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    for (i <- (node \ "stacker").indices) {
-      listBuffer1 += Cards.fromXML(node \ "stacker",i)
+    if((node \ "stacker" \ "card" \"moneyValue").isEmpty == false) {
+      for (i <- (node \ "stacker"\ "card").indices) {
+        listBuffer1 += Cards.fromXML(node \ "stacker" \ "card",i)
+      }
     }
     val playerstacker: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    for (i <- (node \ "hand").indices) {
-      listBuffer1 += Cards.fromXML(node \ "hand",i)
+    if((node \ "hand" \ "card" \"moneyValue").isEmpty == false) {
+      for (i <- (node \ "hand"\ "card").indices) {
+        listBuffer1 += Cards.fromXML(node \ "hand" \ "card", i)
+      }
     }
     val playerhand: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    for (i <- (node \ "playingCards").indices) {
-      listBuffer1 += Cards.fromXML(node \ "playingCards",i)
+    if((node \ "playingCards" \ "card" \"moneyValue").isEmpty == false) {
+      for (i <- (node \ "playingCards").indices) {
+        listBuffer1 += Cards.fromXML(node \ "playingCards" \ "card", i)
+      }
     }
     val playerplayingCards: List[Cards]= listBuffer1.toList
     listBuffer1 = ListBuffer()
