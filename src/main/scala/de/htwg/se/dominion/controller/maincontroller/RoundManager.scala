@@ -1,5 +1,6 @@
 package de.htwg.se.dominion.controller.maincontroller
 
+import de.htwg.se.dominion.model.ModelInterface
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.gameComponent._
 import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
@@ -9,6 +10,7 @@ import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
+import scala.xml.{Elem, Node}
 
 case class RoundManager(players: List[Player] = List(),
                         names: List[String] = List(),
@@ -18,7 +20,24 @@ case class RoundManager(players: List[Player] = List(),
                         playingDecks: List[List[Cards]] = GameTurn().playingDecks,
                         action: Boolean = true,
                         empty: Int = 0,
-                        end: Boolean = false) {
+                        end: Boolean = false) extends ModelInterface {
+
+
+  override def toXML: Elem = {
+    <RoundManager>
+      <players>{}</players>
+      <names>{}</names>
+      <numberOfPlayes>{}</numberOfPlayes>
+      <playerturn>{}</playerturn>
+      <score>{}</score>
+      <playingDecks>{}</playingDecks>
+      <action>{}</action>
+      <empty>{}</empty>
+      <end>{}</end>
+    </RoundManager>
+  }
+
+  override def fromXML(node: Node): RoundManager = ???
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r

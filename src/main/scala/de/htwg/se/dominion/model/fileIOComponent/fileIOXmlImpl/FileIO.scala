@@ -1,15 +1,46 @@
 package de.htwg.se.dominion.model.fileIOComponent.fileIOXmlImpl
 
-import de.htwg.se.dominion.controller.maincontroller.RoundManager
+import de.htwg.se.dominion.controller.maincontroller.{Controller, ControllerState, EndState, NameSetupState, PlayerCountState, RoundManager, playingState}
+import de.htwg.se.dominion.model.ModelInterface
 import de.htwg.se.dominion.model.deckComponent.cardComponent.baseCardsComponent.Cards
 import de.htwg.se.dominion.model.fileIOComponent.FileIOInterface
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 
-import scala.xml.{Elem, PrettyPrinter}
+import scala.xml.Elem
 
 class FileIO extends FileIOInterface {
 
-  override def load: RoundManager = {
+
+
+  override def load(modelInterface: ModelInterface): (String, RoundManager) = {
+    val saveState = scala.xml.XML.loadFile("roundmanager.xml")
+    val controllerStateString = (saveState \ "state").text.trim
+    val state = controllerStateString
+    val roundManager = modelInterface.fromXML((saveState \ "RoundManager").head)
+    (state, roundManager)
+  }
+
+  override def save(controllerState: String, modelInterface: ModelInterface): Unit = {
+   def gameToXml: Elem = {
+     <Game>
+       <state>
+         {controllerState}
+       </state>
+       {modelInterface.toXML}
+     </Game>
+   }
+    import java.io._
+    val pw = new PrintWriter(new File("roundmanager.xml"))
+    pw.write(gameToXml.toString())
+    pw.close()
+  }
+
+
+
+
+
+
+  /*override def load: RoundManager = {
     val file = scala.xml.XML.loadFile("roundmanager.xml")
 
     val playersAttr = file \\ "roundManager" \\ "@players"
@@ -103,6 +134,6 @@ class FileIO extends FileIOInterface {
 
   def namesToXml(name: String): Elem = {
     <name>{name}</name>
-  }
+  }*/
 }
 

@@ -16,6 +16,7 @@ import javax.inject.Inject
 
 import scala.util.control.Breaks.{break, breakable}
 import scala.collection.mutable.ListBuffer
+import scala.xml.Elem
 
 class Controller @Inject() (var roundManager: RoundManager) extends ControllerInterface {
 
@@ -42,14 +43,20 @@ class Controller @Inject() (var roundManager: RoundManager) extends ControllerIn
   }
 
   override def save(): Unit = {
-    fileIo.save(roundManager)
+    fileIo.save(controllerStateAsString, roundManager)
     gameStatus = GameStatus.SAVED
     notifyObservers
   }
 
   override def load(): Unit = {
-    val roundmanager2 = fileIo.load
-    roundManager = fileIo.load
+    val loadedRoundmanager = fileIo.load(roundManager)
+    controllerState = loadedRoundmanager._1 match {
+      case "PlayerCountState" => PlayerCountState(this)
+      case "NameSetupState" => NameSetupState(this)
+      case "PlayingState" => playingState(this)
+      case "EndState" => EndState(this)
+    }
+    roundManager = loadedRoundmanager._2
     gameStatus = GameStatus.LOADED
     notifyObservers
   }
