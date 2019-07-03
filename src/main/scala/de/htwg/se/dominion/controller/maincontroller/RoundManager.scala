@@ -65,10 +65,10 @@ case class RoundManager(players: List[Player] = List(),
 
   override def fromXML(node: Node): RoundManager = {
     val playersNode = (node \ "players").head.child
-    val players = playersNode.map(node => fromXML(node))
+    val players = (playersNode.map(node => playerFromXML(node))).toList
 
     val namesNode = (node \ "names").head.child
-    val names = namesNode.map(node => (node \\ "name").text)
+    val names = (namesNode.map(node => (node \\ "name").text)).toList
 
     val numberOfPlayers = (node \ "numberOfPlayers").text.toInt
 
@@ -79,6 +79,7 @@ case class RoundManager(players: List[Player] = List(),
     scoreNode.foreach(node => score = score + ((node \ "points").text.toInt, (node \ "player").text))
 
     val playingDecksNode = (node \ "playingDecks").head.child
+    var playingDecks = xD
 
     val action = (node \ "action").text.toBoolean
 
