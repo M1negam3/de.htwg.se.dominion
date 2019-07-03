@@ -19,9 +19,9 @@ class ControllerSpec extends WordSpec with Matchers {
   var players: List[Player] = List(Luca,Luis)
   var players1: List[Player] = List(Luca1,Luis)
   var players2: List[Player] = List(Luca2,Luis)
-  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn().playingDecks,false)
-  val roundManager1 = RoundManager(players1,names1,2,0,Nil,GameTurn().playingDecks,false,0,true)
-  val roundManager2 = RoundManager(players1,names1,2,0,Nil,GameTurn().playingDecks,true,0,false)
+  val roundManager = RoundManager(players,names,2,0,Nil,GameTurn.playingDecks,false)
+  val roundManager1 = RoundManager(players1,names1,2,0,Nil,GameTurn.playingDecks,false,0,true)
+  val roundManager2 = RoundManager(players1,names1,2,0,Nil,GameTurn.playingDecks,true,0,false)
   val controller = new Controller(roundManager)
   val controller1 = new Controller(roundManager1)
   val controller2 = new Controller(roundManager2)
@@ -81,11 +81,11 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.controllerState.evaluate("asd")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (48)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 25),
-        playingDecks = GameTurn().playingDecks)
+        playingDecks = GameTurn.playingDecks)
       controller.controllerState.evaluate("N")
       controller.roundManager.action should be (true)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 24),
-        playingDecks = GameTurn().playingDecks)
+        playingDecks = GameTurn.playingDecks)
       controller.controllerState.evaluate("")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (24)
       /*controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 48),
@@ -94,7 +94,7 @@ class ControllerSpec extends WordSpec with Matchers {
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (31)*/
       controller.roundManager = controller.roundManager.copy(players = players1)
       controller.roundManager = controller.roundManager.copy(players = controller.roundManager.editStringValue(controller.roundManager, 30),
-        playingDecks = GameTurn().playingDecks)
+        playingDecks = GameTurn.playingDecks)
       controller.controllerState.evaluate("30")
       controller.roundManager.players(controller.roundManager.playerturn).stringValue should be (30)
       /*controller.roundManager = controller.roundManager.copy(players = players2)

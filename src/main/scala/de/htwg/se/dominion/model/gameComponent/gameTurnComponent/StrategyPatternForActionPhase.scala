@@ -87,11 +87,11 @@ object StrategyPatternForActionPhase {
           if (input < l(idx).hand.length) {
             if (l(idx).hand(input).CardName == "Copper") {
               l = Player().updatePlayer(l, Player().upgrading(l(idx), input, silverHeadDeck.silverDeck))
-              GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(1)), 1)
+              GameTurn.playingDecks = GameTurn().updateDeck(GameTurn.playingDecks, GameTurn().copyList(GameTurn.playingDecks(1)), 1)
               l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 35, l(idx).money))
             } else if (l(idx).hand(input).CardName == "Silver" || l(idx).hand(input).CardName == "Gold") {
               l = Player().updatePlayer(l, Player().upgrading(l(idx), input, goldHeadDeck.goldDeck))
-              GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(2)), 2)
+              GameTurn.playingDecks = GameTurn().updateDeck(GameTurn.playingDecks, GameTurn().copyList(GameTurn.playingDecks(2)), 2)
               l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 36, l(idx).money))
             }
           } else {
@@ -125,7 +125,7 @@ object StrategyPatternForActionPhase {
     val cards = GameTurn().getCardsWC()
     if (cards.contains(input)) {
       l = Player().updatePlayer(l, GameTurn().addCardToHand(l(idx), input))
-      GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(input)), input)
+      GameTurn.playingDecks = GameTurn().updateDeck(GameTurn.playingDecks, GameTurn().copyList(GameTurn.playingDecks(input)), input)
       l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
     } else {
       l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 23, l(idx).money))
@@ -137,8 +137,8 @@ object StrategyPatternForActionPhase {
     var l = list
     val cards = GameTurn().getCardsWCost4()
     if (cards.contains(input)) {
-      l = Player().updatePlayer(l, GameTurn().updateStacker(l(idx), GameTurn().playingDecks(input).head))
-      GameTurn().playingDecks = GameTurn().updateDeck(GameTurn().playingDecks, GameTurn().copyList(GameTurn().playingDecks(input)), input)
+      l = Player().updatePlayer(l, GameTurn().updateStacker(l(idx), GameTurn.playingDecks(input).head))
+      GameTurn.playingDecks = GameTurn().updateDeck(GameTurn.playingDecks, GameTurn().copyList(GameTurn.playingDecks(input)), input)
       l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 40, l(idx).money))
     } else {
       l = Player().updatePlayer(l, new Player(l(idx).name, l(idx).value, l(idx).deck, l(idx).stacker, l(idx).hand, l(idx).playingCards, l(idx).actions, l(idx).buys, 21, l(idx).money))

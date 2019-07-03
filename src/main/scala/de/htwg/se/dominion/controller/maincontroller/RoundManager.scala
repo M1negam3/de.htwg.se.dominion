@@ -17,7 +17,7 @@ case class RoundManager(players: List[Player] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Cards]] = GameTurn().playingDecks,
+                        playingDecks: List[List[Cards]] = GameTurn.playingDecks,
                         action: Boolean = true,
                         empty: Int = 0,
                         end: Boolean = false) extends ModelInterface {
@@ -142,7 +142,7 @@ case class RoundManager(players: List[Player] = List(),
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
     val names = GameInit().getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn().playingDecks)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn.playingDecks)
   }
 
   def getNameSetupStrings(): String = {
