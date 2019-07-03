@@ -68,17 +68,17 @@ object Cards {
   }
 
   //fromXml Funktion
-  def fromXML(node: scala.xml.NodeSeq): Cards = {
-    val costValue = (node \ "CostValue").text.toInt
-    val moneyValue = (node \ "MostValue").text.toInt
-    val WpValue = (node \ "WpValue").text.toInt
-    val ActionValue = (node \ "ActionValue").text.toInt
-    val BuyAdditionValue = (node \ "BuyAdditionValue").text.toInt
-    val BonusMoneyValue = (node \ "BonusMoneyValue").text.toInt
-    val DrawingValue = (node \ "DrawingValue").text.toInt
-    val EffectValue = (node \ "EffectValue").text.trim
-    val CardName = (node \ "CardName").text.trim
-    val Type = (node \ "Type").text.trim
+  def fromXML(node: scala.xml.NodeSeq, i: Int): Cards = {
+    val costValue = (node  \ "costValue")(i).text.toInt
+    val moneyValue = (node \ "moneyValue")(i).text.toInt
+    val WpValue = (node \ "wpValue")(i).text.toInt
+    val ActionValue = (node \ "actionValue")(i).text.toInt
+    val BuyAdditionValue = (node \ "buyAdditionValue")(i).text.toInt
+    val BonusMoneyValue = (node \ "bonusMoneyValue")(i).text.toInt
+    val DrawingValue = (node \ "drawingValue")(i).text.toInt
+    val EffectValue = (node \ "effectValue")(i).text.trim
+    val CardName = (node \ "cardName")(i).text.trim
+    val Type = (node \ "type")(i).text.trim
     Cards(costValue,moneyValue,WpValue,ActionValue,BuyAdditionValue,BonusMoneyValue,DrawingValue,EffectValue,CardName,Type)
   }
 
