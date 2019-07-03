@@ -65,7 +65,7 @@ case class RoundManager(players: List[Player] = List(),
 
   override def fromXML(node: Node): RoundManager = {
     val playersNode = (node \ "players").head.child
-    val players = playersNode.map(node => playerFromXML(node))
+    val players = (playersNode.map(node => playerFromXML(node))).toList
 
     val namesNode = (node \ "names").head.child
     val names = (namesNode.map(node => (node \\ "name").text)).toList
@@ -86,7 +86,7 @@ case class RoundManager(players: List[Player] = List(),
 
     val end = (node \ "end").text.toBoolean
 
-    RoundManager(players.toList, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
+    RoundManager(players, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
   }
 
   def scoreFromXML(node: scala.xml.NodeSeq): List[(Int, String)] = {
@@ -104,23 +104,23 @@ case class RoundManager(players: List[Player] = List(),
     val money = (node \ "money").text.toInt
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
 
-    for (i <- (node \ "deck").indices) {
-      listBuffer1 += Cards.fromXML(node \ "deck" \ "card")
+    for (i <- 0 until (node \ "deck"\ "card").length) {
+      listBuffer1 += Cards.fromXML(node \ "deck" \ "card", i)
     }
     val playerdeck: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
     for (i <- (node \ "stacker").indices) {
-      listBuffer1 += Cards.fromXML(node \ "stacker")
+      listBuffer1 += Cards.fromXML(node \ "stacker", i)
     }
     val playerstacker: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
     for (i <- (node \ "hand").indices) {
-      listBuffer1 += Cards.fromXML(node \ "hand")
+      listBuffer1 += Cards.fromXML(node \ "hand", i)
     }
     val playerhand: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
     for (i <- (node \ "playingCards").indices) {
-      listBuffer1 += Cards.fromXML(node \ "playingCards")
+      listBuffer1 += Cards.fromXML(node \ "playingCards", i)
     }
     val playerplayingCards: List[Cards]= listBuffer1.toList
     listBuffer1 = ListBuffer()
