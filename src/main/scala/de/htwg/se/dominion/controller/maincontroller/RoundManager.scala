@@ -65,7 +65,7 @@ case class RoundManager(players: List[Player] = List(),
 
   override def fromXML(node: Node): RoundManager = {
     val playersNode = (node \ "players").head.child
-    val players = (playersNode.map(node => playerFromXML(node))).toList
+    val players = playersNode.map(node => playerFromXML(node))
 
     val namesNode = (node \ "names").head.child
     val names = (namesNode.map(node => (node \\ "name").text)).toList
@@ -75,11 +75,10 @@ case class RoundManager(players: List[Player] = List(),
     val playerTurn = (node \ "playerTurn").text.toInt
 
     val scoreNode = (node \ "score").head.child
-    var score = List.empty[(Int, String)]
-    scoreNode.foreach(node => score = score + ((node \ "points").text.toInt, (node \ "player").text))
+    val score = scoreFromXML(scoreNode)
 
     val playingDecksNode = (node \ "playingDecks").head.child
-    var playingDecks = xD
+    val playingDecks = Nil
 
     val action = (node \ "action").text.toBoolean
 
@@ -87,7 +86,13 @@ case class RoundManager(players: List[Player] = List(),
 
     val end = (node \ "end").text.toBoolean
 
-    RoundManager(players, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
+    RoundManager(players.toList, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
+  }
+
+  def scoreFromXML(node: scala.xml.NodeSeq): List[(Int, String)] = {
+    var list = List.empty[(Int, String)]
+    node.foreach(pp => list = ((node \ "points").text.toInt, (node \ "player").text) :: list)
+    list
   }
 
   def playerFromXML(node: scala.xml.Node): Player = {
@@ -100,7 +105,7 @@ case class RoundManager(players: List[Player] = List(),
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
 
     for (i <- (node \ "deck").indices) {
-      listBuffer1 += Cards.fromXML(node \ "deck")
+      listBuffer1 += Cards.fromXML(node \ "deck" \ "card")
     }
     val playerdeck: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()

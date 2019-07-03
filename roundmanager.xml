@@ -18,6 +18,39 @@
       <cardName>Estate</cardName>
       <type>WinningPoint</type>
     </card><card>
+      <costValue>2</costValue>
+      <moneyValue>0</moneyValue>
+      <wpValue>1</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Winning Point</effectValue>
+      <cardName>Estate</cardName>
+      <type>WinningPoint</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card><card>
       <costValue>0</costValue>
       <moneyValue>1</moneyValue>
       <wpValue>0</wpValue>
@@ -72,39 +105,6 @@
       <effectValue>1 Winning Point</effectValue>
       <cardName>Estate</cardName>
       <type>WinningPoint</type>
-    </card><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
-    </card><card>
-      <costValue>2</costValue>
-      <moneyValue>0</moneyValue>
-      <wpValue>1</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Winning Point</effectValue>
-      <cardName>Estate</cardName>
-      <type>WinningPoint</type>
-    </card><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
     </card><card>
       <costValue>0</costValue>
       <moneyValue>1</moneyValue>
@@ -125,19 +125,19 @@
       <stringValue>0</stringValue>
       <money>0</money>
     </player><player>
-      <name>n</name>
+      <name>v</name>
       <value>2</value>
       <deck><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
+      <costValue>2</costValue>
+      <moneyValue>0</moneyValue>
+      <wpValue>1</wpValue>
       <actionValue>0</actionValue>
       <buyAdditionValue>0</buyAdditionValue>
       <bonusMoneyValue>0</bonusMoneyValue>
       <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
+      <effectValue>1 Winning Point</effectValue>
+      <cardName>Estate</cardName>
+      <type>WinningPoint</type>
     </card><card>
       <costValue>0</costValue>
       <moneyValue>1</moneyValue>
@@ -194,16 +194,16 @@
       <cardName>Estate</cardName>
       <type>WinningPoint</type>
     </card><card>
-      <costValue>2</costValue>
-      <moneyValue>0</moneyValue>
-      <wpValue>1</wpValue>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
       <actionValue>0</actionValue>
       <buyAdditionValue>0</buyAdditionValue>
       <bonusMoneyValue>0</bonusMoneyValue>
       <drawingValue>0</drawingValue>
-      <effectValue>1 Winning Point</effectValue>
-      <cardName>Estate</cardName>
-      <type>WinningPoint</type>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
     </card><card>
       <costValue>0</costValue>
       <moneyValue>1</moneyValue>
@@ -246,7 +246,7 @@
       <stringValue>0</stringValue>
       <money>0</money>
     </player></players>
-      <names><name>a</name><name>n</name></names>
+      <names><name>a</name><name>v</name></names>
       <numberOfPlayes>2</numberOfPlayes>
       <playerturn>0</playerturn>
       <score></score>

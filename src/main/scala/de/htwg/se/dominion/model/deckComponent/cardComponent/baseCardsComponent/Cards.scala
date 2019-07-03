@@ -69,16 +69,16 @@ object Cards {
 
   //fromXml Funktion
   def fromXML(node: scala.xml.NodeSeq): Cards = {
-    val costValue = (node \ "CostValue").text.toInt
-    val moneyValue = (node \ "MostValue").text.toInt
-    val WpValue = (node \ "WpValue").text.toInt
-    val ActionValue = (node \ "ActionValue").text.toInt
-    val BuyAdditionValue = (node \ "BuyAdditionValue").text.toInt
-    val BonusMoneyValue = (node \ "BonusMoneyValue").text.toInt
-    val DrawingValue = (node \ "DrawingValue").text.toInt
-    val EffectValue = (node \ "EffectValue").text.trim
-    val CardName = (node \ "CardName").text.trim
-    val Type = (node \ "Type").text.trim
+    val costValue = (node \ "costValue").text.toInt
+    val moneyValue = (node \ "moneyValue").text.toInt
+    val WpValue = (node \ "wpValue").text.toInt
+    val ActionValue = (node \ "actionValue").text.toInt
+    val BuyAdditionValue = (node \ "buyAdditionValue").text.toInt
+    val BonusMoneyValue = (node \ "bonusMoneyValue").text.toInt
+    val DrawingValue = (node \ "drawingValue").text.toInt
+    val EffectValue = (node \ "effectValue").text.trim
+    val CardName = (node \ "cardName").text.trim
+    val Type = (node \ "type").text.trim
     Cards(costValue,moneyValue,WpValue,ActionValue,BuyAdditionValue,BonusMoneyValue,DrawingValue,EffectValue,CardName,Type)
   }
 
