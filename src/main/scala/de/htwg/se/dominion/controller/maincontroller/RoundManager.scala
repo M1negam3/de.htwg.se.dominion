@@ -25,19 +25,56 @@ case class RoundManager(players: List[Player] = List(),
 
   override def toXML: Elem = {
     <RoundManager>
-      <players>{}</players>
-      <names>{}</names>
-      <numberOfPlayes>{}</numberOfPlayes>
-      <playerturn>{}</playerturn>
-      <score>{}</score>
-      <playingDecks>{}</playingDecks>
-      <action>{}</action>
-      <empty>{}</empty>
-      <end>{}</end>
+      <players>{for {
+        player <- players.indices
+      } yield playerToXml(players(player))}</players>
+      <names>{names}</names>
+      <numberOfPlayes>{numberOfPlayer}</numberOfPlayes>
+      <playerturn>{playerturn}</playerturn>
+      <score>{score}</score>
+      <playingDecks>{playingDecks}</playingDecks>
+      <action>{action}</action>
+      <empty>{empty}</empty>
+      <end>{end}</end>
     </RoundManager>
   }
 
-  override def fromXML(node: Node): RoundManager = ???
+  override def fromXML(node: Node): RoundManager = {
+    val numberOfPlayers = (node \ "numberOfPlayers").text.toInt
+    val playerTurn = (node \ "playerturn").text.toInt
+    val action = (node \ "action").text.toBoolean
+    val empty = (node \ "empty").text.toInt
+    val end = (node \ "end").text.toBoolean
+    //val players =
+
+    /*this.copy(
+      players = ,
+      names = ,
+      numberOfPlayer = numberOfPlayers,
+      playerturn = playerTurn,
+      score = ,
+      playingDecks = ,
+      action = action,
+      empty = empty,
+      end = end
+
+    )*/
+  }
+
+  override def playerToXml(player: Player): Elem = {
+    <player>
+      <name>{player.name}</name>
+      <value>{player.value}</value>
+      <deck>{player.deck}</deck>
+      <stacker>{player.stacker}</stacker>
+      <hand>{player.hand}</hand>
+      <playingCards>{player.playingCards}</playingCards>
+      <action>{player.actions}</action>
+      <buys>{player.buys}</buys>
+      <stringValue>{player.stringValue}</stringValue>
+      <money>{player.money}</money>
+    </player>
+  }
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r

@@ -49,6 +49,22 @@ object Cards {
   val market = new Cards(5,0,0,1,1,1,
     1,"+1 Card, +1 Action, +1 Buy, +1 Money","Market","Action")
 
+
+  //fromXml Funktion
+  def fromXML(node: scala.xml.Node): Cards = {
+    val costValue = (node \ "CostValue").text.toInt
+    val moneyValue = (node \ "MostValue").text.toInt
+    val WpValue = (node \ "WpValue").text.toInt
+    val ActionValue = (node \ "ActionValue").text.toInt
+    val BuyAdditionValue = (node \ "BuyAdditionValue").text.toInt
+    val BonusMoneyValue = (node \ "BonusMoneyValue").text.toInt
+    val DrawingValue = (node \ "DrawingValue").text.toInt
+    val EffectValue = (node \ "EffectValue").text.trim
+    val CardName = (node \ "CardName").text.trim
+    val Type = (node \ "Type").text.trim
+    Cards(costValue,moneyValue,WpValue,ActionValue,BuyAdditionValue,BonusMoneyValue,DrawingValue,EffectValue,CardName,Type)
+  }
+
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
     estateHeadDeck.estateDeck, duchyHeadDeck.duchyDeck, provinceHeadDeck.provinceDeck, cellarHeadDeck.cellarDeck,

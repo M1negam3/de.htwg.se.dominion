@@ -190,4 +190,33 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
     a -= i
     Player(cP.name,cP.value,cP.deck,cP.stacker,cP.hand,cP.playingCards,a,cP.buys,cP.stringValue,cP.money)
   }
+  def fromXML(node: scala.xml.Node): Player = {
+    val name= (node \ "name").text.trim
+    val value= (node \ "value").text.toInt
+    val action = (node \ "action").text.toInt
+    val buys = (node \ "buys").text.toInt
+    val stringValue = (node \ "stringValue").text.toInt
+    val money = (node \ "money").text.toInt
+    var listBuffer1: ListBuffer[Cards] = ListBuffer()
+    var playerdeck: List[Cards] = Nil
+    var playerstacker: List[Cards] = Nil
+    var playerhand: List[Cards] = Nil
+    var playerplayingCards: List[Cards]= Nil
+    for (i <- (node \ "deck").indices) {
+      listBuffer1 += Cards.fromXML(node \ "deck")
+    }
+    playerdeck = listBuffer1.toList
+    for (i <- (node \ "stacker").indices) {
+      playerstacker(i) = (node \ "stacker")(i)
+    }
+    for (i <- (node \ "hand").indices) {
+      playerhand(i) = (node \ "hand")(i)
+    }
+    for (i <- (node \ "playingCards").indices) {
+      playerplayingCards(i) = (node \ "playingCards")(i)
+    }
+
+
+    Player(name,value,playerdeck,playerstacker,playerhand,playerplayingCards,action,buys,stringValue,money)
+  }
 }

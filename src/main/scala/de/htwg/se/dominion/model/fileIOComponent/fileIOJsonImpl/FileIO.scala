@@ -8,7 +8,7 @@ import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import scala.io.Source
 import play.api.libs.json._
 
-class FileIO extends FileIOInterface {
+/*class FileIO extends FileIOInterface {
 
   override def load: RoundManager = {
     val source: String = Source.fromFile("roundmanager.json").getLines.mkString
@@ -90,4 +90,4 @@ class FileIO extends FileIOInterface {
         "end" -> JsBoolean(roundManager.end)
     )
   }
-}
+}*/
