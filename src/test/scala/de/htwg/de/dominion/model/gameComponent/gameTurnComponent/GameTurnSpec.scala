@@ -59,7 +59,7 @@ class GameTurnSpec extends WordSpec with Matchers{
         estateHeadDeck.estateDeck, provinceHeadDeck.provinceDeck, duchyHeadDeck.duchyDeck, villageHeadDeck.villageDeck, festivalHeadDeck.festivalDeck,
         cellarHeadDeck.cellarDeck, mineHeadDeck.mineDeck, smithyHeadDeck.createDeck, remodelHeadDeck.remodelDeck, merchantHeadDeck.merchantDeck,
         workshopHeadDeck.workshopDeck, gardensHeadDeck.gardensDeck, marketHeadDeck.marketDeck)
-      GameTurn().updatePlayingDecks(GameTurn().playingDecks, 19) should be (test)
+      GameTurn().updatePlayingDecks(GameTurn.playingDecks, 19) should be (test)
     }
     "have a round method" in {
       GameTurn().round(2,3) should be (0)

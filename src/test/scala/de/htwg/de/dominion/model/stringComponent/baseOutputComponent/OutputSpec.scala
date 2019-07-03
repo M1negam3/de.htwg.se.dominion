@@ -160,7 +160,7 @@ class OutputSpec extends WordSpec with Matchers {
         s += "\n"
       Output().getPlayingStateString(list,0,16) should be (Console.BLUE + "     Your card effect is: " + Console.BLACK + list(0).playingCards.head.EffectValue + "\n\n" + s + "\n" + Console.YELLOW + "     Which card to you want to trash?")
       //Output.getPlayingStateString(list,0,17) should be (Console.BLUE + "     You choose: " + Console.BLACK + list(0).hand(2).CardName)
-      for (j <- 0 until GameTurn().playingDecks.length) {
+      for (j <- 0 until GameTurn.playingDecks.length) {
         if (StrategyPatternForActionPhase.discardCardValue >= Cards.playingDeck(j).head.CostValue) {
           z += "                                " + Console.BLUE + Cards.playingDeck(j).head.CardName + Console.CYAN + " {" + Cards.playingDeck(j).length + "} " + Console.MAGENTA +
             "[" + Cards.playingDeck(j).head.CostValue + "]" + Console.BLUE + " Card Effect: " + Cards.playingDeck(j).head.EffectValue + Console.BLACK + " (" + j + ")\n"
@@ -176,9 +176,9 @@ class OutputSpec extends WordSpec with Matchers {
       Output().getPlayingStateString(list,0,23) should be (Console.RED + "     You cant add that, please enter a valid number")
       Output().getPlayingStateString(list,0,24) should be (Console.RED + "     Try Y or N!")
       var j = GameTurn().getMoney(list(0))
-      for (g <- 0 until GameTurn().playingDecks.length) {
-        if (j >= GameTurn().playingDecks(g).head.CostValue) {
-          x += Console.BLUE + "                        " + GameTurn().playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn().playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn().playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn().playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
+      for (g <- 0 until GameTurn.playingDecks.length) {
+        if (j >= GameTurn.playingDecks(g).head.CostValue) {
+          x += Console.BLUE + "                        " + GameTurn.playingDecks(g).head.CardName + Console.CYAN + " {" + GameTurn.playingDecks(g).length + "} " + Console.MAGENTA + "[" + GameTurn.playingDecks(g).head.CostValue + "]" + Console.BLUE + " Card Effect: " + GameTurn.playingDecks(g).head.EffectValue + Console.BLACK + " (" + g + ")" + "\n"
         }
       }
       Output().getPlayingStateString(list,0,25) should be (Console.BLUE + "     Your money is: " + GameTurn().getMoney(list(0)) + "\n" + "     Your Buy actions are: " + list(0).buys +"\n" + "     You can buy these: " + Console.CYAN + "{Quantity}" + Console.MAGENTA + "[Cost]" + Console.BLACK + "(PRESS)\n" + x + "\n     Do you want to buy a Card? (Y/N)\n")
@@ -195,10 +195,10 @@ class OutputSpec extends WordSpec with Matchers {
       Output().getPlayingStateString(list,0,30) should be (Console.YELLOW + "     Which Card do you want to buy?\n")
       Output().getPlayingStateString(list,0,31) should be (Console.BLUE + "\n     The Card  was bought and added to your stacker\n \n")
       Output().getPlayingStateString(list,0,32) should be (Console.RED + "     You cant buy that, please enter a valid number")
-      for (i <- 0 until GameTurn().playingDecks.length) {
-        if (GameTurn().playingDecks(i).head.CostValue <= 4) {
-          s3 += "                " + Console.BLUE + GameTurn().playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" +
-            Console.BLUE + " Card Effect: " + GameTurn().playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
+      for (i <- 0 until GameTurn.playingDecks.length) {
+        if (GameTurn.playingDecks(i).head.CostValue <= 4) {
+          s3 += "                " + Console.BLUE + GameTurn.playingDecks(i).head.CardName + Console.MAGENTA + " [" + Cards.playingDeck(i).head.CostValue + "]" +
+            Console.BLUE + " Card Effect: " + GameTurn.playingDecks(i).head.EffectValue + Console.BLACK + " (" + i + ")\n"
         }
       }
       s = ""

@@ -17,7 +17,7 @@ case class RoundManager(players: List[Player] = List(),
                         numberOfPlayer: Int = 0,
                         playerturn: Int = 0,
                         score: List[(Int, String)] = List(),
-                        playingDecks: List[List[Cards]] = GameTurn().playingDecks,
+                        playingDecks: List[List[Cards]] = GameTurn.playingDecks,
                         action: Boolean = true,
                         empty: Int = 0,
                         end: Boolean = false) extends ModelInterface {
@@ -70,15 +70,14 @@ case class RoundManager(players: List[Player] = List(),
     val players = (playersNode.map(node => playerFromXML(node))).toList
 
     val namesNode = (node \ "names").head.child
-    val names = (namesNode.map(node => (node \\ "name").text)).toList
+    val names = (namesNode.map(node => (node \\ "name").text.trim)).toList
 
     val numberOfPlayers = (node \ "numberOfPlayers").text.toInt
 
     val playerTurn = (node \ "playerTurn").text.toInt
 
     val scoreNode = (node \ "score").head.child
-    var score = List.empty[(Int, String)]
-    //scoreNode.foreach(node => score = score + ((node \ "points").text.toInt, (node \ "player").text))
+    val score = scoreFromXML(scoreNode)
 
     val playingDecksNode = (node \ "playingDecks").head.child
     for(i <- (node \ "playingDecks" \ "playingDeck").indices) {
@@ -95,6 +94,12 @@ case class RoundManager(players: List[Player] = List(),
     RoundManager(players, names, numberOfPlayers, playerTurn, score, playingDecks, action, empty, end)
   }
 
+  def scoreFromXML(node: scala.xml.NodeSeq): List[(Int, String)] = {
+    var list = List.empty[(Int, String)]
+    node.foreach(pp => list = ((node \ "points").text.toInt, (node \ "player").text) :: list)
+    list
+  }
+
   def playerFromXML(node: scala.xml.Node): Player = {
     val name= (node \ "name").text.trim
     val value= (node \ "value").text.toInt
@@ -104,28 +109,33 @@ case class RoundManager(players: List[Player] = List(),
     val money = (node \ "money").text.toInt
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
 
-    for (i <- 0 until (node \ "deck"\ "card").length) {
-      listBuffer1 += Cards.fromXML(node \ "deck" \ "card", i)
+    for (i <- 0 until (node \ "deck" \ "card").length) {
+      if (!(node \ "deck" \ "card" \ "costValue").text.equals("")) {
+        listBuffer1 += Cards.fromXML(node \ "deck" \ "card", i)
+      }
     }
     val playerdeck: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    if((node \ "stacker" \ "card" \"moneyValue").isEmpty == false) {
-      for (i <- (node \ "stacker"\ "card").indices) {
-        listBuffer1 += Cards.fromXML(node \ "stacker" \ "card",i)
+
+    for (i <- 0 until (node \ "stacker" \ "card").length) {
+      if (!(node \ "stacker" \ "card" \ "costValue").text.equals("")) {
+        listBuffer1 += Cards.fromXML(node \ "stacker", i)
       }
     }
     val playerstacker: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    if((node \ "hand" \ "card" \"moneyValue").isEmpty == false) {
-      for (i <- (node \ "hand"\ "card").indices) {
-        listBuffer1 += Cards.fromXML(node \ "hand" \ "card", i)
+
+    for (i <- 0 until (node \ "hand" \ "card").length) {
+      if (!(node \ "hand" \ "card" \ "costValue").text.equals("")) {
+        listBuffer1 += Cards.fromXML(node \ "hand", i)
       }
     }
     val playerhand: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
-    if((node \ "playingCards" \ "card" \"moneyValue").isEmpty == false) {
-      for (i <- (node \ "playingCards").indices) {
-        listBuffer1 += Cards.fromXML(node \ "playingCards" \ "card", i)
+
+    for (i <- 0 until (node \ "playingCards" \ "card").length) {
+      if (!(node \ "playingCards" \ "card" \ "costValue").text.equals("")) {
+        listBuffer1 += Cards.fromXML(node \ "playingCards", i)
       }
     }
     val playerplayingCards: List[Cards]= listBuffer1.toList
@@ -137,7 +147,7 @@ case class RoundManager(players: List[Player] = List(),
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
     val names = GameInit().getPlayerName(copiedRoundManagerRe.names, name)
-    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn().playingDecks)
+    RoundManager(copiedRoundManagerRe.players, names, copiedRoundManagerRe.numberOfPlayer, copiedRoundManagerRe.playerturn, copiedRoundManagerRe.score, GameTurn.playingDecks)
   }
 
   def getNameSetupStrings(): String = {

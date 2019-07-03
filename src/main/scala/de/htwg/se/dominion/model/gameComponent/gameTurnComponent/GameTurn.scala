@@ -11,7 +11,7 @@ import scala.util.control.Breaks.{break, breakable}
 case class GameTurn() extends GameTurnInterface {
 
   var l: List[Player] = Nil
-  var playingDecks: List[List[Cards]] = Cards.playingDeck
+
   var draw = 0
 
 
@@ -103,10 +103,10 @@ case class GameTurn() extends GameTurnInterface {
     var l = list
     var test = l(index).money
     var copiedlist = l
-    var copiedCard = playingDecks(input).head
+    var copiedCard = GameTurn.playingDecks(input).head
     l = Player().updatePlayer(copiedlist, updateStacker(copiedlist(index), copiedCard))
     l = Player().updatePlayer(l, Player().updateMoney(l(index), copiedCard.CostValue))
-    playingDecks = updateDeck(playingDecks, copyList(playingDecks(input)), input)
+    GameTurn.playingDecks = updateDeck(GameTurn.playingDecks, copyList(GameTurn.playingDecks(input)), input)
     l
   }
 
@@ -128,7 +128,7 @@ case class GameTurn() extends GameTurnInterface {
     for (i <- 0 until copiedPlayer.hand.length) {
       listBuffer += copiedPlayer.hand(i)
     }
-    listBuffer += playingDecks(idx).head
+    listBuffer += GameTurn.playingDecks(idx).head
     val updatedHand = listBuffer.toList
     new Player(copiedPlayer.name, copiedPlayer.value, copiedPlayer.deck, copiedPlayer.stacker, updatedHand, copiedPlayer.playingCards, copiedPlayer.actions, copiedPlayer.buys, copiedPlayer.stringValue, copiedPlayer.money)
   }
@@ -226,8 +226,8 @@ case class GameTurn() extends GameTurnInterface {
 
   override def getCardsWCost4(): List[Int] = {
     var l: ListBuffer[Int] = new ListBuffer[Int]
-    for (i <- 0 until playingDecks.length) {
-      if (playingDecks(i).head.CostValue <= 4) {
+    for (i <- 0 until GameTurn.playingDecks.length) {
+      if (GameTurn.playingDecks(i).head.CostValue <= 4) {
         l += i
       }
     }
@@ -237,12 +237,17 @@ case class GameTurn() extends GameTurnInterface {
 
   override def getCardsWC(): List[Int] = {
     var l: ListBuffer[Int] = new ListBuffer[Int]
-    for (i <- 0 until playingDecks.length) {
-      if (StrategyPatternForActionPhase.discardCardValue >= playingDecks(i).head.CostValue) {
+    for (i <- 0 until GameTurn.playingDecks.length) {
+      if (StrategyPatternForActionPhase.discardCardValue >= GameTurn.playingDecks(i).head.CostValue) {
         l += i
       }
     }
     val o: List[Int] = l.toList
     o
   }
+
+}
+
+object GameTurn {
+  var playingDecks: List[List[Cards]] = Cards.playingDeck
 }
