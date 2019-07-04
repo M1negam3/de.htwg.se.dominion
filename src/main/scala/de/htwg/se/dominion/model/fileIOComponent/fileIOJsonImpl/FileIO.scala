@@ -9,9 +9,9 @@ import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
 import scala.io.Source
 import play.api.libs.json._
 
-/*class FileIO extends FileIOInterface {
+class FileIO extends FileIOInterface {
 
-  override def load: RoundManager = {
+  /*override def load: RoundManager = {
     val source: String = Source.fromFile("roundmanager.json").getLines.mkString
     val json: JsValue = Json.parse(source)
     val players = (json \\ "Players").asInstanceOf[List[Player]]
@@ -26,16 +26,39 @@ import play.api.libs.json._
 
     val roundManager = RoundManager(players, names, numberOfPlayer, playerTurn, score, playingDecks, action, empty, end)
     roundManager
-  }
+  }*/
 
-  override def save(roundManager: RoundManager): Unit = {
+  /*override def save(roundManager: RoundManager): Unit = {
     import java.io._
     val pw = new PrintWriter(new File("roundmanager.json"))
     pw.write(Json.prettyPrint(currentStateToJson(roundManager)))
     pw.close()
+  }*/
+  override def load(modelInterface: ModelInterface): (String, RoundManager) = {
+    val source: String = Source.fromFile("roundmanager.json").getLines.mkString
+    val json: JsValue = Json.parse(source)
+    val controllerStateString = (json \ "state").get.toString
+    val state = controllerStateString
+    val roundManager = modelInterface.fromJson((json \ "RoundManager").head)
+    (state, roundManager)
   }
 
-  implicit val cardsWrites = new Writes[Cards] {
+
+
+  override def save(controllerState: String, modelInterface: ModelInterface): Unit = {
+    def gameToJson: JsObject = {
+      Json.obj(
+        "state" -> Json.toJson(controllerState),
+        "RoundManager" -> modelInterface.toJson
+      )
+    }
+
+    import java.io._
+    val pw = new PrintWriter(new File("roundmanager.json"))
+    pw.write(Json.prettyPrint(gameToJson))
+    pw.close()
+  }
+  /*implicit val cardsWrites = new Writes[Cards] {
     def writes(cards: Cards) = Json.obj(
       "Cost Value" -> cards.CostValue,
       "Money Value" -> cards.MoneyValue,
@@ -90,10 +113,6 @@ import play.api.libs.json._
         "empty" -> JsNumber(roundManager.empty),
         "end" -> JsBoolean(roundManager.end)
     )
-  }
-  override def load(modelInterface: ModelInterface): (String, RoundManager) = ???
+  }*/
 
-  override def save(controllerState: String, modelInterface: ModelInterface): Unit = ???
 }
-  }
-}*/
