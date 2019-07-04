@@ -193,3 +193,9 @@ case class Player(name: String = "", value: Int = 0, deck: List[Cards]= Nil, sta
   }
 
 }
+
+object Player {
+  import play.api.libs.json._
+  implicit val playerWrites: OWrites[Player] = Json.writes[Player]
+  implicit val playerReads: Reads[Player] = Json.reads[Player]
+}

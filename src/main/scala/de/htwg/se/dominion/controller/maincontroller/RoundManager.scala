@@ -7,7 +7,7 @@ import de.htwg.se.dominion.model.gameComponent.gameEndComponent.GameEnd
 import de.htwg.se.dominion.model.gameComponent.gameInitComponent.GameInit
 import de.htwg.se.dominion.model.gameComponent.gameTurnComponent.{GameTurn, StrategyPatternForActionPhase}
 import de.htwg.se.dominion.model.playerComponent.basePlayerComponent.Player
-import play.api.libs.json.{JsBoolean, JsLookupResult, JsNumber, JsObject, JsValue, Json, Writes}
+import play.api.libs.json.{JsBoolean, JsLookupResult, JsNumber, JsObject, JsValue, Json, OWrites, Writes}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.control.Breaks.{break, breakable}
@@ -144,82 +144,10 @@ case class RoundManager(players: List[Player] = List(),
 
     Player(name,value,playerdeck,playerstacker,playerhand,playerplayingCards,action,buys,stringValue,money)
   }
-  implicit val cardsWrites = new Writes[Cards] {
-    def writes(cards: Cards) = Json.obj(
-      "CostValue" -> cards.CostValue,
-      "MoneyValue" -> cards.MoneyValue,
-      "WpValue" -> cards.WpValue,
-      "ActionValue" -> cards.ActionValue,
-      "BuyAddition alue" -> cards.BuyAdditionValue,
-      "Bonus MoneyValue" -> cards.BonusMoneyValue,
-      "DrawingValue" -> cards.DrawingValue,
-      "EffectValue" -> cards.EffectValue,
-      "CardName" -> cards.CardName,
-      "Type" -> cards.Type
-    )
-  }
 
-  implicit val playerWrites = new Writes[Player] {
-    def writes(player: Player) = Json.obj(
-      "name" -> player.name,
-      "value" -> player.value,
-      "deck" -> player.deck,
-      "stacker" -> player.stacker,
-      "hand" -> player.hand,
-      "playingCards" -> player.hand,
-      "actions" -> player.actions,
-      "buys" -> player.buys,
-      "stringValue" -> player.stringValue,
-      "money" -> player.money
-    )
-  }
+  override def toJson: JsValue = Json.toJson(this)
 
-
-  override def toJson: JsObject = {
-    Json.obj(
-      "Players" -> Json.toJson(players),
-      "Names" -> Json.toJson(names),
-      "numberOfPlayers" -> JsNumber(numberOfPlayer),
-      "playerTurn" -> JsNumber(playerturn),
-      "score" -> Json.toJson(score),
-      "playingDecks" -> Json.toJson(playingDecks),
-      "action" -> JsBoolean(action),
-      "empty" -> JsNumber(empty),
-      "end" -> JsBoolean(end)
-    )
-  }
-  override def fromJson(json: JsLookupResult): RoundManager = {
-    var listBuffer1: ListBuffer[Player] = ListBuffer()
-    /*for(i <- (json \ "JsUndefined"\\ "Players").indices) {
-      listBuffer1 += playerFromJson((json \ "JsUndefined" \ "Players")(i))
-    }*/
-    listBuffer1 += playerFromJson(json)
-    val players = listBuffer1.toList
-    val names = (json \ "JsUndefined" \\ "Names").asInstanceOf[List[String]]
-    val numberOfPlayer = (json \ "numberOfPlayers").get.toString.toInt
-    val playerTurn = (json \ "RoundManager" \ "playerTurn").get.toString.toInt
-    val score = (json \ "RoundManager" \\ "score").asInstanceOf[List[(Int, String)]]
-    val playingDecks = (json \ "RoundManager" \\ "playingDecks").asInstanceOf[List[List[Cards]]]
-    val action = (json \ "RoundManager" \ "action").get.toString.toBoolean
-    val empty = (json \ "RoundManager" \ "empty").get.toString.toInt
-    val end = (json \ "RoundManager" \ "end").get.toString.toBoolean
-
-    val roundManager = RoundManager(players, names, numberOfPlayer, playerTurn, score, playingDecks, action, empty, end)
-    roundManager
-  }
-  def playerFromJson(json: JsLookupResult): Player = {
-    val name= (json \"JsUndefined"\"Players"\"name").get.toString
-    val value= (json \ "Players"\ "value").get.toString.toInt
-    val action = (json \ "Players"\ "action").get.toString.toInt
-    val buys = (json \ "Players"\ "buys").get.toString.toInt
-    val stringValue = (json \ "Players"\ "stringValue").get.toString.toInt
-    val money = (json \ "Players"\ "money").get.toString.toInt
-    val playerdeck = (json \ "Players"\ "deck").asInstanceOf[List[Cards]]
-    val playerstacker = (json \ "Players"\ "stacker").asInstanceOf[List[Cards]]
-    val playerhand = (json \ "Players"\ "hand").asInstanceOf[List[Cards]]
-    val playerplayingCards = (json \ "Players"\ "playingCards").asInstanceOf[List[Cards]]
-    Player(name,value,playerdeck,playerstacker,playerhand,playerplayingCards,action,buys,stringValue,money)
-  }
+  override def fromJson(jsValue: JsValue): RoundManager = {jsValue.validate[RoundManager].asOpt.get}
 
   def getNames(r: RoundManager, name: String): RoundManager = {
     val copiedRoundManagerRe = r
@@ -347,4 +275,10 @@ case class RoundManager(players: List[Player] = List(),
     val score = GameEnd().score(copiedRoundManagerRe.players)
     score
   }
+}
+
+object RoundManager {
+  import play.api.libs.json._
+  implicit val roundManagerWrites: OWrites[RoundManager] = Json.writes[RoundManager]
+  implicit val roundManagerReads: Reads[RoundManager] = Json.reads[RoundManager]
 }

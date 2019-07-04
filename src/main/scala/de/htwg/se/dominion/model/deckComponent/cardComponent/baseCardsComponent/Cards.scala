@@ -82,6 +82,7 @@ object Cards {
     val Type = (node \ "type")(i).text.trim
     Cards(costValue,moneyValue,WpValue,ActionValue,BuyAdditionValue,BonusMoneyValue,DrawingValue,EffectValue,CardName,Type)
   }
+
   def ListfromXml(node: scala.xml.NodeSeq, i: Int): List[Cards] = {
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
     for (k <- ((node\ "playingDeck")(i) \ "card").indices) {
@@ -92,6 +93,10 @@ object Cards {
     listBuffer1 = ListBuffer()
     listFromXml
   }
+
+  import play.api.libs.json._
+  implicit val cardsWrites: OWrites[Cards] = Json.writes[Cards]
+  implicit val cardsReads: Reads[Cards] = Json.reads[Cards]
 
   // Playing Deck
   val playingDeck: List[List[Cards]] = List(copperHeadDeck.copperDeck, silverHeadDeck.silverDeck, goldHeadDeck.goldDeck,
