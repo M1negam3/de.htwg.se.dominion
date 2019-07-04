@@ -83,7 +83,7 @@ case class RoundManager(players: List[Player] = List(),
     for(i <- (node \ "playingDecks" \ "playingDeck").indices) {
       listBuffer1 += Cards.ListfromXml(node \ "playingDecks",i)
     }
-    var playingDecks = listBuffer1.toList
+    val playingDecks = listBuffer1.toList
 
     val action = (node \ "action").text.toBoolean
 
@@ -117,9 +117,9 @@ case class RoundManager(players: List[Player] = List(),
     val playerdeck: List[Cards] = listBuffer1.toList
     listBuffer1 = ListBuffer()
 
-    for (i <- 0 until (node \ "stacker" \ "card").length) {
+    for (f <- 0 until (node \ "stacker" \ "card").length) {
       if (!(node \ "stacker" \ "card" \ "costValue").text.equals("")) {
-        listBuffer1 += Cards.fromXML(node \ "stacker", i)
+        listBuffer1 += Cards.fromXML(node \ "stacker" \ "card", f)
       }
     }
     val playerstacker: List[Cards] = listBuffer1.toList
@@ -127,7 +127,7 @@ case class RoundManager(players: List[Player] = List(),
 
     for (i <- 0 until (node \ "hand" \ "card").length) {
       if (!(node \ "hand" \ "card" \ "costValue").text.equals("")) {
-        listBuffer1 += Cards.fromXML(node \ "hand", i)
+        listBuffer1 += Cards.fromXML(node \ "hand" \ "card", i)
       }
     }
     val playerhand: List[Cards] = listBuffer1.toList
@@ -135,7 +135,7 @@ case class RoundManager(players: List[Player] = List(),
 
     for (i <- 0 until (node \ "playingCards" \ "card").length) {
       if (!(node \ "playingCards" \ "card" \ "costValue").text.equals("")) {
-        listBuffer1 += Cards.fromXML(node \ "playingCards", i)
+        listBuffer1 += Cards.fromXML(node \ "playingCards" \ "card", i)
       }
     }
     val playerplayingCards: List[Cards]= listBuffer1.toList

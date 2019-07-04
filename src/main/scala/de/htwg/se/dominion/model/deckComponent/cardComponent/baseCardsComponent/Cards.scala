@@ -84,11 +84,11 @@ object Cards {
   }
   def ListfromXml(node: scala.xml.NodeSeq, i: Int): List[Cards] = {
     var listBuffer1: ListBuffer[Cards] = ListBuffer()
-    for (k<-((node\ "playingDeck")(i) \ "card").indices) {
+    for (k <- ((node\ "playingDeck")(i) \ "card").indices) {
         listBuffer1 += fromXML(((node \ "playingDeck")(i)\ "card"),k)
       }
 
-    var listFromXml = listBuffer1.toList
+    val listFromXml = listBuffer1.toList
     listBuffer1 = ListBuffer()
     listFromXml
   }

@@ -7,61 +7,6 @@
       <name>ab</name>
       <value>1</value>
       <deck><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
-    </card><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
-    </card><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
-    </card><card>
-      <costValue>2</costValue>
-      <moneyValue>0</moneyValue>
-      <wpValue>1</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Winning Point</effectValue>
-      <cardName>Estate</cardName>
-      <type>WinningPoint</type>
-    </card><card>
-      <costValue>0</costValue>
-      <moneyValue>1</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>0</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>0</drawingValue>
-      <effectValue>1 Money</effectValue>
-      <cardName>Copper</cardName>
-      <type>Money</type>
-    </card><card>
       <costValue>2</costValue>
       <moneyValue>0</moneyValue>
       <wpValue>1</wpValue>
@@ -117,12 +62,78 @@
       <cardName>Copper</cardName>
       <type>Money</type>
     </card></deck>
-      <stacker></stacker>
+      <stacker><card>
+      <costValue>3</costValue>
+      <moneyValue>0</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>1</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>1</drawingValue>
+      <effectValue>+1 Card, +1 Action, The first time you play a Silver this turn, +1 Money</effectValue>
+      <cardName>Merchant</cardName>
+      <type>Action</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card><card>
+      <costValue>2</costValue>
+      <moneyValue>0</moneyValue>
+      <wpValue>1</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Winning Point</effectValue>
+      <cardName>Estate</cardName>
+      <type>WinningPoint</type>
+    </card><card>
+      <costValue>0</costValue>
+      <moneyValue>1</moneyValue>
+      <wpValue>0</wpValue>
+      <actionValue>0</actionValue>
+      <buyAdditionValue>0</buyAdditionValue>
+      <bonusMoneyValue>0</bonusMoneyValue>
+      <drawingValue>0</drawingValue>
+      <effectValue>1 Money</effectValue>
+      <cardName>Copper</cardName>
+      <type>Money</type>
+    </card></stacker>
       <hand></hand>
       <playingCards></playingCards>
       <action>1</action>
       <buys>1</buys>
-      <stringValue>0</stringValue>
+      <stringValue>34</stringValue>
       <money>0</money>
     </player><player>
       <name>cd</name>
@@ -248,7 +259,7 @@
     </player></players>
       <names><name>ab</name><name>cd</name></names>
       <numberOfPlayers>2</numberOfPlayers>
-      <playerTurn>0</playerTurn>
+      <playerTurn>1</playerTurn>
       <score></score>
       <playingDecks><playingDeck><card>
       <costValue>0</costValue>
@@ -4167,17 +4178,6 @@
       <cardName>Village</cardName>
       <type>Action</type>
     </card></playingDeck><playingDeck><card>
-      <costValue>3</costValue>
-      <moneyValue>0</moneyValue>
-      <wpValue>0</wpValue>
-      <actionValue>1</actionValue>
-      <buyAdditionValue>0</buyAdditionValue>
-      <bonusMoneyValue>0</bonusMoneyValue>
-      <drawingValue>1</drawingValue>
-      <effectValue>+1 Card, +1 Action, The first time you play a Silver this turn, +1 Money</effectValue>
-      <cardName>Merchant</cardName>
-      <type>Action</type>
-    </card><card>
       <costValue>3</costValue>
       <moneyValue>0</moneyValue>
       <wpValue>0</wpValue>
