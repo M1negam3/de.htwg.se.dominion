@@ -10,7 +10,7 @@ class Tui(controller: Controller) extends Observer {
   controller.add(this)
   var stopProcessingInput = false
 
-  def processInput(input: BufferedReader): Unit = {
+  /*def processInput(input: BufferedReader): Unit = {
     while (!stopProcessingInput) {
       if (input.ready()) {
         val line = input.readLine()
@@ -19,7 +19,7 @@ class Tui(controller: Controller) extends Observer {
         Thread.sleep(200)
       }
     }
-  }
+  }*/
 
   def processInputLine(input: String): Unit = {
     input match {
